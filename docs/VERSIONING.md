@@ -22,6 +22,8 @@ Sürümler SemVer kullanır:
 
 İlk geri dönüş noktası `v0.1.0`: konum → cihazda vakit hesabı → sıradaki vakit → sayaç → merkezi tema → gerçek Home dikey dilimi.
 
+`v0.2.0`: üç adımlı onboarding, genel ayarlar merkezi, vakit bazlı dakika düzeltmeleri ve Hicri gün düzeltmesi.
+
 ## Güvenli çalışma
 
 Commit öncesi ilgili testler ve typecheck/lint çalıştırılır; doğrulama sonucu `docs/VALIDATION.md`, devam noktası `docs/PLAN.md` içinde tutulur. Tag'ler silinmez veya başka commit'e taşınmaz. Paylaşılan geçmişte rebase/force push yapılmaz. Remote ve push ayrı kullanıcı talebiyle yapılandırılır.
