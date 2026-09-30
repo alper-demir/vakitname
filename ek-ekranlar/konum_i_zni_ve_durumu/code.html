@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+
+<html lang="tr"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;background-color:#f3fbf5;}body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "secondary-fixed-dim": "#e9c349", "primary-fixed": "#ccebc7", "surface": "#f3fbf5", "on-primary-fixed-variant": "#334d33", "secondary-fixed": "#ffe088", "primary-container": "#8ba888", "error-container": "#ffdad6", "on-tertiary": "#ffffff", "on-secondary-fixed-variant": "#574500", "background": "#f3fbf5", "error": "#ba1a1a", "on-error-container": "#93000a", "on-error": "#ffffff", "on-tertiary-fixed-variant": "#3f4945", "on-background": "#151d1a", "inverse-surface": "#2a322e", "surface-container": "#e7f0ea", "on-primary-fixed": "#07200b", "inverse-on-surface": "#eaf3ec", "on-secondary-fixed": "#241a00", "outline": "#737970", "on-secondary": "#ffffff", "tertiary": "#57615c", "surface-variant": "#dce5de", "tertiary-fixed": "#dbe5df", "secondary-container": "#fed65b", "on-surface-variant": "#434841", "surface-container-high": "#e2eae4", "on-secondary-container": "#745c00", "outline-variant": "#c3c8bf", "surface-container-low": "#edf6ef", "surface-dim": "#d4dcd6", "tertiary-fixed-dim": "#bfc9c3", "on-primary": "#ffffff", "tertiary-container": "#99a39e", "surface-tint": "#4a6549", "secondary": "#735c00", "primary-fixed-dim": "#b0cfad", "on-tertiary-fixed": "#151d1a", "on-primary-container": "#243d24", "on-tertiary-container": "#303935", "surface-bright": "#f3fbf5", "on-surface": "#151d1a", "inverse-primary": "#b0cfad", "surface-container-lowest": "#ffffff", "surface-container-highest": "#dce5de", "primary": "#4a6549" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-md": "1rem", "margin-mobile": "1.25rem", "space-xs": "0.25rem", "space-lg": "1.5rem", "margin": "1.5rem", "space-xl": "2.25rem", "gutter-sm": "0.75rem", "gutter": "1rem", "space-sm": "0.5rem" }, "fontFamily": { "body-lg": ["Manrope"], "display-countdown": ["Manrope"], "label-sm": ["Manrope"], "headline-lg": ["Manrope"], "headline-md": ["Manrope"], "label-md": ["Manrope"], "display-countdown-mobile": ["Manrope"], "body-md": ["Manrope"], "headline-lg-mobile": ["Manrope"], "label-lg": ["Manrope"], "body-sm": ["Manrope"] }, "fontSize": { "body-lg": ["17px", { "lineHeight": "26px", "letterSpacing": "0em", "fontWeight": "400" }], "display-countdown": ["72px", { "lineHeight": "76px", "letterSpacing": "-0.04em", "fontWeight": "200" }], "label-sm": ["10px", { "lineHeight": "14px", "letterSpacing": "0.08em", "fontWeight": "600" }], "headline-lg": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "400" }], "headline-md": ["22px", { "lineHeight": "30px", "letterSpacing": "-0.01em", "fontWeight": "500" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500" }], "display-countdown-mobile": ["56px", { "lineHeight": "60px", "letterSpacing": "-0.04em", "fontWeight": "200" }], "body-md": ["15px", { "lineHeight": "22px", "letterSpacing": "0em", "fontWeight": "400" }], "headline-lg-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "400" }], "label-lg": ["15px", { "lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "600" }], "body-sm": ["13px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "400" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head><body class="bg-surface text-on-surface font-body-md text-body-md flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.03)]"><div class="h-16 px-margin-mobile flex items-center justify-between"><div class="flex items-center gap-space-xs"><button aria-label="Geri dön" class="w-11 h-11 -ml-2 rounded-full flex items-center justify-center text-on-surface hover:bg-surface-container transition-colors" onclick="history.back()"><span class="material-symbols-outlined text-[22px]">arrow_back_ios_new</span></button><img alt="Brand logo. - Primary color: #8ba888
+- Font: manrope
+- Mode: light
+- Roundness: rounded-md
+" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WEfsENrOpv4HHqhsNy0bpPfZOG2iS2mBxWluY_-B3dyszRHiN-hDrJlkIUsFNztanL-FJjOG3N5_XRLoyNm1CeOiqA4Vf4dAKmy0npovD1ziR3BzEUEPGFlx1Wd67fiyvo-QbH-sEWap5L65TqIM0Gz3i8Bf6WJ2QIaY0NwfdoSS_yaioAghZgFVCfgSNlN5UQolFuwUN7Y21kI3ixHhtdWzmspmyNpKGGCt64RQjUfOU8lvmN8IGpgL4"/><h1 class="font-headline-md text-headline-md text-on-surface font-medium truncate">Şehir Seçimi</h1></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-safe bg-surface"><div class="flex flex-col w-full px-margin-mobile pb-space-xl">
+<!-- Atmospheric Glow & Illustration Slot -->
+<div class="relative w-full flex flex-col items-center justify-center pt-space-md pb-space-lg">
+<!-- Gentle Ambient Geometry Glow -->
+<div class="absolute -top-6 w-56 h-56 bg-primary-fixed/40 rounded-full blur-3xl pointer-events-none -z-10"></div>
+<!-- Hero State Illustration Badge -->
+<div class="relative flex items-center justify-center w-28 h-28 rounded-full bg-surface-container-low shadow-sm mb-space-md">
+<!-- Outer decorative ripple ring -->
+<div class="absolute inset-0 rounded-full bg-primary/5 animate-ping opacity-30 pointer-events-none" style="animation-duration: 3.5s;"></div>
+<!-- Subtle Islamic Eight-Pointed Star Hairline Geometry in background -->
+<svg class="absolute w-20 h-20 text-primary/10" fill="none" stroke="currentColor" stroke-width="1.5" viewbox="0 0 100 100">
+<rect height="50" rx="4" transform="rotate(0 50 50)" width="50" x="25" y="25"></rect>
+<rect height="50" rx="4" transform="rotate(45 50 50)" width="50" x="25" y="25"></rect>
+</svg>
+<!-- Inner circular core -->
+<div class="relative flex items-center justify-center w-16 h-16 rounded-full bg-primary-container text-on-primary shadow-sm">
+<span class="material-symbols-outlined text-[32px] text-white select-none">location_off</span>
+</div>
+</div>
+<!-- Title and Core Context -->
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface text-center font-medium tracking-tight mb-space-xs">
+      Konumunuza Ulaşılamadı
+    </h2>
+<div class="max-w-xs text-center">
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+        Vakit hesaplamaları tamamen cihazınızda yerel ve çevrimdışı olarak gerçekleştirilir. Yalnızca bulunduğunuz noktanın coğrafi koordinatına ihtiyaç duyarız.
+      </p>
+</div>
+</div>
+<!-- Primary Interactive Actions Stack -->
+<div class="flex flex-col gap-space-sm w-full mt-space-xs">
+<!-- 1. Primary Button: Retry -->
+<button class="group relative w-full h-14 rounded-xl bg-primary text-on-primary font-label-lg text-label-lg flex items-center justify-center gap-space-sm shadow-sm active:scale-[0.98] transition-all duration-200 focus:outline-none" id="retryBtn">
+<span class="material-symbols-outlined text-[20px] transition-transform duration-500" id="retryIcon">refresh</span>
+<span id="retryText">Tekrar Dene</span>
+</button>
+<!-- 2. Secondary Card: Open Device Settings -->
+<button class="w-full p-space-md rounded-xl bg-surface-container-low text-left flex items-center justify-between shadow-sm active:bg-surface-container transition-all group focus:outline-none" onclick="showFeedback('Cihaz ayarları ekranına yönlendiriliyor...')">
+<div class="flex items-center gap-space-md min-w-0">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center shrink-0 text-on-surface-variant group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[22px]">settings</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-lg text-label-lg text-on-surface truncate">Cihaz Ayarlarını Aç</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Konum erişim iznini etkinleştirin</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline text-[20px] shrink-0 ml-space-xs">arrow_forward_ios</span>
+</button>
+<!-- 3. Permanent Fallback Card: Choose City from List -->
+<div class="w-full mt-space-xs p-space-md rounded-xl bg-surface-container text-left flex flex-col gap-space-sm shadow-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-7 h-7 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed">
+<span class="material-symbols-outlined text-[18px]">location_city</span>
+</div>
+<span class="font-label-lg text-label-lg text-on-surface font-medium">Manuel Konum Seçimi</span>
+</div>
+<span class="px-space-xs py-0.5 rounded-full bg-surface-container-highest text-on-surface-variant font-label-sm text-label-sm">
+          Çevrimdışı
+        </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant pr-space-xs">
+        Dilediğiniz ili seçerek internetsiz tüm vakitleri ve aylık imsakiyeyi kesintisiz görüntüleyebilirsiniz.
+      </p>
+<button class="w-full mt-space-xs py-space-sm px-space-md rounded-lg bg-surface-container-lowest text-on-surface flex items-center justify-center gap-space-xs font-label-md text-label-md active:bg-surface-dim transition-colors shadow-sm" onclick="window.location.href='#sehir-secimi'">
+<span class="material-symbols-outlined text-primary text-[18px]">map</span>
+<span>Listeden Şehir / İlçe Seç</span>
+</button>
+</div>
+</div>
+<!-- Decorative Visual Quote & Atmosphere Box -->
+<div class="w-full mt-space-lg p-space-md rounded-xl bg-surface-container-low flex items-center gap-space-md">
+<div class="w-12 h-12 rounded-lg overflow-hidden shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover opacity-90" data-alt="Quiet and peaceful sun rays beaming through mist in an olive grove with morning dews, calm serene lighting, minimalist organic sage tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiHN2oDa4Xi5V4SNMFVBhmwnM301tnc5yrAL_GEUCcU4SBNuuDM0QvtMTNfHERVPZ7JT0-PoRFfBXPNJAbKiBwCP9-eN1zy-UmfL7uMVC6H9nPE-rfjGRtQob48XyIZVuKj9WvLICRswAo50vYqdwQN9JGxB3SZln-IW5Gyns8uDhwcr90oISLPbkhTjp1TLbQBlfX23E1t_LRnNDIWvllL_blTylE-weFgOlK8mknTotQBGjEmeLC"/>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-sm text-label-sm text-primary uppercase tracking-wider">Hassas Hesaplama</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
+        Diyanet İşleri Başkanlığı ve uluslararası astronomik ölçüm algoritmaları entegredir.
+      </span>
+</div>
+</div>
+<!-- Privacy Micro-Badge -->
+<div class="w-full mt-space-lg flex items-center justify-center">
+<div class="flex items-center gap-space-xs px-space-md py-space-xs rounded-full bg-surface-container-lowest/80 text-on-surface-variant shadow-sm text-center">
+<span class="material-symbols-outlined text-primary text-[16px]">verified_user</span>
+<span class="font-label-sm text-label-sm">
+        Gizlilik Odaklı • Konumunuz asla sunucuya aktarılmaz
+      </span>
+</div>
+</div>
+<!-- Dynamic Feedback Toast container for micro-interaction -->
+<div class="fixed bottom-6 left-1/2 -translate-x-1/2 pointer-events-none transition-all duration-300 opacity-0 translate-y-2 z-50" id="statusToast">
+<div class="px-space-md py-space-sm rounded-full bg-inverse-surface text-inverse-on-surface font-label-md text-label-md shadow-lg flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[16px] text-secondary-fixed">info</span>
+<span id="toastMsg">İşlem yapılıyor...</span>
+</div>
+</div>
+</div>
+<script>
+  function showFeedback(message) {
+    const toast = document.getElementById('statusToast');
+    const toastMsg = document.getElementById('toastMsg');
+    if (!toast || !toastMsg) return;
+    
+    toastMsg.textContent = message;
+    toast.classList.remove('opacity-0', 'translate-y-2');
+    toast.classList.add('opacity-100', 'translate-y-0');
+    
+    setTimeout(() => {
+      toast.classList.remove('opacity-100', 'translate-y-0');
+      toast.classList.add('opacity-0', 'translate-y-2');
+    }, 2800);
+  }
+
+  const retryBtn = document.getElementById('retryBtn');
+  const retryIcon = document.getElementById('retryIcon');
+  const retryText = document.getElementById('retryText');
+
+  if (retryBtn) {
+    retryBtn.addEventListener('click', () => {
+      if (retryIcon) {
+        retryIcon.classList.add('animate-spin');
+      }
+      if (retryText) {
+        retryText.textContent = 'Konum Aranıyor...';
+      }
+      retryBtn.setAttribute('disabled', 'true');
+
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            showFeedback('Konum başarıyla belirlendi');
+            setTimeout(() => {
+              if (retryIcon) retryIcon.classList.remove('animate-spin');
+              if (retryText) retryText.textContent = 'Konum Bulundu';
+              retryBtn.removeAttribute('disabled');
+            }, 600);
+          },
+          (error) => {
+            setTimeout(() => {
+              if (retryIcon) retryIcon.classList.remove('animate-spin');
+              if (retryText) retryText.textContent = 'Tekrar Dene';
+              retryBtn.removeAttribute('disabled');
+              showFeedback('Konum alınamadı. Lütfen izinleri kontrol edin.');
+            }, 800);
+          },
+          { timeout: 6000 }
+        );
+      } else {
+        setTimeout(() => {
+          if (retryIcon) retryIcon.classList.remove('animate-spin');
+          if (retryText) retryText.textContent = 'Tekrar Dene';
+          retryBtn.removeAttribute('disabled');
+          showFeedback('Tarayıcınız konum servisini desteklemiyor.');
+        }, 500);
+      }
+    });
+  }
+</script></main></body></html>

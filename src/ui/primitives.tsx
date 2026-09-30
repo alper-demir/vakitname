@@ -1,0 +1,62 @@
+import React from 'react';
+import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, TextProps, View, ViewStyle } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { StatusBar } from 'expo-status-bar';
+import Svg, { Path } from 'react-native-svg';
+import { useTheme } from './theme-context';
+import { Icon, IconName } from './icons';
+
+const fonts = { light: 'Manrope_200ExtraLight', regular: 'Manrope_400Regular', medium: 'Manrope_500Medium', semibold: 'Manrope_600SemiBold' };
+export function T({ weight = 'regular', style, ...props }: TextProps & { weight?: keyof typeof fonts }) {
+  const theme = useTheme();
+  return <Text {...props} style={[{ fontFamily: fonts[weight], fontSize: 15, color: theme.text }, style]} />;
+}
+export function Surface({ children, style }: React.PropsWithChildren<{ style?: ViewStyle }>) {
+  const theme = useTheme();
+  return <View style={[styles.surface, { backgroundColor: theme.surface, borderColor: theme.line }, style]}>{children}</View>;
+}
+export function Button({ label, onPress, icon, secondary = false, loading = false, disabled = false }: {
+  label: string; onPress: () => void; icon?: IconName; secondary?: boolean; loading?: boolean; disabled?: boolean;
+}) {
+  const theme = useTheme();
+  const color = secondary ? theme.accent : theme.accentText;
+  return <Pressable accessibilityRole="button" accessibilityLabel={label} accessibilityState={{ disabled: disabled || loading, busy: loading }}
+    disabled={disabled || loading} onPress={onPress} style={({ pressed }) => [styles.button, { backgroundColor: secondary ? theme.surface : theme.accent, opacity: disabled ? .45 : pressed ? .8 : 1, borderColor: secondary ? theme.line : 'transparent', borderWidth: 1 }]}>
+    {loading ? <ActivityIndicator color={color} /> : icon ? <Icon name={icon} color={color} size={20} /> : null}
+    <T weight="semibold" style={{ color, textAlign: 'center', flexShrink: 1 }}>{label}</T>
+  </Pressable>;
+}
+export function IconButton({ name, label, onPress }: { name: IconName; label: string; onPress: () => void }) {
+  const theme = useTheme();
+  return <Pressable accessibilityRole="button" accessibilityLabel={label} onPress={onPress} style={({ pressed }) => [styles.iconButton, { backgroundColor: theme.surface, opacity: pressed ? .6 : 1 }]}><Icon name={name} color={theme.text} /></Pressable>;
+}
+export function Backdrop({ children }: React.PropsWithChildren) {
+  const theme = useTheme();
+  return <LinearGradient colors={theme.background} style={{ flex: 1 }}>
+    <StatusBar style={theme.dark ? 'light' : 'dark'} />
+    <View style={[StyleSheet.absoluteFill, { pointerEvents: 'none' }]} accessible={false}>
+      <Svg width="100%" height="260" viewBox="0 0 500 260" preserveAspectRatio="none" style={{ position: 'absolute', bottom: 0 }}>
+        <Path d="M0 120Q100 40 230 120T500 90V260H0Z" fill={theme.landscape} opacity=".12" />
+        <Path d="M0 190Q120 80 300 155T500 140V260H0Z" fill={theme.landscape} opacity=".17" />
+        <Path d="M0 240Q160 155 340 210T500 185V260H0Z" fill={theme.landscape} opacity=".17" />
+      </Svg>
+    </View>
+    {children}
+  </LinearGradient>;
+}
+export function Page({ children, footer, scroll = true }: React.PropsWithChildren<{ footer?: React.ReactNode; scroll?: boolean }>) {
+  const insets = useSafeAreaInsets();
+  return <Backdrop><View style={{ flex: 1, paddingTop: insets.top, paddingBottom: insets.bottom }}>
+    {scroll ? <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled" contentContainerStyle={styles.page}>{children}</ScrollView>
+      : <View style={[styles.page, { flex: 1 }]}>{children}</View>}
+    {footer ? <View style={styles.footer}>{footer}</View> : null}
+  </View></Backdrop>;
+}
+export const styles = StyleSheet.create({
+  page: { width: '100%', maxWidth: 480, alignSelf: 'center', paddingHorizontal: 24, paddingTop: 14, paddingBottom: 24, flexGrow: 1 },
+  footer: { width: '100%', maxWidth: 480, alignSelf: 'center', paddingHorizontal: 24, paddingBottom: 12, paddingTop: 8 },
+  surface: { borderWidth: 1, borderRadius: 26, padding: 20 },
+  button: { minHeight: 54, paddingHorizontal: 20, paddingVertical: 14, borderRadius: 28, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 10 },
+  iconButton: { width: 44, height: 44, borderRadius: 22, alignItems: 'center', justifyContent: 'center' },
+});

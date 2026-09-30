@@ -1,0 +1,47 @@
+{
+  "expo": {
+    "name": "Vakit",
+    "slug": "vakit",
+    "version": "0.1.0",
+    "scheme": "vakit",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "supportsTablet": true,
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION"
+      ],
+      "blockedPermissions": [
+        "android.permission.ACCESS_BACKGROUND_LOCATION"
+      ],
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "single",
+      "name": "Vakit"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-font",
+      "expo-sqlite",
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Bulunduğunuz yerin namaz vakitlerini cihazınızda hesaplamak için konumunuza izin verin. Dilerseniz şehir seçebilirsiniz."
+        }
+      ],
+      "expo-status-bar",
+      "expo-localization",
+      "expo-splash-screen"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}

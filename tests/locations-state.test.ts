@@ -1,0 +1,26 @@
+import { provinces, districts, gpsLocation, isInTurkey, manualLocation, matchesSearch } from '@/domain/locations';
+import { decodeSavedState, initialSavedState } from '@/domain/state';
+
+test('offline catalogue has all provinces and consistent unique district parents', () => {
+  expect(provinces).toHaveLength(81);
+  expect(new Set(districts.map((d) => d.id)).size).toBe(districts.length);
+  expect(districts.every((d) => provinces.some((p) => p.id === d.provinceId))).toBe(true);
+});
+test.each([['İstanbul', 'istanbul'], ['Iğdır', 'igdir'], ['Şişli', 'sisli'], ['Çankaya', 'cankaya']])('Turkish search %s', (name, query) => expect(matchesSearch(name, query)).toBe(true));
+test('border polygon accepts Turkish cities and rejects other countries inside a simple bounding box', () => {
+  expect(isInTurkey(41.01, 28.95)).toBe(true);
+  expect(isInTurkey(39.92, 32.85)).toBe(true);
+  expect(isInTurkey(42.69, 23.32)).toBe(false);
+  expect(isInTurkey(35.18, 33.38)).toBe(false);
+  expect(isInTurkey(36.2, 37.16)).toBe(false);
+});
+test('GPS retains actual coordinate, not nearest district centre', () => {
+  const location = gpsLocation(41.01, 28.95, 50, 123);
+  expect(location).toMatchObject({ latitude: 41.01, longitude: 28.95, source: 'gps', updatedAt: 123 });
+});
+test('storage validates corrupted and future schemas without crashing', () => {
+  expect(decodeSavedState('{broken').recovered).toBe(true);
+  expect(decodeSavedState(JSON.stringify({ ...initialSavedState, version: 999 })).recovered).toBe(true);
+  const saved = { ...initialSavedState, location: manualLocation(provinces[0]!, undefined, 123) };
+  expect(decodeSavedState(JSON.stringify(saved))).toEqual({ state: saved, recovered: false });
+});
