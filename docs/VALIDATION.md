@@ -32,7 +32,7 @@ npm audit: 0 critical/high, 14 moderate rapor; çoğu aynı iki advisory'nin üs
 
 - iOS development build ve gerçek iOS izin/TalkBack testi release kapısıdır. Android Expo Go yeniden açılışında SQLite verisi doğrulandı; emülatör GPS sağlayıcısı sabit fix vermediği için Android başarı yolu gerçek koordinat yerine timeout ile sınırlı kaldı.
 - Foreground saat sıçraması/gece yarısı; Hermes Intl takvim fallback'i.
-- VoiceOver/TalkBack, büyük metin, azaltılmış hareket ve kontrast.
+- VoiceOver/TalkBack gerçek cihaz testi; azaltılmış hareket ve kontrast.
 - GeoNames resmî ilçe listesi kapsamı ve 29 yaklaşık koordinatın iyileştirilmesi; sınır noktaları.
 - Bildirimler bu dilimde yok. Kuyruk/izin/ses/reboot/force-stop sonraki aşama.
 - Uygulama kimliği, ikon/splash, mağaza metinleri, imzalama ve release build henüz yok.

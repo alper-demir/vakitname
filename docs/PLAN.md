@@ -2,6 +2,10 @@
 
 Kullanıcı geliştirmeyi onayladı. Repository kökünde ilk çalışan dikey dilim var. **Sonraki adım Home incelemesi ve gerçek cihaz doğrulaması.** Diğer tam ekranları topluca geliştirme.
 
+## Faz 1 durumu
+
+İlk dikey dilim, GPS yenileme, Android Expo Go izin/fallback akışı, küçük ekran ve büyük yazı kontrolleri tamamlandı. `develop` üzerindeki sonraki geliştirme Faz 2 onboarding ve ayarlardır. iOS development build, gerçek TalkBack/VoiceOver ve çoklu Diyanet karşılaştırması release doğrulama kapıları olarak ayrıca yürütülecektir.
+
 ## Tamamlandı
 
 - 37 Stitch ekranı analiz edildi; 19 Home varyasyonu tek Home/tema sisteminde toplandı. İki tasarım klasörü korunuyor.
