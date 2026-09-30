@@ -24,3 +24,11 @@ test('storage validates corrupted and future schemas without crashing', () => {
   const saved = { ...initialSavedState, location: manualLocation(provinces[0]!, undefined, 123) };
   expect(decodeSavedState(JSON.stringify(saved))).toEqual({ state: saved, recovered: false });
 });
+test('version 1 state migrates without replaying onboarding for an existing location', () => {
+  const location = manualLocation(provinces[0]!, undefined, 123);
+  const legacy = { version: 1, location, preferences: initialSavedState.preferences };
+  expect(decodeSavedState(JSON.stringify(legacy))).toEqual({
+    state: { ...initialSavedState, onboardingComplete: true, location },
+    recovered: false,
+  });
+});

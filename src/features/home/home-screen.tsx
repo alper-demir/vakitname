@@ -27,6 +27,7 @@ export default function HomeScreen() {
   }, [date, state.location, state.preferences.adjustments]);
   const themeButton = () => router.push('/appearance');
   const locationButton = () => router.push('/location');
+  const settingsButton = () => router.push('/settings');
   const header = <View style={s.header}><View style={s.brand}><Logo color={theme.dark ? '#49665C' : '#66856A'} /><T accessibilityRole="header" weight="semibold" style={{ fontSize: 23, letterSpacing: -.8 }}>Vakit</T></View><IconButton name="palette" label="Görünümü değiştir" onPress={themeButton} /></View>;
   if (!state.ready) return <Page>{header}<View style={s.welcome}><ActivityIndicator color={theme.accent} /><T style={{ color: theme.muted }}>Vakit hazırlanıyor…</T></View></Page>;
   if (!state.location) return <Page>{header}
@@ -55,7 +56,7 @@ export default function HomeScreen() {
   const footer = <View style={[s.dock, { backgroundColor: theme.surface, borderColor: theme.line }]}>
     <View accessibilityRole="tab" accessibilityState={{ selected: true }} style={s.dockItem}><Icon name="clock" color={theme.accent} /><T weight="semibold" style={[s.dockText, { color: theme.accent }]}>Bugün</T></View>
     <Pressable accessibilityRole="button" accessibilityLabel="Konum seç" onPress={locationButton} style={s.dockItem}><Icon name="pin" color={theme.muted} /><T style={[s.dockText, { color: theme.muted }]}>Konum</T></Pressable>
-    <Pressable accessibilityRole="button" accessibilityLabel="Görünüm seçenekleri" onPress={themeButton} style={s.dockItem}><Icon name="palette" color={theme.muted} /><T style={[s.dockText, { color: theme.muted }]}>Görünüm</T></Pressable>
+    <Pressable accessibilityRole="button" accessibilityLabel="Ayarlar" onPress={settingsButton} style={s.dockItem}><Icon name="settings" color={theme.muted} /><T style={[s.dockText, { color: theme.muted }]}>Ayarlar</T></Pressable>
   </View>;
   return <Page footer={footer}>{header}
     <Animated.View entering={FadeIn.duration(400).reduceMotion(ReduceMotion.System)}>

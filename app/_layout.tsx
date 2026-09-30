@@ -17,5 +17,8 @@ export default function RootLayout() {
     <Stack.Screen name="index" />
     <Stack.Screen name="location" options={{ presentation: 'card' }} />
     <Stack.Screen name="appearance" options={{ presentation: 'modal' }} />
+    <Stack.Screen name="settings" />
+    <Stack.Screen name="calculation" />
+    <Stack.Screen name="hijri" />
   </Stack></ThemeProvider></AppStateProvider>;
 }
