@@ -27,12 +27,13 @@ export default function HomeScreen() {
   }, [date, state.location, state.preferences.adjustments]);
   const themeButton = () => router.push('/appearance');
   const locationButton = () => router.push('/location');
-  const header = <View style={s.header}><View style={s.brand}><Logo color={theme.dark ? '#49665C' : '#66856A'} /><T weight="semibold" style={{ fontSize: 23, letterSpacing: -.8 }}>Vakit</T></View><IconButton name="palette" label="Görünümü değiştir" onPress={themeButton} /></View>;
+  const settingsButton = () => router.push('/settings');
+  const header = <View style={s.header}><View style={s.brand}><Logo color={theme.dark ? '#49665C' : '#66856A'} /><T accessibilityRole="header" weight="semibold" style={{ fontSize: 23, letterSpacing: -.8 }}>Vakit</T></View><IconButton name="palette" label="Görünümü değiştir" onPress={themeButton} /></View>;
   if (!state.ready) return <Page>{header}<View style={s.welcome}><ActivityIndicator color={theme.accent} /><T style={{ color: theme.muted }}>Vakit hazırlanıyor…</T></View></Page>;
   if (!state.location) return <Page>{header}
     <View style={s.welcome}><View style={[s.welcomeIcon, { backgroundColor: theme.surface }]}><Icon name="imsak" size={54} color={theme.accent} /></View>
       <T style={s.eyebrow}>VAKTİN NEFESİNİ HİSSET</T>
-      <T weight="medium" style={s.welcomeTitle}>Günün ritmi,{"\n"}bulunduğun yerde.</T>
+      <T accessibilityRole="header" weight="medium" style={s.welcomeTitle}>Günün ritmi,{"\n"}bulunduğun yerde.</T>
       <T style={[s.welcomeCopy, { color: theme.muted }]}>Namaz vakitlerin, sakin bir geri sayım ve sana eşlik eden gökyüzü.</T>
     </View>
     {state.recovered && <T style={s.notice}>Kayıtlı tercihler okunamadı. Şehrini yeniden seçebilirsin.</T>}
@@ -55,7 +56,7 @@ export default function HomeScreen() {
   const footer = <View style={[s.dock, { backgroundColor: theme.surface, borderColor: theme.line }]}>
     <View accessibilityRole="tab" accessibilityState={{ selected: true }} style={s.dockItem}><Icon name="clock" color={theme.accent} /><T weight="semibold" style={[s.dockText, { color: theme.accent }]}>Bugün</T></View>
     <Pressable accessibilityRole="button" accessibilityLabel="Konum seç" onPress={locationButton} style={s.dockItem}><Icon name="pin" color={theme.muted} /><T style={[s.dockText, { color: theme.muted }]}>Konum</T></Pressable>
-    <Pressable accessibilityRole="button" accessibilityLabel="Görünüm seçenekleri" onPress={themeButton} style={s.dockItem}><Icon name="palette" color={theme.muted} /><T style={[s.dockText, { color: theme.muted }]}>Görünüm</T></Pressable>
+    <Pressable accessibilityRole="button" accessibilityLabel="Ayarlar" onPress={settingsButton} style={s.dockItem}><Icon name="settings" color={theme.muted} /><T style={[s.dockText, { color: theme.muted }]}>Ayarlar</T></Pressable>
   </View>;
   return <Page footer={footer}>{header}
     <Animated.View entering={FadeIn.duration(400).reduceMotion(ReduceMotion.System)}>
@@ -73,7 +74,7 @@ export default function HomeScreen() {
       {showFasting && ramadan.target && <View style={{ flexDirection: 'row', gap: 10, marginBottom: 20 }}>
         {(['imsak', 'aksam'] as const).map((id) => <Surface key={id} style={{ flex: 1, padding: 14 }}><T style={{ color: theme.muted, fontSize: 11 }}>{isTomorrow ? 'YARIN · ' : ''}{id === 'imsak' ? 'İMSAK' : 'İFTAR'}</T><T weight="medium" style={{ marginTop: 8, fontSize: 23, color: theme.accent }}>{formatTime(getEvent(isTomorrow ? tomorrow : today, id).at, today.timeZone)}</T></Surface>)}
       </View>}
-      <View style={[s.between, { marginBottom: 12 }]}><T weight="medium" style={{ fontSize: 13 }}>Günün vakitleri</T><T style={{ color: theme.muted, fontSize: 11 }}>{today.events.every((e) => e.at <= now) ? 'Son vakit girdi' : 'Türkiye yöntemi'}</T></View>
+      <View style={[s.between, { marginBottom: 12 }]}><T accessibilityRole="header" weight="medium" style={{ fontSize: 13 }}>Günün vakitleri</T><T style={{ color: theme.muted, fontSize: 11 }}>{today.events.every((e) => e.at <= now) ? 'Son vakit girdi' : 'Türkiye yöntemi'}</T></View>
       <Surface style={{ padding: 8 }}>
         {today.events.map((event) => {
           const selected = event.at === next.at;

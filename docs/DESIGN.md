@@ -29,6 +29,8 @@ Her mevsimin dört fazı için ayrı tasarım mevcut değil. Eksik kombinasyonla
 
 Üç onboarding adımı; şehir/ilçe seçimi; Home; takvim; genel ayarlar; bildirim ayarları; ses seçim modali; tema seçici; hesaplama/düzeltmeler; Hicri ayar; bildirim yardım ekranı; Kıble. Aylık takvim ve Ramazan imsakiyesi ortak takvim modelinin iki görünümü. `vakit_logo` ekran değildir; SVG marka referansıdır.
 
+Faz 2'de onboarding üç adım olarak tek component içinde, ayarlar ise genel merkez + hesaplama + Hicri route'ları olarak native componentlerle uygulandı. Bildirim onboarding adımı yalnız yaklaşan özelliği açıklar ve erken sistem izni istemez.
+
 ## Ek ekranlar ve uygulamaya alınacak düzeltmeler
 
 Aşağıdaki dizinler repository kökündeki `ek-ekranlar/` altındadır. Stitch screen ID'leri yeniden arama ihtiyacını azaltır; proje ID'si `2377776243904543808`.

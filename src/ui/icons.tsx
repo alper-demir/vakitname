@@ -2,7 +2,7 @@ import React from 'react';
 import Svg, { Circle, Path, Rect } from 'react-native-svg';
 import { PrayerId } from '@/domain/types';
 
-export type IconName = PrayerId | 'pin' | 'chevron' | 'back' | 'check' | 'close' | 'gps' | 'palette' | 'clock' | 'arrow' | 'info';
+export type IconName = PrayerId | 'pin' | 'chevron' | 'back' | 'check' | 'close' | 'gps' | 'palette' | 'clock' | 'arrow' | 'info' | 'calendar' | 'language' | 'settings';
 export function Icon({ name, color = '#49694E', size = 22 }: { name: IconName; color?: string; size?: number }) {
   const common = { fill: 'none', stroke: color, strokeWidth: 1.55, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const };
   const moon = <Path d="M19.5 15A8 8 0 0 1 9 4.5a8.4 8.4 0 1 0 10.5 10.5Z" {...common} />;
@@ -21,6 +21,9 @@ export function Icon({ name, color = '#49694E', size = 22 }: { name: IconName; c
     palette: <><Circle cx="12" cy="12" r="8" {...common} /><Path d="M12 4v16" {...common} /><Path d="M12 4a8 8 0 0 1 0 16Z" fill={color} opacity=".22" /></>,
     clock: <><Circle cx="12" cy="12" r="8" {...common} /><Path d="M12 7v5l3 2" {...common} /></>,
     info: <><Circle cx="12" cy="12" r="8" {...common} /><Path d="M12 11v5" {...common} /><Circle cx="12" cy="7.7" r=".8" fill={color} /></>,
+    calendar: <><Rect x="4" y="5" width="16" height="15" rx="2" {...common} /><Path d="M8 3v4m8-4v4M4 10h16" {...common} /></>,
+    language: <><Circle cx="12" cy="12" r="9" {...common} /><Path d="M3 12h18M12 3c3 3 4 6 4 9s-1 6-4 9c-3-3-4-6-4-9s1-6 4-9Z" {...common} /></>,
+    settings: <><Circle cx="12" cy="12" r="3" {...common} /><Path d="M12 2v3m0 14v3M2 12h3m14 0h3M4.9 4.9 7 7m10 10 2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1" {...common} /></>,
   };
   return <Svg width={size} height={size} viewBox="0 0 24 24" aria-hidden={true}>{shapes[name]}</Svg>;
 }

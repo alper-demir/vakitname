@@ -48,7 +48,7 @@ export function Backdrop({ children }: React.PropsWithChildren) {
 export function Page({ children, footer, scroll = true }: React.PropsWithChildren<{ footer?: React.ReactNode; scroll?: boolean }>) {
   const insets = useSafeAreaInsets();
   return <Backdrop><View style={{ flex: 1, paddingTop: insets.top, paddingBottom: insets.bottom }}>
-    {scroll ? <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled" contentContainerStyle={styles.page}>{children}</ScrollView>
+    {scroll ? <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled" contentContainerStyle={styles.page}>{children}</ScrollView>
       : <View style={[styles.page, { flex: 1 }]}>{children}</View>}
     {footer ? <View style={styles.footer}>{footer}</View> : null}
   </View></Backdrop>;

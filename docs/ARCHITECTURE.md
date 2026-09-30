@@ -1,6 +1,6 @@
 # Teknik kararlar
 
-Durum: ilk dikey dilim uygulandı; native cihaz doğrulaması açık. Güncel kanıtlar VALIDATION.md, kaynaklar DATA-SOURCES.md içinde. Kaynak incelemesi: 30 Eylül 2026.
+Durum: ilk dikey dilim ve Faz 2 onboarding/ayarlar uygulandı; native cihaz doğrulaması açık. Güncel kanıtlar VALIDATION.md, kaynaklar DATA-SOURCES.md içinde. Kaynak incelemesi: 30 Eylül 2026.
 
 ## Kapsam ve yapı
 
@@ -12,7 +12,7 @@ Expo + strict TypeScript + Expo Router kökte kuruldu. Sabitlenen sürümler: Ex
 app/                  Router route ve layout dosyaları
 src/domain/           prayer, clock, calendar, theme saf kuralları
 src/services/         provider adaptörleri, location, storage, notifications
-src/features/         home, location; ardından settings/calendar/qibla
+src/features/         home, location, onboarding, settings; ardından calendar/qibla
 src/ui/               tokenlar, tekrar kullanılabilir native componentler
 src/data/             sürümlü Türkiye konum kataloğu, takvim referansları
 src/i18n/             tipli Türkçe sözlük; İngilizceye hazır anahtarlar
@@ -21,6 +21,8 @@ tests/                domain, component ve entegrasyon testleri
 ```
 
 Route dosyaları iş kuralı içermez. Küçük Context + useState deposu kullanılır; saniyelik saat Home içinde, tema saati 15 saniyede güncellenir. Hesaplanan günler memoized; arka planda interval durur. Redux, Zustand, React Query, UI framework ve form framework başlangıç bağımlılığı değil.
+
+Kalıcı durum şeması v2'dir ve `onboardingComplete`, konum ve tercihleri tutar. v1 kaydı açılışta okunur; geçerli kayıtlı konumu varsa onboarding tamamlanmış kabul edilerek v2'ye taşınır. Yeni kurulum onboarding'i konumsuz tamamlayabilir; Home mevcut konum seçme durumunu gösterir. Vakit ve Hicri düzeltmeleri AppState üzerinden sınırlandırılıp tek kalıcı tercih kaynağına yazılır.
 
 | Amaç | Paket (bildirim/ses hariç kurulu) |
 |---|---|

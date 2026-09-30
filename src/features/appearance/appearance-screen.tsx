@@ -24,7 +24,7 @@ export default function AppearanceScreen() {
   </View>;
   return <Page footer={<Button label="Tamam" onPress={close} />}>
     <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}><IconButton name="close" label="Görünümü kapat" onPress={close} /><T weight="semibold" style={{ fontSize: 20 }}>Görünüm</T><View style={{ width: 44 }} /></View>
-    <T weight="medium" style={{ fontSize: 30, letterSpacing: -1 }}>Işıkla birlikte değişsin.</T>
+    <T accessibilityRole="header" weight="medium" style={{ fontSize: 30, letterSpacing: -1 }}>Işıkla birlikte değişsin.</T>
     <T style={{ color: theme.muted, lineHeight: 24, marginTop: 10 }}>Gökyüzünün ritmini izle ya da sana iyi gelen renklerde kal.</T>
     {group('MEVSİM', 'season', [
       { value: 'auto', label: 'Mevsime göre', detail: 'Bulunduğun günün mevsimi' },
