@@ -2,10 +2,10 @@ import * as Location from 'expo-location';
 import { gpsLocation } from '@/domain/locations';
 
 export type LocationError = 'denied' | 'blocked' | 'disabled' | 'timeout' | 'outside-turkey' | 'unavailable';
-export async function locateDevice() {
+export async function locateDevice({ requestPermission = true }: { requestPermission?: boolean } = {}) {
   if (!(await Location.hasServicesEnabledAsync())) throw new Error('disabled');
   let permission = await Location.getForegroundPermissionsAsync();
-  if (!permission.granted && permission.canAskAgain) permission = await Location.requestForegroundPermissionsAsync();
+  if (!permission.granted && requestPermission && permission.canAskAgain) permission = await Location.requestForegroundPermissionsAsync();
   if (!permission.granted) throw new Error(permission.canAskAgain ? 'denied' : 'blocked');
   let timeout: ReturnType<typeof setTimeout> | undefined;
   try {

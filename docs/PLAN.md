@@ -8,10 +8,10 @@ Kullanıcı geliştirmeyi onayladı. Repository kökünde ilk çalışan dikey d
 - Expo 57.0.26, RN 0.86.3, React 19.2.3, Router, strict TS, Node 24 LTS ve lockfile.
 - 81 il + 974 GeoNames ilçe kaydıyla offline arama/onay; foreground GPS, ret/timeout ve manuel fallback.
 - Adhan provider, UTC olaylar, seçili Türkiye saat dilimi, vakit düzeltme altyapısı, dün/bugün/yarın ve Yatsı sonrası İmsak.
-- Foreground sayaç, tek Home, altı gerçek vakit, kaynak modalı, dört mevsim/dört faz/Ramazan tema resolver'ı ve temel görünüm seçimi.
+- Foreground sayaç, GPS konumu için arka plandan dönüşte izin istemeden yenileme, tek Home, altı gerçek vakit, kaynak modalı, dört mevsim/dört faz/Ramazan tema resolver'ı ve temel görünüm seçimi.
 - SQLite KV kalıcılık, bozuk kayıt kurtarma, async GPS yarış koruması; web incelemede localStorage.
 - 2026–2027 Hicri ay başlangıçları, kapsam dışı açık kaynaklı hesaplanan fallback, Ramazan sınırları.
-- 34 test, üç host saat diliminde 22 ek test, lint/typecheck, Expo Doctor 21/21, Android/iOS/web bundle export. Ayrıntılar VALIDATION.md.
+- 35 test, üç host saat diliminde 22 ek test, lint/typecheck, Expo Doctor 21/21, Android/iOS/web bundle export. Ayrıntılar VALIDATION.md.
 
 ## İlk dilimde açık kalan doğrulamalar
 
@@ -41,7 +41,7 @@ Node 24 ile `npm run check`, `npm run test:timezones`, `npx expo-doctor`. Çalı
 - Git düzeni `docs/VERSIONING.md` içindedir: `main` doğrulanmış/tag'li kilometre taşları, `develop` aktif entegrasyon, gerektiğinde `feature/*` ve `fix/*`. İlk geri dönüş noktası `v0.1.0`; sonraki çalışma `develop` üzerinde sürer. Remote henüz yapılandırılmadı.
 - İlk okunacak dosyalar: `AGENTS.md`, ardından bu dosya. Tasarım ayrıntısı gerekirse `docs/DESIGN.md`; teknik karar gerekirse `docs/ARCHITECTURE.md`; kanıt ve açık kontroller için `docs/VALIDATION.md`.
 - Son doğrulanan çalışma biçimi: Android 16 Pixel 7 emülatörü, Expo Go 57.0.9, LAN Metro `8081`; Home ve offline konum listesi açıldı. Metro süreçleri oturumlar arasında kalıcı kabul edilmez.
-- Şu an yapılacak iş: Expo Go'da GPS izin ret/başarı durumları; ardından küçük ekran, büyük yazı ve TalkBack kontrolü. Manuel Ankara → Çankaya seçimi, gerçek Home ve yeniden açılışta SQLite kalıcılığı 30 Eylül 2026'da doğrulandı.
+- Şu an yapılacak iş: Expo Go'da GPS izin ret/başarı durumları; ardından küçük ekran, büyük yazı ve TalkBack kontrolü. GPS kaynaklı arka plan dönüşü yenilemesi test edildi. Manuel Ankara → Çankaya seçimi, gerçek Home ve yeniden açılışta SQLite kalıcılığı 30 Eylül 2026'da doğrulandı.
 - `android/` ve `dist/` mevcut değil; APK/AAB yok. `expo-system-ui` kaldırıldı ve `app.json` prebuild öncesi durumuna döndü.
 
 Yeni oturumda AGENTS.md ve bu dosyayı oku; tüm tasarımları tekrar tarama. Mimari/kaynak/validasyon belgelerinin yalnız gerekli bölümünü aç.
