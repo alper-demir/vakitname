@@ -37,9 +37,9 @@ export default function LocationScreen() {
   };
   const footer = selected ? <Button icon="check" label={`${selected.title} seçimini onayla`} onPress={commit} /> : <T style={{ textAlign: 'center', color: theme.muted, fontSize: 11, paddingVertical: 10 }}>Türkiye’deki konumunu seç · İnternet gerekmez</T>;
   return <Page scroll={false} footer={footer}>
-    <View style={s.header}><IconButton name="back" label={province ? 'İl listesine dön' : 'Geri'} onPress={() => { if (province) { setProvince(null); setQuery(''); setSelected(null); } else close(); }} /><T weight="semibold" style={{ fontSize: 20 }}>{province ? province.name : 'Konumunu seç'}</T><View style={{ width: 44 }} /></View>
+    <View style={s.header}><IconButton name="back" label={province ? 'İl listesine dön' : 'Geri'} onPress={() => { if (province) { setProvince(null); setQuery(''); setSelected(null); } else close(); }} /><T accessibilityRole="header" weight="semibold" style={{ fontSize: 20 }}>{province ? province.name : 'Konumunu seç'}</T><View style={{ width: 44 }} /></View>
     <View style={[s.search, { backgroundColor: theme.surface, borderColor: theme.line }]}><Icon name="pin" color={theme.muted} size={20} />
-      <TextInput accessibilityLabel={province ? 'İlçe ara' : 'İl veya ilçe ara'} placeholder={province ? 'İlçe ara…' : 'İl veya ilçe ara…'} placeholderTextColor={theme.muted} value={query} onChangeText={setQuery} autoCorrect={false} returnKeyType="search" style={[s.input, { color: theme.text }]} />
+      <TextInput accessibilityRole="search" accessibilityLabel={province ? 'İlçe ara' : 'İl veya ilçe ara'} placeholder={province ? 'İlçe ara…' : 'İl veya ilçe ara…'} placeholderTextColor={theme.muted} value={query} onChangeText={setQuery} autoCorrect={false} returnKeyType="search" style={[s.input, { color: theme.text }]} />
       {query ? <Pressable accessibilityRole="button" accessibilityLabel="Aramayı temizle" onPress={() => setQuery('')} style={{ padding: 10 }}><Icon name="close" color={theme.muted} size={18} /></Pressable> : null}
     </View>
     <View style={{ marginBottom: 16 }}><Button secondary icon="gps" label={app.locating ? 'Konum aranıyor…' : 'Konumumu kullan'} loading={app.locating} onPress={() => { void app.requestLocation().then((success) => { if (success) close(); }); }} /></View>

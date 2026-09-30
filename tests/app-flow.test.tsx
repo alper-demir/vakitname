@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Pressable, Text } from 'react-native';
+import { AppState, Pressable, Text } from 'react-native';
 import { act, fireEvent, render, screen } from '@testing-library/react-native';
 import { AppStateProvider, useAppState } from '@/services/app-state';
 import { ThemeProvider } from '@/ui/theme-context';
@@ -8,7 +8,7 @@ import LocationScreen from '@/features/location/location-screen';
 import { persistence } from '@/services/storage';
 import { locateDevice } from '@/services/location';
 import { initialSavedState } from '@/domain/state';
-import { manualLocation, provinces } from '@/domain/locations';
+import { gpsLocation, manualLocation, provinces } from '@/domain/locations';
 
 jest.mock('@/services/storage', () => ({ persistence: { read: jest.fn(), write: jest.fn() } }));
 jest.mock('@/services/location', () => ({ locateDevice: jest.fn() }));
@@ -74,4 +74,25 @@ test('failed GPS refresh preserves the last valid location', async () => {
   await render(<AppStateProvider><Probe /></AppStateProvider>);
   await fireEvent.press(screen.getByRole('button', { name: 'gps' }));
   expect(screen.getByText('İstanbul')).toBeTruthy();
+});
+test('GPS location refreshes after returning to foreground without prompting again', async () => {
+  let listener: ((state: 'active' | 'background' | 'inactive') => void) | undefined;
+  const addListener = jest.spyOn(AppState, 'addEventListener').mockImplementation((type, callback) => {
+    if (type === 'change') listener = callback;
+    return { remove: jest.fn() };
+  });
+  const previous = gpsLocation(41.01, 28.95, 40, 100);
+  const refreshed = gpsLocation(39.92, 32.85, 35, 200);
+  jest.mocked(persistence.read).mockResolvedValue(JSON.stringify({ ...initialSavedState, location: previous }));
+  jest.mocked(locateDevice).mockResolvedValue(refreshed);
+  const app = await render(<AppStateProvider><Probe /></AppStateProvider>);
+  await act(async () => {
+    listener?.('background');
+    listener?.('active');
+  });
+  expect(screen.getByText('Çankaya')).toBeTruthy();
+  expect(locateDevice).toHaveBeenCalledWith({ requestPermission: false });
+  expect(JSON.parse(jest.mocked(persistence.write).mock.calls.at(-1)![0]).location.updatedAt).toBe(200);
+  addListener.mockRestore();
+  await app.unmount();
 });

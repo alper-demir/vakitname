@@ -1,4 +1,5 @@
 import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
+import { AppState } from 'react-native';
 import { decodeSavedState, initialSavedState, SavedState } from '@/domain/state';
 import { ThemePreferences, VakitLocation } from '@/domain/types';
 import { persistence } from './storage';
@@ -22,6 +23,7 @@ export function AppStateProvider({ children }: React.PropsWithChildren) {
   const revision = useRef(0);
   const writes = useRef(Promise.resolve());
   const lastSaved = useRef(state);
+  const appState = useRef(AppState.currentState);
   useEffect(() => {
     const requests = revision;
     let mounted = true;
@@ -40,6 +42,24 @@ export function AppStateProvider({ children }: React.PropsWithChildren) {
     writes.current = writes.current.catch(() => {}).then(() => persistence.write(JSON.stringify(state)))
       .then(() => setSavingError(false)).catch(() => setSavingError(true));
   }, [state, ready]);
+  useEffect(() => {
+    let mounted = true;
+    const subscription = AppState.addEventListener('change', (nextState) => {
+      const returningToForeground = appState.current !== 'active' && nextState === 'active';
+      appState.current = nextState;
+      if (!returningToForeground || !mounted || !state.location || state.location.source !== 'gps') return;
+      const request = ++revision.current;
+      setLocating(true); setLocationError(null);
+      void locateDevice({ requestPermission: false }).then((location) => {
+        if (request === revision.current) setState((current) => ({ ...current, location }));
+      }).catch((error) => {
+        if (request === revision.current) setLocationError(error instanceof Error ? error.message : 'unavailable');
+      }).finally(() => {
+        if (request === revision.current) setLocating(false);
+      });
+    });
+    return () => { mounted = false; subscription.remove(); };
+  }, [state.location]);
   const cancelLocation = useCallback(() => { revision.current++; setLocating(false); setLocationError(null); }, []);
   const selectLocation = useCallback((location: VakitLocation) => {
     cancelLocation(); setState((s) => ({ ...s, location }));
