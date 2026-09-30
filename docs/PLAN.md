@@ -15,7 +15,7 @@ Kullanıcı geliştirmeyi onayladı. Repository kökünde ilk çalışan dikey d
 
 ## İlk dilimde açık kalan doğrulamalar
 
-- Gerçek iOS/Android development build: GPS/izinler, background→foreground, büyük metin/screen reader ve Hermes takvim desteği. Expo Go ile Android emülatörde manuel Ankara → Çankaya seçimi, hesaplanan Home ve Expo Go zorla kapatılıp açıldıktan sonra SQLite kalıcılığı doğrulandı. İstenmeden başlatılan native build tamamlanmadan durduruldu; `android/`, `dist/` ve eklenen paket/config değişiklikleri temizlendi. Kullanıcı açıkça istemeden APK/prebuild yapma.
+- Gerçek iOS development build ve iOS izinleri hâlâ release kapısıdır. Android Expo Go’da izin diyaloğu, ret/fallback ve izin sonrası konum isteği; 720×1280 ekran ve 1.3 font ölçeği doğrulandı. Emülatör sağlayıcısı sabit GPS fix vermediği için Android GPS başarı sonucu timeout ile sınırlı kaldı. TalkBack servisi emülatörde kurulu değildi; native accessibility rolleri ve birleşik etiketler test edildi. İstenmeden başlatılan native build tamamlanmadan durduruldu; `android/`, `dist/` ve eklenen paket/config değişiklikleri temizlendi. Kullanıcı açıkça istemeden APK/prebuild yapma.
 - Diyanet yalnız İstanbul tek gün karşılaştırıldı (0–2 dk fark); yedi şehir/mevsimler/Ramazan matrisi tamamlanmadan üretim uyumu iddia edilmez.
 - GeoNames resmî ilçe kapsamı, 29 yaklaşık temsil koordinatı. 974 kayıt sayısı resmî güncel ilçe sayısı iddiası değildir.
 - npm audit iki transitif advisory nedeniyle 14 moderate: uyumlu çözüm release öncesi; uyumsuz downgrade/force uygulanmadı.
@@ -23,8 +23,8 @@ Kullanıcı geliştirmeyi onayladı. Repository kökünde ilk çalışan dikey d
 
 ## Home sonrasında
 
-1. Home geri bildirimi, gerçek cihaz testi ve veri doğrulamalarını kapat.
-2. Onboarding + genel/hesaplama/Hicri ayarları. Dakika/Hicri düzeltmeleri domain'de var, kullanıcı ayar ekranı henüz yok.
+1. Faz 2: onboarding + genel/hesaplama/Hicri ayarları. Android Expo Go Faz 1 kontrolleri tamamlandı; iOS/TalkBack gerçek cihaz kapıları release öncesinde ayrıca yürütülecek.
+2. Dakika/Hicri düzeltmeleri domain'de var, kullanıcı ayar ekranı henüz yok.
 3. Yerel bildirim planlayıcı, izinler, kısa lisanslı ses, yardım; gerçek iki platform testi. ARCHITECTURE.md'deki kuyruk/OS sınırlarına uy.
 4. Aylık takvim ve Ramazan imsakiyesi.
 5. Kıble ve sensörsüz/kalibrasyon durumları.
@@ -41,7 +41,7 @@ Node 24 ile `npm run check`, `npm run test:timezones`, `npx expo-doctor`. Çalı
 - Git düzeni `docs/VERSIONING.md` içindedir: `main` doğrulanmış/tag'li kilometre taşları, `develop` aktif entegrasyon, gerektiğinde `feature/*` ve `fix/*`. İlk geri dönüş noktası `v0.1.0`; sonraki çalışma `develop` üzerinde sürer. Remote henüz yapılandırılmadı.
 - İlk okunacak dosyalar: `AGENTS.md`, ardından bu dosya. Tasarım ayrıntısı gerekirse `docs/DESIGN.md`; teknik karar gerekirse `docs/ARCHITECTURE.md`; kanıt ve açık kontroller için `docs/VALIDATION.md`.
 - Son doğrulanan çalışma biçimi: Android 16 Pixel 7 emülatörü, Expo Go 57.0.9, LAN Metro `8081`; Home ve offline konum listesi açıldı. Metro süreçleri oturumlar arasında kalıcı kabul edilmez.
-- Şu an yapılacak iş: Expo Go'da GPS izin ret/başarı durumları; ardından küçük ekran, büyük yazı ve TalkBack kontrolü. GPS kaynaklı arka plan dönüşü yenilemesi test edildi. Manuel Ankara → Çankaya seçimi, gerçek Home ve yeniden açılışta SQLite kalıcılığı 30 Eylül 2026'da doğrulandı.
+- Şu an yapılacak iş: Faz 2 onboarding ve ayarlar. GPS kaynaklı arka plan dönüşü yenilemesi, Android Expo Go izin/fallback akışı, küçük ekran ve büyük yazı kontrolü test edildi. Manuel Ankara → Çankaya seçimi, gerçek Home ve yeniden açılışta SQLite kalıcılığı 30 Eylül 2026'da doğrulandı.
 - `android/` ve `dist/` mevcut değil; APK/AAB yok. `expo-system-ui` kaldırıldı ve `app.json` prebuild öncesi durumuna döndü.
 
 Yeni oturumda AGENTS.md ve bu dosyayı oku; tüm tasarımları tekrar tarama. Mimari/kaynak/validasyon belgelerinin yalnız gerekli bölümünü aç.

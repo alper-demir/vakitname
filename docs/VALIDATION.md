@@ -3,6 +3,7 @@
 ## Geçen kontroller
 
 - TypeScript strict, ESLint, 35 Jest testi. Gerçek Home/konum componentleriyle GPS reddi → manuel seçim → Home → kayıtlı yeniden açılış; GPS konumunda arka plandan dönüşte izin istemeden yenileme.
+- Expo Go 57.0.9 / Android 16 Pixel 7 üzerinde sistem izin diyaloğu, ret sonrası Türkçe fallback ve izin sonrası konum isteği denendi. 720×1280 küçük ekran ve 1.3 font ölçeğinde Home kaydırma/alt dock kontrol edildi; erişilebilirlik ağacı için TalkBack servisi emülatörde mevcut değildi, Jest ve native accessibility etiketleri doğrulandı.
 - Geç GPS sonucunun yeni manuel seçimi ezmemesi; yenileme hatasında son konumun korunması; storage okuma hatasında okunamamış verinin varsayılanlarla ezilmemesi.
 - 22 tarih/hesaplama/tema testi ayrı süreçlerde Europe/Istanbul, UTC, America/New_York altında aynı sonucu verdi.
 - Expo Doctor 21/21. Android/iOS Hermes ve web bundle export başarılı. Expo Go 57.0.9 ile Android 16 Pixel 7 emülatörde LAN Metro üzerinden Ankara → Çankaya manuel seçimi, gerçek hesaplanan Home, Yatsı sonrası ertesi gün İmsak hedefi ve Expo Go zorla kapatılıp açıldıktan sonra SQLite kalıcılığı doğrulandı. **Export native build değildir; native build tamamlanmadan durdurulup tüm proje çıktıları temizlendi.**
@@ -29,7 +30,7 @@ npm audit: 0 critical/high, 14 moderate rapor; çoğu aynı iki advisory'nin üs
 
 ## Açık cihaz/release kontrolleri
 
-- Android/iOS development build; GPS ret/kalıcı ret/kapalı servis/timeout. Android Expo Go yeniden açılışında SQLite verisi doğrulandı; iOS ve development build hâlâ açık.
+- iOS development build ve gerçek iOS izin/TalkBack testi release kapısıdır. Android Expo Go yeniden açılışında SQLite verisi doğrulandı; emülatör GPS sağlayıcısı sabit fix vermediği için Android başarı yolu gerçek koordinat yerine timeout ile sınırlı kaldı.
 - Foreground saat sıçraması/gece yarısı; Hermes Intl takvim fallback'i.
 - VoiceOver/TalkBack, büyük metin, azaltılmış hareket ve kontrast.
 - GeoNames resmî ilçe listesi kapsamı ve 29 yaklaşık koordinatın iyileştirilmesi; sınır noktaları.
