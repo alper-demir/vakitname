@@ -49,6 +49,8 @@ export default function SettingsScreen() {
       <SettingsRow icon="bell" title="Bildirimler" detail="Vakitler, ön hatırlatma ve ses" value={preferences.notifications.enabled ? 'Açık' : 'Kapalı'} onPress={() => router.push('/notifications')} />
       <View style={[s.divider, { backgroundColor: theme.line }]} />
       <View style={s.row}><View style={[s.icon, { backgroundColor: theme.highlight }]}><Icon name="language" color={theme.accent} size={20} /></View><View style={{ flex: 1 }}><T weight="medium">Dil</T><T style={{ color: theme.muted, fontSize: 11, marginTop: 3 }}>Uygulama dili</T></View><T style={{ color: theme.muted, fontSize: 12 }}>Türkçe</T></View>
+      <View style={[s.divider, { backgroundColor: theme.line }]} />
+      <SettingsRow icon="info" title="Hakkında ve gizlilik" detail="Veri, kaynak ve lisans bilgileri" onPress={() => router.push('/about')} />
     </Surface>
   </Page>;
 }

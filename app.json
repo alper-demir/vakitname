@@ -48,7 +48,15 @@
           "color": "#628567"
         }
       ],
-      "expo-splash-screen"
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#08201D",
+          "dark": {
+            "backgroundColor": "#061512"
+          }
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true

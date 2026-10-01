@@ -1,6 +1,6 @@
 # Teknik kararlar
 
-Durum: ilk dikey dilim, Faz 2 ve Faz 3 bildirim kod dilimi uygulandı; Android Expo Go teslimi geçti, production native bildirim doğrulaması açık. Güncel kanıtlar VALIDATION.md, kaynaklar DATA-SOURCES.md içinde. Kaynak incelemesi: 1 Ekim 2026.
+Durum: ilk dikey dilim, Faz 2–5 uygulandı; Faz 6 yayın hazırlığı sürüyor. Android Expo Go teslimi geçti, production native bildirim doğrulaması açık. Güncel kanıtlar VALIDATION.md, kaynaklar DATA-SOURCES.md içinde. Kaynak incelemesi: 1 Ekim 2026.
 
 ## Kapsam ve yapı
 
@@ -36,6 +36,12 @@ Kalıcı durum şeması v3'tür ve `onboardingComplete`, konum, tercihler ve son
 | Doğrulama | TypeScript, Expo ESLint yapılandırması, Jest, jest-expo, React Native Testing Library |
 
 Fontlar yerel paketlenecek. `expo-blur` ancak cihaz ölçümü ve ihtiyaç doğrulanırsa. [Depolama](https://docs.expo.dev/versions/latest/sdk/sqlite/), [animasyon](https://docs.expo.dev/versions/latest/sdk/reanimated/), [test](https://docs.expo.dev/develop/unit-testing/).
+
+## Yayın hazırlığı ve splash
+
+Native splash için `expo-splash-screen` yalnızca temaya uygun koyu yeşil arka planla yapılandırıldı; ikon dosyası kullanıcı tarafından sağlanana kadar yanlış veya geçici bir mağaza ikonu paketlenmez. Fontlar yüklenirken JavaScript katmanında Logo, Vakit adı, kısa slogan ve yüklenme göstergesi bulunan ikinci marka yüzeyi gösterilir. İkon geldiğinde splash görseli ve Android/iOS kimlikleri birlikte gözden geçirilecek.
+
+`/about` route'u Hakkında, gizlilik özeti, hesaplama/katalog kaynakları ve lisans atıflarını tek yerel ekranda sunar. Bu ekran hukuki danışmanlık veya resmî Diyanet ortaklığı iddiası taşımaz; kullanıcıya uygulamanın ne sakladığını ve hangi kaynakları kullandığını açıklar. Dış bağlantılar yalnız kullanıcı dokunuşuyla açılır.
 
 ## Hesaplama ve Diyanet kararı
 

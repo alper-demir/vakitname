@@ -47,7 +47,7 @@ Aşağıdaki dizinler repository kökündeki `ek-ekranlar/` altındadır. Stitch
 | `hesaplama_ve_vakit_d_zeltmeleri` | `3860c72662414b83ae051f84ec7aab9a` | Yöntem adı ve parametreleri gerçek sağlayıcıdan; her vakte ayrı düzeltme. |
 | `hicri_takvim_ayar` | `9b1cd4916e3046468e08ccd19bc93b5e` | ±2 gün önizleme; takvim kaynağı açıklanır. Görünüm tercihi takvimi değiştirmez. |
 | `bildirim_durumu_ve_yard_m` | `4a570d0b06e94170837e0a75d058f680` | Gerçek platform yetenekleri ve planlama bitiş tarihi; uydurma skor yok. |
-| `k_ble_pusulas` | `b7877cc7aaf548e7a915141842478907` | Sonraki aşama. Doğru kuzey/manyetik kuzey ayrımı ve sensörsüz durum gerekli. |
+| `k_ble_pusulas` | `b7877cc7aaf548e7a915141842478907` | Kıble route'u uygulandı. Doğru kuzey/manyetik kuzey ayrımı ve sensörsüz durum korunuyor. |
 
 Ortak düzeltmeler:
 
@@ -62,7 +62,11 @@ Ortak düzeltmeler:
 
 ## Kalan tasarım boşlukları
 
-Home skeleton/ilk hesaplama; kayıtlı konumla yenileme hatası; hakkında/gizlilik/lisans sayfaları ayrı tasarlanmadı. Mevcut component diliyle yapılabilir; kullanıcıdan yeni tasarım beklenmiyor. İşletim sistemi izin pencereleri özel ekran olarak taklit edilmeyecek. Türkiye dışı GPS için Türkiye'den manuel konum seçme durumu gerekli.
+Home skeleton/ilk hesaplama; kayıtlı konumla yenileme hatası; mağaza ikonu ve ayrı işletim sistemi izin görselleri tasarlanmadı. Hakkında/gizlilik/lisans içeriği native `/about` ekranında mevcut component diliyle uygulandı. İşletim sistemi izin pencereleri özel ekran olarak taklit edilmeyecek. Türkiye dışı GPS için Türkiye'den manuel konum seçme durumu gerekli.
+
+## Faz 6 yayın yüzeyi
+
+Stitch'teki sade marka dilini korumak için splash koyu yeşil zemin, mevcut Logo bileşeni ve kısa sloganla iki aşamalı çözüldü. Splash'ta geçici bir yapay ikon kullanılmadı. Hakkında ekranı ayarlar içinden erişilir; gizlilik, veri saklama, kaynak ve lisans bilgilerini kartlar halinde açıklar. Büyük metinler, başlık rolleri, düğme etiketleri ve dış bağlantıların erişilebilir adları native bileşenlerle sağlandı.
 
 ## Faz 5 Kıble eşlemesi
 
