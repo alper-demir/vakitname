@@ -14,6 +14,10 @@ Saf bildirim planlayıcı, en fazla 60 olaylık kuyruk, gerçek pending listeyle
 
 Native Takvim ekranı eklendi. Aylık Miladi görünüm, seçili gün özeti, yatay tüm vakit tablosu, Ramazan görünümü, 2026–2027 kaynaklı Ramazan aralığı ve kapsam dışı yıllar için Umm al-Qura fallback'i çalışıyor. Hicri gösterim düzeltmesi tabloya uygulanıyor; saatler `PrayerTimesProvider` üzerinden gerçek konum verisiyle hesaplanıyor. Expo Go Android emülatöründe Ekim 2026 aylık görünüm ve 1448 Ramazan 29 günlük imsakiyesi açıldı.
 
+## Faz 5 durumu
+
+Kıble ekranı eklendi. Seçili konumdan Kâbe'ye büyük çember başlangıç doğrultusu ve kuş uçuşu mesafe cihazda hesaplanıyor. Expo Location başlık adaptörü gerçek kuzey, manyetik kuzey ve hassasiyet durumunu ayırıyor; sensör veya izin yokken statik gerçek-kuzey açısı gösteriliyor. Android 16 Pixel 7 emülatörü / Expo Go 57.0.9'da Mesudiye için 174° ve yaklaşık 2.125 km sensörsüz durum açıldı. Fiziksel cihaz pusulası, izin ve kalibrasyon davranışı henüz doğrulanmadı.
+
 ## Tamamlandı
 
 - 37 Stitch ekranı analiz edildi; 19 Home varyasyonu tek Home/tema sisteminde toplandı. İki tasarım klasörü korunuyor.
@@ -26,7 +30,8 @@ Native Takvim ekranı eklendi. Aylık Miladi görünüm, seçili gün özeti, ya
 - Üç adımlı onboarding; genel ayarlar merkezi; altı vakit için ±30 dakika düzeltme; ±2 günlük Hicri düzeltme ve canlı önizleme. Eski v1 kayıtları v2 şemasına göç eder; kayıtlı konumu olan kullanıcı onboarding'i tekrar görmez.
 - Faz 3 bildirim tercihleri ve saf planlama altyapısı; özgün kısa Vakit tonu, sistem sesi ve sessiz seçenekleri. State v3'e göç eder.
 - Faz 4 aylık takvim ve Ramazan imsakiyesi: tek ekran, iki görünüm ve provider enjeksiyonu.
-- 46 test, üç host saat diliminde 22 ek test, lint/typecheck ve Expo Doctor 21/21. Ayrıntılar VALIDATION.md.
+- Faz 5 Kıble: saf yön/mesafe domain'i, gerçek-kuzey/manyetik-kuzey ayrımlı başlık adaptörü, sensörsüz durum, native pusula ekranı ve navigasyon erişimi.
+- 48 test, üç host saat diliminde 22 ek test, lint/typecheck ve Expo Doctor 21/21. Ayrıntılar VALIDATION.md.
 
 ## İlk dilimde açık kalan doğrulamalar
 
@@ -40,7 +45,7 @@ Native Takvim ekranı eklendi. Aylık Miladi görünüm, seçili gün özeti, ya
 
 1. Faz 3 production doğrulama kapısı: development build açıkça yetkilendirildiğinde Android/iOS özel ses ve sessiz kanal, kesin alarm, reboot/force-stop, ekran kilidi ve gerçek cihaz davranışını test et; sonuçlar geçerse `v0.3.0` oluştur.
 2. Faz 4 cihaz/ürün kontrolleri: farklı aylar, Hicri düzeltme, Ramazan seçimi, küçük ekran yatay tablo ve veri kapsamı dışı fallback.
-3. Faz 5: Kıble ve sensörsüz/kalibrasyon durumları.
+3. Faz 5 fiziksel cihaz doğrulaması: gerçek-kuzey/manyetik ayrımı, izin reddi/izin verme, hareket/kalibrasyon, uygulamadan çıkışta abonelik temizliği.
 4. Faz 6: gizlilik/lisans ekranı, ikon/splash, mağaza kimlikleri, erişilebilirlik ve release build.
 
 Hesap, reklam, backend, widget, tam ezan, PDF, mukabele ve zikirmatik kapsam dışı. Remote/push/yayınlama yapılmadı.
@@ -56,7 +61,7 @@ Node 24 ile `npm run check`, `npm run test:timezones`, `npx expo-doctor`. Çalı
 - Son doğrulanan çalışma biçimi: Android 16 Pixel 7 emülatörü, Expo Go 57.0.9, LAN Metro `8081`; Home ve offline konum listesi açıldı. Metro süreçleri oturumlar arasında kalıcı kabul edilmez.
 - Faz 2 `feature/phase2-onboarding-settings` dalında tamamlandı: onboarding, genel ayarlar, hesaplama düzeltmeleri ve Hicri düzeltme eklendi. Android Expo Go'da ayarlar navigasyonu, İmsak +1'in Home'a anında yansıması, “1 düzeltme” özeti, Hicri +1 canlı önizlemesi ve değerleri yeniden sıfırlama doğrulandı.
 - Faz 3 `feature/phase3-local-notifications` dalında geliştirildi ve `develop` ile birleştirildi: bildirim planlayıcı/uzlaştırma, ayarlar ve yardım ekranları.
-- Faz 4 Takvim ekranı bu oturumda eklendi; aylık ve Ramazan görünümleri emülatörde kontrol edildi. Sonraki oturumda belgede listelenen Faz 4 cihaz/ürün kontrollerini tamamla; ardından Faz 5 planını başlat.
+- Faz 4 Takvim ekranı eklendi; aylık ve Ramazan görünümleri emülatörde kontrol edildi. Faz 5 Kıble de bu oturumda `feature/phase5-qibla` dalında tamamlandı; fiziksel pusula doğrulaması release/cihaz kapısı olarak açık tutuluyor. Sonraki somut adım Faz 6 kapsamını başlatmadan önce açık Faz 4–5 cihaz kontrollerini önceliklendirmek veya kullanıcı yönlendirmesine göre Faz 6 gizlilik/lisans hazırlığına geçmektir.
 - `android/` ve `dist/` mevcut değil; APK/AAB yok. `expo-system-ui` kaldırıldı ve `app.json` prebuild öncesi durumuna döndü.
 
 Yeni oturumda AGENTS.md ve bu dosyayı oku; tüm tasarımları tekrar tarama. Mimari/kaynak/validasyon belgelerinin yalnız gerekli bölümünü aç.
