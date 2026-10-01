@@ -12,6 +12,7 @@
 | Kıble referans noktası | [OpenStreetMap Kâbe noktası](https://www.openstreetmap.org/?mlat=21.422487&mlon=39.826206#map=18/21.422487/39.826206), ODbL | WGS84 21.422487, 39.826206; yalnız cihazdaki büyük çember yön/mesafe hesabında sabit referans. Harita veya runtime isteği kullanılmaz. |
 | Font | [Manrope](https://github.com/sharanda/manrope), SIL OFL 1.1 | Yerel fontlar; assets/licenses/Manrope-OFL.txt. |
 | Bildirim sesi | Proje içinde 1 Ekim 2026'da matematiksel sinüs dalgalarından özgün üretildi; üçüncü taraf kayıt içermez | `assets/sounds/vakit-tone.wav`, 1,15 saniye mono PCM. Tam ezan veya müzik kaydı değildir. |
+| Uygulama ikonu | Kullanıcının sağladığı ChatGPT üretimi `Minimalist Hilal Pusula Uygulama İkonu.png`; proje içinde Android için beyaz köşe temizliği ve adaptive foreground türetildi | `assets/icon/vakit-icon.png` ve `vakit-icon-foreground.png`. Üçüncü taraf marka veya görsel kullanılmadı; mağaza kullanımı için üretim hakkı kullanıcı tarafından doğrulanmalıdır. |
 
 GeoNames atfı uygulamanın kaynak modalında bulunur. Türetilmiş katalog CC BY 4.0 kaynak atfı ve değişiklik bildirimiyle dağıtılır; veri garantisi verilmez. Adhan lisansı assets/licenses/Adhan-MIT.txt içinde.
 

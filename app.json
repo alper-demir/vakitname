@@ -13,6 +13,11 @@
       }
     },
     "android": {
+      "icon": "./assets/icon/vakit-icon.png",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/icon/vakit-icon-foreground.png",
+        "backgroundColor": "#06432F"
+      },
       "permissions": [
         "ACCESS_COARSE_LOCATION",
         "ACCESS_FINE_LOCATION",
@@ -51,6 +56,8 @@
       [
         "expo-splash-screen",
         {
+          "image": "./assets/icon/vakit-icon.png",
+          "resizeMode": "contain",
           "backgroundColor": "#08201D",
           "dark": {
             "backgroundColor": "#061512"

@@ -1,9 +1,9 @@
 import React from 'react';
-import { Linking, StyleSheet, View } from 'react-native';
+import { Image, Linking, StyleSheet, View } from 'react-native';
 import Constants from 'expo-constants';
 import { router } from 'expo-router';
 import { IconButton, Page, Surface, T } from '@/ui/primitives';
-import { Icon, Logo } from '@/ui/icons';
+import { Icon } from '@/ui/icons';
 import { useTheme } from '@/ui/theme-context';
 
 function LinkRow({ label, url }: { label: string; url: string }) {
@@ -17,7 +17,7 @@ export default function AboutScreen() {
   const version = Constants.expoConfig?.version ?? '0.2.0';
   return <Page>
     <View style={s.header}><IconButton name="back" label="Ayarlara dön" onPress={close} /><T accessibilityRole="header" weight="semibold" style={{ fontSize: 20 }}>Hakkında</T><View style={{ width: 44 }} /></View>
-    <View style={s.brand}><Logo size={62} color={theme.accent} /><T weight="semibold" style={s.name}>Vakit</T><T style={{ color: theme.muted, fontSize: 12 }}>Sade, cihazında çalışan namaz vakitleri</T><T style={{ color: theme.subtle, fontSize: 11 }}>Sürüm {version}</T></View>
+    <View style={s.brand}><Image source={require('../../../assets/icon/vakit-icon.png')} accessibilityLabel="Vakit uygulama ikonu" style={{ width: 82, height: 82, borderRadius: 24 }} /><T weight="semibold" style={s.name}>Vakit</T><T style={{ color: theme.muted, fontSize: 12 }}>Sade, cihazında çalışan namaz vakitleri</T><T style={{ color: theme.subtle, fontSize: 11 }}>Sürüm {version}</T></View>
     <T weight="semibold" style={[s.section, { color: theme.muted }]}>GİZLİLİK</T>
     <Surface style={s.card}><T weight="medium">Verilerin nerede tutulur?</T><T style={[s.copy, { color: theme.muted }]}>Konum, tercihler ve bildirim planı yalnızca bu cihazda saklanır. Hesap açılmaz, reklam profili oluşturulmaz ve uygulama arka planda sunucuya konum göndermez.</T><T style={[s.copy, { color: theme.muted }]}>Namaz vakitleri ve kıble yönü cihazda hesaplanır. GPS kullanırsan konum işletim sisteminden alınır; manuel şehir seçimiyle GPS kullanmadan da devam edebilirsin.</T></Surface>
     <T weight="semibold" style={[s.section, { color: theme.muted }]}>KAYNAKLAR</T>

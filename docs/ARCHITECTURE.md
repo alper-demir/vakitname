@@ -39,7 +39,7 @@ Fontlar yerel paketlenecek. `expo-blur` ancak cihaz ölçümü ve ihtiyaç doğr
 
 ## Yayın hazırlığı ve splash
 
-Native splash için `expo-splash-screen` yalnızca temaya uygun koyu yeşil arka planla yapılandırıldı; ikon dosyası kullanıcı tarafından sağlanana kadar yanlış veya geçici bir mağaza ikonu paketlenmez. Fontlar yüklenirken JavaScript katmanında Logo, Vakit adı, kısa slogan ve yüklenme göstergesi bulunan ikinci marka yüzeyi gösterilir. İkon geldiğinde splash görseli ve Android/iOS kimlikleri birlikte gözden geçirilecek.
+Native splash için `expo-splash-screen` koyu yeşil arka plan ve kullanıcının sağladığı ikonla yapılandırıldı. Fontlar yüklenirken JavaScript katmanında aynı ikon, Vakit adı, kısa slogan ve yüklenme göstergesi bulunan ikinci marka yüzeyi gösterilir. Android `icon` ve `adaptiveIcon.foregroundImage` ayrı PNG'lerdir; foreground sembolü güvenli alana küçültülmüş, adaptive arka planı `#06432F` olarak sabitlenmiştir. iOS ikon kimliği bu fazın kapsamı dışındadır.
 
 `/about` route'u Hakkında, gizlilik özeti, hesaplama/katalog kaynakları ve lisans atıflarını tek yerel ekranda sunar. Bu ekran hukuki danışmanlık veya resmî Diyanet ortaklığı iddiası taşımaz; kullanıcıya uygulamanın ne sakladığını ve hangi kaynakları kullandığını açıklar. Dış bağlantılar yalnız kullanıcı dokunuşuyla açılır.
 

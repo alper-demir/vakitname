@@ -5,15 +5,14 @@ import * as SplashScreen from 'expo-splash-screen';
 import { AppStateProvider } from '@/services/app-state';
 import { NotificationProvider } from '@/services/notifications/notification-context';
 import { ThemeProvider } from '@/ui/theme-context';
-import { ActivityIndicator, Text, View } from 'react-native';
+import { ActivityIndicator, Image, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Logo } from '@/ui/icons';
 
 export { ErrorBoundary } from 'expo-router';
 void SplashScreen.preventAutoHideAsync().catch(() => {});
 function BrandSplash() {
   return <LinearGradient colors={['#08201D', '#123A31']} style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-    <View style={{ alignItems: 'center', gap: 16 }}><Logo size={84} color="#7DAD88" /><Text style={{ color: '#F3F9F3', fontFamily: 'Manrope_600SemiBold', fontSize: 28, letterSpacing: -1 }}>Vakit</Text><Text style={{ color: '#B7D2BD', fontFamily: 'Manrope_400Regular', fontSize: 13 }}>Vaktin nefesini hisset.</Text><ActivityIndicator color="#B7D2BD" style={{ marginTop: 18 }} /></View>
+    <View style={{ alignItems: 'center', gap: 16 }}><Image source={require('../assets/icon/vakit-icon.png')} accessibilityLabel="Vakit uygulama ikonu" style={{ width: 84, height: 84, borderRadius: 24 }} /><Text style={{ color: '#F3F9F3', fontFamily: 'Manrope_600SemiBold', fontSize: 28, letterSpacing: -1 }}>Vakit</Text><Text style={{ color: '#B7D2BD', fontFamily: 'Manrope_400Regular', fontSize: 13 }}>Vaktin nefesini hisset.</Text><ActivityIndicator color="#B7D2BD" style={{ marginTop: 18 }} /></View>
   </LinearGradient>;
 }
 export default function RootLayout() {
