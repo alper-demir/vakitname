@@ -8,6 +8,8 @@ Home yerleşimi: `vakit-app ekranlar/bug_n_i_lkbahar_g_nd_z_2/screen.png`. Büy�
 
 Manrope; adaçayı/krem gündüz, lacivert/altın gece; 20–24 px yatay boşluk, 24–28 px kart köşeleri, ince çizgiler, ölçülü transparan yüzeyler. Kaynak: `vakit-app ekranlar/vakit/DESIGN.md`. Küçük ekranda sayaç taşmayacak; büyük yazıda dikey kaydırma olacak. Dokunma alanları en az 44 pt/48 dp hedefler. Geçmiş vakitlerin soluklaştırılması okunabilirliği bozmayacak. Hareket azaltma tercihine uyulacak.
 
+Alt navigasyonda Ayarlar için güneş çağrışımı yapan ışınlı sembol yerine merkez delikli sade dişli SVG kullanılır; tema/ışık seçimi üstteki palet düğmesinde kalır.
+
 ## Home varyasyonlarının eşlemesi
 
 Önekler aşağıda `vakit-app ekranlar/` altındaki gerçek dizin adlarıdır. İlk 19 Home çıktısı aynı ekran ailesi; ek Yatsı sonrası çıktı bir durum varyasyonudur. Birebir dosya kopyası yerine işlevsel tekrarlar bulunuyor.

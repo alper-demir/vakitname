@@ -23,7 +23,7 @@ export function Icon({ name, color = '#49694E', size = 22 }: { name: IconName; c
     info: <><Circle cx="12" cy="12" r="8" {...common} /><Path d="M12 11v5" {...common} /><Circle cx="12" cy="7.7" r=".8" fill={color} /></>,
     calendar: <><Rect x="4" y="5" width="16" height="15" rx="2" {...common} /><Path d="M8 3v4m8-4v4M4 10h16" {...common} /></>,
     language: <><Circle cx="12" cy="12" r="9" {...common} /><Path d="M3 12h18M12 3c3 3 4 6 4 9s-1 6-4 9c-3-3-4-6-4-9s1-6 4-9Z" {...common} /></>,
-    settings: <><Circle cx="12" cy="12" r="3" {...common} /><Path d="M12 2v3m0 14v3M2 12h3m14 0h3M4.9 4.9 7 7m10 10 2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1" {...common} /></>,
+    settings: <><Path d="M19.43 12.98c.04-.32.07-.65.07-.98s-.02-.66-.07-.98l2.11-1.65-2-3.46-2.49 1a7.7 7.7 0 0 0-1.69-.98L15 3.5h-4l-.38 2.43a7.7 7.7 0 0 0-1.69.98l-2.49-1-2 3.46 2.11 1.65c-.04.32-.08.65-.08.98s.03.66.08.98l-2.11 1.65 2 3.46 2.49-1c.52.4 1.08.73 1.69.98L11 20.5h4l.38-2.43c.61-.25 1.17-.58 1.69-.98l2.49 1 2-3.46-2.13-1.65Z" {...common} /><Circle cx="13" cy="12" r="2.8" {...common} /></>,
     bell: <><Path d="M5 17h14l-2-3V9a5 5 0 0 0-10 0v5l-2 3Z" {...common} /><Path d="M10 20h4" {...common} /></>,
     volume: <><Path d="M4 10v4h4l5 4V6L8 10H4Z" {...common} /><Path d="M16 9a4 4 0 0 1 0 6m2-9a8 8 0 0 1 0 12" {...common} /></>,
     compass: <><Circle cx="12" cy="12" r="8.5" {...common} /><Path d="m14.8 9.2-1.7 4-4 1.7 1.7-4 4-1.7Z" {...common} /><Path d="M12 3v2m0 14v2M3 12h2m14 0h2" {...common} /></>,
