@@ -9,6 +9,7 @@
 | Vakit | [Adhan JS](https://github.com/batoulapps/adhan-js), MIT, 4.4.6 | Turkey preset; kullanıcı düzeltmeleri ayrı. Resmî Diyanet tablosu değildir. |
 | Hicri ay başlangıçları | [Diyanet 2026](https://vakithesaplama.diyanet.gov.tr/icerik.php?icerik=153), [2027](https://vakithesaplama.diyanet.gov.tr/icerik.php?icerik=154) | Yalnız olgusal tarihler elle kaydedildi; sayfa/logo/metin kopyalanmadı. 2025-12-21 dahil, 2027-12-29 hariç kapsam. Resmî ortaklık iddiası yok. |
 | Kapsam dışı Hicri tarih | Cihaz Intl islamic-umalqura | Diyanet ile eşit varsayılmaz; kaynak modalında ayrı gösterilir. Destek yoksa kullanılamıyor durumu. Hermes cihaz testi açık. |
+| Kıble referans noktası | [OpenStreetMap Kâbe noktası](https://www.openstreetmap.org/?mlat=21.422487&mlon=39.826206#map=18/21.422487/39.826206), ODbL | WGS84 21.422487, 39.826206; yalnız cihazdaki büyük çember yön/mesafe hesabında sabit referans. Harita veya runtime isteği kullanılmaz. |
 | Font | [Manrope](https://github.com/sharanda/manrope), SIL OFL 1.1 | Yerel fontlar; assets/licenses/Manrope-OFL.txt. |
 | Bildirim sesi | Proje içinde 1 Ekim 2026'da matematiksel sinüs dalgalarından özgün üretildi; üçüncü taraf kayıt içermez | `assets/sounds/vakit-tone.wav`, 1,15 saniye mono PCM. Tam ezan veya müzik kaydı değildir. |
 

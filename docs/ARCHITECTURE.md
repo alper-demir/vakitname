@@ -63,6 +63,12 @@ Kullanıcı düzeltmeleri tamsayı dakika, başlangıç aralığı ±30. Düzelt
 - Manuel katalog 81 il ve ilçe merkezlerinin gerçek koordinatları/zone'larıyla paketlenecek. Kaynak sürümü, eksik kayıt denetimi ve atıf gerekli. GeoNames verisi paketlendi: 81 il, 974 ADM2 kaydı, 29 yaklaşık temsil koordinatı; resmî ilçe kapsamı henüz doğrulanmadı. Atıf ve üretim betiği DATA-SOURCES.md içinde. [GeoNames](https://www.geonames.org/export/).
 - Ay/yıl vakitleri ihtiyaçta cihazda hesaplanabilir; önceden bir yıllık vakit indirmek gerekmez. Cache anahtarı: koordinat+zone+tarih+provider/version+ayarlar. Tercihler için versioned storage; bozuk kayıt kontrollü kurtarılır.
 
+## Kıble
+
+Kıble hesabı `src/domain/qibla.ts` içindeki saf büyük çember başlangıç doğrultusu ve Haversine mesafesiyle, sabit Kâbe WGS84 noktası üzerinden yapılır. Sonuç gerçek kuzeye göre derece ve kuş uçuşu kilometredir; telefon sensörü olmasa da çalışır. Pusula katmanı `expo-location` `watchHeadingAsync` adaptörüdür; kurulu SDK 57 paketi yeni bağımlılık eklemeden gerçek-kuzey (`trueHeading`), manyetik-kuzey ve 0–3 hassasiyet bilgisini ayırır. [Expo Location heading API](https://docs.expo.dev/versions/latest/sdk/location/).
+
+Canlı hizalama yalnız `trueHeading` geldiğinde gösterilir. Konum izni yoksa kullanıcı isterse sistem iznini etkinleştirir; yalnız manyetik başlık geldiğinde manyetik sapma düzeltilmediğinden hizalama iddiası yapılmaz. Düşük hassasiyet kalibrasyon önerisi verir, hizalanmış ile aynı anda gösterilmez. Başlık aboneliği yalnız Kıble ekranı öndeyken açıktır ve ekran kapanınca temizlenir. Cihaz/sensör desteği Expo Go gerçek ortamında ayrıca doğrulanmalıdır.
+
 ## Hicri takvim ve Ramazan
 
 `CalendarProvider` prayer provider'dan bağımsızdır. Plan: lisans/yeniden kullanım koşulları doğrulanmış resmî Türkiye ay başlangıçlarını sınırlı yıl aralığı için paketlemek; aralık dışında açıkça isimlendirilmiş hesaplanan takvim fallback'i (`Intl` islamic-umalqura, Hermes desteği doğrulanarak). Kaynak ve kapsanan yıllar metadata olur. Umm al-Qura ile Diyanet eşit varsayılmaz. ±2 günlük düzeltme UI/provider üzerinde tek noktada uygulanır; UTC vakitlerini değiştirmez.

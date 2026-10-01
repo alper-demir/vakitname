@@ -62,7 +62,11 @@ Ortak düzeltmeler:
 
 ## Kalan tasarım boşlukları
 
-Home skeleton/ilk hesaplama; kayıtlı konumla yenileme hatası; sensör bulunamayan Kıble; hakkında/gizlilik/lisans sayfaları ayrı tasarlanmadı. Mevcut component diliyle yapılabilir; kullanıcıdan yeni tasarım beklenmiyor. İşletim sistemi izin pencereleri özel ekran olarak taklit edilmeyecek. Türkiye dışı GPS için Türkiye'den manuel konum seçme durumu gerekli.
+Home skeleton/ilk hesaplama; kayıtlı konumla yenileme hatası; hakkında/gizlilik/lisans sayfaları ayrı tasarlanmadı. Mevcut component diliyle yapılabilir; kullanıcıdan yeni tasarım beklenmiyor. İşletim sistemi izin pencereleri özel ekran olarak taklit edilmeyecek. Türkiye dışı GPS için Türkiye'den manuel konum seçme durumu gerekli.
+
+## Faz 5 Kıble eşlemesi
+
+`k_ble_pusulas` ekranı tek native Kıble route'una dönüştürüldü. Büyük dairesel pusula, K/D/G/B işaretleri, açı/mesafe kartı ve yardım yüzeyi Stitch hiyerarşisini referans alır. Görseldeki İstanbul 152° ve yaklaşık 2.415 km değerleri taşınmadı: seçili konumdan hesaplanır. Görselde aynı anda yer alan “hizalandı” ve “kalibrasyon gerekli” ifadeleri durum makinesine ayrıldı. Sensörsüz durumda gerçek kuzeye göre statik açı görünür; manyetik veri tek başına hizalama iddiası üretmez. Alt navigasyon, Stitch'teki Bugün/Takvim/Kıble/Ayarlar yapısına uyar; konum seçimi Home üstündeki konum alanı ve Ayarlar'da korunur.
 
 ## Asset politikası
 

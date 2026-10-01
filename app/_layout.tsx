@@ -17,6 +17,7 @@ export default function RootLayout() {
   return <AppStateProvider><NotificationProvider><ThemeProvider><Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: '#F3F9F3' } }}>
     <Stack.Screen name="index" />
     <Stack.Screen name="calendar" />
+    <Stack.Screen name="qibla" />
     <Stack.Screen name="location" options={{ presentation: 'card' }} />
     <Stack.Screen name="appearance" options={{ presentation: 'modal' }} />
     <Stack.Screen name="settings" />
