@@ -24,6 +24,14 @@ test('storage validates corrupted and future schemas without crashing', () => {
   const saved = { ...initialSavedState, location: manualLocation(provinces[0]!, undefined, 123) };
   expect(decodeSavedState(JSON.stringify(saved))).toEqual({ state: saved, recovered: false });
 });
+test('storage keeps a manually selected solar phase', () => {
+  const saved = { ...initialSavedState, preferences: { ...initialSavedState.preferences, theme: { ...initialSavedState.preferences.theme, appearance: 'sunset' as const } } };
+  expect(decodeSavedState(JSON.stringify(saved))).toEqual({ state: saved, recovered: false });
+});
+test('storage maps removed light modes to their closest supported phase', () => {
+  const saved = { ...initialSavedState, preferences: { ...initialSavedState.preferences, theme: { ...initialSavedState.preferences.theme, appearance: 'dark' as const } } };
+  expect(decodeSavedState(JSON.stringify(saved)).state.preferences.theme.appearance).toBe('night');
+});
 test('version 1 state migrates without replaying onboarding for an existing location', () => {
   const location = manualLocation(provinces[0]!, undefined, 123);
   const legacy = { version: 1, location, preferences: initialSavedState.preferences };

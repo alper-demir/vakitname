@@ -1,14 +1,15 @@
-import { defaultNotificationPreferences, defaultPreferences, NotificationSchedule, prayerIds, Preferences, VakitLocation } from './types';
+import { defaultNotificationPreferences, defaultPreferences, NotificationSchedule, prayerIds, Preferences, ThemeAppearance, themeAppearances, VakitLocation } from './types';
 
 export type SavedState = { version: 3; onboardingComplete: boolean; location: VakitLocation | null; preferences: Preferences; notificationSchedule: NotificationSchedule };
 export const initialSavedState: SavedState = { version: 3, onboardingComplete: false, location: null, preferences: defaultPreferences, notificationSchedule: { scheduledCount: 0, scheduledThrough: null } };
+const legacyAppearanceMap: Record<'system' | 'light' | 'dark', ThemeAppearance> = { system: 'solar', light: 'day', dark: 'night' };
 export function decodeSavedState(raw: string | null): { state: SavedState; recovered: boolean } {
   if (!raw) return { state: initialSavedState, recovered: false };
   try {
     const v = JSON.parse(raw);
     const p = v.preferences;
     if (![1, 2, 3].includes(v.version) || !p || !['auto', 'spring', 'summer', 'autumn', 'winter'].includes(p.theme?.season)
-      || !['solar', 'system', 'light', 'dark'].includes(p.theme?.appearance) || !['auto', 'on', 'off'].includes(p.theme?.ramadan)
+      || !themeAppearances.includes(p.theme?.appearance) || !['auto', 'on', 'off'].includes(p.theme?.ramadan)
       || !Number.isInteger(p.hijriOffset) || Math.abs(p.hijriOffset) > 2
       || prayerIds.some((id) => !Number.isInteger(p.adjustments?.[id]) || Math.abs(p.adjustments[id]) > 30)) throw new Error('Invalid preferences');
     const notifications = v.version < 3 ? defaultNotificationPreferences : p.notifications;
@@ -25,6 +26,7 @@ export function decodeSavedState(raw: string | null): { state: SavedState; recov
     const schedule = v.version < 3 ? initialSavedState.notificationSchedule : v.notificationSchedule;
     if (!schedule || !Number.isInteger(schedule.scheduledCount) || schedule.scheduledCount < 0
       || (schedule.scheduledThrough !== null && !Number.isFinite(schedule.scheduledThrough))) throw new Error('Invalid notification schedule');
-    return { state: { version: 3, onboardingComplete, location: l, preferences: { ...p, notifications }, notificationSchedule: schedule }, recovered: false };
+    const appearance = legacyAppearanceMap[p.theme.appearance as keyof typeof legacyAppearanceMap] ?? p.theme.appearance;
+    return { state: { version: 3, onboardingComplete, location: l, preferences: { ...p, theme: { ...p.theme, appearance }, notifications }, notificationSchedule: schedule }, recovered: false };
   } catch { return { state: initialSavedState, recovered: true }; }
 }

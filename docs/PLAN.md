@@ -4,7 +4,7 @@ Kullanıcı geliştirmeyi onayladı. Repository kökünde Faz 1 ve Faz 2 çalı�
 
 ## Faz 1–2 durumu
 
-İlk dikey dilim ile Faz 2 onboarding/ayarlar ve Faz 3 bildirim kod dilimi tamamlandı. GPS yenileme, Android Expo Go izin/fallback akışı, küçük ekran ve büyük yazı kontrolleri de tamamlandı. Sıradaki ürün fazı aylık takvim ve Ramazan imsakiyesidir. iOS development build, gerçek TalkBack/VoiceOver ve çoklu Diyanet karşılaştırması release doğrulama kapıları olarak ayrıca yürütülecektir.
+İlk dikey dilim ile Faz 2 onboarding/ayarlar, Faz 3 bildirim kodu, Faz 4 takvim, Faz 5 Kıble ve Faz 6 yayın yüzeyi tamamlandı. GPS yenileme, Android Expo Go izin/fallback akışı, küçük ekran ve büyük yazı kontrolleri de tamamlandı. Sıradaki somut doğrulama fiziksel cihazda Kıble sensörü/izin/kalibrasyon akışıdır; ardından açık yetki verilirse production bildirim ve release build kapıları gelir. iOS development build, gerçek TalkBack/VoiceOver ve çoklu Diyanet karşılaştırması release doğrulama kapıları olarak ayrıca yürütülecektir.
 
 ## Faz 3 durumu
 
@@ -32,7 +32,7 @@ Kıble ekranı eklendi. Seçili konumdan Kâbe'ye büyük çember başlangıç d
 - Faz 4 aylık takvim ve Ramazan imsakiyesi: tek ekran, iki görünüm ve provider enjeksiyonu.
 - Faz 5 Kıble: saf yön/mesafe domain'i, gerçek-kuzey/manyetik-kuzey ayrımlı başlık adaptörü, sensörsüz durum, native pusula ekranı ve navigasyon erişimi.
 - Faz 6 yayın yüzeyi: native splash arka planı ve font yükleme marka yüzeyi, Hakkında/Gizlilik/Kaynak/Lisans ekranı, Ayarlar erişimi ve Android Play Store ikonları. Kullanıcının sağladığı hilal-pusula ikonu beyaz köşeleri temizlenerek standart ve adaptive PNG'lere dönüştürüldü; iOS kapsam dışı.
-- 48 test, üç host saat diliminde 22 ek test, lint/typecheck ve Expo Doctor 21/21. Ayrıntılar VALIDATION.md.
+- 55 test, üç host saat diliminde 26 ek test, lint/typecheck ve Expo Doctor 21/21. Ayrıntılar VALIDATION.md.
 
 ## İlk dilimde açık kalan doğrulamalar
 
@@ -40,7 +40,7 @@ Kıble ekranı eklendi. Seçili konumdan Kâbe'ye büyük çember başlangıç d
 - Diyanet yalnız İstanbul tek gün karşılaştırıldı (0–2 dk fark); yedi şehir/mevsimler/Ramazan matrisi tamamlanmadan üretim uyumu iddia edilmez.
 - GeoNames resmî ilçe kapsamı, 29 yaklaşık temsil koordinatı. 974 kayıt sayısı resmî güncel ilçe sayısı iddiası değildir.
 - npm audit iki transitif advisory nedeniyle 14 moderate: uyumlu çözüm release öncesi; uyumsuz downgrade/force uygulanmadı.
-- Tema renkleri merkezidir; halka/ilk görünüm animasyonu var. Tüm paletler arasında renk interpolasyonu henüz yok. Türkçe çekirdek sözlük var; bazı ekran metinlerinin tam i18n ayrımı İngilizce aşamasında.
+- Tema renkleri merkezidir; halka/ilk görünüm animasyonu ve manuel/otomatik palet değişiminde 480 ms global çapraz geçiş var. Fiziksel cihazda geçiş akıcılığı release öncesi kontrol edilecek. Türkçe çekirdek sözlük var; bazı ekran metinlerinin tam i18n ayrımı İngilizce aşamasında.
 
 ## Home sonrasında
 
@@ -57,6 +57,14 @@ Node 24 ile `npm run check`, `npm run test:timezones`, `npx expo-doctor`. Çalı
 
 ## Oturum devri
 
+- 1 Ekim 2026 tema geçişi ve metin düzeltmesi: Manuel görünüm seçimi ile 15 saniyelik otomatik güneş fazı güncellemesi aynı 480 ms Backdrop çapraz geçişini kullanıyor; açık ekran yeniden kurulmadan korunuyor ve hareketi azalt tercihine uyuluyor. Görünüm ekranında doğuş/batış eşikleri açıklandı. Konum kök listesi “81 il”, alt liste “ilçe”, arama “sonuç” gösteriyor. Android Expo Go'da Gece → Şafak → otomatik seçimleri ve nihai paletler kontrol edildi; `npm run check` (55 Jest) ve üç hostta 26 saat dilimi testi geçti. Native build üretilmedi. Sıradaki somut iş fiziksel Android cihazda Kıble yön sensörü, izin ve kalibrasyon doğrulamasıdır.
+- 1 Ekim 2026 görünüm tercihi: Işık bölümüne manuel Şafak, Gündüz, Gün batımı ve Gece seçenekleri eklendi. Seçim mevcut v3 `appearance` alanında saklanır; resolver seçilen fazı ve Home etiketini saatten bağımsız sabitler. `npm run check` ve üç host saat dilimi testi geçti (54 Jest, host başına 26 ilgili test); native build üretilmedi.
+- Işık seçenekleri sadeleştirildi: Cihaz teması, Her zaman aydınlık ve Her zaman karanlık UI'dan kaldırıldı. Eski kayıtlar solar/day/night eşlemesiyle korunuyor; kullanıcıya yalnız otomatik veya dört manuel güneş fazı sunuluyor.
+- 1 Ekim 2026 Işık sadeleştirme doğrulaması: Android Expo Go güncel bundle'ında dört manuel faz ve otomatik seçenek cihaz ekranında göründü; üç tekrarlı ışık seçeneği görünmüyor. `npm run check` ve saat dilimi testleri geçti (55 Jest, host başına 26 ilgili test).
+- Expo Go görünüm kontrolü: 8081 Metro yeniden başlatılıp güncel bundle açıldı; Ayarlar → Görünüm → Işık ekranında dört manuel faz seçeneği cihazda göründü. Önceki görünmeme durumu eski/cache bundle kaynaklıydı.
+- 1 Ekim 2026 Takvim UI düzeltmesi: seçili ilk gün satırı ile `TARİH/İMSAK/...` başlığının aynı highlight zemini kullanması nedeniyle oluşan çizgi belirsizliği giderildi. Başlık nötr yüzeye ve ince alt çizgiye alındı. `npm run check` geçti (48 test, typecheck, lint); native build üretilmedi.
+- 1 Ekim 2026 Faz 4 kontrol oturumu: `npm run check` ve `npm run test:timezones` tekrar çalıştırıldı; 48 Jest testi, 22 saat dilimi testi, strict typecheck ve ESLint geçti. CUA emülatör penceresini hedefleyemediği için cihaz kontrolü ADB/uiautomator ve emülatör ekranı üzerinden sürdürüldü; native build üretilmedi.
+- Aynı oturumda ADB/uiautomator ve emülatör ekranı üzerinden Faz 4'ün Ekim→Kasım geçişi, Ramazan görünümü, Hicri +1→0 düzeltmesi ve 720×1280 yatay tablo kontrolü tamamlandı. 2030 fallback'i UI'da yıl seçicisi olmadığı için yalnız domain testiyle kanıtlı; gerçek cihaz ve UI fallback kontrolü açık.
 - Git düzeni `docs/VERSIONING.md` içindedir: `main` doğrulanmış/tag'li kilometre taşları, `develop` aktif entegrasyon, gerektiğinde `feature/*` ve `fix/*`. İlk geri dönüş noktası `v0.1.0`; sonraki çalışma `develop` üzerinde sürer. Remote henüz yapılandırılmadı.
 - İlk okunacak dosyalar: `AGENTS.md`, ardından bu dosya. Tasarım ayrıntısı gerekirse `docs/DESIGN.md`; teknik karar gerekirse `docs/ARCHITECTURE.md`; kanıt ve açık kontroller için `docs/VALIDATION.md`.
 - Son doğrulanan çalışma biçimi: Android 16 Pixel 7 emülatörü, Expo Go 57.0.9, LAN Metro `8081`; Home ve offline konum listesi açıldı. Metro süreçleri oturumlar arasında kalıcı kabul edilmez.

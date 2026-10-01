@@ -23,7 +23,7 @@ Manrope; adaçayı/krem gündüz, lacivert/altın gece; 20–24 px yatay boşluk
 | `bug_n_k_g_nd_z`, `bug_n_k_gece_1/2/3` | 4 | Gündüz + gece `_3`; gece `_1` kontrast hatalı, `_2` ara revizyon |
 | `ramazan_özel_ana_ekran`, `ramazan_özel_gece_sade` | 2 | Sade varyasyonun iftar/sahur kartları; ayrı Home route değil |
 
-Her mevsimin dört fazı için ayrı tasarım mevcut değil. Eksik kombinasyonlar ortak tokenlardan türetilecek; yeni Stitch export'u geliştirme önkoşulu değil. Başlık/alt menü de tema ile birlikte değişecek; açık başlık + koyu içerik hatası taşınmayacak.
+Her mevsimin dört fazı için ayrı tasarım mevcut değil. Eksik kombinasyonlar ortak tokenlardan türetilecek; yeni Stitch export'u geliştirme önkoşulu değil. Başlık/alt menü de tema ile birlikte değişecek; açık başlık + koyu içerik hatası taşınmayacak. Görünüm ekranındaki “Gün ışığına göre” seçimi dört fazı otomatik izler; Şafak, Gündüz, Gün batımı ve Gece aynı bölümde manuel olarak da sabitlenebilir. Manuel veya otomatik tema değişiminde önceki gökyüzü 480 ms içinde yeni palete çapraz çözünür, içerik hafifçe netleşir; hareketi azalt tercihi bu geçişi kaldırır.
 
 ## Gerçek ekranlar
 
@@ -33,7 +33,7 @@ Faz 2'de onboarding üç adım olarak tek component içinde, ayarlar ise genel m
 
 Faz 3'te `bildirim_ayarlar` ana görsel referans alındı; tek açılır kart yerine daha sakin global tercihler + altı vakit anahtarı kullanıldı. `ses_seçimi` içindeki kaynağı olmayan ezan/melodi adları taşınmadı; özgün kısa Vakit tonu, sistem sesi ve sessiz seçenekleri sunuldu. `bildirim_durumu_ve_yard_m` düzeni kullanıldı; yanlış “Şehir Seçimi”, uydurma güvenilirlik skoru ve cihazda ölçülmeyen kesin alarm/pil muafiyeti durumları kaldırıldı.
 
-Faz 4'te `ayl_k_takvim_ve_i_msakiye` ve `ramazan_i_msakiyesi` ana referans alındı. Ortak native Takvim ekranında Aylık görünüm ve Ramazan görünümü segmented seçimle ayrılır; seçili gün üst kartta, tüm saatler yatay kaydırılabilir tabloda gösterilir. Stitch’teki PDF/paylaşım, “tam Diyanet uyumu” ve örnek saatler kullanılmadı; yerel hesaplama ve kaynak açıklaması korundu.
+Faz 4'te `ayl_k_takvim_ve_i_msakiye` ve `ramazan_i_msakiyesi` ana referans alındı. Ortak native Takvim ekranında Aylık görünüm ve Ramazan görünümü segmented seçimle ayrılır; seçili gün üst kartta, tüm saatler yatay kaydırılabilir tabloda gösterilir. Tablo başlığı, seçili gün highlight'ından ayrı nötr yüzey ve ince alt çizgiyle gösterilir; böylece ilk seçili satırla başlık arasında net sınır korunur. Stitch’teki PDF/paylaşım, “tam Diyanet uyumu” ve örnek saatler kullanılmadı; yerel hesaplama ve kaynak açıklaması korundu.
 
 ## Ek ekranlar ve uygulamaya alınacak düzeltmeler
 

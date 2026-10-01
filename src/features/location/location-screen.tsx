@@ -30,6 +30,7 @@ export default function LocationScreen() {
     }
     return result;
   }, [province, query]);
+  const countLabel = province ? `${rows.length} ilçe` : query.trim() ? `${rows.length} sonuç` : `${rows.length} il`;
   const commit = () => {
     if (!selected) return;
     app.selectLocation(manualLocation(selected.province, selected.district));
@@ -44,7 +45,7 @@ export default function LocationScreen() {
     </View>
     <View style={{ marginBottom: 16 }}><Button secondary icon="gps" label={app.locating ? 'Konum aranıyor…' : 'Konumumu kullan'} loading={app.locating} onPress={() => { void app.requestLocation().then((success) => { if (success) close(); }); }} /></View>
     {app.locationError && <Surface style={{ padding: 14, marginBottom: 16 }}><T style={{ fontSize: 13, lineHeight: 21 }}>{tr.locationErrors[app.locationError] ?? tr.locationErrors.unavailable}</T>{(app.locationError === 'blocked' || app.locationError === 'disabled') && Platform.OS !== 'web' && <Pressable accessibilityRole="button" onPress={() => { void Linking.openSettings(); }} style={{ paddingVertical: 12 }}><T weight="semibold" style={{ color: theme.accent }}>Cihaz ayarlarını aç</T></Pressable>}</Surface>}
-    <View style={s.section}><T weight="semibold" style={{ fontSize: 10, letterSpacing: 1.5, color: theme.muted }}>{province ? 'İLÇELER' : query ? 'ARAMA SONUÇLARI' : 'TÜRKİYE'}</T><T style={{ color: theme.muted, fontSize: 11 }}>{rows.length} kayıt</T></View>
+    <View style={s.section}><T weight="semibold" style={{ fontSize: 10, letterSpacing: 1.5, color: theme.muted }}>{province ? 'İLÇELER' : query ? 'ARAMA SONUÇLARI' : 'TÜRKİYE'}</T><T style={{ color: theme.muted, fontSize: 11 }}>{countLabel}</T></View>
     <FlatList data={rows} keyExtractor={(r) => r.key} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false} initialNumToRender={15}
       contentContainerStyle={{ paddingBottom: 20 }}
       ListEmptyComponent={<View style={{ paddingVertical: 40, alignItems: 'center', gap: 12 }}><Icon name="pin" color={theme.muted} size={34} /><T weight="medium">Sonuç bulunamadı</T><T style={{ color: theme.muted, textAlign: 'center', lineHeight: 22 }}>Yazımı kontrol et veya il merkezini seç.</T>{province && <Button secondary label={`${province.name} il merkezini seç`} onPress={() => { setQuery(''); setSelected({ key: province.id, province, title: `${province.name} il merkezi`, subtitle: 'Merkez koordinatları' }); }} />}</View>}

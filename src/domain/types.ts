@@ -27,10 +27,13 @@ export interface PrayerTimesProvider {
   getDay(localDate: string, location: VakitLocation, adjustments: Adjustments): PrayerDay;
 }
 export type Season = 'spring' | 'summer' | 'autumn' | 'winter';
-export type SolarPhase = 'dawn' | 'day' | 'sunset' | 'night';
+export const solarPhases = ['dawn', 'day', 'sunset', 'night'] as const;
+export type SolarPhase = (typeof solarPhases)[number];
+export const themeAppearances = ['solar', 'system', 'light', 'dark', ...solarPhases] as const;
+export type ThemeAppearance = (typeof themeAppearances)[number];
 export type ThemePreferences = {
   season: Season | 'auto';
-  appearance: 'solar' | 'system' | 'light' | 'dark';
+  appearance: ThemeAppearance;
   ramadan: 'auto' | 'on' | 'off';
 };
 export type NotificationSound = 'vakit' | 'default' | 'silent';

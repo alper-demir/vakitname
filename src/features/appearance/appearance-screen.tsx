@@ -32,8 +32,11 @@ export default function AppearanceScreen() {
       { value: 'autumn', label: 'Sonbahar', color: '#C49D78' }, { value: 'winter', label: 'Kış', color: '#A5C5D7' },
     ])}
     {group('IŞIK', 'appearance', [
-      { value: 'solar', label: 'Gün ışığına göre', detail: 'Şafak, gündüz, gün batımı ve gece' },
-      { value: 'system', label: 'Cihaz teması' }, { value: 'light', label: 'Her zaman aydınlık' }, { value: 'dark', label: 'Her zaman karanlık' },
+      { value: 'solar', label: 'Gün ışığına göre', detail: 'Güneş doğmadan 45 dk önce şafak; doğduktan 15 dk sonra gündüz. Batmadan 45 dk önce gün batımı; battıktan 30 dk sonra gece.' },
+      { value: 'dawn', label: 'Şafak', detail: 'Yumuşak sabah tonlarında kal' },
+      { value: 'day', label: 'Gündüz', detail: 'Aydınlık mevsim renklerinde kal' },
+      { value: 'sunset', label: 'Gün batımı', detail: 'Mor ve sıcak akşam tonlarında kal' },
+      { value: 'night', label: 'Gece', detail: 'Koyu mavi gece görünümünde kal' },
     ])}
     {group('RAMAZAN ATMOSFERİ', 'ramadan', [
       { value: 'auto', label: 'Ramazan’da otomatik' }, { value: 'on', label: 'Her zaman açık', detail: 'Yalnızca görünümü değiştirir; takvim aynı kalır.' }, { value: 'off', label: 'Kapalı' },

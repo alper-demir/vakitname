@@ -8,6 +8,7 @@ import LocationScreen from '@/features/location/location-screen';
 import CalculationScreen from '@/features/settings/calculation-screen';
 import HijriScreen from '@/features/settings/hijri-screen';
 import OnboardingScreen from '@/features/onboarding/onboarding-screen';
+import AppearanceScreen from '@/features/appearance/appearance-screen';
 import { persistence } from '@/services/storage';
 import { locateDevice } from '@/services/location';
 import { initialSavedState } from '@/domain/state';
@@ -42,6 +43,7 @@ test('denied GPS → offline manual city → real Home → persisted relaunch', 
   await fireEvent.press(screen.getByRole('button', { name: 'Konumumu kullan' }));
   expect(screen.getByText(/Konum izni/)).toBeTruthy();
   await fireEvent.press(screen.getByRole('button', { name: 'Şehir veya ilçe seç' }));
+  expect(screen.getByText('81 il')).toBeTruthy();
   await fireEvent.changeText(screen.getByLabelText('İl veya ilçe ara'), 'istanbul');
   await fireEvent.press(screen.getByRole('button', { name: 'İstanbul, İl ve ilçeleri' }));
   await fireEvent.press(screen.getByRole('button', { name: 'İstanbul il merkezi, Merkez koordinatları' }));
@@ -112,6 +114,21 @@ test('prayer and Hijri corrections update persisted preferences', async () => {
   expect(screen.getByText('+1 gün')).toBeTruthy();
   expect(JSON.parse(jest.mocked(persistence.write).mock.calls.at(-1)![0]).preferences.hijriOffset).toBe(1);
   await hijri.unmount();
+});
+test('manual sunset appearance persists and overrides the current daylight phase', async () => {
+  jest.mocked(persistence.read).mockResolvedValue(JSON.stringify({ ...initialSavedState, location: istanbul }));
+  const appearance = await render(<AppStateProvider><ThemeProvider><AppearanceScreen /></ThemeProvider></AppStateProvider>);
+  expect(screen.queryByRole('radio', { name: 'Cihaz teması' })).toBeNull();
+  expect(screen.queryByRole('radio', { name: 'Her zaman aydınlık' })).toBeNull();
+  expect(screen.queryByRole('radio', { name: 'Her zaman karanlık' })).toBeNull();
+  await fireEvent.press(screen.getByRole('radio', { name: 'Gün batımı' }));
+  const saved = jest.mocked(persistence.write).mock.calls.at(-1)![0];
+  expect(JSON.parse(saved).preferences.theme.appearance).toBe('sunset');
+  await appearance.unmount();
+
+  jest.mocked(persistence.read).mockResolvedValue(saved);
+  await render(<AppStateProvider><ThemeProvider><HomeScreen /></ThemeProvider></AppStateProvider>);
+  expect(screen.getByText('Sonbahar · Gün batımı')).toBeTruthy();
 });
 test('onboarding can finish without location and persists completion', async () => {
   function OnboardingApp() {

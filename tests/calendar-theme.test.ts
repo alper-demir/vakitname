@@ -46,10 +46,21 @@ test('explicit light/season choices win and forced Ramadan does not change calen
   expect(result).toMatchObject({ dark: false, season: 'summer', ramadan: true });
   expect(calendarProvider.getDate('2026-09-30', 0).month).toBe(4);
 });
+test.each([
+  ['dawn', false], ['day', false], ['sunset', true], ['night', true],
+] as [SolarPhase, boolean][])('manual %s appearance locks the displayed solar phase', (appearance, dark) => {
+  const result = resolveTheme({
+    season: 'autumn', phase: appearance === 'night' ? 'day' : 'night', ramadan: false, systemDark: false,
+    preferences: { ...defaultPreferences.theme, appearance },
+  });
+  expect(result).toMatchObject({ phase: appearance, dark });
+});
 test('season and phase boundaries are derived from local dates and sun', () => {
   expect(seasonAt(Date.parse('2026-02-28T22:00:00Z'), 'Europe/Istanbul')).toBe('spring');
   const [today] = days('2026-09-30');
-  expect(solarPhaseAt(today!.sunrise - 1, today!)).toBe('dawn');
-  expect(solarPhaseAt(today!.sunset, today!)).toBe('sunset');
-  expect(solarPhaseAt(today!.sunset + 3600000, today!)).toBe('night');
+  expect(solarPhaseAt(today!.sunrise - 45 * 60000 - 1, today!)).toBe('night');
+  expect(solarPhaseAt(today!.sunrise - 45 * 60000, today!)).toBe('dawn');
+  expect(solarPhaseAt(today!.sunrise + 15 * 60000, today!)).toBe('day');
+  expect(solarPhaseAt(today!.sunset - 45 * 60000, today!)).toBe('sunset');
+  expect(solarPhaseAt(today!.sunset + 30 * 60000, today!)).toBe('night');
 });

@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon';
-import { PrayerDay, Season, SolarPhase, ThemePreferences } from './types';
+import { PrayerDay, Season, solarPhases, SolarPhase, ThemePreferences } from './types';
 
 export type Theme = {
   season: Season; phase: SolarPhase; dark: boolean; ramadan: boolean;
@@ -29,15 +29,18 @@ export function resolveTheme({ season, phase, ramadan, preferences, systemDark }
   season: Season; phase: SolarPhase; ramadan: boolean; preferences: ThemePreferences; systemDark: boolean;
 }): Theme {
   const chosen = preferences.season === 'auto' ? season : preferences.season;
+  const manualPhase = solarPhases.includes(preferences.appearance as SolarPhase) ? preferences.appearance as SolarPhase : null;
+  const effectivePhase = manualPhase ?? phase;
+  const phasePalette = preferences.appearance === 'solar' || manualPhase !== null;
   const festive = preferences.ramadan === 'on' || (preferences.ramadan === 'auto' && ramadan);
   const dark = preferences.appearance === 'dark' || (preferences.appearance === 'system' && systemDark)
-    || (preferences.appearance === 'solar' && (phase === 'night' || phase === 'sunset'));
+    || (phasePalette && (effectivePhase === 'night' || effectivePhase === 'sunset'));
   const palette = colors[chosen];
   const background: Theme['background'] = dark
-    ? phase === 'sunset' && preferences.appearance === 'solar' ? ['#352C43', '#61423F', '#2D3038'] : ['#101C2B', '#17283B', '#203449']
-    : phase === 'dawn' && preferences.appearance === 'solar' ? ['#F7EEF0', '#F2F5ED', palette.day[2]] : palette.day;
+    ? effectivePhase === 'sunset' && phasePalette ? ['#352C43', '#61423F', '#2D3038'] : ['#101C2B', '#17283B', '#203449']
+    : effectivePhase === 'dawn' && phasePalette ? ['#F7EEF0', '#F2F5ED', palette.day[2]] : palette.day;
   return {
-    season: chosen, phase, dark, ramadan: festive, background,
+    season: chosen, phase: effectivePhase, dark, ramadan: festive, background,
     surface: dark ? '#FFFFFF09' : '#FFFFFFA6', surfaceStrong: dark ? '#223346' : '#FFFFFF',
     text: dark ? '#F1F2EA' : '#263C32', muted: dark ? '#B9C7CF' : '#627568', subtle: dark ? '#95A5B4' : '#6D7F73',
     accent: festive ? (dark ? '#E4CA86' : '#84651F') : dark ? palette.darkAccent : palette.accent,
