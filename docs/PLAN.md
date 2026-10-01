@@ -4,7 +4,7 @@ Kullanıcı geliştirmeyi onayladı. Repository kökünde Faz 1 ve Faz 2 çalı�
 
 ## Faz 1–2 durumu
 
-İlk dikey dilim ile Faz 2 onboarding/ayarlar, Faz 3 bildirim kodu, Faz 4 takvim, Faz 5 Kıble ve Faz 6 yayın yüzeyi tamamlandı. GPS yenileme, Android Expo Go izin/fallback akışı, küçük ekran ve büyük yazı kontrolleri de tamamlandı. Ürün yalnız Android/Play Store hedeflidir; iOS ve App Store kapsam dışıdır. Sıradaki somut doğrulama fiziksel Android cihazda Kıble sensörü/izin/kalibrasyon akışıdır; ardından açık yetki verilirse Android production bildirim ve release build kapıları gelir. Gerçek TalkBack ve çoklu Diyanet karşılaştırması ayrıca yürütülecektir.
+İlk dikey dilim ile Faz 2 onboarding/ayarlar, Faz 3 bildirim kodu, Faz 4 takvim, Faz 5 Kıble ve Faz 6 yayın yüzeyi tamamlandı. GPS yenileme, Android Expo Go izin/fallback akışı, küçük ekran ve büyük yazı kontrolleri de tamamlandı. Ürün yalnız Android/Play Store hedeflidir; iOS ve App Store kapsam dışıdır. Fiziksel cihazdan önce kalan tek netlik düzeltmesi Bildirim durumu ekranındaki `Son plan` etiketidir; ardından sıradaki somut doğrulama fiziksel Android cihazda Kıble sensörü/izin/kalibrasyon akışıdır. Açık yetki verilirse Android production bildirim ve release build kapıları gelir. Gerçek TalkBack ve çoklu Diyanet karşılaştırması ayrıca yürütülecektir.
 
 ## Faz 3 durumu
 
@@ -57,6 +57,7 @@ Node 24 ile `npm run check`, `npm run test:timezones`, `npx expo-doctor`. Çalı
 
 ## Oturum devri
 
+- 2 Ekim 2026 fiziksel cihaz öncesi emülatör kabul kontrolü: Android 16 Pixel 7 / Expo Go 57.0.9 soğuk başlatmada Home, konum, takvim/Ramazan, Kıble fallback'i, görünüm/Ramazan teması, vakit ve Hicri düzeltmeleri, bildirimler/durum ve Hakkında akışları tekrarlandı. Bildirim kuyruğu kapat/aç ile 60→0→60 oldu; Expo Go force-stop sonrası konum/tercihler ve 60 olay geri geldi, fatal/RN hata logu yoktu. Tema geçiş karelerinde beyaz flaş görülmedi. Emülatör GPS'i sentetik fix'e rağmen timeout oldu; fallback doğru. Tek UX bulgusu, kuyruğun son olay tarihini gösteren `Son plan` metninin belirsiz olmasıdır. `npm run check` 60/60, üç host saat dilimi 27/27 ve Expo Doctor 21/21 geçti; native build üretilmedi.
 - 2 Ekim 2026 bildirim yenileme sağlamlaştırması: Açılış, foreground veya tercih/konum değişikliklerinin üst üste gelmesi artık paralel native uzlaştırma başlatmıyor. Tek çalışan işlem korunuyor; bekleyen ara durumlar atlanıp en güncel anlık görüntü bir sonraki turda uygulanıyor. Kuyruk hata sonrası yeni işi kabul ediyor. `npm run check` geçti (60 Jest, strict typecheck, ESLint); üç host saat diliminde 27/27 test geçti. Native build üretilmedi.
 - 1 Ekim 2026 platform kapsamı: Kullanıcı ürünün yalnız Android/Play Store hedefleyeceğini, iOS ve App Store sürümü olmayacağını netleştirdi. iOS release/doğrulama kapıları plandan çıkarıldı; `npm run export` Android bundle ile sınırlandı, iOS script/config kaldırıldı. Expo ortak platform dalları çalışma riski yaratmamak için kaynakta kalabilir, ancak ürün hedefi sayılmaz.
 - 1 Ekim 2026 Ayarlar ikon düzeltmesi: Alt navigasyondaki güneş gibi görünen eski Ayarlar çizimi merkez delikli dişli SVG ile değiştirildi; Home, Takvim ve Kıble alt barlarında aynı `settings` ikonu kullanılıyor. Android Expo Go güncel bundle'ında görsel kontrol yapıldı; `npm run check` ve saat dilimi kontrolleri geçti, native build üretilmedi.

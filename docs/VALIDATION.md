@@ -27,6 +27,9 @@
 - Android 16 Pixel 7 / Expo Go 57.0.9'da Home alt menüsünden Kıble ekranı açıldı. Mesudiye için hesaplanan 174° Güney ve yaklaşık 2.125 km, gerçek-kuzey açıklaması ve sensörsüz “Cihaz pusulası kullanılamıyor” durumu görünür. Emülatörde fiziksel yön sensörü olmadığı için gerçek-kuzey/manyetik başlık, izin sonrası canlı hizalama ve kalibrasyon davranışı kanıtlanmadı.
 - Android 16 Pixel 7 / Expo Go 57.0.9'da Bildirimler ve Bildirim durumu ekranları açıldı. İlk public `expo-notifications` importu kaldırılan push modülü nedeniyle, kanal oluşturma da Expo Go'daki eksik native provider nedeniyle hata verdi. Expo Go'ya özel yerel alt modül + varsayılan kanal adaptörüyle temiz izin durumunda Android izin diyaloğu açıldı ve izin verildikten sonra ana anahtar etkinleşti.
 - Aynı emülatörde 60 gelecek Vakit olayı gerçek pending/alarm kuyruğunda görüldü; yardım ekranı 60 olay ve son plan tarihini gösterdi. Üç saniyelik test uygulama arka plandayken “Vakit bildirimi hazır” başlığı ve beklenen gövdeyle sistem bildirimine teslim edildi. Expo Go alarmları kesin alarm yetkisi olmadan geniş teslim pencereleriyle kaydetti; bu sonuç tam dakika garantisi değildir. Özgün `vakit-tone.wav`, sessiz kanal ve versioned production kanalları Expo Go'da doğrulanmadı.
+- 2 Ekim 2026 uçtan uca Expo Go kontrolünde Home ve alt navigasyon, 81 il/arama sonucu konum akışı, ilk gün seçimi ve başlık ayrımı, Ekim→Kasım geçişi, 1448 Ramazan imsakiyesi, Kıble sensörsüz fallback'i, Görünüm seçenekleri, Ramazan önizlemesi, vakit/Hicri düzeltmeleri, Bildirimler, Bildirim durumu ve Hakkında ekranı tekrar açıldı. Deneme tercihleri sonunda Kâğıthane, sıfır vakit/Hicri düzeltmesi, gün ışığına göre görünüm, Ramazan kapalı ve bildirimler açık durumuna döndürüldü.
+- Aynı kontrolde bildirim ana anahtarı 60→0→60 pending olayı doğru yansıttı. Expo Go zorla durdurulup yeniden açıldığında SQLite konum/tercihleri korundu ve 60 olaylık plan yeniden görüldü. Yeniden açılıştan sonraki Android logunda fatal exception veya React Native hata/uyarı kaydı bulunmadı.
+- Manuel Gündüz ve Gün batımı geçişlerinden 80/300/700 ms çevresinde alınan karelerde beyaz ara flaş görülmedi. Emülatör Quick Boot durumu ilk açılışta ADB/QEMU'yu kilitledi; veri silmeden `-no-snapshot-load` soğuk başlatma sonrasında uygulama kararlı çalıştı. Bu uygulama çökmesi olarak sınıflandırılmadı.
 
 ## İlk Diyanet karşılaştırması
 
@@ -49,7 +52,7 @@ npm audit: 0 critical/high, 14 moderate rapor; çoğu aynı iki advisory'nin üs
 
 ## Açık cihaz/release kontrolleri
 
-- iOS ve App Store kapsam dışıdır. Android Expo Go yeniden açılışında SQLite verisi doğrulandı; emülatör GPS sağlayıcısı sabit fix vermediği için Android başarı yolu gerçek koordinat yerine timeout ile sınırlı kaldı.
+- iOS ve App Store kapsam dışıdır. Android Expo Go yeniden açılışında SQLite verisi doğrulandı. `adb emu geo fix` ile İstanbul koordinatı verilmesine rağmen Expo Location dengeli doğruluk isteği 2 Ekim kontrolünde yine timeout oldu; hata mesajı ve manuel seçim fallback'i doğru gösterildi, fakat Android GPS başarı yolu emülatörde kanıtlanamadı.
 - Foreground saat sıçraması/gece yarısı; Hermes Intl takvim fallback'i.
 - VoiceOver/TalkBack gerçek cihaz testi; azaltılmış hareket ve kontrast.
 - GeoNames resmî ilçe listesi kapsamı ve 29 yaklaşık koordinatın iyileştirilmesi; sınır noktaları.
@@ -59,6 +62,7 @@ npm audit: 0 critical/high, 14 moderate rapor; çoğu aynı iki advisory'nin üs
 - Faz 6 için native release build, launcher maskesi, Play Console önizlemesi ve bildirim/ikon kaynaklarının gerçek Android cihazda doğrulanması gerekir. Hakkında/Gizlilik/Kaynak/Lisans ekranı, splash config çıktısı, erişilebilir başlık/etiketler ve Android ikon asset entegrasyonu Expo config ile doğrulandı; kullanıcı ikonu `assets/icon/` altında işlendi. Expo Go, native launcher ikonunu güncellemez.
 - Android 16 Pixel 7 / Expo Go 57.0.9'da güncel Metro bundle yeniden açıldı; Settings akışı ve yeni raster asset importu hata vermeden çalıştı. Bu, adaptive launcher maskesinin veya native splash görselinin kanıtı değildir.
 - Android 16 Pixel 7 / Expo Go 57.0.9'da Ayarlar → Hakkında ve gizlilik ekranı açıldı; marka başlığı, veri saklama özeti, kaynak kartı ve lisans içeriği küçük ekran kaydırma düzeninde okunabilir göründü. Native OS splash görüntüsü Expo Go'da ayrı doğrulanmadı; Expo config yalnız arka plan renkleriyle doğrulandı.
+- Bildirim durumu ekranındaki `Son plan` etiketi gerçekte planlama işleminin yapıldığı zamanı değil, kuyruğun kapsadığı son bildirimin tarihini gösteriyor. Veri doğru olsa da ifade kullanıcı için belirsiz; fiziksel cihaz aşamasından önce `Şu tarihe kadar planlandı` benzeri açık bir metinle düzeltilmeli.
 - Uygulama kimliği, mağaza metinleri, imzalama ve Android native release build henüz yok. Android ikon ve splash config'i repository'de mevcut; native launcher/Play Store önizlemesi ayrıca doğrulanacak.
 
 Tasarım koruması: 76 referans dosyasının sıralı yol+SHA256 birleşik hash'i başlangıçla aynı: 72526F33396A5AD829A975E55BE0573E60892FF7B38657842F83D9BA970ECB79. Kaynak/konfigürasyon dosyalarında anahtar kalıbı taraması temiz. 390×844 web görünümünde sayaç/konum/ertesi gün kartı ve kaydırılabilir vakitler kontrol edildi; screenshot artifacts/home-mobile.png (Git dışında).
