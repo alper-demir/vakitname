@@ -1,9 +1,11 @@
-import React, { createContext, useCallback, useContext, useEffect, useState } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { AppState } from 'react-native';
 import { addDays, localDateAt } from '@/domain/time';
 import { buildNotificationPlan } from '@/domain/notifications';
+import { Adjustments, NotificationPreferences, VakitLocation } from '@/domain/types';
 import { prayerProvider } from '@/services/prayer/adhan-provider';
 import { useAppState } from '@/services/app-state';
+import { createLatestTaskRunner } from './latest-task-runner';
 import { notificationScheduler, NotificationPermission } from './scheduler';
 
 type NotificationContextValue = {
@@ -18,6 +20,7 @@ type NotificationContextValue = {
 
 const Context = createContext<NotificationContextValue | null>(null);
 const allowed = (permission: NotificationPermission) => permission === 'granted' || permission === 'provisional';
+type RefreshSnapshot = { location: VakitLocation | null; adjustments: Adjustments; notifications: NotificationPreferences };
 
 export function NotificationProvider({ children }: React.PropsWithChildren) {
   const app = useAppState();
@@ -26,28 +29,32 @@ export function NotificationProvider({ children }: React.PropsWithChildren) {
   const [syncing, setSyncing] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const executeRefresh = useCallback(async (snapshot: RefreshSnapshot) => {
+    const currentPermission = await notificationScheduler.getPermission();
+    setPermission(currentPermission);
+    if (!snapshot.notifications.enabled || !snapshot.location || !allowed(currentPermission)) {
+      await notificationScheduler.cancelAll();
+      updateNotificationSchedule({ scheduledCount: 0, scheduledThrough: null });
+      return;
+    }
+    const now = Date.now();
+    const localDate = localDateAt(now, snapshot.location.timeZone);
+    const days = Array.from({ length: 14 }, (_, index) => prayerProvider.getDay(addDays(localDate, index), snapshot.location!, snapshot.adjustments));
+    const plan = buildNotificationPlan(days, snapshot.notifications, snapshot.location.name, now);
+    const result = await notificationScheduler.reconcile(plan, snapshot.notifications.sound);
+    updateNotificationSchedule(result);
+  }, [updateNotificationSchedule]);
+  const refreshRunner = useMemo(() => createLatestTaskRunner(executeRefresh), [executeRefresh]);
+
   const refresh = useCallback(async () => {
     if (!ready) return;
     setSyncing(true); setError(null);
     try {
-      const currentPermission = await notificationScheduler.getPermission();
-      setPermission(currentPermission);
-      const notificationPreferences = preferences.notifications;
-      if (!notificationPreferences.enabled || !location || !allowed(currentPermission)) {
-        await notificationScheduler.cancelAll();
-        updateNotificationSchedule({ scheduledCount: 0, scheduledThrough: null });
-        return;
-      }
-      const now = Date.now();
-      const localDate = localDateAt(now, location.timeZone);
-      const days = Array.from({ length: 14 }, (_, index) => prayerProvider.getDay(addDays(localDate, index), location, preferences.adjustments));
-      const plan = buildNotificationPlan(days, notificationPreferences, location.name, now);
-      const result = await notificationScheduler.reconcile(plan, notificationPreferences.sound);
-      updateNotificationSchedule(result);
+      await refreshRunner.run({ location, adjustments: preferences.adjustments, notifications: preferences.notifications });
     } catch {
       setError('Bildirim planı güncellenemedi. Daha sonra yeniden deneyebilirsin.');
     } finally { setSyncing(false); }
-  }, [ready, location, preferences.adjustments, preferences.notifications, updateNotificationSchedule]);
+  }, [ready, location, preferences.adjustments, preferences.notifications, refreshRunner]);
 
   useEffect(() => { const timer = setTimeout(() => { void refresh(); }, 0); return () => clearTimeout(timer); }, [refresh]);
   useEffect(() => {

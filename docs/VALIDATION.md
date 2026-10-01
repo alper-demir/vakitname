@@ -1,8 +1,8 @@
-# Faz 1–6 doğrulaması — 1 Ekim 2026
+# Faz 1–6 doğrulaması — 2 Ekim 2026
 
 ## Geçen kontroller
 
-- TypeScript strict, ESLint, 58 Jest testi. Gerçek Home/konum componentleriyle GPS reddi → manuel seçim → Home → kayıtlı yeniden açılış; GPS konumunda arka plandan dönüşte izin istemeden yenileme.
+- TypeScript strict, ESLint, 60 Jest testi. Gerçek Home/konum componentleriyle GPS reddi → manuel seçim → Home → kayıtlı yeniden açılış; GPS konumunda arka plandan dönüşte izin istemeden yenileme.
 - Onboarding'in konumsuz tamamlanması ve kalıcılığı, v1→v2 state göçü, vakit/Hicri düzeltmelerinin sınırlandırılmış state üzerinden kaydı test edildi.
 - Expo Go 57.0.9 / Android 16 Pixel 7 üzerinde sistem izin diyaloğu, ret sonrası Türkçe fallback ve izin sonrası konum isteği denendi. 720×1280 küçük ekran ve 1.3 font ölçeğinde Home kaydırma/alt dock kontrol edildi; erişilebilirlik ağacı için TalkBack servisi emülatörde mevcut değildi, Jest ve native accessibility etiketleri doğrulandı.
 - Geç GPS sonucunun yeni manuel seçimi ezmemesi; yenileme hatasında son konumun korunması; storage okuma hatasında okunamamış verinin varsayılanlarla ezilmemesi.
@@ -11,8 +11,9 @@
 - Web önizlemede manuel seçim ve Yatsı sonrası yarının İmsak hedefi görüldü. Native GPS/izin ve erişilebilirlik doğrulaması açık.
 - Android Expo Go'da genel ayarlar, hesaplama ve Hicri ekranları görsel olarak kontrol edildi. İmsak +1 düzeltmesi Home hesabına anında yansıdı ve genel ayarlarda “1 düzeltme” özeti görüldü. Hicri +1 canlı önizlemeyi 19'dan 20 Rebiülahir'e taşıdı. Deneme değerleri doğrulama sonunda tekrar 0'a getirildi.
 - Faz 3 saf planlayıcı için gelecek olay, kronolojik sıra, 60 bildirim sınırı, varsayılan kapalı Güneş ve benzersiz kimlikler; scheduler farkı için eşleşeni koruma/eskiyi çıkarma; v2→v3 güvenli migration test edildi.
+- Bildirim yenileme kuyruğunun aynı anda yalnız bir uzlaştırma çalıştırdığı, çalışan iş sırasında gelen 1→2→3 tetiklerinin 1→3 olarak en güncel durumda birleştiği ve başarısız bir turdan sonra yeni işi kabul ettiği test edildi.
 - Faz 4 takvim domain testleri: aylık gün satırları ve gerçek provider vakitleri, 2026 Ramazan 29 gün sınırı, 2030 Umm al-Qura fallback aralığı ve Hicri gösterim offset'inin namaz saatlerinden bağımsız kalması doğrulandı.
-- Faz 5 Kıble domain testleri: İstanbul için büyük çember ilk doğrultusu 151,6° ve yaklaşık 2.405 km, yön normalizasyonu ve en kısa imzalı dönüş doğrulandı. Toplam 58 Jest testi, strict typecheck ve ESLint geçti; zaman dilimi regresyonu Europe/Istanbul, UTC ve America/New_York altında 27 test ile geçti. Expo Doctor 21/21 geçti.
+- Faz 5 Kıble domain testleri: İstanbul için büyük çember ilk doğrultusu 151,6° ve yaklaşık 2.405 km, yön normalizasyonu ve en kısa imzalı dönüş doğrulandı. Toplam 60 Jest testi, strict typecheck ve ESLint geçti; zaman dilimi regresyonu Europe/Istanbul, UTC ve America/New_York altında 27 test ile geçti. Expo Doctor 21/21 geçti.
 - Görünüm tercihine manuel Şafak, Gündüz, Gün batımı ve Gece fazları eklendi. Dört fazın hesaplanan saat fazını geçersiz kılması, karanlık/aydınlık durumu, v3 state içinde kalıcılığı ve gün ortasında seçilen Gün batımı temasının Home'da “Sonbahar · Gün batımı” olarak görünmesi test edildi.
 - Işık seçimleri sadeleştirildi; Cihaz teması, Her zaman aydınlık ve Her zaman karanlık seçeneklerinin UI'dan kaldırılması, eski v3 değerlerinin solar/day/night olarak güvenli eşlenmesi ve yalnız otomatik + dört manuel fazın görünmesi test edildi.
 - Android 16 Pixel 7 / Expo Go 57.0.9'da Metro 8081 yeniden başlatılıp güncel bundle açıldı; Ayarlar → Görünüm → Işık ekranında Şafak, Gündüz, Gün batımı ve Gece seçenekleri cihaz ekranında görünür ve radyo seçimi işaretli olarak doğrulandı. Önceki görünmeme durumu eski/cache bundle nedeniyleydi.

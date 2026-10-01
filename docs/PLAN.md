@@ -1,4 +1,4 @@
-# Devam noktası — 1 Ekim 2026
+# Devam noktası — 2 Ekim 2026
 
 Kullanıcı geliştirmeyi onayladı. Repository kökünde Faz 1 ve Faz 2 çalışan durumda. **Faz 3 yerel bildirimlerin kodu ile Android Expo Go doğrulama dilimi tamamlandı; production native doğrulama kapısı açık.** Development build/APK üretme; kullanıcı daha önce yalnız Expo Go istemişti.
 
@@ -32,7 +32,7 @@ Kıble ekranı eklendi. Seçili konumdan Kâbe'ye büyük çember başlangıç d
 - Faz 4 aylık takvim ve Ramazan imsakiyesi: tek ekran, iki görünüm ve provider enjeksiyonu.
 - Faz 5 Kıble: saf yön/mesafe domain'i, gerçek-kuzey/manyetik-kuzey ayrımlı başlık adaptörü, sensörsüz durum, native pusula ekranı ve navigasyon erişimi.
 - Faz 6 yayın yüzeyi: native splash arka planı ve font yükleme marka yüzeyi, Hakkında/Gizlilik/Kaynak/Lisans ekranı, Ayarlar erişimi ve Android Play Store ikonları. Kullanıcının sağladığı hilal-pusula ikonu beyaz köşeleri temizlenerek standart ve adaptive PNG'lere dönüştürüldü; iOS kapsam dışı.
-- 58 test, üç host saat diliminde 27 ek test, lint/typecheck ve Expo Doctor 21/21. Ayrıntılar VALIDATION.md.
+- 60 test, üç host saat diliminde 27 ek test, lint/typecheck ve Expo Doctor 21/21. Ayrıntılar VALIDATION.md.
 
 ## İlk dilimde açık kalan doğrulamalar
 
@@ -57,6 +57,7 @@ Node 24 ile `npm run check`, `npm run test:timezones`, `npx expo-doctor`. Çalı
 
 ## Oturum devri
 
+- 2 Ekim 2026 bildirim yenileme sağlamlaştırması: Açılış, foreground veya tercih/konum değişikliklerinin üst üste gelmesi artık paralel native uzlaştırma başlatmıyor. Tek çalışan işlem korunuyor; bekleyen ara durumlar atlanıp en güncel anlık görüntü bir sonraki turda uygulanıyor. Kuyruk hata sonrası yeni işi kabul ediyor. `npm run check` geçti (60 Jest, strict typecheck, ESLint); üç host saat diliminde 27/27 test geçti. Native build üretilmedi.
 - 1 Ekim 2026 platform kapsamı: Kullanıcı ürünün yalnız Android/Play Store hedefleyeceğini, iOS ve App Store sürümü olmayacağını netleştirdi. iOS release/doğrulama kapıları plandan çıkarıldı; `npm run export` Android bundle ile sınırlandı, iOS script/config kaldırıldı. Expo ortak platform dalları çalışma riski yaratmamak için kaynakta kalabilir, ancak ürün hedefi sayılmaz.
 - 1 Ekim 2026 Ayarlar ikon düzeltmesi: Alt navigasyondaki güneş gibi görünen eski Ayarlar çizimi merkez delikli dişli SVG ile değiştirildi; Home, Takvim ve Kıble alt barlarında aynı `settings` ikonu kullanılıyor. Android Expo Go güncel bundle'ında görsel kontrol yapıldı; `npm run check` ve saat dilimi kontrolleri geçti, native build üretilmedi.
 - 1 Ekim 2026 Ramazan Home odağı: Gerçek Ramazan aralığında ana halka gece/sahur döneminde “İmsaka kalan süre”, oruç döneminde “İftara kalan süre” gösteriyor. Sahur/İmsak ve İftar/Akşam kartlarına ilgili günün saati ile kalan/geçen durumu eklendi; normal sıradaki namaz farklıysa ikincil bilgi olarak korunuyor. Ramazan dışı “Her zaman açık” yalnız temayı önizliyor. `npm run check` geçti (58 Jest, strict typecheck, ESLint); native build üretilmedi.
