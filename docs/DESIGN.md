@@ -62,11 +62,11 @@ Ortak düzeltmeler:
 
 ## Kalan tasarım boşlukları
 
-Home skeleton/ilk hesaplama; kayıtlı konumla yenileme hatası; mağaza ikonu ve ayrı işletim sistemi izin görselleri tasarlanmadı. Hakkında/gizlilik/lisans içeriği native `/about` ekranında mevcut component diliyle uygulandı. İşletim sistemi izin pencereleri özel ekran olarak taklit edilmeyecek. Türkiye dışı GPS için Türkiye'den manuel konum seçme durumu gerekli.
+Home skeleton/ilk hesaplama; kayıtlı konumla yenileme hatası; Play Store önizleme ve adaptive maskenin gerçek cihaz davranışı henüz tasarım doğrulamasından geçmedi. Hakkında/gizlilik/lisans içeriği native `/about` ekranında mevcut component diliyle uygulandı. İşletim sistemi izin pencereleri özel ekran olarak taklit edilmeyecek. Türkiye dışı GPS için Türkiye'den manuel konum seçme durumu gerekli.
 
 ## Faz 6 yayın yüzeyi
 
-Stitch'teki sade marka dilini korumak için splash koyu yeşil zemin, mevcut Logo bileşeni ve kısa sloganla iki aşamalı çözüldü. Splash'ta geçici bir yapay ikon kullanılmadı. Hakkında ekranı ayarlar içinden erişilir; gizlilik, veri saklama, kaynak ve lisans bilgilerini kartlar halinde açıklar. Büyük metinler, başlık rolleri, düğme etiketleri ve dış bağlantıların erişilebilir adları native bileşenlerle sağlandı.
+Stitch'teki sade marka dilini korumak için splash koyu yeşil zemin, kullanıcı tarafından sağlanan hilal-pusula ikonu ve kısa sloganla iki aşamalı çözüldü. Hakkında ekranı ayarlar içinden erişilir; gizlilik, veri saklama, kaynak ve lisans bilgilerini kartlar halinde açıklar. Büyük metinler, başlık rolleri, düğme etiketleri ve dış bağlantıların erişilebilir adları native bileşenlerle sağlandı.
 
 ## Faz 5 Kıble eşlemesi
 
