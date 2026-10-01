@@ -7,7 +7,7 @@
 - Expo Go 57.0.9 / Android 16 Pixel 7 üzerinde sistem izin diyaloğu, ret sonrası Türkçe fallback ve izin sonrası konum isteği denendi. 720×1280 küçük ekran ve 1.3 font ölçeğinde Home kaydırma/alt dock kontrol edildi; erişilebilirlik ağacı için TalkBack servisi emülatörde mevcut değildi, Jest ve native accessibility etiketleri doğrulandı.
 - Geç GPS sonucunun yeni manuel seçimi ezmemesi; yenileme hatasında son konumun korunması; storage okuma hatasında okunamamış verinin varsayılanlarla ezilmemesi.
 - 27 tarih/hesaplama/tema testi ayrı süreçlerde Europe/Istanbul, UTC, America/New_York altında aynı sonucu verdi.
-- Expo Doctor 21/21. Android/iOS Hermes ve web bundle export başarılı. Expo Go 57.0.9 ile Android 16 Pixel 7 emülatörde LAN Metro üzerinden Ankara → Çankaya manuel seçimi, gerçek hesaplanan Home, Yatsı sonrası ertesi gün İmsak hedefi ve Expo Go zorla kapatılıp açıldıktan sonra SQLite kalıcılığı doğrulandı. **Export native build değildir; native build tamamlanmadan durdurulup tüm proje çıktıları temizlendi.**
+- Expo Doctor 21/21. Önceki Android/web bundle kontrolleri başarılı. Expo Go 57.0.9 ile Android 16 Pixel 7 emülatörde LAN Metro üzerinden Ankara → Çankaya manuel seçimi, gerçek hesaplanan Home, Yatsı sonrası ertesi gün İmsak hedefi ve Expo Go zorla kapatılıp açıldıktan sonra SQLite kalıcılığı doğrulandı. **Export native build değildir; native build tamamlanmadan durdurulup tüm proje çıktıları temizlendi.**
 - Web önizlemede manuel seçim ve Yatsı sonrası yarının İmsak hedefi görüldü. Native GPS/izin ve erişilebilirlik doğrulaması açık.
 - Android Expo Go'da genel ayarlar, hesaplama ve Hicri ekranları görsel olarak kontrol edildi. İmsak +1 düzeltmesi Home hesabına anında yansıdı ve genel ayarlarda “1 düzeltme” özeti görüldü. Hicri +1 canlı önizlemeyi 19'dan 20 Rebiülahir'e taşıdı. Deneme değerleri doğrulama sonunda tekrar 0'a getirildi.
 - Faz 3 saf planlayıcı için gelecek olay, kronolojik sıra, 60 bildirim sınırı, varsayılan kapalı Güneş ve benzersiz kimlikler; scheduler farkı için eşleşeni koruma/eskiyi çıkarma; v2→v3 güvenli migration test edildi.
@@ -48,13 +48,13 @@ npm audit: 0 critical/high, 14 moderate rapor; çoğu aynı iki advisory'nin üs
 
 ## Açık cihaz/release kontrolleri
 
-- iOS development build ve gerçek iOS izin/TalkBack testi release kapısıdır. Android Expo Go yeniden açılışında SQLite verisi doğrulandı; emülatör GPS sağlayıcısı sabit fix vermediği için Android başarı yolu gerçek koordinat yerine timeout ile sınırlı kaldı.
+- iOS ve App Store kapsam dışıdır. Android Expo Go yeniden açılışında SQLite verisi doğrulandı; emülatör GPS sağlayıcısı sabit fix vermediği için Android başarı yolu gerçek koordinat yerine timeout ile sınırlı kaldı.
 - Foreground saat sıçraması/gece yarısı; Hermes Intl takvim fallback'i.
 - VoiceOver/TalkBack gerçek cihaz testi; azaltılmış hareket ve kontrast.
 - GeoNames resmî ilçe listesi kapsamı ve 29 yaklaşık koordinatın iyileştirilmesi; sınır noktaları.
-- Android Expo Go izin, pending kuyruk ve varsayılan kanalda arka plan teslimi geçti. Android/iOS development build üzerinde özgün ses, sessiz kanal, ekran kilidi, reboot, force-stop, pil tasarrufu ve kesin alarm davranışı; ayrıca gerçek cihaz/iOS izinleri açık release kapısıdır.
+- Android Expo Go izin, pending kuyruk ve varsayılan kanalda arka plan teslimi geçti. Android development build üzerinde özgün ses, sessiz kanal, ekran kilidi, reboot, force-stop, Doze/pil tasarrufu ve kesin alarm davranışı ile gerçek cihaz izinleri açık release kapısıdır.
 - Faz 4 için gerçek cihaz erişilebilirlik, aylar arası performans ve küçük ekran yatay tablo kontrolü henüz release kanıtı değildir; emülatör gözlemi yalnız Android Expo Go ile sınırlıdır.
-- Faz 5 için gerçek Android/iOS cihazda konum izni ret/verme, trueHeading yokken manyetik veri, yüksek/düşük hassasiyet, hareket/kalibrasyon ve ekran kapanınca başlık aboneliğinin durması doğrulanmalıdır. Emülatördeki sensörsüz durum bu kontrollerin yerine geçmez.
+- Faz 5 için gerçek Android cihazda konum izni ret/verme, trueHeading yokken manyetik veri, yüksek/düşük hassasiyet, hareket/kalibrasyon ve ekran kapanınca başlık aboneliğinin durması doğrulanmalıdır. Emülatördeki sensörsüz durum bu kontrollerin yerine geçmez.
 - Faz 6 için native release build, launcher maskesi, Play Console önizlemesi ve bildirim/ikon kaynaklarının gerçek Android cihazda doğrulanması gerekir. Hakkında/Gizlilik/Kaynak/Lisans ekranı, splash config çıktısı, erişilebilir başlık/etiketler ve Android ikon asset entegrasyonu Expo config ile doğrulandı; kullanıcı ikonu `assets/icon/` altında işlendi. Expo Go, native launcher ikonunu güncellemez.
 - Android 16 Pixel 7 / Expo Go 57.0.9'da güncel Metro bundle yeniden açıldı; Settings akışı ve yeni raster asset importu hata vermeden çalıştı. Bu, adaptive launcher maskesinin veya native splash görselinin kanıtı değildir.
 - Android 16 Pixel 7 / Expo Go 57.0.9'da Ayarlar → Hakkında ve gizlilik ekranı açıldı; marka başlığı, veri saklama özeti, kaynak kartı ve lisans içeriği küçük ekran kaydırma düzeninde okunabilir göründü. Native OS splash görüntüsü Expo Go'da ayrı doğrulanmadı; Expo config yalnız arka plan renkleriyle doğrulandı.

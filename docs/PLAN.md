@@ -4,11 +4,11 @@ Kullanıcı geliştirmeyi onayladı. Repository kökünde Faz 1 ve Faz 2 çalı�
 
 ## Faz 1–2 durumu
 
-İlk dikey dilim ile Faz 2 onboarding/ayarlar, Faz 3 bildirim kodu, Faz 4 takvim, Faz 5 Kıble ve Faz 6 yayın yüzeyi tamamlandı. GPS yenileme, Android Expo Go izin/fallback akışı, küçük ekran ve büyük yazı kontrolleri de tamamlandı. Sıradaki somut doğrulama fiziksel cihazda Kıble sensörü/izin/kalibrasyon akışıdır; ardından açık yetki verilirse production bildirim ve release build kapıları gelir. iOS development build, gerçek TalkBack/VoiceOver ve çoklu Diyanet karşılaştırması release doğrulama kapıları olarak ayrıca yürütülecektir.
+İlk dikey dilim ile Faz 2 onboarding/ayarlar, Faz 3 bildirim kodu, Faz 4 takvim, Faz 5 Kıble ve Faz 6 yayın yüzeyi tamamlandı. GPS yenileme, Android Expo Go izin/fallback akışı, küçük ekran ve büyük yazı kontrolleri de tamamlandı. Ürün yalnız Android/Play Store hedeflidir; iOS ve App Store kapsam dışıdır. Sıradaki somut doğrulama fiziksel Android cihazda Kıble sensörü/izin/kalibrasyon akışıdır; ardından açık yetki verilirse Android production bildirim ve release build kapıları gelir. Gerçek TalkBack ve çoklu Diyanet karşılaştırması ayrıca yürütülecektir.
 
 ## Faz 3 durumu
 
-Saf bildirim planlayıcı, en fazla 60 olaylık kuyruk, gerçek pending listeyle idempotent uzlaştırma, v3 state migration, genel/per-vakit tercihler, ön hatırlatma, ses seçimi, bildirim ayarları ve yardım ekranı eklendi. Android 16 / Expo Go 57.0.9'da gerçek izin diyaloğu, 60 olaylık pending kuyruk ve uygulama arka plandayken üç saniyelik teslim doğrulandı. Expo Go'nun push girişi ve kanal yöneticisi SDK 57'de çalışmadığı için yalnız bu geliştirme ortamında yerel alt modüller ile varsayılan kanal kullanılır; production build public paket girişi ve Vakit kanallarını kullanır. Özel ses/sessiz kanal, kesin alarm, reboot/force-stop, iOS ve gerçek cihaz testleri yapılmadan Faz 3 `v0.3.0` sayılmaz.
+Saf bildirim planlayıcı, en fazla 60 olaylık kuyruk, gerçek pending listeyle idempotent uzlaştırma, v3 state migration, genel/per-vakit tercihler, ön hatırlatma, ses seçimi, bildirim ayarları ve yardım ekranı eklendi. Android 16 / Expo Go 57.0.9'da gerçek izin diyaloğu, 60 olaylık pending kuyruk ve uygulama arka plandayken üç saniyelik teslim doğrulandı. Expo Go'nun push girişi ve kanal yöneticisi SDK 57'de çalışmadığı için yalnız bu geliştirme ortamında yerel alt modüller ile varsayılan kanal kullanılır; production build public paket girişi ve Vakit kanallarını kullanır. Özel ses/sessiz kanal, kesin alarm, reboot/force-stop, Doze/pil tasarrufu ve gerçek Android cihaz testleri yapılmadan Faz 3 `v0.3.0` sayılmaz.
 
 ## Faz 4 durumu
 
@@ -36,7 +36,7 @@ Kıble ekranı eklendi. Seçili konumdan Kâbe'ye büyük çember başlangıç d
 
 ## İlk dilimde açık kalan doğrulamalar
 
-- Gerçek iOS development build ve iOS izinleri hâlâ release kapısıdır. Android Expo Go’da izin diyaloğu, ret/fallback ve izin sonrası konum isteği; 720×1280 ekran ve 1.3 font ölçeği doğrulandı. Emülatör sağlayıcısı sabit GPS fix vermediği için Android GPS başarı sonucu timeout ile sınırlı kaldı. TalkBack servisi emülatörde kurulu değildi; native accessibility rolleri ve birleşik etiketler test edildi. İstenmeden başlatılan native build tamamlanmadan durduruldu; `android/`, `dist/` ve eklenen paket/config değişiklikleri temizlendi. Kullanıcı açıkça istemeden APK/prebuild yapma.
+- Android Expo Go’da izin diyaloğu, ret/fallback ve izin sonrası konum isteği; 720×1280 ekran ve 1.3 font ölçeği doğrulandı. Emülatör sağlayıcısı sabit GPS fix vermediği için Android GPS başarı sonucu timeout ile sınırlı kaldı. TalkBack servisi emülatörde kurulu değildi; native accessibility rolleri ve birleşik etiketler test edildi. İstenmeden başlatılan native build tamamlanmadan durduruldu; `android/`, `dist/` ve eklenen paket/config değişiklikleri temizlendi. Kullanıcı açıkça istemeden APK/prebuild yapma.
 - Diyanet yalnız İstanbul tek gün karşılaştırıldı (0–2 dk fark); yedi şehir/mevsimler/Ramazan matrisi tamamlanmadan üretim uyumu iddia edilmez.
 - GeoNames resmî ilçe kapsamı, 29 yaklaşık temsil koordinatı. 974 kayıt sayısı resmî güncel ilçe sayısı iddiası değildir.
 - npm audit iki transitif advisory nedeniyle 14 moderate: uyumlu çözüm release öncesi; uyumsuz downgrade/force uygulanmadı.
@@ -44,7 +44,7 @@ Kıble ekranı eklendi. Seçili konumdan Kâbe'ye büyük çember başlangıç d
 
 ## Home sonrasında
 
-1. Faz 3 production doğrulama kapısı: development build açıkça yetkilendirildiğinde Android/iOS özel ses ve sessiz kanal, kesin alarm, reboot/force-stop, ekran kilidi ve gerçek cihaz davranışını test et; sonuçlar geçerse `v0.3.0` oluştur.
+1. Faz 3 production doğrulama kapısı: development build açıkça yetkilendirildiğinde Android özel ses ve sessiz kanal, kesin alarm, Doze/pil tasarrufu, reboot/force-stop, ekran kilidi ve gerçek cihaz davranışını test et; sonuçlar geçerse `v0.3.0` oluştur.
 2. Faz 4 cihaz/ürün kontrolleri: farklı aylar, Hicri düzeltme, Ramazan seçimi, küçük ekran yatay tablo ve veri kapsamı dışı fallback.
 3. Faz 5 fiziksel cihaz doğrulaması: gerçek-kuzey/manyetik ayrımı, izin reddi/izin verme, hareket/kalibrasyon, uygulamadan çıkışta abonelik temizliği.
 4. Faz 6 release kapısı: Android native splash ve adaptive launcher maskesi, Play Store önizlemesi, uygulama kimliği, imzalama ve release build.
@@ -57,6 +57,7 @@ Node 24 ile `npm run check`, `npm run test:timezones`, `npx expo-doctor`. Çalı
 
 ## Oturum devri
 
+- 1 Ekim 2026 platform kapsamı: Kullanıcı ürünün yalnız Android/Play Store hedefleyeceğini, iOS ve App Store sürümü olmayacağını netleştirdi. iOS release/doğrulama kapıları plandan çıkarıldı; `npm run export` Android bundle ile sınırlandı, iOS script/config kaldırıldı. Expo ortak platform dalları çalışma riski yaratmamak için kaynakta kalabilir, ancak ürün hedefi sayılmaz.
 - 1 Ekim 2026 Ayarlar ikon düzeltmesi: Alt navigasyondaki güneş gibi görünen eski Ayarlar çizimi merkez delikli dişli SVG ile değiştirildi; Home, Takvim ve Kıble alt barlarında aynı `settings` ikonu kullanılıyor. Android Expo Go güncel bundle'ında görsel kontrol yapıldı; `npm run check` ve saat dilimi kontrolleri geçti, native build üretilmedi.
 - 1 Ekim 2026 Ramazan Home odağı: Gerçek Ramazan aralığında ana halka gece/sahur döneminde “İmsaka kalan süre”, oruç döneminde “İftara kalan süre” gösteriyor. Sahur/İmsak ve İftar/Akşam kartlarına ilgili günün saati ile kalan/geçen durumu eklendi; normal sıradaki namaz farklıysa ikincil bilgi olarak korunuyor. Ramazan dışı “Her zaman açık” yalnız temayı önizliyor. `npm run check` geçti (58 Jest, strict typecheck, ESLint); native build üretilmedi.
 - 1 Ekim 2026 Ramazan atmosferi geliştirmesi: Daha önce yalnız altın vurguya yakın kalan görünüm, merkezi tema içinde ayrı gündüz/gece paletleri ve düşük opaklıklı hilal/yıldız dekoruyla belirginleştirildi. Varsayılan `Ramazan’da otomatik` gerçek Ramazan aralığında kendiliğinden açılır; kullanıcı `Kapalı` ile devre dışı bırakabilir, `Her zaman açık` ile Ramazan dışında yalnız görünümü önizleyebilir. Android Expo Go'da gündüz ve gece önizlemeleri kontrol edildi, takvim/tarih değişmedi ve emülatör varsayılan otomatik ayara döndürüldü. `npm run check` geçti (56 Jest, strict typecheck, ESLint); native build üretilmedi.

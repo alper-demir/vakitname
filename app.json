@@ -6,12 +6,6 @@
     "scheme": "vakit",
     "orientation": "portrait",
     "userInterfaceStyle": "automatic",
-    "ios": {
-      "supportsTablet": true,
-      "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false
-      }
-    },
     "android": {
       "icon": "./assets/icon/vakit-icon.png",
       "adaptiveIcon": {

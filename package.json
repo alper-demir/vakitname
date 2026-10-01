@@ -9,14 +9,13 @@
   "scripts": {
     "start": "expo start",
     "android": "expo run:android",
-    "ios": "expo run:ios",
     "web": "expo start --web",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "test": "jest --runInBand",
     "test:timezones": "node scripts/test-timezones.mjs",
     "check": "npm run typecheck && npm run lint && npm test",
-    "export": "expo export --platform all"
+    "export": "expo export --platform android"
   },
   "dependencies": {
     "@expo-google-fonts/manrope": "0.4.2",

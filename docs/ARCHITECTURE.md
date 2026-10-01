@@ -4,9 +4,9 @@ Durum: ilk dikey dilim, Faz 2–5 uygulandı; Faz 6 yayın hazırlığı sürüy
 
 ## Kapsam ve yapı
 
-Türkiye; Türkçe öncelikli; iOS/Android; hesap, reklam, backend, push sunucusu yok. Kullanıcı kısa bildirim seslerini kabul etti ve hesaplama yaklaşımını teknik değerlendirmeye bıraktı.
+Türkiye; Türkçe öncelikli; yalnız Android/Play Store; hesap, reklam, backend, push sunucusu yok. iOS ve App Store ürün, build ve doğrulama kapsamı dışındadır. Kullanıcı kısa bildirim seslerini kabul etti ve hesaplama yaklaşımını teknik değerlendirmeye bıraktı.
 
-Expo + strict TypeScript + Expo Router kökte kuruldu. Sabitlenen sürümler: Expo 57.0.26, RN 0.86.3, React 19.2.3, Adhan 4.4.6, Luxon 3.7.2, Node 24.21.0. Son incelemede kararlı seri SDK 57 (RN 0.86, React 19.2; iOS 16.4+, Android 7+) idi. Registry/resmî doküman doğrulanıp kararlı uyumlu sürümler lockfile'a alındı. Kaynak: [Expo SDK](https://docs.expo.dev/versions/latest/), [SDK 57](https://expo.dev/changelog/sdk-57). Yerel Node v25.2.1 görüldü; proje için Node 24 LTS ayrı yerel dizine kuruldu; global PATH değiştirilmedi. Windows'ta iOS build/cihaz doğrulaması EAS veya macOS gerektirir; bunu geçilmiş sayma.
+Expo + strict TypeScript + Expo Router kökte kuruldu. Sabitlenen sürümler: Expo 57.0.26, RN 0.86.3, React 19.2.3, Adhan 4.4.6, Luxon 3.7.2, Node 24.21.0. Son incelemede kararlı seri SDK 57 (RN 0.86, React 19.2; Android 7+) idi. Registry/resmî doküman doğrulanıp kararlı uyumlu sürümler lockfile'a alındı. Kaynak: [Expo SDK](https://docs.expo.dev/versions/latest/), [SDK 57](https://expo.dev/changelog/sdk-57). Yerel Node v25.2.1 görüldü; proje için Node 24 LTS ayrı yerel dizine kuruldu; global PATH değiştirilmedi. Üretim/export komutları Android ile sınırlıdır; Expo bağımlılıklarındaki ortak platform kodu ürün hedefi anlamına gelmez.
 
 ```text
 app/                  Router route ve layout dosyaları
@@ -39,7 +39,7 @@ Fontlar yerel paketlenecek. `expo-blur` ancak cihaz ölçümü ve ihtiyaç doğr
 
 ## Yayın hazırlığı ve splash
 
-Native splash için `expo-splash-screen` koyu yeşil arka plan ve kullanıcının sağladığı ikonla yapılandırıldı. Fontlar yüklenirken JavaScript katmanında aynı ikon, Vakit adı, kısa slogan ve yüklenme göstergesi bulunan ikinci marka yüzeyi gösterilir. Android `icon` ve `adaptiveIcon.foregroundImage` ayrı PNG'lerdir; foreground sembolü güvenli alana küçültülmüş, adaptive arka planı `#06432F` olarak sabitlenmiştir. iOS ikon kimliği bu fazın kapsamı dışındadır.
+Native splash için `expo-splash-screen` koyu yeşil arka plan ve kullanıcının sağladığı ikonla yapılandırıldı. Fontlar yüklenirken JavaScript katmanında aynı ikon, Vakit adı, kısa slogan ve yüklenme göstergesi bulunan ikinci marka yüzeyi gösterilir. Android `icon` ve `adaptiveIcon.foregroundImage` ayrı PNG'lerdir; foreground sembolü güvenli alana küçültülmüş, adaptive arka planı `#06432F` olarak sabitlenmiştir. iOS ikonu ve App Store paketi üretilmez.
 
 `/about` route'u Hakkında, gizlilik özeti, hesaplama/katalog kaynakları ve lisans atıflarını tek yerel ekranda sunar. Bu ekran hukuki danışmanlık veya resmî Diyanet ortaklığı iddiası taşımaz; kullanıcıya uygulamanın ne sakladığını ve hangi kaynakları kullandığını açıklar. Dış bağlantılar yalnız kullanıcı dokunuşuyla açılır.
 
@@ -102,16 +102,16 @@ Ramazan aralığı önce `hijri-months.ts` içindeki kaynaklı Türkiye ay başl
 `NotificationPlanner` saf olay planı üretir; `NotificationScheduler` platforma uygular. Push tokenı/FCM/APNs gönderim sunucusu kullanılmaz. Her güne ayrı tarih tetikleyici; sabit günlük tekrar vakitlerin mevsimsel değişimini karşılamaz.
 
 - İzin ve kullanıcı vakit tercihleriyle yalnız gelecek olaylar planlanır. İmsak/Öğle/İkindi/Akşam/Yatsı, kısa ses; Güneş ayrıca isteğe bağlı. Ön hatırlatma varsayılan kapalı. Doğal içerik başlıkları kullanılır.
-- En yakın 60 olaylık kuyruk başlangıç politikası; gün sayısı açık bildirimlere göre değişir. iOS'taki 64 sayısı eski Apple API belgesinde var; güncel cihazlarda davranış doğrulanmadan mutlak yeni API garantisi sayılmaz. [Apple eski limit](https://developer.apple.com/documentation/uikit/uilocalnotification).
+- En yakın 60 olaylık kuyruk başlangıç politikası; gün sayısı açık bildirimlere göre değişir. Sınır, Android pending listesini ölçülü tutan uygulama politikasıdır.
 - Gerçek pending listesiyle idempotent uzlaştırma; sabit olay kimlikleri, hesaplama revision'ı, başarısız/kısmi planlamayı kaydetme. Çift bildirim yok. Konum değişince eski konum olayları temizlenir; değişim sırasında kapasite aşılmaz.
 - Açılış/foreground, konum, gün/saat/zone, yöntem, düzeltme ve bildirim tercihi değişiminde yenile. Son planlanan tarihi sakla ve yardım ekranında göster. Uygulama açılmadan sonsuz yenileme garantisi yok.
-- iOS özel ses <30 saniye; sessiz/Focus tercihlerini aşma iddiası yok. [Apple ses](https://developer.apple.com/documentation/usernotifications/unnotificationsound).
+- Android sessiz/DND tercihlerini aşma iddiası yoktur; kanal davranışında son söz sistem ve kullanıcı ayarındadır.
 - Android 13+ bildirim izni; 12+ kesin alarm yetkisi; 14'te çoğu yeni kurulumda kesin alarm varsayılan kapalı. Kanal sesini kullanıcı yönetebilir; ses değişiminde versioned channel stratejisi. Expo'nun yetki kontrolü/yönlendirme desteği kurulu sürümde incelenecek; eksikse küçük platform adaptörü. Yetkisiz durumda kesinlik vaadi veya gizli crash yok. [Expo Notifications](https://docs.expo.dev/versions/latest/sdk/notifications/), [Android kesin alarm](https://developer.android.com/about/versions/14/changes/schedule-exact-alarms).
 - Arka plan yenilemesi yalnız yardımcı optimizasyon olabilir; offline çalışma veya tam vakitte teslim ona bağlı olamaz. OS çalışma zamanını belirler. [Expo BackgroundTask](https://docs.expo.dev/versions/latest/sdk/background-task/).
 - Cihaz testi: izin ret/geri alma, reboot, force-stop, ekran kilidi, pil tasarrufu, ses/kanal değişimi, timezone/saat değişimi. Gerçek capability okunamıyorsa “bilinmiyor” göster; skor uydurma.
 
 Uygulanan Faz 3 dilimi: `buildNotificationPlan` saf olarak 14 günlük hesaplanan olaylardan en yakın 60 bildirimi üretir. İmsak/Öğle/İkindi/Akşam/Yatsı varsayılan açık, Güneş kapalıdır; vakit anı ve 15/30/45 dakika ön hatırlatma birlikte seçilebilir. Kimlik vakit epoch'u, olay, hatırlatma ve ses tercihini içerir; konum, düzeltme veya ses değişince eski istekler önce iptal edilip yenileri eklenir. Uygulamaya ait olmayan pending bildirimlere dokunulmaz.
 
-Android'de sesli ve sessiz iki versioned kanal kullanılır. `SCHEDULE_EXACT_ALARM` app config'e eklendi; Android 14'te varsayılan izin durumu nedeniyle uygulama kesin teslim garantisi göstermez. Android 13+ bildirim izni `PermissionsAndroid` ile okunur/istenir; iOS durumları Expo izin API'sinden çevrilir. Özgün `vakit-tone.wav` config plugin ile native bundle'a alınır.
+Android'de sesli ve sessiz iki versioned kanal kullanılır. `SCHEDULE_EXACT_ALARM` app config'e eklendi; Android 14'te varsayılan izin durumu nedeniyle uygulama kesin teslim garantisi göstermez. Android 13+ bildirim izni `PermissionsAndroid` ile okunur/istenir. Özgün `vakit-tone.wav` config plugin ile native bundle'a alınır.
 
 Expo SDK 57 dokümanı yerel bildirimlerin Expo Go'da kaldığını belirtir. Android Expo Go 57.0.9'da public paket girişi kaldırılan push modülü nedeniyle, kanal yöneticisi de eksik native provider nedeniyle hata verdi. Adaptör Expo Go'da yalnız yerel zamanlama alt modüllerini dinamik yükler ve varsayılan Expo kanalını kullanır; standalone/development build public paket girişi ile Vakit kanallarını kullanır. Böylece Expo Go'da izin, pending kuyruk ve varsayılan sesli teslim test edilebilir; özgün ses, sessiz kanal ve kesin teslim bu ortamdan kanıtlanmaz. Bu uyumluluk yolu sadece geliştirme istemcisidir ve Expo sürüm yükseltmesinde yeniden kontrol edilir. Kaynaklar: [Expo Notifications SDK 57](https://docs.expo.dev/versions/v57.0.0/sdk/notifications/), [Expo izinleri](https://docs.expo.dev/guides/permissions/), [Android 14 kesin alarm](https://developer.android.com/about/versions/14/changes/schedule-exact-alarms).
