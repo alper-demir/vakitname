@@ -31,6 +31,8 @@ Her mevsimin dört fazı için ayrı tasarım mevcut değil. Eksik kombinasyonla
 
 Faz 2'de onboarding üç adım olarak tek component içinde, ayarlar ise genel merkez + hesaplama + Hicri route'ları olarak native componentlerle uygulandı. Bildirim onboarding adımı yalnız yaklaşan özelliği açıklar ve erken sistem izni istemez.
 
+Faz 3'te `bildirim_ayarlar` ana görsel referans alındı; tek açılır kart yerine daha sakin global tercihler + altı vakit anahtarı kullanıldı. `ses_seçimi` içindeki kaynağı olmayan ezan/melodi adları taşınmadı; özgün kısa Vakit tonu, sistem sesi ve sessiz seçenekleri sunuldu. `bildirim_durumu_ve_yard_m` düzeni kullanıldı; yanlış “Şehir Seçimi”, uydurma güvenilirlik skoru ve cihazda ölçülmeyen kesin alarm/pil muafiyeti durumları kaldırıldı.
+
 ## Ek ekranlar ve uygulamaya alınacak düzeltmeler
 
 Aşağıdaki dizinler repository kökündeki `ek-ekranlar/` altındadır. Stitch screen ID'leri yeniden arama ihtiyacını azaltır; proje ID'si `2377776243904543808`.
