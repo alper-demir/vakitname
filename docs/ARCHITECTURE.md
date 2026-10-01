@@ -1,6 +1,6 @@
 # Teknik kararlar
 
-Durum: ilk dikey dilim ve Faz 2 onboarding/ayarlar uygulandı; native cihaz doğrulaması açık. Güncel kanıtlar VALIDATION.md, kaynaklar DATA-SOURCES.md içinde. Kaynak incelemesi: 30 Eylül 2026.
+Durum: ilk dikey dilim, Faz 2 ve Faz 3 bildirim kod dilimi uygulandı; Android Expo Go teslimi geçti, production native bildirim doğrulaması açık. Güncel kanıtlar VALIDATION.md, kaynaklar DATA-SOURCES.md içinde. Kaynak incelemesi: 1 Ekim 2026.
 
 ## Kapsam ve yapı
 
@@ -22,7 +22,7 @@ tests/                domain, component ve entegrasyon testleri
 
 Route dosyaları iş kuralı içermez. Küçük Context + useState deposu kullanılır; saniyelik saat Home içinde, tema saati 15 saniyede güncellenir. Hesaplanan günler memoized; arka planda interval durur. Redux, Zustand, React Query, UI framework ve form framework başlangıç bağımlılığı değil.
 
-Kalıcı durum şeması v2'dir ve `onboardingComplete`, konum ve tercihleri tutar. v1 kaydı açılışta okunur; geçerli kayıtlı konumu varsa onboarding tamamlanmış kabul edilerek v2'ye taşınır. Yeni kurulum onboarding'i konumsuz tamamlayabilir; Home mevcut konum seçme durumunu gösterir. Vakit ve Hicri düzeltmeleri AppState üzerinden sınırlandırılıp tek kalıcı tercih kaynağına yazılır.
+Kalıcı durum şeması v3'tür ve `onboardingComplete`, konum, tercihler ve son bildirim kuyruğu özetini tutar. v1/v2 kayıtları açılışta okunur; eski kayıtlara güvenli, kapalı bildirim varsayılanları eklenir. Geçerli v1 konumu varsa onboarding tamamlanmış kabul edilir. Yeni kurulum onboarding'i konumsuz tamamlayabilir; Home mevcut konum seçme durumunu gösterir. Vakit, Hicri ve bildirim tercihleri AppState üzerinden doğrulanıp tek kalıcı tercih kaynağına yazılır.
 
 | Amaç | Paket (bildirim/ses hariç kurulu) |
 |---|---|
@@ -32,7 +32,7 @@ Kalıcı durum şeması v2'dir ve `onboardingComplete`, konum ve tercihleri tuta
 | Kalıcılık | expo-sqlite/kv-store; şema sürümü ve migration |
 | Görünüm | expo-font, expo-linear-gradient, react-native-svg |
 | Animasyon | react-native-reanimated + SDK uyumlu react-native-worklets |
-| Sonraki aşama | expo-notifications; ses önizlemesi gerektiğinde expo-audio |
+| Yerel bildirim | expo-notifications 57.0.21; push tokenı veya sunucu yok |
 | Doğrulama | TypeScript, Expo ESLint yapılandırması, Jest, jest-expo, React Native Testing Library |
 
 Fontlar yerel paketlenecek. `expo-blur` ancak cihaz ölçümü ve ihtiyaç doğrulanırsa. [Depolama](https://docs.expo.dev/versions/latest/sdk/sqlite/), [animasyon](https://docs.expo.dev/versions/latest/sdk/reanimated/), [test](https://docs.expo.dev/develop/unit-testing/).
@@ -89,3 +89,9 @@ Solar faz astronomik doğuş/batış verilerinden türetilir; kullanıcı vakit 
 - Android 13+ bildirim izni; 12+ kesin alarm yetkisi; 14'te çoğu yeni kurulumda kesin alarm varsayılan kapalı. Kanal sesini kullanıcı yönetebilir; ses değişiminde versioned channel stratejisi. Expo'nun yetki kontrolü/yönlendirme desteği kurulu sürümde incelenecek; eksikse küçük platform adaptörü. Yetkisiz durumda kesinlik vaadi veya gizli crash yok. [Expo Notifications](https://docs.expo.dev/versions/latest/sdk/notifications/), [Android kesin alarm](https://developer.android.com/about/versions/14/changes/schedule-exact-alarms).
 - Arka plan yenilemesi yalnız yardımcı optimizasyon olabilir; offline çalışma veya tam vakitte teslim ona bağlı olamaz. OS çalışma zamanını belirler. [Expo BackgroundTask](https://docs.expo.dev/versions/latest/sdk/background-task/).
 - Cihaz testi: izin ret/geri alma, reboot, force-stop, ekran kilidi, pil tasarrufu, ses/kanal değişimi, timezone/saat değişimi. Gerçek capability okunamıyorsa “bilinmiyor” göster; skor uydurma.
+
+Uygulanan Faz 3 dilimi: `buildNotificationPlan` saf olarak 14 günlük hesaplanan olaylardan en yakın 60 bildirimi üretir. İmsak/Öğle/İkindi/Akşam/Yatsı varsayılan açık, Güneş kapalıdır; vakit anı ve 15/30/45 dakika ön hatırlatma birlikte seçilebilir. Kimlik vakit epoch'u, olay, hatırlatma ve ses tercihini içerir; konum, düzeltme veya ses değişince eski istekler önce iptal edilip yenileri eklenir. Uygulamaya ait olmayan pending bildirimlere dokunulmaz.
+
+Android'de sesli ve sessiz iki versioned kanal kullanılır. `SCHEDULE_EXACT_ALARM` app config'e eklendi; Android 14'te varsayılan izin durumu nedeniyle uygulama kesin teslim garantisi göstermez. Android 13+ bildirim izni `PermissionsAndroid` ile okunur/istenir; iOS durumları Expo izin API'sinden çevrilir. Özgün `vakit-tone.wav` config plugin ile native bundle'a alınır.
+
+Expo SDK 57 dokümanı yerel bildirimlerin Expo Go'da kaldığını belirtir. Android Expo Go 57.0.9'da public paket girişi kaldırılan push modülü nedeniyle, kanal yöneticisi de eksik native provider nedeniyle hata verdi. Adaptör Expo Go'da yalnız yerel zamanlama alt modüllerini dinamik yükler ve varsayılan Expo kanalını kullanır; standalone/development build public paket girişi ile Vakit kanallarını kullanır. Böylece Expo Go'da izin, pending kuyruk ve varsayılan sesli teslim test edilebilir; özgün ses, sessiz kanal ve kesin teslim bu ortamdan kanıtlanmaz. Bu uyumluluk yolu sadece geliştirme istemcisidir ve Expo sürüm yükseltmesinde yeniden kontrol edilir. Kaynaklar: [Expo Notifications SDK 57](https://docs.expo.dev/versions/v57.0.0/sdk/notifications/), [Expo izinleri](https://docs.expo.dev/guides/permissions/), [Android 14 kesin alarm](https://developer.android.com/about/versions/14/changes/schedule-exact-alarms).
