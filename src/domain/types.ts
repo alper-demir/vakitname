@@ -33,13 +33,35 @@ export type ThemePreferences = {
   appearance: 'solar' | 'system' | 'light' | 'dark';
   ramadan: 'auto' | 'on' | 'off';
 };
+export type NotificationSound = 'vakit' | 'default' | 'silent';
+export type ReminderMinutes = 0 | 15 | 30 | 45;
+export type NotificationPreferences = {
+  enabled: boolean;
+  prayerEnabled: Record<PrayerId, boolean>;
+  atPrayerTime: boolean;
+  reminderMinutes: ReminderMinutes;
+  sound: NotificationSound;
+};
+export type NotificationSchedule = {
+  scheduledCount: number;
+  scheduledThrough: number | null;
+};
+export const defaultNotificationPreferences: NotificationPreferences = {
+  enabled: false,
+  prayerEnabled: { imsak: true, gunes: false, ogle: true, ikindi: true, aksam: true, yatsi: true },
+  atPrayerTime: true,
+  reminderMinutes: 0,
+  sound: 'vakit',
+};
 export type Preferences = {
   theme: ThemePreferences;
   adjustments: Adjustments;
   hijriOffset: number;
+  notifications: NotificationPreferences;
 };
 export const defaultPreferences: Preferences = {
   theme: { season: 'auto', appearance: 'solar', ramadan: 'auto' },
   adjustments: zeroAdjustments,
   hijriOffset: 0,
+  notifications: defaultNotificationPreferences,
 };

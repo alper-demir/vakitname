@@ -1,7 +1,7 @@
 import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { AppState } from 'react-native';
 import { decodeSavedState, initialSavedState, SavedState } from '@/domain/state';
-import { Adjustments, PrayerId, ThemePreferences, VakitLocation, zeroAdjustments } from '@/domain/types';
+import { Adjustments, NotificationPreferences, NotificationSchedule, PrayerId, ThemePreferences, VakitLocation, zeroAdjustments } from '@/domain/types';
 import { persistence } from './storage';
 import { locateDevice } from './location';
 
@@ -12,6 +12,8 @@ type ContextValue = SavedState & {
   updateAdjustment: (prayer: PrayerId, minutes: number) => void;
   resetAdjustments: () => void;
   updateHijriOffset: (days: number) => void;
+  updateNotifications: (preferences: Partial<NotificationPreferences>) => void;
+  updateNotificationSchedule: (schedule: NotificationSchedule) => void;
   completeOnboarding: () => void;
   requestLocation: () => Promise<boolean>;
   cancelLocation: () => void;
@@ -82,6 +84,13 @@ export function AppStateProvider({ children }: React.PropsWithChildren) {
     const safe = Math.max(-2, Math.min(2, Math.round(days)));
     setState((s) => ({ ...s, preferences: { ...s.preferences, hijriOffset: safe } }));
   }, []);
+  const updateNotifications = useCallback((preferences: Partial<NotificationPreferences>) => {
+    setState((s) => ({ ...s, preferences: { ...s.preferences, notifications: { ...s.preferences.notifications, ...preferences } } }));
+  }, []);
+  const updateNotificationSchedule = useCallback((schedule: NotificationSchedule) => {
+    setState((s) => s.notificationSchedule.scheduledCount === schedule.scheduledCount && s.notificationSchedule.scheduledThrough === schedule.scheduledThrough
+      ? s : { ...s, notificationSchedule: schedule });
+  }, []);
   const completeOnboarding = useCallback(() => {
     setState((s) => ({ ...s, onboardingComplete: true }));
   }, []);
@@ -98,7 +107,7 @@ export function AppStateProvider({ children }: React.PropsWithChildren) {
       return false;
     } finally { if (request === revision.current) setLocating(false); }
   }, []);
-  return <Context.Provider value={{ ...state, ready, recovered, savingError, locating, locationError, selectLocation, updateTheme, updateAdjustment, resetAdjustments, updateHijriOffset, completeOnboarding, requestLocation, cancelLocation }}>{children}</Context.Provider>;
+  return <Context.Provider value={{ ...state, ready, recovered, savingError, locating, locationError, selectLocation, updateTheme, updateAdjustment, resetAdjustments, updateHijriOffset, updateNotifications, updateNotificationSchedule, completeOnboarding, requestLocation, cancelLocation }}>{children}</Context.Provider>;
 }
 export function useAppState() {
   const value = useContext(Context);

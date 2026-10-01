@@ -32,3 +32,12 @@ test('version 1 state migrates without replaying onboarding for an existing loca
     recovered: false,
   });
 });
+test('version 2 state receives safe notification defaults', () => {
+  const legacyPreferences = { ...initialSavedState.preferences, notifications: undefined };
+  const legacy = { version: 2, onboardingComplete: true, location: null, preferences: legacyPreferences };
+  const decoded = decodeSavedState(JSON.stringify(legacy));
+  expect(decoded.recovered).toBe(false);
+  expect(decoded.state.version).toBe(3);
+  expect(decoded.state.preferences.notifications).toMatchObject({ enabled: false, atPrayerTime: true, reminderMinutes: 0, sound: 'vakit' });
+  expect(decoded.state.notificationSchedule).toEqual({ scheduledCount: 0, scheduledThrough: null });
+});
