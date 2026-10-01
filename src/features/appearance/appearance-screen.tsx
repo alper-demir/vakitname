@@ -39,7 +39,7 @@ export default function AppearanceScreen() {
       { value: 'night', label: 'Gece', detail: 'Koyu mavi gece görünümünde kal' },
     ])}
     {group('RAMAZAN ATMOSFERİ', 'ramadan', [
-      { value: 'auto', label: 'Ramazan’da otomatik', detail: 'Ramazan başlayınca özel tema ve sahur/iftar odağı açılır' },
+      { value: 'auto', label: 'Ramazan’da otomatik', detail: 'Özel tema açılır; ana sayaç İmsak ve İftara kalan süreyi gösterir' },
       { value: 'on', label: 'Her zaman açık', detail: 'Özel temayı şimdi önizle; takvimi değiştirmez' },
       { value: 'off', label: 'Kapalı', detail: 'Ramazan ayında da normal görünümü kullan' },
     ])}

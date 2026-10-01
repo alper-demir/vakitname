@@ -81,6 +81,8 @@ Canlı hizalama yalnız `trueHeading` geldiğinde gösterilir. Konum izni yoksa 
 
 Üstteki Miladi/Hicri tarih çifti takvimde o civil güne karşılık gelir. Akşam başlayan dinî gece ayrı türetilir; oruç günü/sahur hedefi civil güne bağlıdır. Ramazan atmosfer aralığı ilk oruç gününden önceki yerel gün batımından son oruç gününün gün batımına kadardır. Gecede yarın oruç varsa sonraki İmsak; oruç gününde İmsak–Akşam arasında İftar; son iftar sonrasında Ramazan dışı davranış. “Ramazan N. gün” etiketi gece/civil gün ayrımını yanlış göstermemeli; Ramazan arifesinde “Ramazan başlıyor” kullanılabilir.
 
+Ramazan atmosferi kapalı değilse Home ana halkası gece/sahur aralığında “İmsaka kalan süre”, oruç süresinde “İftara kalan süre” hedefini kullanır. İmsak ve Akşam kartları ilgili oruç gününün saatini ve kalan süreyi; geçmiş olay için “Vakti geçti” durumunu gösterir. Normal sıradaki namaz hedefi Ramazan hedefinden farklıysa ayrıca küçük bilgi olarak korunur. `on` ile Ramazan dışı görsel önizleme sahte oruç hedefi veya sayaç üretmez.
+
 Resmî test referansı: 2026 ilk oruç 19 Şubat, son oruç 19 Mart, bayram başlangıcı 20 Mart; ayı 30 gün sabitleme. [Diyanet 2026](https://vakithesaplama.diyanet.gov.tr/icerik.php?icerik=153), [Hicri fark açıklaması](https://vakithesaplama.diyanet.gov.tr/hicri_farki.php). Olgusal ay başlangıçları 2025-12-21–2027-12-29 (son tarih hariç) aralığı için paketlendi; DATA-SOURCES.md.
 
 ## Tek Home ve tema

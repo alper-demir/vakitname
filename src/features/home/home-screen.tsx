@@ -4,7 +4,7 @@ import { router } from 'expo-router';
 import Animated, { FadeIn, ReduceMotion } from 'react-native-reanimated';
 import { useAppState } from '@/services/app-state';
 import { prayerProvider } from '@/services/prayer/adhan-provider';
-import { addDays, formatDate, formatTime, getEvent, localDateAt, timelineAt } from '@/domain/time';
+import { addDays, countdown, formatDate, formatTime, getEvent, localDateAt, timelineAt } from '@/domain/time';
 import { ramadanAt } from '@/domain/calendar';
 import { phaseNames, seasonNames } from '@/domain/theme';
 import { tr } from '@/i18n/tr';
@@ -49,12 +49,16 @@ export default function HomeScreen() {
   const today = days[1]!, tomorrow = days[2]!;
   const { next, progress } = timelineAt(days, now);
   const ramadan = ramadanAt(now, today, tomorrow, state.preferences.hijriOffset);
-  const showFasting = theme.ramadan || (state.preferences.theme.ramadan !== 'off' && ramadan.fasting);
-  const target = showFasting && ramadan.target ? ramadan.target : next;
+  const ramadanTarget = state.preferences.theme.ramadan !== 'off' && ramadan.active ? ramadan.target : null;
+  const target = ramadanTarget ?? next;
   const isTomorrow = target.localDate !== today.localDate;
-  const ramadanFocus = target !== next;
-  const ringProgress = ramadanFocus ? Math.min(1, Math.max(0, (now - getEvent(today, 'imsak').at) / (target.at - getEvent(today, 'imsak').at))) : progress;
-  const label = (showFasting && ramadan.target?.id === 'aksam' ? 'İftara kalan süre' : `${isTomorrow ? 'Yarın ' : ''}${tr.prayerNames[target.id]} vaktine`);
+  const ramadanStart = ramadanTarget?.id === 'aksam' ? getEvent(today, 'imsak').at
+    : ramadanTarget?.localDate === today.localDate ? days[0]!.sunset : today.sunset;
+  const ringProgress = ramadanTarget ? Math.min(1, Math.max(0, (now - ramadanStart) / (target.at - ramadanStart))) : progress;
+  const label = ramadanTarget ? ramadanTarget.id === 'aksam' ? 'İftara kalan süre' : 'İmsaka kalan süre'
+    : `${isTomorrow ? 'Yarın ' : ''}${tr.prayerNames[target.id]} vaktine`;
+  const ramadanDay = ramadanTarget?.localDate === tomorrow.localDate ? tomorrow : today;
+  const showRegularNext = ramadanTarget && ramadanTarget.at !== next.at;
   const footer = <View style={[s.dock, { backgroundColor: theme.surface, borderColor: theme.line }]}>
     <View accessibilityRole="tab" accessibilityState={{ selected: true }} style={s.dockItem}><Icon name="clock" color={theme.accent} /><T weight="semibold" style={[s.dockText, { color: theme.accent }]}>Bugün</T></View>
     <Pressable accessibilityRole="button" accessibilityLabel="Takvim" onPress={calendarButton} style={s.dockItem}><Icon name="calendar" color={theme.muted} /><T style={[s.dockText, { color: theme.muted }]}>Takvim</T></Pressable>
@@ -69,13 +73,20 @@ export default function HomeScreen() {
         </Pressable>
         <T style={{ color: theme.muted, fontSize: 12, textAlign: 'center', lineHeight: 20 }}>{ramadan.civil.label} <T style={{ color: theme.subtle, fontSize: 12 }}> · </T>{formatDate(today.localDate)}</T>
       </View>
-      <CountdownRing target={target} now={now} progress={ringProgress} label={label} zone={today.timeZone} />
+      <CountdownRing target={target} now={now} progress={ringProgress} label={label} zone={today.timeZone} targetCaption={ramadanTarget ? ramadanTarget.id === 'aksam' ? 'İftar' : 'İmsak' : undefined} />
       <View style={s.ambientLabel}><View style={[s.dot, { backgroundColor: theme.accent }]} /><T style={{ color: theme.muted, fontSize: 11, letterSpacing: .6 }}>{theme.ramadan ? `Ramazan atmosferi · ${phaseNames[theme.phase]}` : `${seasonNames[theme.season]} · ${phaseNames[theme.phase]}`}</T></View>
       {state.savingError && <T style={s.notice}>Tercihler kaydedilemedi. Uygulama kapanınca yeniden seçmen gerekebilir.</T>}
       {state.locationError && <T style={s.notice}>Konum yenilenemedi; kayıtlı konum kullanılıyor.</T>}
-      {next.localDate !== today.localDate && <Surface style={{ marginBottom: 20, padding: 16 }}><View style={s.between}><T style={{ color: theme.muted, fontSize: 12 }}>Yarının ilk vakti</T><T style={{ color: theme.muted, fontSize: 12 }}>{formatDate(next.localDate)}</T></View><View style={[s.between, { marginTop: 8 }]}><T weight="medium">İmsak</T><T weight="semibold" style={{ fontSize: 22, color: theme.accent }}>{formatTime(next.at, today.timeZone)}</T></View></Surface>}
-      {showFasting && ramadan.target && <View style={{ flexDirection: 'row', gap: 10, marginBottom: 20 }}>
-        {(['imsak', 'aksam'] as const).map((id) => <Surface key={id} style={{ flex: 1, padding: 14 }}><T style={{ color: theme.muted, fontSize: 11 }}>{isTomorrow ? 'YARIN · ' : ''}{id === 'imsak' ? 'İMSAK' : 'İFTAR'}</T><T weight="medium" style={{ marginTop: 8, fontSize: 23, color: theme.accent }}>{formatTime(getEvent(isTomorrow ? tomorrow : today, id).at, today.timeZone)}</T></Surface>)}
+      {!ramadanTarget && next.localDate !== today.localDate && <Surface style={{ marginBottom: 20, padding: 16 }}><View style={s.between}><T style={{ color: theme.muted, fontSize: 12 }}>Yarının ilk vakti</T><T style={{ color: theme.muted, fontSize: 12 }}>{formatDate(next.localDate)}</T></View><View style={[s.between, { marginTop: 8 }]}><T weight="medium">İmsak</T><T weight="semibold" style={{ fontSize: 22, color: theme.accent }}>{formatTime(next.at, today.timeZone)}</T></View></Surface>}
+      {ramadanTarget && <View style={{ flexDirection: 'row', gap: 10, marginBottom: 20 }}>
+        {(['imsak', 'aksam'] as const).map((id) => {
+          const event = getEvent(ramadanDay, id);
+          return <Surface key={id} style={{ flex: 1, padding: 14 }}>
+            <T style={{ color: theme.muted, fontSize: 10 }}>{ramadanDay.localDate !== today.localDate ? 'YARIN · ' : ''}{id === 'imsak' ? 'SAHUR · İMSAK' : 'İFTAR · AKŞAM'}</T>
+            <T weight="medium" style={{ marginTop: 8, fontSize: 23, color: theme.accent }}>{formatTime(event.at, today.timeZone)}</T>
+            <T style={{ color: theme.muted, fontSize: 10, marginTop: 5 }}>{event.at > now ? `${countdown(event.at, now)} kaldı` : 'Vakti geçti'}</T>
+          </Surface>;
+        })}
       </View>}
       <View style={[s.between, { marginBottom: 12 }]}><T accessibilityRole="header" weight="medium" style={{ fontSize: 13 }}>Günün vakitleri</T><T style={{ color: theme.muted, fontSize: 11 }}>{today.events.every((e) => e.at <= now) ? 'Son vakit girdi' : 'Türkiye yöntemi'}</T></View>
       <Surface style={{ padding: 8 }}>
@@ -92,7 +103,7 @@ export default function HomeScreen() {
         })}
       </Surface>
       <Pressable accessibilityRole="button" accessibilityLabel="Vakitlerin hesaplanması hakkında" onPress={() => setInfo(true)} style={s.source}><Icon name="info" size={13} color={theme.subtle} /><T style={{ color: theme.subtle, fontSize: 10 }}>Cihazında hesaplandı · Çevrimdışı hazır</T></Pressable>
-      {ramadanFocus && <T style={{ textAlign: 'center', color: theme.muted, fontSize: 12 }}>Sıradaki vakit: {tr.prayerNames[next.id]} · {formatTime(next.at, today.timeZone)}</T>}
+      {showRegularNext && <T style={{ textAlign: 'center', color: theme.muted, fontSize: 12 }}>Sıradaki namaz vakti: {tr.prayerNames[next.id]} · {formatTime(next.at, today.timeZone)}</T>}
     </Animated.View>
     <Modal visible={info} transparent animationType="fade" onRequestClose={() => setInfo(false)}>
       <View style={s.modalOverlay}><Surface style={{ width: '100%', maxWidth: 420, backgroundColor: theme.surfaceStrong, gap: 16 }}><T weight="semibold" style={{ fontSize: 21 }}>Vakitlerin kaynağı</T>

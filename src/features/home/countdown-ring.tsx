@@ -8,7 +8,7 @@ import { useTheme } from '@/ui/theme-context';
 import { T } from '@/ui/primitives';
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
-export function CountdownRing({ target, now, progress, label, zone }: { target: PrayerEvent; now: number; progress: number; label: string; zone: string }) {
+export function CountdownRing({ target, now, progress, label, zone, targetCaption = 'Vakit saati' }: { target: PrayerEvent; now: number; progress: number; label: string; zone: string; targetCaption?: string }) {
   const theme = useTheme();
   const { width, fontScale } = useWindowDimensions();
   const size = Math.min(width - 56, 310);
@@ -29,7 +29,7 @@ export function CountdownRing({ target, now, progress, label, zone }: { target: 
     <View style={s.center} accessible accessibilityLabel={`${label}. Kalan süre ${remaining}. Hedef saat ${formatTime(target.at, zone)}`} accessibilityLiveRegion="none">
       <View style={[s.pill, { backgroundColor: theme.highlight }]}><T weight="semibold" style={[s.label, { color: theme.accent }]}>{label.toLocaleUpperCase('tr')}</T></View>
       <T weight="light" style={{ fontSize: Math.max(32, (size / 5.8) / Math.max(1, fontScale * .8)), letterSpacing: -2.5, fontVariant: ['tabular-nums'], marginTop: 8 }} numberOfLines={1}>{remaining}</T>
-      <T style={{ fontSize: 12, color: theme.muted, marginTop: 6 }}><T style={{ fontSize: 10, color: theme.accent }}>● </T> Vakit saati · {formatTime(target.at, zone)}</T>
+      <T style={{ fontSize: 12, color: theme.muted, marginTop: 6 }}><T style={{ fontSize: 10, color: theme.accent }}>● </T> {targetCaption} · {formatTime(target.at, zone)}</T>
     </View>
   </View>;
 }

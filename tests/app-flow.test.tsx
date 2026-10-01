@@ -16,7 +16,8 @@ import { gpsLocation, manualLocation, provinces } from '@/domain/locations';
 
 jest.mock('@/services/storage', () => ({ persistence: { read: jest.fn(), write: jest.fn() } }));
 jest.mock('@/services/location', () => ({ locateDevice: jest.fn() }));
-jest.mock('@/ui/use-now', () => ({ useNow: () => Date.parse('2026-09-30T14:00:00+03:00') }));
+let mockNow = Date.parse('2026-09-30T14:00:00+03:00');
+jest.mock('@/ui/use-now', () => ({ useNow: () => mockNow }));
 const mockNavigate = jest.fn();
 jest.mock('expo-router', () => ({ router: { push: (path: string) => mockNavigate(path), back: () => mockNavigate('/'), replace: (path: string) => mockNavigate(path), canGoBack: () => true } }));
 const istanbul = manualLocation(provinces.find((p) => p.name === 'İstanbul')!);
@@ -34,6 +35,7 @@ function Probe() {
     <Pressable accessibilityRole="button" accessibilityLabel="manual" onPress={() => state.selectLocation(ankara)} /></>;
 }
 beforeEach(() => {
+  mockNow = Date.parse('2026-09-30T14:00:00+03:00');
   jest.mocked(persistence.read).mockResolvedValue(null);
   jest.mocked(persistence.write).mockResolvedValue(undefined);
 });
@@ -114,6 +116,17 @@ test('prayer and Hijri corrections update persisted preferences', async () => {
   expect(screen.getByText('+1 gün')).toBeTruthy();
   expect(JSON.parse(jest.mocked(persistence.write).mock.calls.at(-1)![0]).preferences.hijriOffset).toBe(1);
   await hijri.unmount();
+});
+test.each([
+  ['2026-02-18T20:00:00+03:00', 'İMSAKA KALAN SÜRE'],
+  ['2026-02-19T12:00:00+03:00', 'İFTARA KALAN SÜRE'],
+])('Ramadan Home at %s focuses the countdown on fasting milestones', async (instant, expectedLabel) => {
+  mockNow = Date.parse(instant);
+  jest.mocked(persistence.read).mockResolvedValue(JSON.stringify({ ...initialSavedState, location: istanbul }));
+  await render(<AppStateProvider><ThemeProvider><HomeScreen /></ThemeProvider></AppStateProvider>);
+  expect(screen.getByText(expectedLabel)).toBeTruthy();
+  expect(screen.getByText(/SAHUR · İMSAK/)).toBeTruthy();
+  expect(screen.getByText(/İFTAR · AKŞAM/)).toBeTruthy();
 });
 test('manual sunset appearance persists and overrides the current daylight phase', async () => {
   jest.mocked(persistence.read).mockResolvedValue(JSON.stringify({ ...initialSavedState, location: istanbul }));
