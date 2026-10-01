@@ -38,6 +38,8 @@ export default function SettingsScreen() {
       <SettingsRow icon="clock" title="Vakit hesabı ve düzeltmeler" detail="Türkiye yöntemi ve vakit bazlı dakika ayarı" value={adjusted ? `${adjusted} düzeltme` : 'Standart'} onPress={() => router.push('/calculation')} />
       <View style={[s.divider, { backgroundColor: theme.line }]} />
       <SettingsRow icon="calendar" title="Hicri tarih" detail="Yerel takvim farkı için ±2 gün" value={preferences.hijriOffset ? `${preferences.hijriOffset > 0 ? '+' : ''}${preferences.hijriOffset} gün` : 'Standart'} onPress={() => router.push('/hijri')} />
+      <View style={[s.divider, { backgroundColor: theme.line }]} />
+      <SettingsRow icon="calendar" title="Aylık takvim" detail="Vakit çizelgesi ve Ramazan imsakiyesi" onPress={() => router.push('/calendar')} />
     </Surface>
 
     <T weight="semibold" style={[s.section, { color: theme.muted }]}>UYGULAMA</T>
