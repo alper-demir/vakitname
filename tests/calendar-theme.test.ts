@@ -46,6 +46,17 @@ test('explicit light/season choices win and forced Ramadan does not change calen
   expect(result).toMatchObject({ dark: false, season: 'summer', ramadan: true });
   expect(calendarProvider.getDate('2026-09-30', 0).month).toBe(4);
 });
+test('Ramadan atmosphere is automatic by default, visibly distinct and can be disabled', () => {
+  expect(defaultPreferences.theme.ramadan).toBe('auto');
+  const normal = resolveTheme({ season: 'spring', phase: 'day', ramadan: false, preferences: defaultPreferences.theme, systemDark: false });
+  const automatic = resolveTheme({ season: 'spring', phase: 'day', ramadan: true, preferences: defaultPreferences.theme, systemDark: false });
+  const disabled = resolveTheme({ season: 'spring', phase: 'day', ramadan: true, preferences: { ...defaultPreferences.theme, ramadan: 'off' }, systemDark: false });
+  expect(normal.ramadan).toBe(false);
+  expect(automatic.ramadan).toBe(true);
+  expect(automatic.background).not.toEqual(normal.background);
+  expect(automatic.surface).not.toBe(normal.surface);
+  expect(disabled).toMatchObject({ ramadan: false, background: normal.background, accent: normal.accent });
+});
 test.each([
   ['dawn', false], ['day', false], ['sunset', true], ['night', true],
 ] as [SolarPhase, boolean][])('manual %s appearance locks the displayed solar phase', (appearance, dark) => {

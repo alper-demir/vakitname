@@ -39,7 +39,9 @@ export default function AppearanceScreen() {
       { value: 'night', label: 'Gece', detail: 'Koyu mavi gece görünümünde kal' },
     ])}
     {group('RAMAZAN ATMOSFERİ', 'ramadan', [
-      { value: 'auto', label: 'Ramazan’da otomatik' }, { value: 'on', label: 'Her zaman açık', detail: 'Yalnızca görünümü değiştirir; takvim aynı kalır.' }, { value: 'off', label: 'Kapalı' },
+      { value: 'auto', label: 'Ramazan’da otomatik', detail: 'Ramazan başlayınca özel tema ve sahur/iftar odağı açılır' },
+      { value: 'on', label: 'Her zaman açık', detail: 'Özel temayı şimdi önizle; takvimi değiştirmez' },
+      { value: 'off', label: 'Kapalı', detail: 'Ramazan ayında da normal görünümü kullan' },
     ])}
     <View style={{ marginTop: 24 }}><Button secondary label="Otomatik görünüme dön" onPress={() => updateTheme(defaultPreferences.theme)} /></View>
   </Page>;

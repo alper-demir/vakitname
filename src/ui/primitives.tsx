@@ -3,7 +3,7 @@ import { AccessibilityInfo, ActivityIndicator, Animated, Easing, Pressable, Scro
 import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
-import Svg, { Path } from 'react-native-svg';
+import Svg, { Circle, Path } from 'react-native-svg';
 import { useTheme } from './theme-context';
 import { Icon, IconName } from './icons';
 
@@ -40,6 +40,18 @@ function Landscape({ color }: { color: string }) {
     </Svg>
   </View>;
 }
+function RamadanSky({ color }: { color: string }) {
+  return <View style={[StyleSheet.absoluteFill, { pointerEvents: 'none' }]} accessible={false}>
+    <Svg width="100%" height="300" viewBox="0 0 500 300" preserveAspectRatio="xMidYMin slice" style={{ position: 'absolute', top: 0 }}>
+      <Path d="M405 28c-16 9-27 26-27 46 0 29 23 52 52 52 14 0 27-6 36-15-6 3-13 5-21 5-28 0-50-22-50-50 0-14 6-28 15-37Z" fill={color} opacity=".17" />
+      <Path d="m333 56 3 7 7 3-7 3-3 7-3-7-7-3 7-3Z" fill={color} opacity=".2" />
+      <Path d="m452 161 2 5 5 2-5 2-2 5-2-5-5-2 5-2Z" fill={color} opacity=".14" />
+      <Circle cx="367" cy="145" r="2.5" fill={color} opacity=".18" />
+      <Circle cx="470" cy="79" r="2" fill={color} opacity=".16" />
+      <Circle cx="305" cy="123" r="1.8" fill={color} opacity=".14" />
+    </Svg>
+  </View>;
+}
 export function Backdrop({ children }: React.PropsWithChildren) {
   const theme = useTheme();
   const transitionKey = [theme.background.join(','), theme.surface, theme.text, theme.accent, theme.landscape].join('|');
@@ -62,6 +74,7 @@ export function Backdrop({ children }: React.PropsWithChildren) {
   }, [reduceMotion, theme.background, theme.landscape, transitionKey, transitionOpacity]);
   return <LinearGradient colors={theme.background} style={{ flex: 1 }}>
     <StatusBar style={theme.dark ? 'light' : 'dark'} />
+    {theme.ramadan ? <RamadanSky color={theme.glow} /> : null}
     <Landscape color={theme.landscape} />
     <Animated.View pointerEvents="none" style={[StyleSheet.absoluteFill, { backgroundColor: '#08131F', opacity: transitionOpacity }]} />
     {children}

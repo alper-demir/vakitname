@@ -36,16 +36,27 @@ export function resolveTheme({ season, phase, ramadan, preferences, systemDark }
   const dark = preferences.appearance === 'dark' || (preferences.appearance === 'system' && systemDark)
     || (phasePalette && (effectivePhase === 'night' || effectivePhase === 'sunset'));
   const palette = colors[chosen];
-  const background: Theme['background'] = dark
+  const regularBackground: Theme['background'] = dark
     ? effectivePhase === 'sunset' && phasePalette ? ['#352C43', '#61423F', '#2D3038'] : ['#101C2B', '#17283B', '#203449']
     : effectivePhase === 'dawn' && phasePalette ? ['#F7EEF0', '#F2F5ED', palette.day[2]] : palette.day;
+  const background: Theme['background'] = festive
+    ? dark ? ['#09241F', '#12372E', '#182D36'] : ['#F7F2E3', '#ECF2E8', '#DDE8DD']
+    : regularBackground;
+  if (festive) return {
+    season: chosen, phase: effectivePhase, dark, ramadan: true, background,
+    surface: dark ? '#FFF4D80D' : '#FFFDF2C7', surfaceStrong: dark ? '#173B32' : '#FFFDF4',
+    text: dark ? '#F6F0DD' : '#20382F', muted: dark ? '#C3CEBE' : '#586E62', subtle: dark ? '#9DAE9F' : '#687B70',
+    accent: dark ? '#E8C76F' : '#7A5C16', accentText: dark ? '#173228' : '#FFF9E8',
+    highlight: dark ? '#E8C76F18' : '#E7DFC0AA', line: dark ? '#F3D98B20' : '#7A5C1624',
+    track: dark ? '#FFFFFF16' : '#315F4D16', landscape: dark ? '#356052' : '#809E8B', glow: dark ? '#F0D583' : '#D8B75E',
+  };
   return {
-    season: chosen, phase: effectivePhase, dark, ramadan: festive, background,
+    season: chosen, phase: effectivePhase, dark, ramadan: false, background,
     surface: dark ? '#FFFFFF09' : '#FFFFFFA6', surfaceStrong: dark ? '#223346' : '#FFFFFF',
     text: dark ? '#F1F2EA' : '#263C32', muted: dark ? '#B9C7CF' : '#627568', subtle: dark ? '#95A5B4' : '#6D7F73',
-    accent: festive ? (dark ? '#E4CA86' : '#84651F') : dark ? palette.darkAccent : palette.accent,
+    accent: dark ? palette.darkAccent : palette.accent,
     accentText: dark ? '#142333' : '#FFFFFF', highlight: dark ? '#FFFFFF0D' : '#E7EEDFAA',
     line: dark ? '#FFFFFF14' : '#49694E16', track: dark ? '#FFFFFF14' : '#49694E14',
-    landscape: dark ? '#32475B' : palette.landscape, glow: festive ? '#E4CA86' : dark ? palette.darkAccent : palette.accent,
+    landscape: dark ? '#32475B' : palette.landscape, glow: dark ? palette.darkAccent : palette.accent,
   };
 }

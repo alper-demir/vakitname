@@ -70,7 +70,7 @@ export default function HomeScreen() {
         <T style={{ color: theme.muted, fontSize: 12, textAlign: 'center', lineHeight: 20 }}>{ramadan.civil.label} <T style={{ color: theme.subtle, fontSize: 12 }}> · </T>{formatDate(today.localDate)}</T>
       </View>
       <CountdownRing target={target} now={now} progress={ringProgress} label={label} zone={today.timeZone} />
-      <View style={s.ambientLabel}><View style={[s.dot, { backgroundColor: theme.accent }]} /><T style={{ color: theme.muted, fontSize: 11, letterSpacing: .6 }}>{theme.ramadan ? 'Ramazan atmosferi' : `${seasonNames[theme.season]} · ${phaseNames[theme.phase]}`}</T></View>
+      <View style={s.ambientLabel}><View style={[s.dot, { backgroundColor: theme.accent }]} /><T style={{ color: theme.muted, fontSize: 11, letterSpacing: .6 }}>{theme.ramadan ? `Ramazan atmosferi · ${phaseNames[theme.phase]}` : `${seasonNames[theme.season]} · ${phaseNames[theme.phase]}`}</T></View>
       {state.savingError && <T style={s.notice}>Tercihler kaydedilemedi. Uygulama kapanınca yeniden seçmen gerekebilir.</T>}
       {state.locationError && <T style={s.notice}>Konum yenilenemedi; kayıtlı konum kullanılıyor.</T>}
       {next.localDate !== today.localDate && <Surface style={{ marginBottom: 20, padding: 16 }}><View style={s.between}><T style={{ color: theme.muted, fontSize: 12 }}>Yarının ilk vakti</T><T style={{ color: theme.muted, fontSize: 12 }}>{formatDate(next.localDate)}</T></View><View style={[s.between, { marginTop: 8 }]}><T weight="medium">İmsak</T><T weight="semibold" style={{ fontSize: 22, color: theme.accent }}>{formatTime(next.at, today.timeZone)}</T></View></Surface>}

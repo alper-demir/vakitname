@@ -24,7 +24,7 @@ Kıble ekranı eklendi. Seçili konumdan Kâbe'ye büyük çember başlangıç d
 - Expo 57.0.26, RN 0.86.3, React 19.2.3, Router, strict TS, Node 24 LTS ve lockfile.
 - 81 il + 974 GeoNames ilçe kaydıyla offline arama/onay; foreground GPS, ret/timeout ve manuel fallback.
 - Adhan provider, UTC olaylar, seçili Türkiye saat dilimi, vakit düzeltme altyapısı, dün/bugün/yarın ve Yatsı sonrası İmsak.
-- Foreground sayaç, GPS konumu için arka plandan dönüşte izin istemeden yenileme, tek Home, altı gerçek vakit, kaynak modalı, dört mevsim/dört faz/Ramazan tema resolver'ı ve temel görünüm seçimi.
+- Foreground sayaç, GPS konumu için arka plandan dönüşte izin istemeden yenileme, tek Home, altı gerçek vakit, kaynak modalı, dört mevsim/dört faz tema resolver'ı ve otomatik/isteğe bağlı özel Ramazan paleti ile hilal/yıldız dekoru.
 - SQLite KV kalıcılık, bozuk kayıt kurtarma, async GPS yarış koruması; web incelemede localStorage.
 - 2026–2027 Hicri ay başlangıçları, kapsam dışı açık kaynaklı hesaplanan fallback, Ramazan sınırları.
 - Üç adımlı onboarding; genel ayarlar merkezi; altı vakit için ±30 dakika düzeltme; ±2 günlük Hicri düzeltme ve canlı önizleme. Eski v1 kayıtları v2 şemasına göç eder; kayıtlı konumu olan kullanıcı onboarding'i tekrar görmez.
@@ -32,7 +32,7 @@ Kıble ekranı eklendi. Seçili konumdan Kâbe'ye büyük çember başlangıç d
 - Faz 4 aylık takvim ve Ramazan imsakiyesi: tek ekran, iki görünüm ve provider enjeksiyonu.
 - Faz 5 Kıble: saf yön/mesafe domain'i, gerçek-kuzey/manyetik-kuzey ayrımlı başlık adaptörü, sensörsüz durum, native pusula ekranı ve navigasyon erişimi.
 - Faz 6 yayın yüzeyi: native splash arka planı ve font yükleme marka yüzeyi, Hakkında/Gizlilik/Kaynak/Lisans ekranı, Ayarlar erişimi ve Android Play Store ikonları. Kullanıcının sağladığı hilal-pusula ikonu beyaz köşeleri temizlenerek standart ve adaptive PNG'lere dönüştürüldü; iOS kapsam dışı.
-- 55 test, üç host saat diliminde 26 ek test, lint/typecheck ve Expo Doctor 21/21. Ayrıntılar VALIDATION.md.
+- 56 test, üç host saat diliminde 27 ek test, lint/typecheck ve Expo Doctor 21/21. Ayrıntılar VALIDATION.md.
 
 ## İlk dilimde açık kalan doğrulamalar
 
@@ -57,6 +57,7 @@ Node 24 ile `npm run check`, `npm run test:timezones`, `npx expo-doctor`. Çalı
 
 ## Oturum devri
 
+- 1 Ekim 2026 Ramazan atmosferi geliştirmesi: Daha önce yalnız altın vurguya yakın kalan görünüm, merkezi tema içinde ayrı gündüz/gece paletleri ve düşük opaklıklı hilal/yıldız dekoruyla belirginleştirildi. Varsayılan `Ramazan’da otomatik` gerçek Ramazan aralığında kendiliğinden açılır; kullanıcı `Kapalı` ile devre dışı bırakabilir, `Her zaman açık` ile Ramazan dışında yalnız görünümü önizleyebilir. Android Expo Go'da gündüz ve gece önizlemeleri kontrol edildi, takvim/tarih değişmedi ve emülatör varsayılan otomatik ayara döndürüldü. `npm run check` geçti (56 Jest, strict typecheck, ESLint); native build üretilmedi.
 - 1 Ekim 2026 tema geçişi ve metin düzeltmesi: Manuel görünüm seçimi ile 15 saniyelik otomatik güneş fazı güncellemesi aynı 520 ms koyu perde geçişini kullanıyor; açık/koyu gradientlerin beyaz-gri ara flaşı giderildi, açık ekran yeniden kurulmadan korunuyor ve hareketi azalt tercihine uyuluyor. Görünüm ekranında doğuş/batış eşikleri açıklandı. Konum kök listesi “81 il”, alt liste “ilçe”, arama “sonuç” gösteriyor. Android Expo Go'da manuel Gün batımı → Gündüz geçişi ara karelerle tekrarlandı; beyaz flaş görülmedi. `npm run check` (55 Jest) geçti. Native build üretilmedi. Sıradaki somut iş fiziksel Android cihazda Kıble yön sensörü, izin ve kalibrasyon doğrulamasıdır.
 - 1 Ekim 2026 görünüm tercihi: Işık bölümüne manuel Şafak, Gündüz, Gün batımı ve Gece seçenekleri eklendi. Seçim mevcut v3 `appearance` alanında saklanır; resolver seçilen fazı ve Home etiketini saatten bağımsız sabitler. `npm run check` ve üç host saat dilimi testi geçti (54 Jest, host başına 26 ilgili test); native build üretilmedi.
 - Işık seçenekleri sadeleştirildi: Cihaz teması, Her zaman aydınlık ve Her zaman karanlık UI'dan kaldırıldı. Eski kayıtlar solar/day/night eşlemesiyle korunuyor; kullanıcıya yalnız otomatik veya dört manuel güneş fazı sunuluyor.

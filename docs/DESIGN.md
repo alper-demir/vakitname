@@ -35,6 +35,8 @@ Faz 3'te `bildirim_ayarlar` ana görsel referans alındı; tek açılır kart ye
 
 Faz 4'te `ayl_k_takvim_ve_i_msakiye` ve `ramazan_i_msakiyesi` ana referans alındı. Ortak native Takvim ekranında Aylık görünüm ve Ramazan görünümü segmented seçimle ayrılır; seçili gün üst kartta, tüm saatler yatay kaydırılabilir tabloda gösterilir. Tablo başlığı, seçili gün highlight'ından ayrı nötr yüzey ve ince alt çizgiyle gösterilir; böylece ilk seçili satırla başlık arasında net sınır korunur. Stitch’teki PDF/paylaşım, “tam Diyanet uyumu” ve örnek saatler kullanılmadı; yerel hesaplama ve kaynak açıklaması korundu.
 
+Ramazan atmosferi ayrı Home kopyası değildir. Merkezi tema içinde gündüz için fildişi–yumuşak yeşil, koyu fazlar için zümrüt–lacivert, iki durumda da altın vurgu ve düşük opaklıklı hilal/yıldız gökyüzü kullanılır. Gerçek Ramazan günlerinde mevcut sahur/iftar kartları buna eşlik eder; Ramazan dışındaki “Her zaman açık” seçimi yalnız görsel önizlemedir ve sahte Ramazan günü üretmez.
+
 ## Ek ekranlar ve uygulamaya alınacak düzeltmeler
 
 Aşağıdaki dizinler repository kökündeki `ek-ekranlar/` altındadır. Stitch screen ID'leri yeniden arama ihtiyacını azaltır; proje ID'si `2377776243904543808`.
