@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { AccessibilityInfo, ActivityIndicator, Animated, Easing, Pressable, ScrollView, StyleSheet, Text, TextProps, View, ViewStyle } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -31,7 +31,6 @@ export function IconButton({ name, label, onPress }: { name: IconName; label: st
   const theme = useTheme();
   return <Pressable accessibilityRole="button" accessibilityLabel={label} onPress={onPress} style={({ pressed }) => [styles.iconButton, { backgroundColor: theme.surface, opacity: pressed ? .6 : 1 }]}><Icon name={name} color={theme.text} /></Pressable>;
 }
-type BackdropVisual = { background: readonly [string, string, string]; landscape: string };
 function Landscape({ color }: { color: string }) {
   return <View style={[StyleSheet.absoluteFill, { pointerEvents: 'none' }]} accessible={false}>
     <Svg width="100%" height="260" viewBox="0 0 500 260" preserveAspectRatio="none" style={{ position: 'absolute', bottom: 0 }}>
@@ -44,37 +43,28 @@ function Landscape({ color }: { color: string }) {
 export function Backdrop({ children }: React.PropsWithChildren) {
   const theme = useTheme();
   const transitionKey = [theme.background.join(','), theme.surface, theme.text, theme.accent, theme.landscape].join('|');
-  const previous = useRef<BackdropVisual & { key: string }>({ key: transitionKey, background: theme.background, landscape: theme.landscape });
-  const [outgoing, setOutgoing] = useState<BackdropVisual>({ background: theme.background, landscape: theme.landscape });
+  const previousKey = useRef(transitionKey);
   const [reduceMotion, setReduceMotion] = useState(false);
-  const [outgoingOpacity] = useState(() => new Animated.Value(0));
-  const [contentOpacity] = useState(() => new Animated.Value(1));
+  const [transitionOpacity] = useState(() => new Animated.Value(0));
   useEffect(() => {
     void AccessibilityInfo.isReduceMotionEnabled().then(setReduceMotion);
     const subscription = AccessibilityInfo.addEventListener('reduceMotionChanged', setReduceMotion);
     return () => subscription.remove();
   }, []);
-  useEffect(() => {
-    if (previous.current.key === transitionKey) return;
-    setOutgoing(previous.current);
-    previous.current = { key: transitionKey, background: theme.background, landscape: theme.landscape };
-    outgoingOpacity.stopAnimation();
-    contentOpacity.stopAnimation();
-    outgoingOpacity.setValue(1);
-    contentOpacity.setValue(.88);
+  useLayoutEffect(() => {
+    if (previousKey.current === transitionKey) return;
+    previousKey.current = transitionKey;
+    transitionOpacity.stopAnimation();
+    transitionOpacity.setValue(.16);
     Animated.parallel([
-      Animated.timing(outgoingOpacity, { toValue: 0, duration: reduceMotion ? 0 : 480, easing: Easing.out(Easing.cubic), useNativeDriver: true }),
-      Animated.timing(contentOpacity, { toValue: 1, duration: reduceMotion ? 0 : 480, easing: Easing.out(Easing.cubic), useNativeDriver: true }),
+      Animated.timing(transitionOpacity, { toValue: 0, duration: reduceMotion ? 0 : 520, easing: Easing.out(Easing.cubic), useNativeDriver: true }),
     ]).start();
-  }, [contentOpacity, outgoingOpacity, reduceMotion, theme.background, theme.landscape, transitionKey]);
+  }, [reduceMotion, theme.background, theme.landscape, transitionKey, transitionOpacity]);
   return <LinearGradient colors={theme.background} style={{ flex: 1 }}>
     <StatusBar style={theme.dark ? 'light' : 'dark'} />
     <Landscape color={theme.landscape} />
-    <Animated.View pointerEvents="none" style={[StyleSheet.absoluteFill, { opacity: outgoingOpacity }]}>
-      <LinearGradient colors={outgoing.background} style={StyleSheet.absoluteFill} />
-      <Landscape color={outgoing.landscape} />
-    </Animated.View>
-    <Animated.View style={{ flex: 1, opacity: contentOpacity }}>{children}</Animated.View>
+    <Animated.View pointerEvents="none" style={[StyleSheet.absoluteFill, { backgroundColor: '#08131F', opacity: transitionOpacity }]} />
+    {children}
   </LinearGradient>;
 }
 export function Page({ children, footer, scroll = true }: React.PropsWithChildren<{ footer?: React.ReactNode; scroll?: boolean }>) {

@@ -23,7 +23,7 @@ Manrope; adaçayı/krem gündüz, lacivert/altın gece; 20–24 px yatay boşluk
 | `bug_n_k_g_nd_z`, `bug_n_k_gece_1/2/3` | 4 | Gündüz + gece `_3`; gece `_1` kontrast hatalı, `_2` ara revizyon |
 | `ramazan_özel_ana_ekran`, `ramazan_özel_gece_sade` | 2 | Sade varyasyonun iftar/sahur kartları; ayrı Home route değil |
 
-Her mevsimin dört fazı için ayrı tasarım mevcut değil. Eksik kombinasyonlar ortak tokenlardan türetilecek; yeni Stitch export'u geliştirme önkoşulu değil. Başlık/alt menü de tema ile birlikte değişecek; açık başlık + koyu içerik hatası taşınmayacak. Görünüm ekranındaki “Gün ışığına göre” seçimi dört fazı otomatik izler; Şafak, Gündüz, Gün batımı ve Gece aynı bölümde manuel olarak da sabitlenebilir. Manuel veya otomatik tema değişiminde önceki gökyüzü 480 ms içinde yeni palete çapraz çözünür, içerik hafifçe netleşir; hareketi azalt tercihi bu geçişi kaldırır.
+Her mevsimin dört fazı için ayrı tasarım mevcut değil. Eksik kombinasyonlar ortak tokenlardan türetilecek; yeni Stitch export'u geliştirme önkoşulu değil. Başlık/alt menü de tema ile birlikte değişecek; açık başlık + koyu içerik hatası taşınmayacak. Görünüm ekranındaki “Gün ışığına göre” seçimi dört fazı otomatik izler; Şafak, Gündüz, Gün batımı ve Gece aynı bölümde manuel olarak da sabitlenebilir. Manuel veya otomatik tema değişiminde yeni palet 520 ms boyunca çok hafif koyu bir perdeyle yumuşatılır; iki açık/koyu gradientin üst üste karışıp beyaz-gri ara renk üretmesi engellenir. Hareketi azalt tercihi bu geçişi kaldırır.
 
 ## Gerçek ekranlar
 

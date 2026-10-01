@@ -40,7 +40,7 @@ Kıble ekranı eklendi. Seçili konumdan Kâbe'ye büyük çember başlangıç d
 - Diyanet yalnız İstanbul tek gün karşılaştırıldı (0–2 dk fark); yedi şehir/mevsimler/Ramazan matrisi tamamlanmadan üretim uyumu iddia edilmez.
 - GeoNames resmî ilçe kapsamı, 29 yaklaşık temsil koordinatı. 974 kayıt sayısı resmî güncel ilçe sayısı iddiası değildir.
 - npm audit iki transitif advisory nedeniyle 14 moderate: uyumlu çözüm release öncesi; uyumsuz downgrade/force uygulanmadı.
-- Tema renkleri merkezidir; halka/ilk görünüm animasyonu ve manuel/otomatik palet değişiminde 480 ms global çapraz geçiş var. Fiziksel cihazda geçiş akıcılığı release öncesi kontrol edilecek. Türkçe çekirdek sözlük var; bazı ekran metinlerinin tam i18n ayrımı İngilizce aşamasında.
+- Tema renkleri merkezidir; halka/ilk görünüm animasyonu ve manuel/otomatik palet değişiminde 520 ms koyu perde geçişi var. İki gradientin karışmasından doğan beyaz-gri ara flaş emülatörde giderildi; fiziksel cihazda geçiş akıcılığı release öncesi kontrol edilecek. Türkçe çekirdek sözlük var; bazı ekran metinlerinin tam i18n ayrımı İngilizce aşamasında.
 
 ## Home sonrasında
 
@@ -57,7 +57,7 @@ Node 24 ile `npm run check`, `npm run test:timezones`, `npx expo-doctor`. Çalı
 
 ## Oturum devri
 
-- 1 Ekim 2026 tema geçişi ve metin düzeltmesi: Manuel görünüm seçimi ile 15 saniyelik otomatik güneş fazı güncellemesi aynı 480 ms Backdrop çapraz geçişini kullanıyor; açık ekran yeniden kurulmadan korunuyor ve hareketi azalt tercihine uyuluyor. Görünüm ekranında doğuş/batış eşikleri açıklandı. Konum kök listesi “81 il”, alt liste “ilçe”, arama “sonuç” gösteriyor. Android Expo Go'da Gece → Şafak → otomatik seçimleri ve nihai paletler kontrol edildi; `npm run check` (55 Jest) ve üç hostta 26 saat dilimi testi geçti. Native build üretilmedi. Sıradaki somut iş fiziksel Android cihazda Kıble yön sensörü, izin ve kalibrasyon doğrulamasıdır.
+- 1 Ekim 2026 tema geçişi ve metin düzeltmesi: Manuel görünüm seçimi ile 15 saniyelik otomatik güneş fazı güncellemesi aynı 520 ms koyu perde geçişini kullanıyor; açık/koyu gradientlerin beyaz-gri ara flaşı giderildi, açık ekran yeniden kurulmadan korunuyor ve hareketi azalt tercihine uyuluyor. Görünüm ekranında doğuş/batış eşikleri açıklandı. Konum kök listesi “81 il”, alt liste “ilçe”, arama “sonuç” gösteriyor. Android Expo Go'da manuel Gün batımı → Gündüz geçişi ara karelerle tekrarlandı; beyaz flaş görülmedi. `npm run check` (55 Jest) geçti. Native build üretilmedi. Sıradaki somut iş fiziksel Android cihazda Kıble yön sensörü, izin ve kalibrasyon doğrulamasıdır.
 - 1 Ekim 2026 görünüm tercihi: Işık bölümüne manuel Şafak, Gündüz, Gün batımı ve Gece seçenekleri eklendi. Seçim mevcut v3 `appearance` alanında saklanır; resolver seçilen fazı ve Home etiketini saatten bağımsız sabitler. `npm run check` ve üç host saat dilimi testi geçti (54 Jest, host başına 26 ilgili test); native build üretilmedi.
 - Işık seçenekleri sadeleştirildi: Cihaz teması, Her zaman aydınlık ve Her zaman karanlık UI'dan kaldırıldı. Eski kayıtlar solar/day/night eşlemesiyle korunuyor; kullanıcıya yalnız otomatik veya dört manuel güneş fazı sunuluyor.
 - 1 Ekim 2026 Işık sadeleştirme doğrulaması: Android Expo Go güncel bundle'ında dört manuel faz ve otomatik seçenek cihaz ekranında göründü; üç tekrarlı ışık seçeneği görünmüyor. `npm run check` ve saat dilimi testleri geçti (55 Jest, host başına 26 ilgili test).
