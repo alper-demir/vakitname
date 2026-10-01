@@ -77,6 +77,12 @@ Resmî test referansı: 2026 ilk oruç 19 Şubat, son oruç 19 Mart, bayram baş
 
 Solar faz astronomik doğuş/batış verilerinden türetilir; kullanıcı vakit düzeltmeleri gökyüzünü değiştirmez. İlk politika: şafak doğuştan 45 dk önce–15 dk sonra; gün batımı batıştan 45 dk önce–30 dk sonra; arası gündüz, kalanı gece. Bunlar görsel eşiklerdir, dinî vakit iddiası değil. Tokenlar renk, metin, yüzey, border, halka, dekor ve status bar'ı kapsar. Halka ve ilk görünüm geçişi azaltılmış harekete uyar. Palet renk interpolasyonu henüz uygulanmadı.
 
+## Aylık takvim ve Ramazan imsakiyesi
+
+Takvim route'u tek native ekran içinde iki görünüm sunar: seçili Miladi ayın tüm vakitleri ve doğrulanmış Ramazan aralığının İmsak/Akşam/Yatsı tablosu. `calendar-table.ts` tarih aralığı üretimini, Hicri gösterim offset'ini ve satır seçimini UI'dan ayırır; saatleri verilen `PrayerTimesProvider` üretir. Böylece tablo örnek saat saklamaz ve ileride resmî/offline provider eklenebilir.
+
+Ramazan aralığı önce `hijri-months.ts` içindeki kaynaklı Türkiye ay başlangıçlarından seçilir. Paket kapsamı dışındaki yıllarda cihazın `Intl` Umm al-Qura fallback'i ayın 1. gününü ve bir sonraki ay sınırını bulmak için kullanılır; bu sonuç Diyanet ile eşit veya resmî kabul edilmez. Kullanıcı Hicri düzeltmesi yalnız gösterilen Hicri etiketi değiştirir; Ramazan aralığı ve namaz olayları gerçek civil tarih/provider verisinden kalır. Tablo yatay native `ScrollView` ile taşmadan tüm vakitleri gösterir.
+
 ## Yerel bildirimler (Home sonrasındaki aşama)
 
 `NotificationPlanner` saf olay planı üretir; `NotificationScheduler` platforma uygular. Push tokenı/FCM/APNs gönderim sunucusu kullanılmaz. Her güne ayrı tarih tetikleyici; sabit günlük tekrar vakitlerin mevsimsel değişimini karşılamaz.

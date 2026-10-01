@@ -10,6 +10,10 @@ Kullanıcı geliştirmeyi onayladı. Repository kökünde Faz 1 ve Faz 2 çalı�
 
 Saf bildirim planlayıcı, en fazla 60 olaylık kuyruk, gerçek pending listeyle idempotent uzlaştırma, v3 state migration, genel/per-vakit tercihler, ön hatırlatma, ses seçimi, bildirim ayarları ve yardım ekranı eklendi. Android 16 / Expo Go 57.0.9'da gerçek izin diyaloğu, 60 olaylık pending kuyruk ve uygulama arka plandayken üç saniyelik teslim doğrulandı. Expo Go'nun push girişi ve kanal yöneticisi SDK 57'de çalışmadığı için yalnız bu geliştirme ortamında yerel alt modüller ile varsayılan kanal kullanılır; production build public paket girişi ve Vakit kanallarını kullanır. Özel ses/sessiz kanal, kesin alarm, reboot/force-stop, iOS ve gerçek cihaz testleri yapılmadan Faz 3 `v0.3.0` sayılmaz.
 
+## Faz 4 durumu
+
+Native Takvim ekranı eklendi. Aylık Miladi görünüm, seçili gün özeti, yatay tüm vakit tablosu, Ramazan görünümü, 2026–2027 kaynaklı Ramazan aralığı ve kapsam dışı yıllar için Umm al-Qura fallback'i çalışıyor. Hicri gösterim düzeltmesi tabloya uygulanıyor; saatler `PrayerTimesProvider` üzerinden gerçek konum verisiyle hesaplanıyor. Expo Go Android emülatöründe Ekim 2026 aylık görünüm ve 1448 Ramazan 29 günlük imsakiyesi açıldı.
+
 ## Tamamlandı
 
 - 37 Stitch ekranı analiz edildi; 19 Home varyasyonu tek Home/tema sisteminde toplandı. İki tasarım klasörü korunuyor.
@@ -21,7 +25,8 @@ Saf bildirim planlayıcı, en fazla 60 olaylık kuyruk, gerçek pending listeyle
 - 2026–2027 Hicri ay başlangıçları, kapsam dışı açık kaynaklı hesaplanan fallback, Ramazan sınırları.
 - Üç adımlı onboarding; genel ayarlar merkezi; altı vakit için ±30 dakika düzeltme; ±2 günlük Hicri düzeltme ve canlı önizleme. Eski v1 kayıtları v2 şemasına göç eder; kayıtlı konumu olan kullanıcı onboarding'i tekrar görmez.
 - Faz 3 bildirim tercihleri ve saf planlama altyapısı; özgün kısa Vakit tonu, sistem sesi ve sessiz seçenekleri. State v3'e göç eder.
-- 42 test, üç host saat diliminde 22 ek test, lint/typecheck ve Expo Doctor 21/21. Ayrıntılar VALIDATION.md.
+- Faz 4 aylık takvim ve Ramazan imsakiyesi: tek ekran, iki görünüm ve provider enjeksiyonu.
+- 46 test, üç host saat diliminde 22 ek test, lint/typecheck ve Expo Doctor 21/21. Ayrıntılar VALIDATION.md.
 
 ## İlk dilimde açık kalan doğrulamalar
 
@@ -34,7 +39,7 @@ Saf bildirim planlayıcı, en fazla 60 olaylık kuyruk, gerçek pending listeyle
 ## Home sonrasında
 
 1. Faz 3 production doğrulama kapısı: development build açıkça yetkilendirildiğinde Android/iOS özel ses ve sessiz kanal, kesin alarm, reboot/force-stop, ekran kilidi ve gerçek cihaz davranışını test et; sonuçlar geçerse `v0.3.0` oluştur.
-2. Faz 4: aylık takvim ve Ramazan imsakiyesi. Faz 3 native kapısı ayrı izlenebilir; ürün geliştirmesi kullanıcı tercihiyle Faz 4'e geçebilir.
+2. Faz 4 cihaz/ürün kontrolleri: farklı aylar, Hicri düzeltme, Ramazan seçimi, küçük ekran yatay tablo ve veri kapsamı dışı fallback.
 3. Faz 5: Kıble ve sensörsüz/kalibrasyon durumları.
 4. Faz 6: gizlilik/lisans ekranı, ikon/splash, mağaza kimlikleri, erişilebilirlik ve release build.
 
@@ -50,8 +55,8 @@ Node 24 ile `npm run check`, `npm run test:timezones`, `npx expo-doctor`. Çalı
 - İlk okunacak dosyalar: `AGENTS.md`, ardından bu dosya. Tasarım ayrıntısı gerekirse `docs/DESIGN.md`; teknik karar gerekirse `docs/ARCHITECTURE.md`; kanıt ve açık kontroller için `docs/VALIDATION.md`.
 - Son doğrulanan çalışma biçimi: Android 16 Pixel 7 emülatörü, Expo Go 57.0.9, LAN Metro `8081`; Home ve offline konum listesi açıldı. Metro süreçleri oturumlar arasında kalıcı kabul edilmez.
 - Faz 2 `feature/phase2-onboarding-settings` dalında tamamlandı: onboarding, genel ayarlar, hesaplama düzeltmeleri ve Hicri düzeltme eklendi. Android Expo Go'da ayarlar navigasyonu, İmsak +1'in Home'a anında yansıması, “1 düzeltme” özeti, Hicri +1 canlı önizlemesi ve değerleri yeniden sıfırlama doğrulandı.
-- Faz 3 `feature/phase3-local-notifications` dalında geliştirildi ve oturum sonunda `develop` ile birleştirildi: `expo-notifications`, saf planlayıcı/uzlaştırma, v3 migration, ayarlar ve yardım ekranları eklendi. Android Expo Go'da izin diyaloğu, 60 pending olay ve arka planda üç saniyelik test teslimi doğrulandı; özel kanal ve özel ses Expo Go kapsamı dışındadır.
-- Şu an yapılacak iş: kullanıcı development build'i ayrıca isterse Faz 3 production native doğrulama kapısını yürüt; bu kapı geçmeden `v0.3.0` etiketi oluşturma. Ürün geliştirmesinde sıradaki iş Faz 4 aylık takvim/Ramazan imsakiyesidir.
+- Faz 3 `feature/phase3-local-notifications` dalında geliştirildi ve `develop` ile birleştirildi: bildirim planlayıcı/uzlaştırma, ayarlar ve yardım ekranları.
+- Faz 4 Takvim ekranı bu oturumda eklendi; aylık ve Ramazan görünümleri emülatörde kontrol edildi. Sonraki oturumda belgede listelenen Faz 4 cihaz/ürün kontrollerini tamamla; ardından Faz 5 planını başlat.
 - `android/` ve `dist/` mevcut değil; APK/AAB yok. `expo-system-ui` kaldırıldı ve `app.json` prebuild öncesi durumuna döndü.
 
 Yeni oturumda AGENTS.md ve bu dosyayı oku; tüm tasarımları tekrar tarama. Mimari/kaynak/validasyon belgelerinin yalnız gerekli bölümünü aç.

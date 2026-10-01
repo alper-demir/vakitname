@@ -33,6 +33,8 @@ Faz 2'de onboarding üç adım olarak tek component içinde, ayarlar ise genel m
 
 Faz 3'te `bildirim_ayarlar` ana görsel referans alındı; tek açılır kart yerine daha sakin global tercihler + altı vakit anahtarı kullanıldı. `ses_seçimi` içindeki kaynağı olmayan ezan/melodi adları taşınmadı; özgün kısa Vakit tonu, sistem sesi ve sessiz seçenekleri sunuldu. `bildirim_durumu_ve_yard_m` düzeni kullanıldı; yanlış “Şehir Seçimi”, uydurma güvenilirlik skoru ve cihazda ölçülmeyen kesin alarm/pil muafiyeti durumları kaldırıldı.
 
+Faz 4'te `ayl_k_takvim_ve_i_msakiye` ve `ramazan_i_msakiyesi` ana referans alındı. Ortak native Takvim ekranında Aylık görünüm ve Ramazan görünümü segmented seçimle ayrılır; seçili gün üst kartta, tüm saatler yatay kaydırılabilir tabloda gösterilir. Stitch’teki PDF/paylaşım, “tam Diyanet uyumu” ve örnek saatler kullanılmadı; yerel hesaplama ve kaynak açıklaması korundu.
+
 ## Ek ekranlar ve uygulamaya alınacak düzeltmeler
 
 Aşağıdaki dizinler repository kökündeki `ek-ekranlar/` altındadır. Stitch screen ID'leri yeniden arama ihtiyacını azaltır; proje ID'si `2377776243904543808`.
