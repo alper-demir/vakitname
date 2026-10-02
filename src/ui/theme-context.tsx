@@ -11,6 +11,7 @@ import { useNow } from './use-now';
 const Context = createContext<Theme>(resolveTheme({ season: 'spring', phase: 'day', ramadan: false, preferences: defaultPreferences.theme, systemDark: false }));
 export function ThemeProvider({ children }: React.PropsWithChildren) {
   const { location, preferences } = useAppState();
+  const { adjustments, hijriOffset, theme: themePreferences } = preferences;
   const now = useNow(15000);
   const systemDark = useColorScheme() === 'dark';
   const theme = useMemo(() => {
@@ -19,14 +20,14 @@ export function ThemeProvider({ children }: React.PropsWithChildren) {
     if (location) {
       try {
         const date = localDateAt(now, location.timeZone);
-        const today = prayerProvider.getDay(date, location, preferences.adjustments);
-        const tomorrow = prayerProvider.getDay(addDays(date, 1), location, preferences.adjustments);
+        const today = prayerProvider.getDay(date, location, adjustments);
+        const tomorrow = prayerProvider.getDay(addDays(date, 1), location, adjustments);
         phase = solarPhaseAt(now, today);
-        ramadan = ramadanAt(now, today, tomorrow, preferences.hijriOffset).active;
+        ramadan = ramadanAt(now, today, tomorrow, hijriOffset).active;
       } catch { /* Home presents calculation errors; a readable theme remains available. */ }
     }
-    return resolveTheme({ season: seasonAt(now, 'Europe/Istanbul'), phase, ramadan, preferences: preferences.theme, systemDark });
-  }, [location, preferences, now, systemDark]);
+    return resolveTheme({ season: seasonAt(now, 'Europe/Istanbul'), phase, ramadan, preferences: themePreferences, systemDark });
+  }, [location, adjustments, hijriOffset, themePreferences, now, systemDark]);
   return <Context.Provider value={theme}>{children}</Context.Provider>;
 }
 export const useTheme = () => useContext(Context);

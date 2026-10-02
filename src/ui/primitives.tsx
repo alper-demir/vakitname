@@ -69,7 +69,7 @@ export function Backdrop({ children }: React.PropsWithChildren) {
     transitionOpacity.stopAnimation();
     transitionOpacity.setValue(.16);
     Animated.parallel([
-      Animated.timing(transitionOpacity, { toValue: 0, duration: reduceMotion ? 0 : 520, easing: Easing.out(Easing.cubic), useNativeDriver: true }),
+      Animated.timing(transitionOpacity, { toValue: 0, duration: reduceMotion ? 0 : 240, easing: Easing.out(Easing.cubic), useNativeDriver: true }),
     ]).start();
   }, [reduceMotion, theme.background, theme.landscape, transitionKey, transitionOpacity]);
   return <LinearGradient colors={theme.background} style={{ flex: 1 }}>

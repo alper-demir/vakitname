@@ -1,9 +1,30 @@
 import { CalculationMethod, Coordinates, PrayerTimes } from 'adhan';
 import { DateTime } from 'luxon';
-import { Adjustments, PrayerTimesProvider, VakitLocation, prayerIds } from '@/domain/types';
+import { Adjustments, PrayerDay, PrayerTimesProvider, VakitLocation, prayerIds } from '@/domain/types';
+
+const MAX_CACHED_DAYS = 400;
+
+function cacheKey(localDate: string, location: VakitLocation, adjustments: Adjustments) {
+  return [
+    localDate,
+    location.latitude,
+    location.longitude,
+    location.timeZone,
+    ...prayerIds.map((id) => adjustments[id]),
+  ].join('|');
+}
 
 export class AdhanProvider implements PrayerTimesProvider {
+  private readonly cache = new Map<string, PrayerDay>();
+
   getDay(localDate: string, location: VakitLocation, adjustments: Adjustments) {
+    const key = cacheKey(localDate, location, adjustments);
+    const cached = this.cache.get(key);
+    if (cached) {
+      this.cache.delete(key);
+      this.cache.set(key, cached);
+      return cached;
+    }
     const civil = DateTime.fromISO(localDate, { zone: location.timeZone });
     if (!civil.isValid || !Number.isFinite(location.latitude) || !Number.isFinite(location.longitude)) throw new Error('Geçersiz konum veya tarih');
     if (prayerIds.some((id) => !Number.isInteger(adjustments[id]) || Math.abs(adjustments[id]) > 30)) throw new Error('Düzeltmeler −30 ile +30 dakika arasında olmalı');
@@ -20,11 +41,17 @@ export class AdhanProvider implements PrayerTimesProvider {
     // Astronomical sun events have no preset/user offsets. Theme is independent
     // of the corrected prayer schedule and Diyanet's sunrise convention.
     const solar = new PrayerTimes(coordinates, carrier, CalculationMethod.Other());
-    return {
+    const day: PrayerDay = {
       localDate, timeZone: location.timeZone, events,
       sunrise: solar.sunrise.getTime(), sunset: solar.maghrib.getTime(),
       source: { id: 'adhan', method: 'Türkiye yöntemi', version: '4.4.6' },
     };
+    this.cache.set(key, day);
+    if (this.cache.size > MAX_CACHED_DAYS) {
+      const oldest = this.cache.keys().next().value;
+      if (oldest !== undefined) this.cache.delete(oldest);
+    }
+    return day;
   }
 }
 export const prayerProvider: PrayerTimesProvider = new AdhanProvider();

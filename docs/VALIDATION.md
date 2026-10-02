@@ -2,7 +2,7 @@
 
 ## Geçen kontroller
 
-- TypeScript strict, ESLint, 60 Jest testi. Gerçek Home/konum componentleriyle GPS reddi → manuel seçim → Home → kayıtlı yeniden açılış; GPS konumunda arka plandan dönüşte izin istemeden yenileme.
+- TypeScript strict, ESLint, 61 Jest testi. Gerçek Home/konum componentleriyle GPS reddi → manuel seçim → Home → kayıtlı yeniden açılış; GPS konumunda arka plandan dönüşte izin istemeden yenileme.
 - Onboarding'in konumsuz tamamlanması ve kalıcılığı, v1→v2 state göçü, vakit/Hicri düzeltmelerinin sınırlandırılmış state üzerinden kaydı test edildi.
 - Expo Go 57.0.9 / Android 16 Pixel 7 üzerinde sistem izin diyaloğu, ret sonrası Türkçe fallback ve izin sonrası konum isteği denendi. 720×1280 küçük ekran ve 1.3 font ölçeğinde Home kaydırma/alt dock kontrol edildi; erişilebilirlik ağacı için TalkBack servisi emülatörde mevcut değildi, Jest ve native accessibility etiketleri doğrulandı.
 - Geç GPS sonucunun yeni manuel seçimi ezmemesi; yenileme hatasında son konumun korunması; storage okuma hatasında okunamamış verinin varsayılanlarla ezilmemesi.
@@ -30,6 +30,8 @@
 - 2 Ekim 2026 uçtan uca Expo Go kontrolünde Home ve alt navigasyon, 81 il/arama sonucu konum akışı, ilk gün seçimi ve başlık ayrımı, Ekim→Kasım geçişi, 1448 Ramazan imsakiyesi, Kıble sensörsüz fallback'i, Görünüm seçenekleri, Ramazan önizlemesi, vakit/Hicri düzeltmeleri, Bildirimler, Bildirim durumu ve Hakkında ekranı tekrar açıldı. Deneme tercihleri sonunda Kâğıthane, sıfır vakit/Hicri düzeltmesi, gün ışığına göre görünüm, Ramazan kapalı ve bildirimler açık durumuna döndürüldü.
 - Aynı kontrolde bildirim ana anahtarı 60→0→60 pending olayı doğru yansıttı. Expo Go zorla durdurulup yeniden açıldığında SQLite konum/tercihleri korundu ve 60 olaylık plan yeniden görüldü. Yeniden açılıştan sonraki Android logunda fatal exception veya React Native hata/uyarı kaydı bulunmadı.
 - Manuel Gündüz ve Gün batımı geçişlerinden 80/300/700 ms çevresinde alınan karelerde beyaz ara flaş görülmedi. Emülatör Quick Boot durumu ilk açılışta ADB/QEMU'yu kilitledi; veri silmeden `-no-snapshot-load` soğuk başlatma sonrasında uygulama kararlı çalıştı. Bu uygulama çökmesi olarak sınıflandırılmadı.
+- Samsung Galaxy A52 fiziksel cihaz / Expo Go gözleminde ilk açılış marka ekranı düzgün göründü, GPS konumu Kâğıthane olarak bulundu ve Kıble pusulası gerçek cihazda doğru yön verdi. Bu kullanıcı gözlemi temel başarı yolunu doğrular; izin reddi/geri alma, farklı yönlerde hassasiyet-kalibrasyon ve abonelik temizliği ayrıca açık kalır.
+- Takvim performans düzeltmesi Android 16 Pixel 7 emülatörü / Expo Go'da kontrol edildi. Takvim route'u, Aylık/Ramazan seçimi ve Ekim→Kasım değişimi önce başlık/seçimi çizip hesap sırasında “Vakitler hazırlanıyor…” gösterdi; sonuçlar 1 saniyenin altında geldi. Aynı görünüme dönüş sınırlı tablo önbelleğinden beslenir. Tema perdesi 520 ms'den 240 ms'ye indirildi; Kış seçimi 80 ms ara ve 340 ms tamamlanmış kareyle kontrol edildi, fatal/RN hata kaydı görülmedi. Aynı gün Adhan hesabını yeniden kullanma ve değişen konum/düzeltmeyi ayrı tutma testi eklendi; toplam 61 Jest ve üç host saat diliminde 28/28 test geçti.
 
 ## İlk Diyanet karşılaştırması
 
@@ -57,8 +59,8 @@ npm audit: 0 critical/high, 14 moderate rapor; çoğu aynı iki advisory'nin üs
 - VoiceOver/TalkBack gerçek cihaz testi; azaltılmış hareket ve kontrast.
 - GeoNames resmî ilçe listesi kapsamı ve 29 yaklaşık koordinatın iyileştirilmesi; sınır noktaları.
 - Android Expo Go izin, pending kuyruk ve varsayılan kanalda arka plan teslimi geçti. Android development build üzerinde özgün ses, sessiz kanal, ekran kilidi, reboot, force-stop, Doze/pil tasarrufu ve kesin alarm davranışı ile gerçek cihaz izinleri açık release kapısıdır.
-- Faz 4 için gerçek cihaz erişilebilirlik, aylar arası performans ve küçük ekran yatay tablo kontrolü henüz release kanıtı değildir; emülatör gözlemi yalnız Android Expo Go ile sınırlıdır.
-- Faz 5 için gerçek Android cihazda konum izni ret/verme, trueHeading yokken manyetik veri, yüksek/düşük hassasiyet, hareket/kalibrasyon ve ekran kapanınca başlık aboneliğinin durması doğrulanmalıdır. Emülatördeki sensörsüz durum bu kontrollerin yerine geçmez.
+- Faz 4 için gerçek cihaz erişilebilirlik ve iyileştirilen ay/sekme performansının A52'de yeniden kabulü henüz release kanıtı değildir; emülatör gözlemi Android Expo Go ile sınırlıdır.
+- Faz 5 temel fiziksel cihaz başarı yolu Galaxy A52'de doğru pusula yönüyle gözlendi. Konum izni ret/verme, trueHeading yokken manyetik veri, yüksek/düşük hassasiyet, hareket/kalibrasyon ve ekran kapanınca başlık aboneliğinin durması yine doğrulanmalıdır. Emülatördeki sensörsüz durum bu kontrollerin yerine geçmez.
 - Faz 6 için native release build, launcher maskesi, Play Console önizlemesi ve bildirim/ikon kaynaklarının gerçek Android cihazda doğrulanması gerekir. Hakkında/Gizlilik/Kaynak/Lisans ekranı, splash config çıktısı, erişilebilir başlık/etiketler ve Android ikon asset entegrasyonu Expo config ile doğrulandı; kullanıcı ikonu `assets/icon/` altında işlendi. Expo Go, native launcher ikonunu güncellemez.
 - Android 16 Pixel 7 / Expo Go 57.0.9'da güncel Metro bundle yeniden açıldı; Settings akışı ve yeni raster asset importu hata vermeden çalıştı. Bu, adaptive launcher maskesinin veya native splash görselinin kanıtı değildir.
 - Android 16 Pixel 7 / Expo Go 57.0.9'da Ayarlar → Hakkında ve gizlilik ekranı açıldı; marka başlığı, veri saklama özeti, kaynak kartı ve lisans içeriği küçük ekran kaydırma düzeninde okunabilir göründü. Native OS splash görüntüsü Expo Go'da ayrı doğrulanmadı; Expo config yalnız arka plan renkleriyle doğrulandı.

@@ -20,7 +20,7 @@ export default function RootLayout() {
   useEffect(() => { if (loaded || error) void SplashScreen.hideAsync(); }, [loaded, error]);
   if (error) return <View style={{ flex: 1, justifyContent: 'center', padding: 30, backgroundColor: '#F3F9F3' }}><Text accessibilityRole="header">Vakit hazırlanamadı. Lütfen uygulamayı yeniden açın.</Text></View>;
   if (!loaded) return <BrandSplash />;
-  return <AppStateProvider><NotificationProvider><ThemeProvider><Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: '#F3F9F3' } }}>
+  return <AppStateProvider><NotificationProvider><ThemeProvider><Stack screenOptions={{ headerShown: false, freezeOnBlur: true, contentStyle: { backgroundColor: '#F3F9F3' } }}>
     <Stack.Screen name="index" />
     <Stack.Screen name="calendar" />
     <Stack.Screen name="qibla" />

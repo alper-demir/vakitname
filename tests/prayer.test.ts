@@ -56,4 +56,11 @@ describe('civil date and prayer timeline', () => {
     const ankara = provider.getDay('2026-09-30', { ...location, latitude: 39.91987, longitude: 32.85427 }, zeroAdjustments);
     expect(ankara.events).not.toEqual(day('2026-09-30').events);
   });
+  test('reuses an identical day calculation but separates changed inputs', () => {
+    const cachedProvider = new AdhanProvider();
+    const first = cachedProvider.getDay('2026-10-02', location, zeroAdjustments);
+    expect(cachedProvider.getDay('2026-10-02', location, { ...zeroAdjustments })).toBe(first);
+    expect(cachedProvider.getDay('2026-10-02', location, { ...zeroAdjustments, imsak: 1 })).not.toBe(first);
+    expect(cachedProvider.getDay('2026-10-02', { ...location, latitude: 39.91987 }, zeroAdjustments)).not.toBe(first);
+  });
 });

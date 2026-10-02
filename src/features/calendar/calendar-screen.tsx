@@ -1,5 +1,5 @@
-import React, { useMemo, useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
+import React, { useEffect, useMemo, useState } from 'react';
+import { ActivityIndicator, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { DateTime } from 'luxon';
 import { router } from 'expo-router';
 import { buildMonthRows, buildRamadanRows, getRamadanRange, CalendarTableRow } from '@/domain/calendar-table';
@@ -14,6 +14,19 @@ import { Button, IconButton, Page, Surface, T } from '@/ui/primitives';
 import { Icon } from '@/ui/icons';
 
 type Mode = 'month' | 'ramadan';
+type RowResult = { key: string; rows: CalendarTableRow[] };
+
+const rowCache = new Map<string, CalendarTableRow[]>();
+const MAX_CACHED_TABLES = 12;
+
+function rememberRows(key: string, rows: CalendarTableRow[]) {
+  rowCache.delete(key);
+  rowCache.set(key, rows);
+  if (rowCache.size > MAX_CACHED_TABLES) {
+    const oldest = rowCache.keys().next().value;
+    if (oldest !== undefined) rowCache.delete(oldest);
+  }
+}
 
 function time(row: CalendarTableRow, id: (typeof prayerIds)[number]) {
   const event = row.prayerDay.events.find((item) => item.id === id);
@@ -47,12 +60,44 @@ export default function CalendarScreen() {
   const [month, setMonth] = useState(today.slice(0, 7));
   const range = useMemo(() => getRamadanRange(today), [today]);
   const [selected, setSelected] = useState(today);
-  const rows = useMemo(() => {
-    if (!location) return [];
-    try {
-      return mode === 'ramadan' && range ? buildRamadanRows(range, location, preferences.adjustments, today, prayerProvider, preferences.hijriOffset) : buildMonthRows(month, location, preferences.adjustments, today, prayerProvider, preferences.hijriOffset);
-    } catch { return []; }
-  }, [location, preferences.adjustments, preferences.hijriOffset, mode, range, month, today]);
+  const rowsKey = useMemo(() => location ? [
+    mode,
+    month,
+    range?.start ?? '',
+    today,
+    location.latitude,
+    location.longitude,
+    location.timeZone,
+    ...prayerIds.map((id) => preferences.adjustments[id]),
+    preferences.hijriOffset,
+  ].join('|') : 'no-location', [location, mode, month, range?.start, today, preferences.adjustments, preferences.hijriOffset]);
+  const [rowResult, setRowResult] = useState<RowResult | null>(() => {
+    const cached = rowCache.get(rowsKey);
+    return cached ? { key: rowsKey, rows: cached } : null;
+  });
+  useEffect(() => {
+    if (!location) return;
+    let cancelled = false;
+    const task = requestIdleCallback(() => {
+      if (cancelled) return;
+      const cached = rowCache.get(rowsKey);
+      if (cached) return;
+      let nextRows: CalendarTableRow[] = [];
+      try {
+        nextRows = mode === 'ramadan' && range
+          ? buildRamadanRows(range, location, preferences.adjustments, today, prayerProvider, preferences.hijriOffset)
+          : buildMonthRows(month, location, preferences.adjustments, today, prayerProvider, preferences.hijriOffset);
+      } catch { /* Empty state below keeps the screen usable if calculation fails. */ }
+      if (!cancelled) {
+        rememberRows(rowsKey, nextRows);
+        setRowResult({ key: rowsKey, rows: nextRows });
+      }
+    });
+    return () => { cancelled = true; cancelIdleCallback(task); };
+  }, [location, preferences.adjustments, preferences.hijriOffset, mode, range, month, today, rowsKey]);
+  const resolvedRows = rowResult?.key === rowsKey ? rowResult.rows : rowCache.get(rowsKey);
+  const loadingRows = !resolvedRows;
+  const rows = resolvedRows ?? [];
   const visibleSelected = rows.some((row) => row.localDate === selected) ? selected : rows[0]?.localDate ?? today;
   const selectedRow = rows.find((row) => row.localDate === visibleSelected) ?? rows[0];
   const close = () => router.canGoBack() ? router.back() : router.replace('/');
@@ -73,7 +118,9 @@ export default function CalendarScreen() {
     {mode === 'month' ? <View style={[s.navigator, { backgroundColor: theme.surface }]}><IconButton name="back" label="Önceki ay" onPress={() => moveMonth(-1)} /><T weight="medium" style={{ fontSize: 17 }}>{DateTime.fromISO(`${month}-01`, { locale: 'tr' }).toFormat('LLLL yyyy')}</T><IconButton name="arrow" label="Sonraki ay" onPress={() => moveMonth(1)} /></View> : <Surface style={{ padding: 16, marginTop: 16, backgroundColor: theme.highlight }}><T weight="semibold" style={{ color: theme.accent, fontSize: 11, letterSpacing: 1 }}>{range ? `${range.hijriYear} HİCRİ · ${range.days} GÜN` : 'RAMAZAN'}</T><T weight="medium" style={{ fontSize: 22, marginTop: 8 }}>{range ? `${formatDate(range.start)} – ${formatDate(addDays(range.endExclusive, -1))}` : 'Ramazan dönemi bulunamadı'}</T></Surface>}
     {selectedRow && <Surface style={{ marginTop: 16, padding: 16 }}><View style={s.between}><View><T style={{ color: theme.muted, fontSize: 11 }}>{selectedRow.isToday ? 'BUGÜN' : 'SEÇİLİ GÜN'}</T><T weight="medium" style={{ fontSize: 21, marginTop: 6 }}>{formatDate(selectedRow.localDate, true)}</T><T style={{ color: theme.muted, fontSize: 12, marginTop: 4 }}>{selectedRow.hijri.label}</T></View><View style={s.dateBadge}><T weight="semibold" style={{ color: theme.accent, fontSize: 22 }}>{DateTime.fromISO(selectedRow.localDate, { locale: 'tr' }).toFormat('d')}</T><T style={{ color: theme.accent, fontSize: 10 }}>{DateTime.fromISO(selectedRow.localDate, { locale: 'tr' }).toFormat('LLL').toUpperCase()}</T></View></View><View style={s.quickTimes}><View><T style={{ color: theme.muted, fontSize: 10 }}>İMSAK</T><T weight="semibold" style={{ color: theme.accent, fontSize: 22, marginTop: 4 }}>{time(selectedRow, 'imsak')}</T></View><View style={s.divider} /><View><T style={{ color: theme.muted, fontSize: 10 }}>İFTAR</T><T weight="semibold" style={{ color: theme.accent, fontSize: 22, marginTop: 4 }}>{time(selectedRow, 'aksam')}</T></View></View></Surface>}
     <T weight="semibold" style={[s.section, { color: theme.muted }]}>{mode === 'ramadan' ? 'İMSAKİYE ÇİZELGESİ' : 'VAKİT ÇİZELGESİ'}</T>
-    <Surface style={{ padding: 0, overflow: 'hidden' }}><Table rows={rows} theme={theme} compact={mode === 'ramadan'} selected={visibleSelected} onSelect={setSelected} /></Surface>
+    {loadingRows
+      ? <Surface style={s.loading}><ActivityIndicator color={theme.accent} /><T style={{ color: theme.muted }}>Vakitler hazırlanıyor…</T></Surface>
+      : <Surface style={{ padding: 0, overflow: 'hidden' }}><Table rows={rows} theme={theme} compact={mode === 'ramadan'} selected={visibleSelected} onSelect={setSelected} /></Surface>}
     <Surface style={{ marginTop: 16, padding: 16, backgroundColor: theme.highlight }}><T style={{ color: theme.muted, lineHeight: 21, fontSize: 12 }}>{mode === 'ramadan' ? 'Ramazan günleri seçili konumun cihazda hesaplanan İmsak ve Akşam vakitleriyle gösterilir. Bu tablo resmî Diyanet verisi iddiası taşımaz.' : 'Vakitler seçili konuma göre cihazda hesaplanır. Yatay kaydırarak tüm vakitleri görebilirsin.'}</T></Surface>
   </Page>;
 }
@@ -82,5 +129,5 @@ const s = StyleSheet.create({
   header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 18 },
   modeSwitch: { flexDirection: 'row', padding: 4, borderRadius: 24, gap: 4 }, modeButton: { flex: 1, minHeight: 42, borderRadius: 20, alignItems: 'center', justifyContent: 'center' },
   navigator: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderRadius: 22, marginTop: 16, paddingHorizontal: 8 },
-  between: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', gap: 12 }, dateBadge: { width: 64, height: 64, borderRadius: 20, backgroundColor: '#E7EEDFAA', alignItems: 'center', justifyContent: 'center' }, quickTimes: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around', marginTop: 20, paddingTop: 16, borderTopWidth: 1, borderTopColor: '#49694E16' }, divider: { width: 1, height: 35, backgroundColor: '#49694E22' }, section: { fontSize: 10, letterSpacing: 1.4, marginTop: 24, marginBottom: 8 }, tableHeader: { flexDirection: 'row', minHeight: 46, alignItems: 'center', borderBottomWidth: StyleSheet.hairlineWidth }, tableRow: { flexDirection: 'row', minHeight: 64, alignItems: 'center', borderBottomWidth: 1 }, cell: { width: 82, paddingHorizontal: 8, textAlign: 'center', fontSize: 12, fontVariant: ['tabular-nums'] }, dateCell: { width: 104, textAlign: 'left' }, empty: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: 16, paddingBottom: 80 }, dock: { flexDirection: 'row', borderWidth: 1, borderRadius: 32, paddingVertical: 8 }, dockItem: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: 4, minHeight: 44 }, dockText: { fontSize: 9 },
+  between: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', gap: 12 }, dateBadge: { width: 64, height: 64, borderRadius: 20, backgroundColor: '#E7EEDFAA', alignItems: 'center', justifyContent: 'center' }, quickTimes: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around', marginTop: 20, paddingTop: 16, borderTopWidth: 1, borderTopColor: '#49694E16' }, divider: { width: 1, height: 35, backgroundColor: '#49694E22' }, section: { fontSize: 10, letterSpacing: 1.4, marginTop: 24, marginBottom: 8 }, tableHeader: { flexDirection: 'row', minHeight: 46, alignItems: 'center', borderBottomWidth: StyleSheet.hairlineWidth }, tableRow: { flexDirection: 'row', minHeight: 64, alignItems: 'center', borderBottomWidth: 1 }, cell: { width: 82, paddingHorizontal: 8, textAlign: 'center', fontSize: 12, fontVariant: ['tabular-nums'] }, dateCell: { width: 104, textAlign: 'left' }, loading: { minHeight: 180, alignItems: 'center', justifyContent: 'center', gap: 14 }, empty: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: 16, paddingBottom: 80 }, dock: { flexDirection: 'row', borderWidth: 1, borderRadius: 32, paddingVertical: 8 }, dockItem: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: 4, minHeight: 44 }, dockText: { fontSize: 9 },
 });

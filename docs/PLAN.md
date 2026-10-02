@@ -4,7 +4,7 @@ Kullanıcı geliştirmeyi onayladı. Repository kökünde Faz 1 ve Faz 2 çalı�
 
 ## Faz 1–2 durumu
 
-İlk dikey dilim ile Faz 2 onboarding/ayarlar, Faz 3 bildirim kodu, Faz 4 takvim, Faz 5 Kıble ve Faz 6 yayın yüzeyi tamamlandı. GPS yenileme, Android Expo Go izin/fallback akışı, küçük ekran ve büyük yazı kontrolleri de tamamlandı. Ürün yalnız Android/Play Store hedeflidir; iOS ve App Store kapsam dışıdır. Fiziksel cihazdan önce kalan tek netlik düzeltmesi Bildirim durumu ekranındaki `Son plan` etiketidir; ardından sıradaki somut doğrulama fiziksel Android cihazda Kıble sensörü/izin/kalibrasyon akışıdır. Açık yetki verilirse Android production bildirim ve release build kapıları gelir. Gerçek TalkBack ve çoklu Diyanet karşılaştırması ayrıca yürütülecektir.
+İlk dikey dilim ile Faz 2 onboarding/ayarlar, Faz 3 bildirim kodu, Faz 4 takvim, Faz 5 Kıble ve Faz 6 yayın yüzeyi tamamlandı. GPS yenileme, Android Expo Go izin/fallback akışı, küçük ekran ve büyük yazı kontrolleri de tamamlandı. Ürün yalnız Android/Play Store hedeflidir; iOS ve App Store kapsam dışıdır. Galaxy A52'de ilk açılış, Kâğıthane GPS seçimi ve Kıble pusulasının temel başarı yolu geçti. Takvim/tema gecikmeleri için hesap önbelleği, boşta hesaplama, arka plan ekran dondurma ve daha kısa geçiş uygulandı; A52 yeniden kabulü açık. Bildirim durumu ekranındaki `Son plan` etiketi hâlâ düzeltilmelidir. Açık yetki verilirse Android production bildirim ve release build kapıları gelir. Gerçek TalkBack ve çoklu Diyanet karşılaştırması ayrıca yürütülecektir.
 
 ## Faz 3 durumu
 
@@ -32,7 +32,7 @@ Kıble ekranı eklendi. Seçili konumdan Kâbe'ye büyük çember başlangıç d
 - Faz 4 aylık takvim ve Ramazan imsakiyesi: tek ekran, iki görünüm ve provider enjeksiyonu.
 - Faz 5 Kıble: saf yön/mesafe domain'i, gerçek-kuzey/manyetik-kuzey ayrımlı başlık adaptörü, sensörsüz durum, native pusula ekranı ve navigasyon erişimi.
 - Faz 6 yayın yüzeyi: native splash arka planı ve font yükleme marka yüzeyi, Hakkında/Gizlilik/Kaynak/Lisans ekranı, Ayarlar erişimi ve Android Play Store ikonları. Kullanıcının sağladığı hilal-pusula ikonu beyaz köşeleri temizlenerek standart ve adaptive PNG'lere dönüştürüldü; iOS kapsam dışı.
-- 60 test, üç host saat diliminde 27 ek test, lint/typecheck ve Expo Doctor 21/21. Ayrıntılar VALIDATION.md.
+- 61 test, üç host saat diliminde 28 ek test, lint/typecheck ve Expo Doctor 21/21. Ayrıntılar VALIDATION.md.
 
 ## İlk dilimde açık kalan doğrulamalar
 
@@ -56,6 +56,10 @@ Hesap, reklam, backend, widget, tam ezan, PDF, mukabele ve zikirmatik kapsam dı
 Node 24 ile `npm run check`, `npm run test:timezones`, `npx expo-doctor`. Çalıştırma README'de. Android emülatör incelemesi için Metro'yu `npm start -- --lan` ile açıp Expo Go kullan. `npm run android`, prebuild ve APK/AAB ancak kullanıcı açıkça isterse.
 
 ## Oturum devri
+
+- 2 Ekim 2026 fiziksel A52 geri bildirimi ve performans düzeltmesi: Kullanıcı Expo Go'da ilk açılış marka ekranını, Kâğıthane GPS seçimini ve çalışan Kıble pusulasını doğruladı; Takvim route'u, Aylık/Ramazan ve ay geçişleri ile tema seçimlerinde gecikme bildirdi. Takvim hesabı ilk ekran karesinden sonra boşta çalışacak ve kısa yükleniyor yüzeyi gösterecek biçimde ayrıldı; son 12 tablo ve son 400 Adhan gün hesabı sınırlı LRU önbelleğe alındı. Tema bağımlılıkları daraltıldı, odakta olmayan Stack ekranları donduruldu ve koyu perde 520→240 ms oldu. Pixel 7 emülatörü / Expo Go'da sekme ve Ekim→Kasım başlığı yaklaşık 100 ms karede değişti, hesap 1 saniyenin altında tamamlandı; tema Kış geçişi 340 ms karede tamamlandı, fatal/RN hata yoktu. `npm run check` 61/61 ve üç host saat dilimi 28/28 geçti. A52'de performansın yeniden kabulü açık; Metro geçici süreçtir.
+
+- 2 Ekim 2026 test hazırlığı: Metro `npm start -- --lan` ile `exp://192.168.1.118:8081` adresinde Expo Go modunda çalışıyor; `Pixel_7 (emulator)` Expo CLI üzerinden açıldı ve bundle yükleniyor. Expo cihaz seçicisinde fiziksel A52 görünmediği için A52 otomatik başlatılamadı; aynı ağdaki A52’de Expo Go içinden QR/proje adresiyle açılması gerekiyor. Metro geçici oturumdur, sonraki oturumda çalışıyor varsayılmamalı.
 
 - 2 Ekim 2026 fiziksel cihaz öncesi emülatör kabul kontrolü: Android 16 Pixel 7 / Expo Go 57.0.9 soğuk başlatmada Home, konum, takvim/Ramazan, Kıble fallback'i, görünüm/Ramazan teması, vakit ve Hicri düzeltmeleri, bildirimler/durum ve Hakkında akışları tekrarlandı. Bildirim kuyruğu kapat/aç ile 60→0→60 oldu; Expo Go force-stop sonrası konum/tercihler ve 60 olay geri geldi, fatal/RN hata logu yoktu. Tema geçiş karelerinde beyaz flaş görülmedi. Emülatör GPS'i sentetik fix'e rağmen timeout oldu; fallback doğru. Tek UX bulgusu, kuyruğun son olay tarihini gösteren `Son plan` metninin belirsiz olmasıdır. `npm run check` 60/60, üç host saat dilimi 27/27 ve Expo Doctor 21/21 geçti; native build üretilmedi.
 - 2 Ekim 2026 bildirim yenileme sağlamlaştırması: Açılış, foreground veya tercih/konum değişikliklerinin üst üste gelmesi artık paralel native uzlaştırma başlatmıyor. Tek çalışan işlem korunuyor; bekleyen ara durumlar atlanıp en güncel anlık görüntü bir sonraki turda uygulanıyor. Kuyruk hata sonrası yeni işi kabul ediyor. `npm run check` geçti (60 Jest, strict typecheck, ESLint); üç host saat diliminde 27/27 test geçti. Native build üretilmedi.
