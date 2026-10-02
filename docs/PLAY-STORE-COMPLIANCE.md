@@ -19,7 +19,7 @@ Google Play, “toplama”yı verinin cihaz dışına iletilmesi olarak tanımla
 | Uygulama gerekli kullanıcı verisi türlerinden herhangi birini topluyor veya paylaşıyor mu? | Hayır | Veriler yalnız cihazda işleniyor; uygulama ağı/backend/analiz yok. |
 | Veriler üçüncü taraflarla paylaşılıyor mu? | Hayır | Uygulama kullanıcı verisini cihaz dışına iletmiyor. |
 | Uygulama hesap oluşturmayı destekliyor mu? | Hayır | Hesap sistemi yok. |
-| Kullanıcı veri silme talebinde bulunabilir mi? | Uygulanamaz / hesap yok | Yerel veri Android'den “veriyi temizle” veya kaldırma ile silinir. |
+| Hesap silme URL'si veya hesap silme akışı gerekiyor mu? | Hayır | Uygulama hesap oluşturmaz; sunucuda kullanıcı hesabı veya hesaba bağlı veri yoktur. Yerel veri Android'den “veriyi temizle” veya kaldırma ile silinir. |
 | Veriler aktarım sırasında şifreleniyor mu? | Uygulanamaz | Kullanıcı verisi aktarılmıyor. Play Console arayüzünün gösterdiği seçeneğe göre yanıtlanmalı. |
 
 Resmî kaynak: [Google Play Veri Güvenliği formu](https://support.google.com/googleplay/android-developer/answer/10787469). Form, Expo/React Native sürümü veya eklenen herhangi bir SDK değiştiğinde yeniden denetlenmelidir.
@@ -72,7 +72,7 @@ Tam açıklama taslağı:
 ## Yayın öncesi açık kapılar
 
 1. `android.package` benzersiz uygulama kimliği henüz `app.json` içinde tanımlı değil.
-2. Geliştirici adı ve `alper.demir.fener@gmail.com` adresi Play geliştirici profiliyle birebir doğrulanmalı.
+2. Herkese açık destek adresi kullanıcı tarafından `support.alemdem@gmail.com` olarak doğrulandı. Geliştirici adı Play geliştirici profiliyle birebir doğrulanmalı.
 3. `privacy-site/` Netlify gibi herkese açık bir HTTPS adrese yüklenmeli; oluşan URL uygulamadaki Hakkında ekranına ve Play Console'a eklenmeli.
 4. Production AAB manifesti ve Play Console App Bundle Explorer'daki izinler denetlenmeli. Expo Go manifesti release kanıtı değildir.
 5. Production build'de bildirim izni, kesin alarm erişimi, özel ses, sessiz kanal, force-stop/reboot/Doze davranışı doğrulanmalı.

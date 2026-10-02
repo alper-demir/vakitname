@@ -278,7 +278,7 @@ def build_pdf() -> None:
     ])
 
     contact = Table(
-        [[Paragraph("<b>Veri sorumlusu ve geliştirici</b><br/>Alper - Vakit geliştiricisi<br/><font color='#315E45'>alper.demir.fener@gmail.com</font>", styles["Contact"])]],
+        [[Paragraph("<b>Veri sorumlusu ve geliştirici</b><br/>Alper - Vakit geliştiricisi<br/><font color='#315E45'>support.alemdem@gmail.com</font>", styles["Contact"])]],
         colWidths=[doc_width()],
     )
     contact.setStyle(TableStyle([

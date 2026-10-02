@@ -5,9 +5,9 @@ Son güncelleme: 2 Ekim 2026
 Bu Gizlilik Politikası, **Vakit** Android uygulamasının kullanıcı ve cihaz verilerine nasıl eriştiğini, bunları hangi amaçlarla kullandığını, nerede tuttuğunu ve nasıl silebileceğinizi açıklar.
 
 Veri sorumlusu ve uygulama geliştiricisi: **Alper - Vakit geliştiricisi**  
-Gizlilik iletişimi: **alper.demir.fener@gmail.com**
+Gizlilik iletişimi: **support.alemdem@gmail.com**
 
-> Yayın notu: Geliştirici adı ve e-posta adresi, Google Play geliştirici profilinde görünen bilgilerle yayımdan önce birebir doğrulanmalıdır.
+> Yayın notu: `support.alemdem@gmail.com`, kullanıcı tarafından Vakit'in herkese açık geliştirici destek adresi olarak doğrulanmıştır. Geliştirici adı, Google Play geliştirici profilinde görünen adla yayımdan önce birebir doğrulanmalıdır.
 
 ## 1. Uygulama ne yapar?
 
@@ -62,7 +62,7 @@ Namaz vakti hesaplaması Adhan JS Türkiye yöntemiyle, kıble hesabı ve takvim
 
 ## 7. Haklarınız ve iletişim
 
-Konum iznini vermeme, daha önce verdiğiniz izni geri alma, manuel şehir seçme ve yerel verileri silme seçeneklerine sahipsiniz. Gizlilik uygulamalarımız veya kişisel verilerle ilgili talepleriniz için **alper.demir.fener@gmail.com** adresine yazabilirsiniz.
+Konum iznini vermeme, daha önce verdiğiniz izni geri alma, manuel şehir seçme ve yerel verileri silme seçeneklerine sahipsiniz. Gizlilik uygulamalarımız veya kişisel verilerle ilgili talepleriniz için **support.alemdem@gmail.com** adresine yazabilirsiniz.
 
 Türkiye'deki kullanıcılar, 6698 sayılı Kişisel Verilerin Korunması Kanunu kapsamındaki haklarına ilişkin başvurularını bu iletişim adresi üzerinden iletebilir. Uygulama geliştiriciye kişisel veri aktarmadığı için bir talebin karşılanması sırasında cihazınızdaki kayıtlara uzaktan erişemeyiz.
 
