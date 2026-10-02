@@ -54,7 +54,7 @@ class PolicyDocTemplate(BaseDocTemplate):
             topMargin=24 * mm,
             bottomMargin=21 * mm,
             title="Vakit Gizlilik Politikası",
-            author="Alper - Vakit geliştiricisi",
+            author="Vakit uygulaması geliştiricisi",
             subject="Vakit Android uygulaması gizlilik ve veri kullanımı açıklaması",
         )
         frame = Frame(self.leftMargin, self.bottomMargin, self.width, self.height, id="content")
@@ -278,7 +278,7 @@ def build_pdf() -> None:
     ])
 
     contact = Table(
-        [[Paragraph("<b>Veri sorumlusu ve geliştirici</b><br/>Alper - Vakit geliştiricisi<br/><font color='#315E45'>support.alemdem@gmail.com</font>", styles["Contact"])]],
+        [[Paragraph("<b>Veri sorumlusu ve geliştirici</b><br/>Vakit uygulaması geliştiricisi<br/><font color='#315E45'>support.alemdem@gmail.com</font>", styles["Contact"])]],
         colWidths=[doc_width()],
     )
     contact.setStyle(TableStyle([

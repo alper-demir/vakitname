@@ -4,7 +4,7 @@ Son güncelleme: 2 Ekim 2026
 
 Bu Gizlilik Politikası, **Vakit** Android uygulamasının kullanıcı ve cihaz verilerine nasıl eriştiğini, bunları hangi amaçlarla kullandığını, nerede tuttuğunu ve nasıl silebileceğinizi açıklar.
 
-Veri sorumlusu ve uygulama geliştiricisi: **Alper - Vakit geliştiricisi**  
+Veri sorumlusu ve uygulama geliştiricisi: **Vakit uygulaması geliştiricisi**  
 Gizlilik iletişimi: **support.alemdem@gmail.com**
 
 > Yayın notu: `support.alemdem@gmail.com`, kullanıcı tarafından Vakit'in herkese açık geliştirici destek adresi olarak doğrulanmıştır. Geliştirici adı, Google Play geliştirici profilinde görünen adla yayımdan önce birebir doğrulanmalıdır.
