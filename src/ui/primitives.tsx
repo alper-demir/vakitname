@@ -56,8 +56,15 @@ export function Backdrop({ children }: React.PropsWithChildren) {
   const theme = useTheme();
   const transitionKey = [theme.background.join(','), theme.surface, theme.text, theme.accent, theme.landscape].join('|');
   const previousKey = useRef(transitionKey);
+  const currentVisual = { background: theme.background, landscape: theme.landscape, ramadan: theme.ramadan, glow: theme.glow };
+  const [visuals, setVisuals] = useState(() => ({ key: transitionKey, current: currentVisual, outgoing: currentVisual }));
+  if (visuals.key !== transitionKey) {
+    setVisuals({ key: transitionKey, current: currentVisual, outgoing: visuals.current });
+  }
+  const outgoingVisual = visuals.outgoing;
   const [reduceMotion, setReduceMotion] = useState(false);
-  const [transitionOpacity] = useState(() => new Animated.Value(0));
+  const [outgoingOpacity] = useState(() => new Animated.Value(0));
+  const [veilOpacity] = useState(() => new Animated.Value(0));
   useEffect(() => {
     void AccessibilityInfo.isReduceMotionEnabled().then(setReduceMotion);
     const subscription = AccessibilityInfo.addEventListener('reduceMotionChanged', setReduceMotion);
@@ -66,18 +73,27 @@ export function Backdrop({ children }: React.PropsWithChildren) {
   useLayoutEffect(() => {
     if (previousKey.current === transitionKey) return;
     previousKey.current = transitionKey;
-    transitionOpacity.stopAnimation();
-    transitionOpacity.setValue(.16);
+    outgoingOpacity.stopAnimation();
+    veilOpacity.stopAnimation();
+    outgoingOpacity.setValue(1);
+    veilOpacity.setValue(.12);
     Animated.parallel([
-      Animated.timing(transitionOpacity, { toValue: 0, duration: reduceMotion ? 0 : 240, easing: Easing.out(Easing.cubic), useNativeDriver: true }),
+      Animated.timing(outgoingOpacity, { toValue: 0, duration: reduceMotion ? 0 : 320, easing: Easing.inOut(Easing.cubic), useNativeDriver: true }),
+      Animated.timing(veilOpacity, { toValue: 0, duration: reduceMotion ? 0 : 280, easing: Easing.out(Easing.cubic), useNativeDriver: true }),
     ]).start();
-  }, [reduceMotion, theme.background, theme.landscape, transitionKey, transitionOpacity]);
+  }, [outgoingOpacity, reduceMotion, theme.background, theme.glow, theme.landscape, theme.ramadan, transitionKey, veilOpacity]);
   return <LinearGradient colors={theme.background} style={{ flex: 1 }}>
     <StatusBar style={theme.dark ? 'light' : 'dark'} />
     {theme.ramadan ? <RamadanSky color={theme.glow} /> : null}
     <Landscape color={theme.landscape} />
-    <Animated.View pointerEvents="none" style={[StyleSheet.absoluteFill, { backgroundColor: '#08131F', opacity: transitionOpacity }]} />
+    <Animated.View pointerEvents="none" style={[StyleSheet.absoluteFill, { opacity: outgoingOpacity }]}>
+      <LinearGradient colors={outgoingVisual.background} style={StyleSheet.absoluteFill}>
+        {outgoingVisual.ramadan ? <RamadanSky color={outgoingVisual.glow} /> : null}
+        <Landscape color={outgoingVisual.landscape} />
+      </LinearGradient>
+    </Animated.View>
     {children}
+    <Animated.View pointerEvents="none" style={[StyleSheet.absoluteFill, { backgroundColor: '#08131F', opacity: veilOpacity }]} />
   </LinearGradient>;
 }
 export function Page({ children, footer, scroll = true }: React.PropsWithChildren<{ footer?: React.ReactNode; scroll?: boolean }>) {

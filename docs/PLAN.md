@@ -40,7 +40,7 @@ Kıble ekranı eklendi. Seçili konumdan Kâbe'ye büyük çember başlangıç d
 - Diyanet yalnız İstanbul tek gün karşılaştırıldı (0–2 dk fark); yedi şehir/mevsimler/Ramazan matrisi tamamlanmadan üretim uyumu iddia edilmez.
 - GeoNames resmî ilçe kapsamı, 29 yaklaşık temsil koordinatı. 974 kayıt sayısı resmî güncel ilçe sayısı iddiası değildir.
 - npm audit iki transitif advisory nedeniyle 14 moderate: uyumlu çözüm release öncesi; uyumsuz downgrade/force uygulanmadı.
-- Tema renkleri merkezidir; halka/ilk görünüm animasyonu ve manuel/otomatik palet değişiminde 520 ms koyu perde geçişi var. İki gradientin karışmasından doğan beyaz-gri ara flaş emülatörde giderildi; fiziksel cihazda geçiş akıcılığı release öncesi kontrol edilecek. Türkçe çekirdek sözlük var; bazı ekran metinlerinin tam i18n ayrımı İngilizce aşamasında.
+- Tema renkleri merkezidir; halka/ilk görünüm animasyonu ve manuel/otomatik palet değişiminde 320 ms eski→yeni gradient çapraz geçişi ile 280 ms hafif içerik perdesi var. Beyaz-gri ara flaş emülatörde görülmedi; fiziksel A52'de geçiş akıcılığı yeniden kontrol edilecek. Türkçe çekirdek sözlük var; bazı ekran metinlerinin tam i18n ayrımı İngilizce aşamasında.
 
 ## Home sonrasında
 
@@ -56,6 +56,8 @@ Hesap, reklam, backend, widget, tam ezan, PDF, mukabele ve zikirmatik kapsam dı
 Node 24 ile `npm run check`, `npm run test:timezones`, `npx expo-doctor`. Çalıştırma README'de. Android emülatör incelemesi için Metro'yu `npm start -- --lan` ile açıp Expo Go kullan. `npm run android`, prebuild ve APK/AAB ancak kullanıcı açıkça isterse.
 
 ## Oturum devri
+
+- 2 Ekim 2026 tema akıcılığı devamı: Kullanıcı hızlanan geçişin bir anda renk değiştirdiğini belirtti. Önceki gradient ve dekor yeni opak paletin üzerinde 320 ms sönecek biçimde gerçek çapraz geçiş eklendi; kart/metin renk sıçraması 280 ms düşük opaklıklı üst perdeyle maskelendi. Hareketi azalt tercihi hâlâ geçişi sıfırlar. Pixel 7 emülatörü / Expo Go'da Kış→İlkbahar→otomatik mevsim ara kareleri kontrol edildi; beyaz flaş ve fatal/RN hata yoktu. A52 kullanıcı kabulü açık. Takvim önbellekleri yalnız RAM'de, 12 tablo ve 400 günle sınırlı LRU'dur; uygulama süreci kapanınca temizlenir.
 
 - 2 Ekim 2026 fiziksel A52 geri bildirimi ve performans düzeltmesi: Kullanıcı Expo Go'da ilk açılış marka ekranını, Kâğıthane GPS seçimini ve çalışan Kıble pusulasını doğruladı; Takvim route'u, Aylık/Ramazan ve ay geçişleri ile tema seçimlerinde gecikme bildirdi. Takvim hesabı ilk ekran karesinden sonra boşta çalışacak ve kısa yükleniyor yüzeyi gösterecek biçimde ayrıldı; son 12 tablo ve son 400 Adhan gün hesabı sınırlı LRU önbelleğe alındı. Tema bağımlılıkları daraltıldı, odakta olmayan Stack ekranları donduruldu ve koyu perde 520→240 ms oldu. Pixel 7 emülatörü / Expo Go'da sekme ve Ekim→Kasım başlığı yaklaşık 100 ms karede değişti, hesap 1 saniyenin altında tamamlandı; tema Kış geçişi 340 ms karede tamamlandı, fatal/RN hata yoktu. `npm run check` 61/61 ve üç host saat dilimi 28/28 geçti. A52'de performansın yeniden kabulü açık; Metro geçici süreçtir.
 
