@@ -4,7 +4,7 @@ Kullanıcı geliştirmeyi onayladı. Repository kökünde Faz 1 ve Faz 2 çalı�
 
 ## Faz 1–2 durumu
 
-İlk dikey dilim ile Faz 2 onboarding/ayarlar, Faz 3 bildirim kodu, Faz 4 takvim, Faz 5 Kıble ve Faz 6 yayın yüzeyi tamamlandı. GPS yenileme, Android Expo Go izin/fallback akışı, küçük ekran ve büyük yazı kontrolleri de tamamlandı. Ürün yalnız Android/Play Store hedeflidir; iOS ve App Store kapsam dışıdır. Galaxy A52'de ilk açılış, Kâğıthane GPS seçimi ve Kıble pusulasının temel başarı yolu geçti. Takvim/tema gecikmeleri için hesap önbelleği, boşta hesaplama, arka plan ekran dondurma ve daha kısa geçiş uygulandı; A52 yeniden kabulü açık. Bildirim durumu ekranındaki `Son plan` etiketi hâlâ düzeltilmelidir. Açık yetki verilirse Android production bildirim ve release build kapıları gelir. Gerçek TalkBack ve çoklu Diyanet karşılaştırması ayrıca yürütülecektir.
+İlk dikey dilim ile Faz 2 onboarding/ayarlar, Faz 3 bildirim kodu, Faz 4 takvim, Faz 5 Kıble ve Faz 6 yayın yüzeyi tamamlandı. GPS yenileme, Android Expo Go izin/fallback akışı, küçük ekran ve büyük yazı kontrolleri de tamamlandı. Ürün yalnız Android/Play Store hedeflidir; iOS ve App Store kapsam dışıdır. Galaxy A52'de ilk açılış, Kâğıthane GPS seçimi ve Kıble pusulasının temel başarı yolu geçti. Takvim/tema gecikmeleri için hesap önbelleği, boşta hesaplama, arka plan ekran dondurma ve daha kısa geçiş uygulandı; A52 yeniden kabulü açık. Bildirim durumu etiketi açıklaştırıldı. Gizlilik politikası, Play Console kontrol belgesi, Netlify'a hazır statik HTML ve arşiv PDF'i hazırlandı; geliştirici kimliği/e-posta teyidi, HTTPS yayını ve uygulama içi URL bağlantısı açık. Açık yetki verilirse Android production bildirim ve release build kapıları gelir. Gerçek TalkBack ve çoklu Diyanet karşılaştırması ayrıca yürütülecektir.
 
 ## Faz 3 durumu
 
@@ -16,7 +16,7 @@ Native Takvim ekranı eklendi. Aylık Miladi görünüm, seçili gün özeti, ya
 
 ## Faz 5 durumu
 
-Kıble ekranı eklendi. Seçili konumdan Kâbe'ye büyük çember başlangıç doğrultusu ve kuş uçuşu mesafe cihazda hesaplanıyor. Expo Location başlık adaptörü gerçek kuzey, manyetik kuzey ve hassasiyet durumunu ayırıyor; sensör veya izin yokken statik gerçek-kuzey açısı gösteriliyor. Android 16 Pixel 7 emülatörü / Expo Go 57.0.9'da Mesudiye için 174° ve yaklaşık 2.125 km sensörsüz durum açıldı. Fiziksel cihaz pusulası, izin ve kalibrasyon davranışı henüz doğrulanmadı.
+Kıble ekranı eklendi. Seçili konumdan Kâbe'ye büyük çember başlangıç doğrultusu ve kuş uçuşu mesafe cihazda hesaplanıyor. Expo Location başlık adaptörü gerçek kuzey, manyetik kuzey ve hassasiyet durumunu ayırıyor; sensör veya izin yokken statik gerçek-kuzey açısı gösteriliyor. Android 16 Pixel 7 emülatörü / Expo Go 57.0.9'da Mesudiye için 174° ve yaklaşık 2.125 km sensörsüz durum açıldı. Galaxy A52'de kullanıcı temel doğru pusula yönünü doğruladı; izin reddi/geri alma, farklı yönler ve kalibrasyon ayrıntıları açık.
 
 ## Tamamlandı
 
@@ -32,6 +32,7 @@ Kıble ekranı eklendi. Seçili konumdan Kâbe'ye büyük çember başlangıç d
 - Faz 4 aylık takvim ve Ramazan imsakiyesi: tek ekran, iki görünüm ve provider enjeksiyonu.
 - Faz 5 Kıble: saf yön/mesafe domain'i, gerçek-kuzey/manyetik-kuzey ayrımlı başlık adaptörü, sensörsüz durum, native pusula ekranı ve navigasyon erişimi.
 - Faz 6 yayın yüzeyi: native splash arka planı ve font yükleme marka yüzeyi, Hakkında/Gizlilik/Kaynak/Lisans ekranı, Ayarlar erişimi ve Android Play Store ikonları. Kullanıcının sağladığı hilal-pusula ikonu beyaz köşeleri temizlenerek standart ve adaptive PNG'lere dönüştürüldü; iOS kapsam dışı.
+- Google Play gizlilik/yasal hazırlığı: koddan veri akışı ve izin envanteri çıkarıldı; kapsamlı Türkçe gizlilik politikası, Veri Güvenliği/izin/release kontrol belgesi, Netlify'a doğrudan yüklenebilir scriptsiz HTML ve görsel doğrulanmış üç sayfalık PDF oluşturuldu. Hakkında ekranına yerel veri silme, pusula ve gizlilik iletişimi ayrıntıları eklendi; `Son plan` etiketi `Şu tarihe kadar planlandı` olarak düzeltildi.
 - 61 test, üç host saat diliminde 28 ek test, lint/typecheck ve Expo Doctor 21/21. Ayrıntılar VALIDATION.md.
 
 ## İlk dilimde açık kalan doğrulamalar
@@ -48,6 +49,7 @@ Kıble ekranı eklendi. Seçili konumdan Kâbe'ye büyük çember başlangıç d
 2. Faz 4 cihaz/ürün kontrolleri: farklı aylar, Hicri düzeltme, Ramazan seçimi, küçük ekran yatay tablo ve veri kapsamı dışı fallback.
 3. Faz 5 fiziksel cihaz doğrulaması: gerçek-kuzey/manyetik ayrımı, izin reddi/izin verme, hareket/kalibrasyon, uygulamadan çıkışta abonelik temizliği.
 4. Faz 6 release kapısı: Android native splash ve adaptive launcher maskesi, Play Store önizlemesi, uygulama kimliği, imzalama ve release build.
+5. Gizlilik yayın kapısı: Play geliştirici profilindeki ad/e-postayı doğrula; `privacy-site/` klasörünü herkese açık HTTPS adrese yükle; URL'yi uygulamadaki Hakkında ekranına ve Play Console'a ekle; hedef kitle/Families ve Veri Güvenliği cevaplarını yayımlanan AAB ile son kez doğrula.
 
 Hesap, reklam, backend, widget, tam ezan, PDF, mukabele ve zikirmatik kapsam dışı. Remote/push/yayınlama yapılmadı.
 
@@ -56,6 +58,8 @@ Hesap, reklam, backend, widget, tam ezan, PDF, mukabele ve zikirmatik kapsam dı
 Node 24 ile `npm run check`, `npm run test:timezones`, `npx expo-doctor`. Çalıştırma README'de. Android emülatör incelemesi için Metro'yu `npm start -- --lan` ile açıp Expo Go kullan. `npm run android`, prebuild ve APK/AAB ancak kullanıcı açıkça isterse.
 
 ## Oturum devri
+
+- 2 Ekim 2026 gizlilik ve Play Store hazırlığı: Uygulamanın konum, pusula, SQLite tercihleri ve yerel bildirim akışı koddan incelendi; kullanıcı verisini cihaz dışına gönderen uygulama ağı, reklam, analiz veya uzaktan hata raporlama bulunmadı. Resmî Google Play kullanıcı verisi/Veri Güvenliği/kesin alarm kuralları ve KVKK aydınlatma başlıkları temelinde `docs/PRIVACY-POLICY.md` ile `docs/PLAY-STORE-COMPLIANCE.md` hazırlandı. `privacy-site/index.html` JavaScript olmadan, Netlify'a doğrudan yüklenebilir ve 390×844 ile 931 px genişlikte taşmasız doğrulandı. `output/pdf/Vakit-Gizlilik-Politikasi.pdf` üç sayfa render edilerek görsel kontrol edildi; Play gizlilik URL'sinde PDF kullanılmamalı. Android emülatörde genişletilmiş Hakkında metni ve `Şu tarihe kadar planlandı` etiketi açıldı. `npm run check` 61/61, üç host saat diliminde 28/28 ve Expo Doctor 21/21 geçti. Açık işler: Git'ten alınan `Alper`/`alper.demir.fener@gmail.com` bilgilerinin Play profiliyle teyidi, HTTPS yayın, URL'nin uygulamaya eklenmesi, `android.package`, production AAB/manifest ve hedef kitle beyanı. Native build üretilmedi; Metro geçicidir.
 
 - 2 Ekim 2026 emülatör regresyon kontrolü: A52 doğrudan ADB hedefi olarak bağlı olmadığından fiziksel ekran açılamadı; kullanıcı isteğiyle Android 16 Pixel 7 / Expo Go incelemesine devam edildi. Expo Go soğuk açılıp son LAN projesi üzerinden Home/Kâğıthane geri geldi. Takvim ilk hesaplaması, Ramazan↔Aylık dönüşü ve Ekim→Kasım geçişi görsel olarak tamamlandı; fatal veya React Native hata/uyarısı yok. Expo Go'nun süreç-geneli `gfxinfo` verisi uygulamaya özgü olmadığı için performans sonucu sayılmadı. Metro geçici süreçtir.
 

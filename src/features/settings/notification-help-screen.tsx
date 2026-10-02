@@ -19,7 +19,7 @@ export default function NotificationHelpScreen() {
   return <Page>
     <View style={s.header}><IconButton name="back" label="Bildirimlere dön" onPress={close} /><T accessibilityRole="header" weight="semibold" style={{ fontSize: 20 }}>Bildirim durumu</T><View style={{ width: 44 }} /></View>
     <Surface style={{ gap: 13 }}><View style={s.row}><View style={[s.icon, { backgroundColor: theme.highlight }]}><Icon name="bell" color={theme.accent} /></View><View style={{ flex: 1 }}><T weight="medium">Cihazdaki plan</T><T style={{ color: theme.muted, fontSize: 11, lineHeight: 18, marginTop: 4 }}>{app.notificationSchedule.scheduledCount} bekleyen Vakit bildirimi</T></View></View>
-      {through ? <T style={{ color: theme.muted, fontSize: 12 }}>Son plan: {formatDate(localDateAt(through))} · {formatTime(through)}</T> : null}
+      {through ? <T style={{ color: theme.muted, fontSize: 12 }}>Şu tarihe kadar planlandı: {formatDate(localDateAt(through))} · {formatTime(through)}</T> : null}
     </Surface>
 
     <T weight="semibold" style={[s.section, { color: theme.muted }]}>CİHAZ KONTROLLERİ</T>

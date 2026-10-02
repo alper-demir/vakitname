@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#08201d">
+  <meta name="description" content="Vakit Android uygulamasının gizlilik politikası ve veri kullanımı açıklaması.">
+  <title>Vakit - Gizlilik Politikası</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2306432f'/%3E%3Cpath d='M40 13a21 21 0 1 0 9 38A23 23 0 1 1 40 13Z' fill='%23f1d37a'/%3E%3Ccircle cx='45' cy='20' r='3' fill='%23f1d37a'/%3E%3C/svg%3E">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f3fbf5;
+      --surface: #ffffff;
+      --surface-soft: #e7f0ea;
+      --ink: #151d1a;
+      --muted: #536159;
+      --line: #c8d8cd;
+      --primary: #315e45;
+      --deep: #08201d;
+      --gold: #b78b16;
+      --gold-soft: #fff3c4;
+      --shadow: 0 24px 70px rgba(8, 32, 29, .10);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 8% 0%, rgba(139, 168, 136, .20), transparent 34rem),
+        linear-gradient(180deg, #edf8f0 0, var(--bg) 24rem);
+      color: var(--ink);
+      font: 400 1rem/1.7 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--primary); text-underline-offset: .2em; }
+    a:hover { text-decoration-thickness: .12em; }
+    .shell { width: min(1120px, calc(100% - 2rem)); margin: 0 auto; }
+
+    header { padding: 2rem 0 1.25rem; }
+    .brand { display: flex; align-items: center; gap: .8rem; color: var(--deep); font-weight: 750; letter-spacing: -.02em; }
+    .mark { display: grid; place-items: center; width: 2.6rem; height: 2.6rem; border-radius: .9rem; background: var(--deep); color: #f4d879; font-size: 1.25rem; box-shadow: 0 10px 24px rgba(8, 32, 29, .18); }
+    .brand small { display: block; color: var(--muted); font-size: .78rem; font-weight: 550; letter-spacing: .02em; }
+
+    .hero {
+      overflow: hidden;
+      position: relative;
+      padding: clamp(2rem, 6vw, 4.5rem);
+      border: 1px solid rgba(255, 255, 255, .12);
+      border-radius: 2rem;
+      background: linear-gradient(145deg, #0a2b25, #06432f 62%, #315e45);
+      color: #f5fbf7;
+      box-shadow: var(--shadow);
+    }
+    .hero::after { content: ""; position: absolute; width: 24rem; height: 24rem; right: -10rem; top: -12rem; border: 1px solid rgba(241, 211, 122, .24); border-radius: 50%; box-shadow: 0 0 0 4rem rgba(241, 211, 122, .04), 0 0 0 8rem rgba(241, 211, 122, .03); }
+    .eyebrow { margin: 0 0 .8rem; color: #f1d37a; font-size: .78rem; font-weight: 750; letter-spacing: .14em; text-transform: uppercase; }
+    h1 { max-width: 14ch; margin: 0; font-size: clamp(2.3rem, 7vw, 5rem); line-height: 1.02; letter-spacing: -.055em; }
+    .lede { max-width: 62ch; margin: 1.35rem 0 0; color: #d9ebe0; font-size: clamp(1rem, 2vw, 1.18rem); }
+    .meta { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.7rem; }
+    .pill { padding: .48rem .78rem; border: 1px solid rgba(255, 255, 255, .18); border-radius: 999px; background: rgba(255, 255, 255, .08); color: #eef8f2; font-size: .84rem; }
+
+    .layout { display: grid; grid-template-columns: minmax(13rem, 17rem) minmax(0, 1fr); gap: 2rem; align-items: start; margin: 2rem auto 4rem; }
+    nav { position: sticky; top: 1rem; padding: 1rem; border: 1px solid var(--line); border-radius: 1.25rem; background: rgba(255, 255, 255, .78); backdrop-filter: blur(14px); }
+    nav strong { display: block; margin: .2rem .65rem .55rem; font-size: .78rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+    nav a { display: block; padding: .48rem .65rem; border-radius: .7rem; color: var(--ink); font-size: .92rem; text-decoration: none; }
+    nav a:hover, nav a:focus-visible { background: var(--surface-soft); color: var(--primary); outline: none; }
+
+    main { min-width: 0; }
+    .summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: .85rem; margin-bottom: 1rem; }
+    .summary div { padding: 1.2rem; border: 1px solid var(--line); border-radius: 1.15rem; background: var(--surface); }
+    .summary b { display: block; margin-bottom: .25rem; color: var(--primary); font-size: 1.06rem; }
+    .summary span { color: var(--muted); font-size: .88rem; }
+    article { padding: clamp(1.35rem, 4vw, 3rem); border: 1px solid var(--line); border-radius: 1.6rem; background: var(--surface); box-shadow: 0 18px 55px rgba(8, 32, 29, .06); }
+    section + section { margin-top: 2.5rem; padding-top: 2.35rem; border-top: 1px solid var(--line); }
+    h2 { margin: 0 0 .8rem; color: var(--deep); font-size: clamp(1.35rem, 3vw, 1.8rem); line-height: 1.25; letter-spacing: -.025em; }
+    h3 { margin: 1.5rem 0 .45rem; color: var(--primary); font-size: 1.06rem; }
+    p { margin: .7rem 0; }
+    ul { margin: .7rem 0; padding-left: 1.35rem; }
+    li + li { margin-top: .42rem; }
+    .note { margin-top: 1.25rem; padding: 1rem 1.1rem; border-left: .3rem solid var(--gold); border-radius: .3rem .9rem .9rem .3rem; background: var(--gold-soft); color: #4b3a08; }
+    .contact { padding: 1.2rem; border-radius: 1rem; background: var(--surface-soft); }
+    footer { padding: 0 0 3rem; color: var(--muted); font-size: .86rem; text-align: center; }
+
+    @media (max-width: 820px) {
+      .layout { grid-template-columns: 1fr; }
+      nav { position: static; display: flex; gap: .3rem; overflow-x: auto; padding: .65rem; white-space: nowrap; }
+      nav strong { display: none; }
+      nav a { flex: 0 0 auto; }
+      .summary { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 520px) {
+      .shell { width: min(100% - 1rem, 1120px); }
+      header { padding-top: 1rem; }
+      .hero { border-radius: 1.35rem; }
+      article { border-radius: 1.2rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+    @media print {
+      body { background: #fff; }
+      header, nav, .summary { display: none; }
+      .shell, .layout { width: 100%; margin: 0; display: block; }
+      .hero { margin: 0 0 1rem; padding: 1.5rem; border-radius: 0; background: #fff; color: #000; box-shadow: none; border: 1px solid #bbb; }
+      .hero::after { display: none; }
+      .eyebrow, .lede { color: #333; }
+      .pill { border-color: #aaa; color: #222; }
+      article { padding: 0; border: 0; box-shadow: none; }
+      a { color: #000; }
+    }
+  </style>
+</head>
+<body>
+  <header class="shell">
+    <div class="brand"><span class="mark" aria-hidden="true">V</span><span>Vakit<small>Android uygulaması</small></span></div>
+  </header>
+
+  <div class="shell hero">
+    <p class="eyebrow">Gizlilik politikası</p>
+    <h1>Veriniz cihazınızda kalır.</h1>
+    <p class="lede">Vakit, namaz vakitlerini ve kıble yönünü cihazınızda hesaplar. Hesap, reklam, analiz ve geliştirici sunucusu kullanmaz.</p>
+    <div class="meta"><span class="pill">Son güncelleme: 2 Ekim 2026</span><span class="pill">Sürüm kapsamı: 0.2.0</span><span class="pill">Dil: Türkçe</span></div>
+  </div>
+
+  <div class="shell layout">
+    <nav aria-label="Sayfa içeriği">
+      <strong>İçindekiler</strong>
+      <a href="#amac">Uygulamanın amacı</a>
+      <a href="#veriler">İşlenen veriler</a>
+      <a href="#paylasim">Toplama ve paylaşma</a>
+      <a href="#saklama">Saklama ve silme</a>
+      <a href="#cocuklar">Çocukların gizliliği</a>
+      <a href="#kaynaklar">Kaynaklar</a>
+      <a href="#haklar">Haklar ve iletişim</a>
+    </nav>
+
+    <main>
+      <div class="summary" aria-label="Gizlilik özeti">
+        <div><b>Sunucu yok</b><span>Kişisel veriler geliştiriciye iletilmez.</span></div>
+        <div><b>İzinler isteğe bağlı</b><span>GPS yerine manuel şehir seçebilirsiniz.</span></div>
+        <div><b>Silme sizde</b><span>Android'den uygulama verilerini temizleyebilirsiniz.</span></div>
+      </div>
+
+      <article>
+        <section id="amac">
+          <h2>1. Uygulamanın amacı</h2>
+          <p>Bu Gizlilik Politikası, <strong>Vakit</strong> Android uygulamasının kullanıcı ve cihaz verilerine nasıl eriştiğini, bunları hangi amaçlarla kullandığını, nerede tuttuğunu ve nasıl silebileceğinizi açıklar.</p>
+          <p>Vakit; seçtiğiniz veya cihazınızdan aldığınız Türkiye konumuna göre namaz vakitlerini, sıradaki vakti ve kıble yönünü cihazınızda hesaplar. Aylık takvim, Ramazan imsakiyesi, tema seçenekleri ve isteğe bağlı yerel bildirimler sunar.</p>
+          <p class="note"><strong>Bağımsızlık açıklaması:</strong> Vakit bir Diyanet uygulaması değildir ve resmî Diyanet verisi sunduğunu iddia etmez.</p>
+        </section>
+
+        <section id="veriler">
+          <h2>2. Erişilen ve cihazda işlenen veriler</h2>
+          <h3>Konum bilgisi</h3>
+          <ul>
+            <li>“Konumumu bul” veya canlı kıble pusulası özelliğini seçtiğinizde Android'in yalnız uygulama kullanımdayken konum izni istenir.</li>
+            <li>Konum; namaz vakitlerini, güneş olaylarını, kıble açısını ve yakın yer adını cihazda hesaplamak için kullanılır.</li>
+            <li>Son seçilen koordinat, yaklaşık doğruluk, ölçüm zamanı, görünen yer adı ve saat dilimi sonraki açılışlarda kullanılmak üzere yalnız cihazdaki uygulama alanında saklanır.</li>
+            <li>Arka plan konum izni istenmez. Uygulama kapalıyken konum takibi yapılmaz.</li>
+            <li>GPS izni vermeden Türkiye şehir ve ilçelerinden manuel seçim yapabilirsiniz.</li>
+          </ul>
+
+          <h3>Pusula başlığı</h3>
+          <p>Kıble ekranı açıkken cihazın yön sensöründen gerçek veya manyetik kuzey başlığı okunabilir. Canlı başlık yalnız ekrandaki yönlendirme için anlık işlenir; saklanmaz ve cihaz dışına gönderilmez.</p>
+
+          <h3>Tercihler ve bildirim planı</h3>
+          <p>Tema, konum, vakit düzeltmeleri, Hicri tarih düzeltmesi, bildirim seçimleri ve cihazda planlanan bildirimlerin özeti yerel olarak saklanır. Bildirim izni yalnız seçtiğiniz vakit hatırlatmalarını göstermek için kullanılır.</p>
+          <p>Android'in “Alarmlar ve hatırlatıcılar” erişimi, etkinleştirilmiş bildirimleri mümkün olduğunca seçilen vakitte planlamak için kullanılabilir. İşletim sistemi ve cihaz ayarları teslim zamanını etkileyebilir.</p>
+        </section>
+
+        <section id="paylasim">
+          <h2>3. Toplama, paylaşma ve izleme</h2>
+          <p>Vakit:</p>
+          <ul>
+            <li>hesap veya kullanıcı profili oluşturmaz;</li>
+            <li>ad, telefon numarası, rehber, fotoğraf, mikrofon, sağlık ya da ödeme verisi istemez;</li>
+            <li>reklam, reklam kimliği, davranışsal profil veya kişiselleştirilmiş pazarlama kullanmaz;</li>
+            <li>analiz, uzaktan hata raporlama veya geliştirici sunucusu kullanmaz;</li>
+            <li>konumunuzu, tercihlerinizi veya kullanım bilgilerinizi geliştiriciye ya da üçüncü kişilere iletmez, satmaz ve paylaşmaz.</li>
+          </ul>
+          <p>Uygulama içindeki kaynak bağlantılarını siz açarsanız bağlantı cihazınızın tarayıcısında açılır. Ziyaret ettiğiniz sitelerin veri uygulamaları kendi politikalarına tabidir.</p>
+        </section>
+
+        <section id="saklama">
+          <h2>4. Yerel saklama, güvenlik ve silme</h2>
+          <p>Veriler Android'in uygulamaya ayrılmış yerel depolama alanında tutulur. Vakit ayrıca uygulama düzeyinde şifreli bir kasa kullandığını iddia etmez; koruma Android'in uygulama yalıtımı ve cihaz güvenliğine dayanır.</p>
+          <p>Yerel veriler siz değiştirene veya silene kadar cihazda kalır. Tüm Vakit verilerini Android ayarlarından uygulama verilerini temizleyerek veya uygulamayı kaldırarak silebilirsiniz. Konum ve bildirim izinlerini Android ayarlarından dilediğiniz zaman geri alabilirsiniz.</p>
+          <p>Geliştiriciye veri aktarılmadığı için geliştiricinin sunucusunda silinecek bir kullanıcı hesabı veya kişisel veri kaydı bulunmaz.</p>
+        </section>
+
+        <section id="cocuklar">
+          <h2>5. Çocukların gizliliği</h2>
+          <p>Vakit hesap veya kullanıcı profili oluşturmaz ve çocuklara ait kişisel verileri bilerek geliştiriciye iletmez. Uygulamanın Google Play hedef kitle seçimi yayımdan önce ayrıca doğrulanır; çocukların hedef kitleye eklenmesi halinde Google Play Families kuralları ayrıca uygulanır.</p>
+        </section>
+
+        <section id="kaynaklar">
+          <h2>6. Kaynaklar ve üçüncü taraf yazılımlar</h2>
+          <p>Namaz vakti hesaplaması Adhan JS Türkiye yöntemiyle, kıble hesabı ve takvim işlemleri cihazda yapılır. GeoNames konum kataloğu uygulama paketine gömülüdür. Expo, React Native, Adhan JS ve Luxon gibi yazılım bileşenleri uygulamanın çalışması için kullanılır; Vakit bu bileşenler üzerinden kişisel veri ileten bir ağ isteği başlatmaz.</p>
+        </section>
+
+        <section id="haklar">
+          <h2>7. Haklarınız ve iletişim</h2>
+          <p>Konum iznini vermeme, daha önce verdiğiniz izni geri alma, manuel şehir seçme ve yerel verileri silme seçeneklerine sahipsiniz.</p>
+          <div class="contact">
+            <strong>Veri sorumlusu ve geliştirici</strong><br>
+            Alper - Vakit geliştiricisi<br>
+            <a href="mailto:alper.demir.fener@gmail.com?subject=Vakit%20gizlilik%20sorusu">alper.demir.fener@gmail.com</a>
+          </div>
+          <p>Türkiye'deki kullanıcılar, 6698 sayılı Kişisel Verilerin Korunması Kanunu kapsamındaki haklarına ilişkin başvurularını bu iletişim adresi üzerinden iletebilir. Uygulama geliştiriciye kişisel veri aktarmadığı için bir talebin karşılanması sırasında cihazınızdaki kayıtlara uzaktan erişemeyiz.</p>
+        </section>
+
+        <section id="degisiklikler">
+          <h2>8. Değişiklikler</h2>
+          <p>Uygulamanın veri uygulamaları veya izinleri değişirse bu politika ve üstteki güncelleme tarihi yenilenir. Yeni bir sunucu, analiz, reklam veya hesap özelliği eklenmesi halinde Google Play Veri Güvenliği beyanı da yayımdan önce yeniden değerlendirilir.</p>
+        </section>
+      </article>
+    </main>
+  </div>
+
+  <footer class="shell">Bu politika, Vakit 0.2.0 uygulamasının 2 Ekim 2026 tarihli kaynak kodu ve yapılandırması temel alınarak hazırlanmıştır.</footer>
+</body>
+</html>
