@@ -59,6 +59,7 @@ npm audit: 0 critical/high, 14 moderate rapor; çoğu aynı iki advisory'nin üs
 
 ## Açık cihaz/release kontrolleri
 
+- Android 16 Pixel 7 / Expo Go'da manuel Gün batımı temasında Takvim yeniden kontrol edildi. Aylık görünüm ve Ramazan seçili durumları ile vakit/imsakiye çizelgeleri, opak koyu `surfaceStrong` yerine Home “Bugün” kartıyla aynı yarı saydam `surface` ve seçili `highlight` yüzeylerini kullanıyor; iki görünümde de okunabilirlik ve yatay tablo korunuyor. Fiziksel A52 kabulü hâlâ açıktır.
 - iOS ve App Store kapsam dışıdır. Android Expo Go yeniden açılışında SQLite verisi doğrulandı. `adb emu geo fix` ile İstanbul koordinatı verilmesine rağmen Expo Location dengeli doğruluk isteği 2 Ekim kontrolünde yine timeout oldu; hata mesajı ve manuel seçim fallback'i doğru gösterildi, fakat Android GPS başarı yolu emülatörde kanıtlanamadı.
 - Foreground saat sıçraması/gece yarısı; Hermes Intl takvim fallback'i.
 - VoiceOver/TalkBack gerçek cihaz testi; azaltılmış hareket ve kontrast.
