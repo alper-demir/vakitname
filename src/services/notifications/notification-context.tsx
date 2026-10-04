@@ -1,7 +1,7 @@
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { AppState } from 'react-native';
 import { addDays, localDateAt } from '@/domain/time';
-import { buildNotificationPlan } from '@/domain/notifications';
+import { buildNotificationPlan, NOTIFICATION_HORIZON_DAYS } from '@/domain/notifications';
 import { Adjustments, NotificationPreferences, VakitLocation } from '@/domain/types';
 import { prayerProvider } from '@/services/prayer/adhan-provider';
 import { useAppState } from '@/services/app-state';
@@ -16,6 +16,7 @@ type NotificationContextValue = {
   disable: () => void;
   refresh: () => Promise<void>;
   sendTest: () => Promise<boolean>;
+  simulateCurrentFlow: () => Promise<number>;
 };
 
 const Context = createContext<NotificationContextValue | null>(null);
@@ -39,7 +40,7 @@ export function NotificationProvider({ children }: React.PropsWithChildren) {
     }
     const now = Date.now();
     const localDate = localDateAt(now, snapshot.location.timeZone);
-    const days = Array.from({ length: 14 }, (_, index) => prayerProvider.getDay(addDays(localDate, index), snapshot.location!, snapshot.adjustments));
+    const days = Array.from({ length: NOTIFICATION_HORIZON_DAYS }, (_, index) => prayerProvider.getDay(addDays(localDate, index), snapshot.location!, snapshot.adjustments));
     const plan = buildNotificationPlan(days, snapshot.notifications, snapshot.location.name, now);
     const result = await notificationScheduler.reconcile(plan, snapshot.notifications.sound);
     updateNotificationSchedule(result);
@@ -94,7 +95,20 @@ export function NotificationProvider({ children }: React.PropsWithChildren) {
     finally { setSyncing(false); }
   }, [preferences.notifications.sound]);
 
-  return <Context.Provider value={{ permission, syncing, error, enable, disable, refresh, sendTest }}>{children}</Context.Provider>;
+  const simulateCurrentFlow = useCallback(async () => {
+    if (!location || !preferences.notifications.enabled) return 0;
+    setSyncing(true); setError(null);
+    try {
+      let current = await notificationScheduler.getPermission();
+      if (!allowed(current)) current = await notificationScheduler.requestPermission();
+      setPermission(current);
+      if (!allowed(current)) { setError('Simülasyon için bildirim izni gerekiyor.'); return 0; }
+      return await notificationScheduler.scheduleSimulation(preferences.notifications, location.name);
+    } catch { setError('Bildirim simülasyonu planlanamadı.'); return 0; }
+    finally { setSyncing(false); }
+  }, [location, preferences.notifications]);
+
+  return <Context.Provider value={{ permission, syncing, error, enable, disable, refresh, sendTest, simulateCurrentFlow }}>{children}</Context.Provider>;
 }
 
 export function useNotifications() {

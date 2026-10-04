@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Linking, Platform, StyleSheet, View } from 'react-native';
+import { Linking, StyleSheet, View } from 'react-native';
 import { router } from 'expo-router';
 import { localDateAt, formatDate, formatTime } from '@/domain/time';
 import { useAppState } from '@/services/app-state';
@@ -23,7 +23,7 @@ export default function NotificationHelpScreen() {
     </Surface>
 
     <T weight="semibold" style={[s.section, { color: theme.muted }]}>CİHAZ KONTROLLERİ</T>
-    <Surface style={s.card}><StatusRow title="Sistem bildirim izni" value={permission} detail="Bildirimlerin gösterilebilmesi için işletim sistemi izni gerekir." /><Divider color={theme.line} /><StatusRow title="Kesin zamanlama" value={Platform.OS === 'android' ? 'Sistem yönetiyor' : 'iOS yönetiyor'} detail={Platform.OS === 'android' ? 'Android 12 ve sonrasında kesin alarm izni ayrıca gerekebilir. Expo Go bu üretim iznini doğrulamaz.' : 'Teslim zamanı iOS bildirim ve Focus ayarlarından etkilenebilir.'} /><Divider color={theme.line} /><StatusRow title="Ses ve sessiz mod" value="Cihaz ayarı" detail="Sessiz mod, Focus/Rahatsız Etmeyin ve Android kanal ayarları sesi engelleyebilir." /><Divider color={theme.line} /><StatusRow title="Pil yönetimi" value="Üreticiye bağlı" detail="Bazı Android üreticileri arka plan ve alarm davranışını ek olarak kısıtlayabilir." /></Surface>
+    <Surface style={s.card}><StatusRow title="Sistem bildirim izni" value={permission} detail="Bildirimlerin gösterilebilmesi için işletim sistemi izni gerekir." /><Divider color={theme.line} /><StatusRow title="Zamanlama" value="Sistem yönetiyor" detail="Bildirimler cihazında planlanır. Pil tasarrufu veya üretici ayarları teslimi geciktirebilir." /><Divider color={theme.line} /><StatusRow title="Ses ve sessiz mod" value="Cihaz ayarı" detail="Sessiz mod, Focus/Rahatsız Etmeyin ve Android kanal ayarları sesi engelleyebilir." /><Divider color={theme.line} /><StatusRow title="Pil yönetimi" value="Üreticiye bağlı" detail="Bazı Android üreticileri arka plan bildirim davranışını ek olarak kısıtlayabilir." /></Surface>
 
     <Surface style={{ marginTop: 20, gap: 10 }}><T weight="medium">Teslim hakkında</T><T style={{ color: theme.muted, lineHeight: 22, fontSize: 12 }}>Vakit gelecekteki olayları cihazda planlar ve uygulama açıldığında kuyruğu yeniler. İşletim sistemi kısıtları nedeniyle her koşulda tam saniyesinde çalma garantisi verilemez.</T></Surface>
     <View style={{ gap: 10, marginTop: 20 }}><Button loading={notifications.syncing} label={testSent ? 'Test bildirimi planlandı' : '3 saniye sonra test bildirimi'} onPress={() => { void notifications.sendTest().then(setTestSent); }} /><Button secondary label="Sistem bildirim ayarlarını aç" onPress={() => { void Linking.openSettings(); }} /><Button secondary label="Planı şimdi yenile" onPress={() => { void notifications.refresh(); }} /></View>

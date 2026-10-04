@@ -70,7 +70,9 @@ Home skeleton/ilk hesaplama; kayıtlı konumla yenileme hatası; Play Store öni
 
 ## Faz 6 yayın yüzeyi
 
-Stitch'teki sade marka dilini korumak için splash koyu yeşil zemin, kullanıcı tarafından sağlanan hilal-pusula ikonu ve kısa sloganla iki aşamalı çözüldü. Hakkında ekranı ayarlar içinden erişilir; gizlilik, veri saklama, kaynak ve lisans bilgilerini kartlar halinde açıklar. Büyük metinler, başlık rolleri, düğme etiketleri ve dış bağlantıların erişilebilir adları native bileşenlerle sağlandı.
+Stitch'teki sade marka dilini korumak için splash iki aşamalı çözüldü. `Splash Ekranı` / `Splash - Gün Batımı Cam Efekt` (`3893826243f94c71848848eaae7d766d`) referansı 3 Ekim 2026'da native bileşenlere eşlendi: koyu lacivertten sıcak gün batımına geçiş, düşük yoğunluklu ışık parçacıkları, alt İstanbul silüeti, cam etkili ikon çerçevesi, geniş harf aralıklı VAKİT markası ve altın yükleme çizgisi kullanılır. Uygulamanın mevcut `vakit-icon.png` ikonu korunur; Stitch HTML'i, WebView veya uzaktaki görsel runtime'a alınmaz.
+
+Native açılış katmanı yalnız statik arka plan ve ikon desteklediğinden geçiş rengi `#0E1324` seçildi; fontlar yüklenirken aynı ekranın tam gradientli JavaScript yüzeyi gösterilir. Hızlı font önbelleğinde tasarımın görünmeden kaybolmaması için bu yüzey en az 900 ms tutulur. Referanstaki ayet alanı, 3 Ekim 2026'da Diyanet'in İsrâ 78. ayet metniyle doğrulanarak eklendi. Referanstaki “güneşin batışından” başlangıcı ayetin birebir meali değildir; uygulama Diyanet Kur'an Yolu mealindeki “güneşin gün ortasını aşmasından” başlangıcını, sure/ayet atfıyla kullanır. Kaynak kaydı `DATA-SOURCES.md` içindedir. Hakkında ekranı ayarlar içinden erişilir; gizlilik, veri saklama, kaynak ve lisans bilgilerini kartlar halinde açıklar. Büyük metinler, başlık rolleri, düğme etiketleri ve dış bağlantıların erişilebilir adları native bileşenlerle sağlandı.
 
 ## Faz 5 Kıble eşlemesi
 

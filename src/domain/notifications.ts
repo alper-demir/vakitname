@@ -15,7 +15,10 @@ const prayerNames: Record<PrayerId, string> = {
   imsak: 'İmsak', gunes: 'Güneş', ogle: 'Öğle', ikindi: 'İkindi', aksam: 'Akşam', yatsi: 'Yatsı',
 };
 
-export function buildNotificationPlan(days: PrayerDay[], preferences: NotificationPreferences, locationName: string, now: number, limit = 60): NotificationPlanItem[] {
+export const NOTIFICATION_HORIZON_DAYS = 15;
+export const MAX_NOTIFICATION_REQUESTS = NOTIFICATION_HORIZON_DAYS * 6 * 2;
+
+export function buildNotificationPlan(days: PrayerDay[], preferences: NotificationPreferences, locationName: string, now: number, limit = MAX_NOTIFICATION_REQUESTS): NotificationPlanItem[] {
   if (!preferences.enabled || limit <= 0) return [];
   const items: NotificationPlanItem[] = [];
   for (const day of days) for (const event of day.events) {

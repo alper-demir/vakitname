@@ -28,7 +28,7 @@ export default function HijriScreen() {
       </View>
       <View style={s.chips}>{[-2, -1, 0, 1, 2].map((value) => { const selected = preferences.hijriOffset === value; return <Pressable key={value} accessibilityRole="radio" accessibilityState={{ checked: selected }} accessibilityLabel={`${value > 0 ? '+' : ''}${value} gün`} onPress={() => updateHijriOffset(value)} style={[s.chip, { backgroundColor: selected ? theme.accent : theme.highlight }]}><T weight="medium" style={{ color: selected ? theme.accentText : theme.text, fontSize: 11 }}>{value > 0 ? '+' : ''}{value}</T></Pressable>; })}</View>
     </Surface>
-    <Surface style={{ marginTop: 20 }}><T weight="medium">Takvim kaynağı</T><T style={{ color: theme.muted, lineHeight: 22, marginTop: 7 }}>{hijri.source === 'diyanet-months' ? '2026–2027 için Diyanet ay başlangıçları kullanılıyor.' : hijri.source === 'umm-al-qura' ? 'Kapsam dışındaki tarihlerde cihazın Umm al-Qura takvimi kullanılıyor.' : 'Bu cihazda Hicri takvim kullanılamıyor.'}</T></Surface>
+    <Surface style={{ marginTop: 20 }}><T weight="medium">Takvim kaynağı</T><T style={{ color: theme.muted, lineHeight: 22, marginTop: 7 }}>{hijri.source === 'diyanet-months' ? '2026–2028 için Diyanet ay başlangıçları kullanılıyor.' : hijri.source === 'umm-al-qura' ? 'Kapsam dışındaki tarihlerde cihazın Umm al-Qura takvimi kullanılıyor.' : 'Bu cihazda Hicri takvim kullanılamıyor.'}</T></Surface>
   </Page>;
 }
 

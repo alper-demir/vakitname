@@ -20,6 +20,12 @@ test('Ramadan range follows the factual month boundary and produces its table', 
   expect(rows.every((row) => row.isFasting)).toBe(true);
 });
 
+test('2028 Ramadan stays on packaged Diyanet month boundaries after the 2027 rollover', () => {
+  expect(getRamadanRange('2028-02-01')).toMatchObject({
+    start: '2028-01-28', endExclusive: '2028-02-26', days: 29, source: 'diyanet-months',
+  });
+});
+
 test('Ramadan fallback can find a later Umm al-Qura period outside packaged years', () => {
   const range = getRamadanRange('2030-01-01');
   expect(range?.source).toBe('umm-al-qura');

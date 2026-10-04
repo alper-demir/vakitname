@@ -1,7 +1,7 @@
 # Google Play yayın ve gizlilik kontrolü
 
 İnceleme tarihi: 2 Ekim 2026  
-Kapsam: Vakit 0.2.0 kaynak kodu ve Expo yapılandırması. Bu belge hukuki danışmanlık değildir; Play Console yanıtları yayımlanan AAB ve kullanılan geliştirici hesabıyla son kez doğrulanmalıdır.
+Kapsam: Vakit 0.3.0-rc.1 kaynak kodu ve Expo yapılandırması. Bu belge hukuki danışmanlık değildir; Play Console yanıtları yayımlanan AAB ve kullanılan geliştirici hesabıyla son kez doğrulanmalıdır.
 
 ## Mevcut veri akışı
 
@@ -32,10 +32,9 @@ Resmî kaynak: [Google Play Veri Güvenliği formu](https://support.google.com/g
 | `ACCESS_FINE_LOCATION` | Daha hassas vakit/kıble hesabı ve gerçek kuzey desteği | İsteğe bağlı; yalnız ön planda istenir. |
 | Arka plan konumu | Kullanılmıyor ve `blockedPermissions` ile engelleniyor | İstenmemeli. |
 | Android 13+ bildirim izni | Kullanıcının seçtiği vakit hatırlatmaları | İsteğe bağlı; reddedilince uygulamanın diğer işlevleri çalışır. |
-| `SCHEDULE_EXACT_ALARM` | Seçili yerel bildirimi mümkün olduğunca vaktinde planlama | Kullanıcı tarafından yönetilen özel erişim; reddedilince güvenli biçimde yaklaşık teslim davranışı açıklanmalı. |
 | Pusula/yön sensörü | Kıble ekranında canlı hizalama | Yalnız ekran açıkken; başlık saklanmaz. |
 
-`SCHEDULE_EXACT_ALARM`, Android tarafından kullanıcıya dönük hassas zamanlı işlevler için tanımlanır. Vakit bildirimleri ikincil ve isteğe bağlı olduğundan mevcut izin, `USE_EXACT_ALARM` yerine daha ölçülü seçenektir. Release build'de izin yokken çökmeden çalıştığı ve kesinlik vaadi vermediği ayrıca doğrulanmalıdır. Kaynaklar: [Android kesin alarm rehberi](https://developer.android.com/about/versions/14/changes/schedule-exact-alarms), [Google Play izin politikası](https://support.google.com/googleplay/android-developer/answer/18258653).
+Vakit kesin alarm özel erişimi istemez; kullanıcı seçerse cihazda normal yerel bildirim planlanır. Android'in pil ve bildirim ayarları teslim zamanını etkileyebilir; uygulama tam dakika garantisi vermez.
 
 ## Gizlilik politikası teslimi
 
@@ -75,7 +74,7 @@ Tam açıklama taslağı:
 2. Herkese açık destek adresi kullanıcı tarafından `support.alemdem@gmail.com` olarak doğrulandı. Geliştirici adı Play geliştirici profiliyle birebir doğrulanmalı.
 3. `privacy-site/` Netlify gibi herkese açık bir HTTPS adrese yüklenmeli; oluşan URL uygulamadaki Hakkında ekranına ve Play Console'a eklenmeli.
 4. Production AAB manifesti ve Play Console App Bundle Explorer'daki izinler denetlenmeli. Expo Go manifesti release kanıtı değildir.
-5. Production build'de bildirim izni, kesin alarm erişimi, özel ses, sessiz kanal, force-stop/reboot/Doze davranışı doğrulanmalı.
+5. Production build'de bildirim izni, özel ses, sessiz kanal, force-stop/reboot/Doze davranışı doğrulanmalı.
 6. Hedef kitle, içerik derecelendirmesi ve Families seçimi ürün sahibince tamamlanmalı. Uygulama çocuklara özel hedeflenmiyorsa bu seçim mağaza metni ve görsellerle tutarlı olmalı.
 7. Mağaza ikonları, telefon/tablet ekran görüntüleri, feature graphic ve destek e-postası hazırlanmalı.
 8. Resmî Diyanet uyumu iddia edilmemeli; mağaza metnindeki kaynak ve bağımsızlık açıklaması korunmalı.

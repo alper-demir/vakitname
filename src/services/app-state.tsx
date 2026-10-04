@@ -30,6 +30,7 @@ export function AppStateProvider({ children }: React.PropsWithChildren) {
   const writes = useRef(Promise.resolve());
   const lastSaved = useRef(state);
   const appState = useRef(AppState.currentState);
+  const coldStartGpsRefreshDone = useRef(false);
   useEffect(() => {
     const requests = revision;
     let mounted = true;
@@ -48,24 +49,34 @@ export function AppStateProvider({ children }: React.PropsWithChildren) {
     writes.current = writes.current.catch(() => {}).then(() => persistence.write(JSON.stringify(state)))
       .then(() => setSavingError(false)).catch(() => setSavingError(true));
   }, [state, ready]);
+  const refreshGpsLocation = useCallback(() => {
+    const request = ++revision.current;
+    setLocating(true); setLocationError(null);
+    void locateDevice({ requestPermission: false }).then((location) => {
+      if (request === revision.current) setState((current) => ({ ...current, location }));
+    }).catch((error) => {
+      if (request === revision.current) setLocationError(error instanceof Error ? error.message : 'unavailable');
+    }).finally(() => {
+      if (request === revision.current) setLocating(false);
+    });
+  }, []);
+  useEffect(() => {
+    if (!ready || coldStartGpsRefreshDone.current) return;
+    coldStartGpsRefreshDone.current = true;
+    if (state.location?.source !== 'gps') return;
+    const timer = setTimeout(refreshGpsLocation, 0);
+    return () => clearTimeout(timer);
+  }, [ready, state.location, refreshGpsLocation]);
   useEffect(() => {
     let mounted = true;
     const subscription = AppState.addEventListener('change', (nextState) => {
       const returningToForeground = appState.current !== 'active' && nextState === 'active';
       appState.current = nextState;
       if (!returningToForeground || !mounted || !state.location || state.location.source !== 'gps') return;
-      const request = ++revision.current;
-      setLocating(true); setLocationError(null);
-      void locateDevice({ requestPermission: false }).then((location) => {
-        if (request === revision.current) setState((current) => ({ ...current, location }));
-      }).catch((error) => {
-        if (request === revision.current) setLocationError(error instanceof Error ? error.message : 'unavailable');
-      }).finally(() => {
-        if (request === revision.current) setLocating(false);
-      });
+      refreshGpsLocation();
     });
     return () => { mounted = false; subscription?.remove(); };
-  }, [state.location]);
+  }, [state.location, refreshGpsLocation]);
   const cancelLocation = useCallback(() => { revision.current++; setLocating(false); setLocationError(null); }, []);
   const selectLocation = useCallback((location: VakitLocation) => {
     cancelLocation(); setState((s) => ({ ...s, location }));

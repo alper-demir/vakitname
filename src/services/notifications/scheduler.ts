@@ -2,14 +2,30 @@ import { PermissionsAndroid, Platform } from 'react-native';
 import Constants from 'expo-constants';
 import type { NotificationPermissionsStatus } from 'expo-notifications';
 import { NotificationPlanItem } from '@/domain/notifications';
-import { NotificationSound } from '@/domain/types';
+import { NotificationPreferences, NotificationSound } from '@/domain/types';
 
 export type NotificationPermission = 'undetermined' | 'granted' | 'denied' | 'provisional' | 'unsupported';
 export type ReconcileResult = { scheduledCount: number; scheduledThrough: number | null };
+export type SimulationNotification = { title: string; body: string; seconds: number };
 export function diffNotificationPlan(existingIds: string[], planIds: string[]) {
   const wanted = new Set(planIds);
   const existing = new Set(existingIds);
   return { stale: existingIds.filter((id) => !wanted.has(id)), missing: planIds.filter((id) => !existing.has(id)) };
+}
+
+export function buildNotificationSimulation(preferences: NotificationPreferences, locationName: string): SimulationNotification[] {
+  const items: SimulationNotification[] = [];
+  if (preferences.reminderMinutes > 0) items.push({
+    title: `İmsak vaktine ${preferences.reminderMinutes} dakika`,
+    body: `${locationName} · simülasyon`,
+    seconds: 3,
+  });
+  if (preferences.atPrayerTime) items.push({
+    title: 'İmsak vakti girdi',
+    body: locationName,
+    seconds: items.length ? 6 : 3,
+  });
+  return items;
 }
 
 const OWNER = 'vakit';
@@ -130,5 +146,28 @@ export const notificationScheduler = {
         channelId: isExpoGo ? undefined : silent ? SILENT_CHANNEL : SOUND_CHANNEL,
       },
     });
+  },
+  async scheduleSimulation(preferences: NotificationPreferences, locationName: string): Promise<number> {
+    if (Platform.OS === 'web') throw new Error('unsupported');
+    const items = buildNotificationSimulation(preferences, locationName);
+    if (!items.length) return 0;
+    const Notifications = await loadNotifications();
+    await ensureChannels(Notifications);
+    const silent = preferences.sound === 'silent';
+    await Promise.all(items.map((item, index) => Notifications.scheduleNotificationAsync({
+      identifier: `vakit-simulation-${Date.now()}-${index}`,
+      content: {
+        title: item.title,
+        body: item.body,
+        sound: silent ? undefined : preferences.sound === 'default' || isExpoGo ? 'default' : 'vakit-tone.wav',
+        data: { owner: 'vakit-simulation', kind: index === 0 && preferences.reminderMinutes > 0 ? 'reminder' : 'prayer-time' },
+      },
+      trigger: {
+        type: Notifications.SchedulableTriggerInputTypes.TIME_INTERVAL,
+        seconds: item.seconds,
+        channelId: isExpoGo ? undefined : silent ? SILENT_CHANNEL : SOUND_CHANNEL,
+      },
+    })));
+    return items.length;
   },
 };

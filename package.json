@@ -1,6 +1,6 @@
 {
   "name": "vakit",
-  "version": "0.2.0",
+  "version": "0.3.0-rc.1",
   "private": true,
   "main": "expo-router/entry",
   "engines": {
@@ -14,6 +14,7 @@
     "lint": "eslint .",
     "test": "jest --runInBand",
     "test:timezones": "node scripts/test-timezones.mjs",
+    "verify:prayer-times": "node scripts/verify-prayer-times.mjs",
     "check": "npm run typecheck && npm run lint && npm test",
     "export": "expo export --platform android"
   },

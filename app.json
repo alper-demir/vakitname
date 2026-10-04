@@ -2,7 +2,7 @@
   "expo": {
     "name": "Vakit",
     "slug": "vakit",
-    "version": "0.2.0",
+    "version": "0.3.0-rc.1",
     "scheme": "vakit",
     "orientation": "portrait",
     "userInterfaceStyle": "automatic",
@@ -14,8 +14,7 @@
       },
       "permissions": [
         "ACCESS_COARSE_LOCATION",
-        "ACCESS_FINE_LOCATION",
-        "android.permission.SCHEDULE_EXACT_ALARM"
+        "ACCESS_FINE_LOCATION"
       ],
       "blockedPermissions": [
         "android.permission.ACCESS_BACKGROUND_LOCATION"
@@ -52,9 +51,9 @@
         {
           "image": "./assets/icon/vakit-icon.png",
           "resizeMode": "contain",
-          "backgroundColor": "#08201D",
+          "backgroundColor": "#0E1324",
           "dark": {
-            "backgroundColor": "#061512"
+            "backgroundColor": "#0E1324"
           }
         }
       ]

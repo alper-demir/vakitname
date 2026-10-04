@@ -1,8 +1,53 @@
-# Faz 1–6 doğrulaması — 2 Ekim 2026
+# Faz 1–6 doğrulaması — 4 Ekim 2026
+
+## 3 Ekim 2026 — Stitch splash uygulaması
+
+- `Splash Ekranı` / `Splash - Gün Batımı Cam Efekt` Stitch referansı native React Native bileşenlerine eşlendi; mevcut uygulama ikonu kullanıldı, yeni görsel veya uzaktan runtime bağımlılığı eklenmedi.
+- Referanstaki alıntı Diyanet İşleri Başkanlığı'nın İsrâ 78. ayet sayfasıyla doğrulandı. Tasarımdaki “Güneşin batışından...” başlangıcı resmî meal ile birebir eşleşmediği için, kaynakta geçen “Gündüzün güneşin gün ortasını aşmasından...” başlangıçlı Kur'an Yolu meali sure/ayet atfıyla eklendi. Kaynak kaydı `DATA-SOURCES.md` içindedir.
+- `npm run check` geçti: strict TypeScript, ESLint ve 8 Jest paketi / 61 test başarılı.
+- Metro üzerinden Android bundle yenilendi; bundle derlemesi başarıyla tamamlandı. Kontrol anında A52 kilit ekranındaydı, bu nedenle yeni JavaScript splash'in kısa görünme süresi kare bazlı kabul edilemedi.
+- Sınır: Expo Go mevcut native splash yapılandırmasını yeniden üretmez. `app.json` içindeki statik başlangıç rengi/ikon yalnız yeni native binary veya development build'de doğrulanabilir; kullanıcı istemediği için build/prebuild yapılmadı.
+
+### 3 Ekim 2026 — Pixel 7 Expo Go splash görsel kabulü
+
+- Pixel 7 emülatörü sıfır snapshot ile yeniden başlatıldı; Expo Go zorla kapatılıp `exp://127.0.0.1:8081` üzerinden soğuk açılış yapıldı.
+- Expo Go'nun kendi beyaz başlangıç katmanından sonra uygulamanın JavaScript splash'i ekran görüntüsünde doğrulandı: gün batımı gradienti, uygulama ikonu, `VAKİT`, alt slogan, İsrâ 78 ayet metni/atıfı, İstanbul silüeti ve animasyonlu altın yükleme çizgisi görünür.
+- İlk kontrolde fontların önbellekten çok hızlı gelmesi nedeniyle bu katman bir kareden kısa sürdü. `RootLayout` içinde minimum 900 ms görünürlük eklendi; ikinci soğuk açılışta yüzey net biçimde yakalandı ve ardından Home/Kâğıthane sayacına geçti.
+- Logcat taramasında `FATAL EXCEPTION`, React Native JavaScript hata, `Invariant Violation`, `TypeError` veya bundle çözümleme hatası bulunmadı. `npm run check` 61/61 geçti.
+- Sınır: Görülen beyaz Expo Go katmanı uygulamanın native splash'i değildir. `app.json` içindeki ikon/`#0E1324` statik katmanını doğrulamak için development/release binary gerekir.
+
+## 3 Ekim 2026 — Samsung Galaxy A52 fiziksel Expo Go kabul turu
+
+Kapsam: `SM-A525F` / `a52q`, Android fiziksel cihaz, Expo Go + LAN Metro. ADB hedefi `192.168.1.109:39759`; Pixel 7 emülatörü ayrıca bağlıydı ancak bu turdaki görsel kabul A52 üzerinde yapıldı. Çalışma dalı `feature/notification-highlight`; `src/features/settings/notifications-screen.tsx` içindeki kullanıcının commitlenmemiş bildirim anahtarı/seçim rengi değişikliği korunarak test edildi. Native development/release build üretilmedi.
+
+### Uygulanan ve geçen kontroller
+
+- **Bağlantı ve başlangıç:** Kablosuz ADB cihazı model/seri ile doğrulandı; Expo Go deneyimi LAN Metro'dan açıldı. Home'da Vakit markası, Kâğıthane, 3 Ekim 2026, Yatsı geri sayımı, Türkiye yöntemi ve alt navigasyon göründü.
+- **Home/sayaç:** Sayaç yaklaşık 00:58:10'dan 00:51:20'ye ilerledi; Home ve kayıtlı Kâğıthane kaldı. Font ölçeği yeniden yüklemesi sonrasında tekrar açıldığında da kayıtlı durum korundu.
+- **Takvim:** Aylık Ekim 2026 görünümü, seçili gün özeti ve gerçek hesaplanan vakitler açıldı. Ramazan görünümü 1448 Hicri / 29 gün / 8 Şubat–8 Mart aralığıyla açıldı. Aylık görünüme dönüldü, Kasım 2026'ya geçildi ve yatay tablo İmsak–Öğle'den Öğle–Yatsı sütunlarına kaydırıldı. Taşma veya boş yüzey görülmedi.
+- **Tema:** A52'de Gündüz, Gece ve Gün batımı manuel fazları sırayla seçildi; seçili işaretleri ve paletleri doğru göründü. Başlangıç durumu Gün batımı ve Ramazan'da otomatik olarak geri yüklendi. Görsel karelerde beyaz ara flaş görülmedi. Büyük yazı sırasında Android sistemine ait küçük `Tools` balonu görüldü; uygulama metni olarak sınıflandırılmadı.
+- **Kıble:** Kâğıthane için fiziksel sensör aktifti; 152° Güneydoğu, yaklaşık 2.413 km, “gerçek kuzey” ve 3/3 hassasiyet göründü. Arka plan/son uygulamalar dönüşü sonrasında aynı sensör yüzeyi tekrar açıldı.
+- **Bildirimler:** İzin açık, 5 vakit etkin (Güneş varsayılan kapalı), Vakit tonu seçili ve 60 gelecek bildirim planlı görüldü. Ana anahtar kapatılıp uzlaştırma tamamlandıktan sonra yeniden açıldı ve 60 plan geri geldi. “3 saniye sonra test et” düğmesi “Test bildirimi planlandı” durumuna geçti; Android bildirim çekmecesinde gerçek “Vakit bildirimi hazır / Bu bir test bildirimidir.” bildirimi görüldü.
+- **Yaşam döngüsü:** Home/ayarlar/bildirim ekranı arka plana alındı, launcher ve Son Uygulamalar üzerinden Vakit geri getirildi; Home, konum, sayaç ve 60 bildirim planı korundu.
+- **GPS başarı:** Konum seçicide “Konumumu kullan” ile GPS akışı çalıştı ve Kâğıthane Home'a döndü; yeni izin istemeden mevcut izinle yenileme gözlendi.
+- **GPS ret/fallback:** Expo Go konum izinleri geçici olarak reddedildi. Vakit'in konum seçicisinde sistem izin diyaloğu açıldı; “İzin verme” sonrasında “Konum izni kapalı. Cihaz ayarlarından açabilir veya şehir seçebilirsin.” mesajı ve 81 il listesi göründü. İzinler ADB ile tekrar verildi; “Konumumu kullan” sonrası Home/Kâğıthane geri geldi.
+- **Büyük yazı:** Sistem `font_scale` 1.0 → 1.3 yapıldı. Expo Go yeniden yüklenmesi beklenince Home metinleri büyüdü; sayaç, konum, vakit kartları ve alt navigasyon görünür kaldı. Ölçek 1.0'a geri alındı ve Home yeniden açıldı.
+- **Hata izi:** A52 logcat son 5.000 satırda `FATAL EXCEPTION`, `AndroidRuntime FATAL` veya React Native JS hata eşleşmesi bulunmadı. Font ölçeği değişimleri sırasında splash/Expo Go yeniden yüklemesi görüldü; bekleme sonrası deneyim açıldı.
+- **Kod regresyonu:** Bu çalışma ağacında `npm run check` (strict TypeScript, ESLint, 61/61 Jest), `npm run test:timezones` (Europe/Istanbul/UTC/America/New_York, 28/28) ve Expo Doctor (21/21) geçti.
+
+### Eksik veya kanıtı sınırlı kalan kontroller
+
+- **Kıble hareket doğrulaması:** Telefonun fiziksel olarak kuzey/doğu/güney/batı yönlerine çevrilmesi ve sekiz çizerek kalibrasyon bu otomasyonda yapılmadı; yalnız sensörün canlı yüzeyi ve 3/3 hassasiyet görüldü.
+- **TalkBack:** A52'de TalkBack etkinleştirilmedi. ADB `enabled_accessibility_services=null`, `accessibility_enabled=0` döndürdü; gerçek ekran okuyucu kabulü açık kaldı.
+- **Bildirim release davranışı:** Expo Go sınırı nedeniyle özgün ses kanalı, sessiz kanal, kesin alarm, ekran kilidi, reboot, force-stop, Doze/pil tasarrufu ve üretim kanalları kanıtlanmadı.
+- **UI otomasyon ağacı:** Expo Go yoğun/animasyonlu durumdayken `uiautomator dump` “could not get idle state” verdi; sonuçlar ekran görüntüsü, ADB durumları ve sistem bildirim çekmecesiyle doğrulandı.
+- **Diyanet matrisi, foreground gece yarısı ve Hermes fallback:** Bu fiziksel turda çalıştırılmadı; release açık işleridir.
+
+Son cihaz durumu: A52 `font_scale=1.0`, konum izinleri foreground açık, Home/Kâğıthane açık, Gün batımı teması ve Ramazan otomatik durumu korunuyor, bildirim anahtarı açık ve 60 olay planlı. Kanıt ekran görüntüleri geçici `C:\Windows\Temp\vakit-a52-check` klasöründe tutuldu; repository'ye eklenmedi.
 
 ## Geçen kontroller
 
-- TypeScript strict, ESLint, 61 Jest testi. Gerçek Home/konum componentleriyle GPS reddi → manuel seçim → Home → kayıtlı yeniden açılış; GPS konumunda arka plandan dönüşte izin istemeden yenileme.
+- TypeScript strict, ESLint, 76 Jest testi. Gerçek Home/konum componentleriyle GPS reddi → manuel seçim → Home → kayıtlı yeniden açılış; GPS konumunda soğuk açılışta ve arka plandan dönüşte izin istemeden yenileme.
 - Onboarding'in konumsuz tamamlanması ve kalıcılığı, v1→v2 state göçü, vakit/Hicri düzeltmelerinin sınırlandırılmış state üzerinden kaydı test edildi.
 - Expo Go 57.0.9 / Android 16 Pixel 7 üzerinde sistem izin diyaloğu, ret sonrası Türkçe fallback ve izin sonrası konum isteği denendi. 720×1280 küçük ekran ve 1.3 font ölçeğinde Home kaydırma/alt dock kontrol edildi; erişilebilirlik ağacı için TalkBack servisi emülatörde mevcut değildi, Jest ve native accessibility etiketleri doğrulandı.
 - Geç GPS sonucunun yeni manuel seçimi ezmemesi; yenileme hatasında son konumun korunması; storage okuma hatasında okunamamış verinin varsayılanlarla ezilmemesi.
@@ -10,7 +55,7 @@
 - Expo Doctor 21/21. Önceki Android/web bundle kontrolleri başarılı. Expo Go 57.0.9 ile Android 16 Pixel 7 emülatörde LAN Metro üzerinden Ankara → Çankaya manuel seçimi, gerçek hesaplanan Home, Yatsı sonrası ertesi gün İmsak hedefi ve Expo Go zorla kapatılıp açıldıktan sonra SQLite kalıcılığı doğrulandı. **Export native build değildir; native build tamamlanmadan durdurulup tüm proje çıktıları temizlendi.**
 - Web önizlemede manuel seçim ve Yatsı sonrası yarının İmsak hedefi görüldü. Native GPS/izin ve erişilebilirlik doğrulaması açık.
 - Android Expo Go'da genel ayarlar, hesaplama ve Hicri ekranları görsel olarak kontrol edildi. İmsak +1 düzeltmesi Home hesabına anında yansıdı ve genel ayarlarda “1 düzeltme” özeti görüldü. Hicri +1 canlı önizlemeyi 19'dan 20 Rebiülahir'e taşıdı. Deneme değerleri doğrulama sonunda tekrar 0'a getirildi.
-- Faz 3 saf planlayıcı için gelecek olay, kronolojik sıra, 60 bildirim sınırı, varsayılan kapalı Güneş ve benzersiz kimlikler; scheduler farkı için eşleşeni koruma/eskiyi çıkarma; v2→v3 güvenli migration test edildi.
+- Faz 3 saf planlayıcı için gelecek olay, kronolojik sıra, 15 yerel takvim günü, en yoğun ayarda 180 kayıt güvenlik sınırı, varsayılan kapalı Güneş ve benzersiz kimlikler; scheduler farkı için eşleşeni koruma/eskiyi çıkarma; v2→v3 güvenli migration test edildi.
 - Bildirim yenileme kuyruğunun aynı anda yalnız bir uzlaştırma çalıştırdığı, çalışan iş sırasında gelen 1→2→3 tetiklerinin 1→3 olarak en güncel durumda birleştiği ve başarısız bir turdan sonra yeni işi kabul ettiği test edildi.
 - Faz 4 takvim domain testleri: aylık gün satırları ve gerçek provider vakitleri, 2026 Ramazan 29 gün sınırı, 2030 Umm al-Qura fallback aralığı ve Hicri gösterim offset'inin namaz saatlerinden bağımsız kalması doğrulandı.
 - Faz 5 Kıble domain testleri: İstanbul için büyük çember ilk doğrultusu 151,6° ve yaklaşık 2.405 km, yön normalizasyonu ve en kısa imzalı dönüş doğrulandı. Toplam 60 Jest testi, strict typecheck ve ESLint geçti; zaman dilimi regresyonu Europe/Istanbul, UTC ve America/New_York altında 27 test ile geçti. Expo Doctor 21/21 geçti.
@@ -53,18 +98,59 @@
 
 Ortalama mutlak fark 0,83 dk, en büyük 2 dk. Tek gün/şehir doğruluk sertifikası değildir. Farklar kullanıcı düzeltmesine gizlice eklenmedi. Yedi şehir × mevsimler/Ramazan karşılaştırması release öncesi açık.
 
+## 4 Ekim 2026 — geniş Diyanet vakit matrisi ve gelecek yıl kontrolü
+
+- Tek İstanbul örneği, canlı resmî sayfalardan tekrarlanabilen `npm run verify:prayer-times` kontrolüne genişletildi. İstanbul, Ankara, İzmir, Antalya, Sinop, Erzurum ve Iğdır; 22 Ekim 2026, 21 Ocak 2027, 8 Şubat 2027 Ramazan başlangıcı, 21 Mart 2027 ve 21 Haziran 2027 tarihlerinde karşılaştırıldı.
+- Toplam 35 şehir-tarih satırı ve 210 vakitte ortalama mutlak fark **0,41 dakika**, en büyük mutlak fark **2 dakika** bulundu. İki dakikalık mühendislik inceleme eşiğini aşan satır yoktu. Bu, resmî Diyanet verisi kullanıldığı veya dinî doğruluk sertifikası anlamına gelmez; hesap yaklaşımının seçili örneklerde yakınlığını gösterir.
+- Kalıcı regresyon testine yedi şehirden kayıtlı resmî örnekler eklendi. 2030-01-01 için altı vaktin yıllık tablo indirmeden üretildiği doğrulandı. `npm run check`: 9 suite, 71/71 test geçti. Üç host saat diliminde mevcut 28/28 zaman testi tekrar geçti.
+- Hicrî ay başlangıçlarının resmî paket kapsamı 2028 sonuna uzatıldı. Diyanet 2028 listesine göre Ramazan 28 Ocak–26 Şubat 2028 aralığıdır ve yeni test bu aralığı `diyanet-months` kaynağıyla doğrular. 2029-01-16 yalnız sonraki ay sınırı sentinel'idir; sonrasında cihazın açıkça etiketlenen Umm al-Qura fallback'i devam eder.
+- Vakitler uygulama kullanımında Diyanet'ten sürekli indirilmez. Adhan 4.4.6 ve Turkey yöntemi uygulama sürümünde sabittir; canlı karşılaştırma komutu release öncesinde ve hesaplama/konum değişikliklerinde yeniden çalıştırılmalıdır.
+
 ## Paket güvenliği
 
 npm audit: 0 critical/high, 14 moderate rapor; çoğu aynı iki advisory'nin üst paketlere yayılımı. [decode-uri-component](https://github.com/advisories/GHSA-vcc3-ghjq-m6fr) Router → query-string üzerinden runtime URI ayrıştırmayı etkiler. [uuid](https://github.com/advisories/GHSA-w5hq-g745-h8pq) Expo xcode build araç zincirindedir. Otomatik öneri Expo 46/Router 5'e uyumsuz düşürme; uygulanmadı. decode-uri-component 0.5 API/modül uyumu doğrulanmadan override yapılmadı. **Release öncesi upstream uyumlu düzeltme veya doğrulanmış adaptör gerekir.**
 
 ## Açık cihaz/release kontrolleri
 
+### 4 Ekim 2026 — A52 seçili bildirim akışı simülasyonu
+
+- Yeni fiziksel kabul denetimi, Bildirimler ekranındaki seçili ayarı gerçek saat beklemeden tetikler: etkin ön-hatırlatma 3 sn, etkin vakit-anı bildirimi 6 sn sonra ayrı yerel test kaydı olarak planlanır. Bu kayıtlar gerçek `vakit` kuyruğundan ayrıdır; cihaz saatini ve 60 olaylık gerçek planı değiştirmez.
+- Galaxy A52 / Expo Go üzerinde **15 dk** seçiliyken sistem çekmecesinde “İmsak vaktine 15 dakika / Adana · simülasyon” ve “İmsak vakti girdi / Adana” teslim edildi (geçti). **30 dk** ile aynı tur tekrarlandı; “İmsak vaktine 30 dakika / Adana · simülasyon” ile vakit-anı bildirimi aynı çekmecede görüldü (geçti). Geçici ekran görüntüleri repository dışındadır.
+- Ana bildirim anahtarı kapatıldığında cihazdaki Vakit planı kaldırıldı; tekrar açıldığında UI “60 gelecek bildirim cihazda planlandı.” durumuna döndü (geçti). Test bitiminde tercihler geri alındı: ana anahtar açık, vakit anı açık, ön-hatırlatma kapalı, Vakit tonu seçili.
+- A52'nin sistem sessiz anahtarı test boyunca açıktı; sesi fiziksel olarak işitildi diye bir sonuç çıkarılmadı. Sistem dökümü Expo Go teslimlerinin `expo_notifications_fallback_notification_channel` üzerinden Android sistem bildirim sesine ve titreşime yönlendiğini gösterdi. Bu nedenle Expo Go'da seçili **Vakit tonu** özgün `vakit-tone.wav` için kanıt değildir; **Sistem sesi** cihazın varsayılan bildirim sesidir. **Sessiz** seçeneğinin gerçekten sessiz kanal davranışı da yalnız native development/production build'de doğrulanabilir.
+
+### 4 Ekim 2026 — GPS soğuk açılış ve 15 günlük bildirim uzlaştırması
+
+- Kayıtlı kaynak GPS ise uygulama soğuk açılışta, sistem izin penceresini yeniden göstermeden (`requestPermission: false`) tek foreground ölçümü başlatır. Başarılı ölçüm kayıtlı konumu günceller; timeout/izin/servis hatasında son geçerli konum korunur. Geç sonuç yeni manuel seçimi revision koruması nedeniyle ezemez.
+- Bildirim ufku sabit olay sayısından bugün dahil 15 yerel takvim gününe çevrildi. Varsayılan beş vakit ve vakit-anı seçimi 75; 15/30/45 dakika ön-hatırlatma da açıksa 150; Güneş dahil en yoğun seçim 180 kayıttır.
+- Öğle kapatıldığında yeni saf planda Öğle için ne ön-hatırlatma ne vakit-anı kaydı üretildiği ve uzlaştırma farkının mevcut iki Öğle kaydını stale/silinecek olarak işaretlediği test edildi. Değişiklik native uzlaştırmada yalnız `owner=vakit` kayıtlarını iptal eder.
+- Uzlaştırma hatası Bildirimler ekranında canlı hata metni ve **Planı yeniden dene** düğmesi sunar; mevcut tek-işlem kuyruğunun başarısız turdan sonra yeni işi kabul etmesi regresyon testiyle korunur.
+- `npm run check`: 9 suite, 76/76 test; strict TypeScript ve ESLint geçti. `npm run test:timezones`: Europe/Istanbul, UTC ve America/New_York süreçlerinin her birinde 28/28 geçti. Bu turda fiziksel cihaz pending listesi yeniden okunmadı; cihaz kanıtı değil kod/regresyon doğrulamasıdır.
+
+### 4 Ekim 2026 — A52 gerçek vakit teslim kabulü
+
+- Kullanıcı Galaxy A52 / Expo Go üzerinde uygulama ekranda açık değilken İmsak, Öğle ve İkindi vakit-anı bildirimlerinin birbirinden ayrı ve doğru saatlerde geldiğini doğruladı.
+- İkindi bildirimi saat **16:18**'de **“İkindi vakti girdi”** başlığı ve **“Kâğıthane”** konum içeriğiyle teslim edildi; aynı anda çevrede ezan okunması vakit eşleşmesine kullanıcı gözlemi sağladı. Bu dış ezan, uygulamanın özgün bildirim sesinin çalıştığına kanıt sayılmaz.
+- Bu sonuç gelecekteki yerel kayıtların Android tarafından uygulama foreground'da değilken teslim edildiğini ve Kâğıthane için vakit-anı başlık/konum içeriğini doğrular. Cihazın gerçekten Android `force-stop` durumunda olduğu kanıtlanmadığından force-stop/reboot/Doze ve özgün Vakit tonu kabulü hâlâ native build kapısındadır.
+
+### 4 Ekim 2026 — Kesin alarm izni kaldırıldı
+
+- Kullanıcı kararıyla `android.permission.SCHEDULE_EXACT_ALARM` uygulama config'inden çıkarıldı. Normal yerel bildirim, ses ve titreşim akışı korunur; uygulama tam dakika teslimi veya alarm ekranı vaadinde bulunmaz.
+- Bildirim yardım ekranı, artık özel kesin alarm erişimini değil Android'in yönettiği normal zamanlamayı ve pil/üretici ayarlarından kaynaklanabilecek gecikmeyi açıklar. `npx expo config --type public` ve Android manifest introspection çıktısında `SCHEDULE_EXACT_ALARM`/`USE_EXACT_ALARM` bulunmadığı görüldü; `npm run check` 76/76 geçti. Native build üretilmedi; son release manifest kontrolü yayın kapısında yapılacak.
+
+### 4 Ekim 2026 — TalkBack kapsam kararı
+
+- Vakit herhangi bir Android AccessibilityService kullanmaz; TalkBack yalnız sistem ekran okuyucusudur. Bu nedenle özel erişilebilirlik izni veya Play Console Accessibility API beyanı gerekmez.
+- Etkileşimli native kontrollerde erişilebilir ad/rol/durumlar zaten kullanılıyor. Gerçek TalkBack sesli gezinme kabulü, kullanıcı deneyimi kalite kontrolü olarak açık kaldı; uygulamanın çalışması ya da mağaza için ek bir erişilebilirlik servisi geliştirme gerekmiyor.
+- Kullanıcı A52'de Kıble'nin doğru çalıştığını ve JavaScript splash yüzeyini kabul etti. Native işletim sistemi splash'i Expo Go'da değerlendirme kapsamı dışındadır.
+- `npm run check`: strict TypeScript, ESLint ve 62/62 Jest testi geçti.
+
 - Android 16 Pixel 7 / Expo Go'da manuel Gün batımı temasında Takvim yeniden kontrol edildi. Aylık görünüm ve Ramazan seçili durumları ile vakit/imsakiye çizelgeleri, opak koyu `surfaceStrong` yerine Home “Bugün” kartıyla aynı yarı saydam `surface` ve seçili `highlight` yüzeylerini kullanıyor; iki görünümde de okunabilirlik ve yatay tablo korunuyor. Fiziksel A52 kabulü hâlâ açıktır.
 - iOS ve App Store kapsam dışıdır. Android Expo Go yeniden açılışında SQLite verisi doğrulandı. `adb emu geo fix` ile İstanbul koordinatı verilmesine rağmen Expo Location dengeli doğruluk isteği 2 Ekim kontrolünde yine timeout oldu; hata mesajı ve manuel seçim fallback'i doğru gösterildi, fakat Android GPS başarı yolu emülatörde kanıtlanamadı.
 - Foreground saat sıçraması/gece yarısı; Hermes Intl takvim fallback'i.
 - VoiceOver/TalkBack gerçek cihaz testi; azaltılmış hareket ve kontrast.
 - GeoNames resmî ilçe listesi kapsamı ve 29 yaklaşık koordinatın iyileştirilmesi; sınır noktaları.
-- Android Expo Go izin, pending kuyruk ve varsayılan kanalda arka plan teslimi geçti. Android development build üzerinde özgün ses, sessiz kanal, ekran kilidi, reboot, force-stop, Doze/pil tasarrufu ve kesin alarm davranışı ile gerçek cihaz izinleri açık release kapısıdır.
+- Android Expo Go izin, pending kuyruk ve varsayılan kanalda arka plan teslimi geçti. Android development build üzerinde özgün ses, sessiz kanal, ekran kilidi, reboot, force-stop ve Doze/pil tasarrufu davranışı gerçek cihaz kabulü için açık release kapısıdır; kesin alarm özel erişimi ürün kapsamından çıkarıldı.
 - Faz 4 için gerçek cihaz erişilebilirlik ve iyileştirilen ay/sekme performansının A52'de yeniden kabulü henüz release kanıtı değildir; emülatör gözlemi Android Expo Go ile sınırlıdır.
 - Faz 5 temel fiziksel cihaz başarı yolu Galaxy A52'de doğru pusula yönüyle gözlendi. Konum izni ret/verme, trueHeading yokken manyetik veri, yüksek/düşük hassasiyet, hareket/kalibrasyon ve ekran kapanınca başlık aboneliğinin durması yine doğrulanmalıdır. Emülatördeki sensörsüz durum bu kontrollerin yerine geçmez.
 - Faz 6 için native release build, launcher maskesi, Play Console önizlemesi ve bildirim/ikon kaynaklarının gerçek Android cihazda doğrulanması gerekir. Hakkında/Gizlilik/Kaynak/Lisans ekranı, splash config çıktısı, erişilebilir başlık/etiketler ve Android ikon asset entegrasyonu Expo config ile doğrulandı; kullanıcı ikonu `assets/icon/` altında işlendi. Expo Go, native launcher ikonunu güncellemez.
@@ -72,5 +158,37 @@ npm audit: 0 critical/high, 14 moderate rapor; çoğu aynı iki advisory'nin üs
 - Android 16 Pixel 7 / Expo Go 57.0.9'da Ayarlar → Hakkında ve gizlilik ekranı açıldı; marka başlığı, veri saklama özeti, kaynak kartı ve lisans içeriği küçük ekran kaydırma düzeninde okunabilir göründü. Native OS splash görüntüsü Expo Go'da ayrı doğrulanmadı; Expo config yalnız arka plan renkleriyle doğrulandı.
 - Uygulama kimliği, imzalama ve Android native release build henüz yok. Android ikon ve splash config'i repository'de mevcut; native launcher/Play Store önizlemesi ayrıca doğrulanacak. Gizlilik HTML'i henüz herkese açık HTTPS adrese yüklenmedi ve uygulama içine yayımlanmış URL eklenmedi.
 - Herkese açık geliştirici destek adresi kullanıcı tarafından `support.alemdem@gmail.com` olarak doğrulandı ve uygulama, HTML, Markdown ve PDF kaynaklarına işlendi. Uygulama hesap oluşturmadığı ve geliştirici sunucusunda hesaba bağlı veri tutmadığı için hesap silme URL'si/akışı eklenmedi; yerel verilerin Android ayarlarından temizlenmesi açıklaması korundu. Eski iletişim adresi kaynaklarda ve yeniden üretilen PDF'de bulunmuyor; PDF üç sayfa yeniden render edilerek görsel kontrol edildi. Geliştirici görünen adı Play profiliyle yayımdan önce ayrıca doğrulanmalıdır. Hedef kitle/Families seçimi ve KVKK hukuki değerlendirmesi release kapısıdır.
+
+### 3 Ekim 2026 — A52 bildirim ayrıntısı ve Kıble metni devam kontrolü
+
+- Kıble hizalama metni kullanıcı diline çekildi: teknik “Pusula gerçek kuzey verisiyle hizalandı.” yerine “Kıble ile hizalandın.” gösteriliyor. A52 canlı ekranda Kıble doğrultusu ve bu yeni açıklama görüldü.
+- Kıble yardım metni, sekiz çizerek kalibrasyonu açıklar hale getirildi: telefon havada yavaşça sekiz çizilerek hareket ettirilir; amaç yön sensörünün kalibrasyonuna yardımcı olmaktır. Bu işlem uygulamanın özel bir namaz ayarı değil, Android cihaz sensörü kalibrasyon davranışıdır.
+- Bildirimler ekranında ön hatırlatma seçenekleri A52 üzerinde ayrı ayrı seçildi: 15 dk ve 30 dk. Her iki seçimde özet metni sırasıyla “15 dakika önce” ve “30 dakika önce” oldu; 30 dk seçiminde plan durumu 60 gelecek bildirim gösterdi. Kontrol sonunda tercih “Kapalı”ya geri alındı.
+- Uygulama arka plandayken 3 saniyelik test bildirimi sistem çekmecesinde “Vakit bildirimi hazır / Bu bir test bildirimidir.” içeriğiyle teslim edildi (geçti).
+- Expo Go hostu `am force-stop host.exp.exponent` ile zorla durdurulduktan sonra önceden tetiklenen 3 saniyelik test bildirimi görünmedi (başarısız/sınırlı). Bu sonuç Expo Go geliştirme hostunun force-stop sonrası yerel bildirim sınırını gösterir; production/development build davranışını kanıtlamaz. Uygulama Expo Go’dan yeniden açıldı ve ayarlar geri yüklendi.
+- Bu turda 15/30 dakikalık gerçek vakit bildiriminin saatini bekleyerek uçtan uca teslim yapılmadı; planlama UI’si, kuyruk sayısı ve domain testleri doğrulandı. Gerçek dakika teslimi, ekran kilidi/Doze/reboot ve Expo Go dışı build kapısında tekrar edilmelidir.
+- `npm run check`: strict TypeScript, ESLint ve 61/61 Jest testi geçti.
+
+### 3 Ekim 2026 — Expo Go devam kontrolü, A52 bağlantı durumu
+
+- Fiziksel cihazda ek kontrol için önceki kablosuz ADB hedefi `192.168.1.109:39759` yeniden denenmiştir. Hedef zaman aşımına uğradı; `adb mdns services` A52 için bir kablosuz hata ayıklama servisi döndürmedi ve yerel ARP tablosunda önceki IP görünmedi. Bu nedenle bu turda A52 arayüzüne otomatik erişim sağlanamadı; telefona yeni test ayarı uygulanmadı.
+- Kod seviyesinde üç saat dilimi regresyonu tekrar geçti: Europe/Istanbul, UTC ve America/New_York altında 28/28 test. Expo Doctor 21/21 geçti.
+- Yerel 8081 dinleyicisi bu kontrol anında görünmedi; Metro geçici süreç olduğu için çalışıyor varsayılmadı. Expo Go'da önceden açık deneyim, bilgisayardan yeni bundle/cihaz kontrolü için yeterli kanıt değildir.
+- Expo Go ile tamamlanabilecek fakat bu bağlantı kesintisi nedeniyle bu turda uygulanamayan fiziksel kontroller: Kıble başlığının yön değişimindeki canlı tepkisi, düşük hassasiyet/kalibrasyon yüzeyi, gerçek TalkBack sesli gezinmesi ve ek bildirim teslim gözlemi. Bunlar kablosuz hata ayıklama yeniden bağlandığında sürdürülmelidir.
+
+### 3 Ekim 2026 — A52 yeniden bağlantı ve Expo Go açılışı
+
+- Kullanıcı A52'de Kablosuz hata ayıklamayı yeniden açtıktan sonra mDNS keşfi `SM-A525F` için güncel adresi `192.168.1.102:39649` olarak döndürdü. Güvenli ADB bağlantısı kuruldu ve cihaz `a52q` olarak doğrulandı.
+- Metro yeniden başlatıldı; bilgisayarın `192.168.1.118:8081` dinleyicisinde A52'den etkin bağlantılar görüldü. Expo Go deneyimi yeniden açıldı ve A52 ekranında Home/Kâğıthane ile yarının İmsak sayacı görüntülendi.
+
+### 3 Ekim 2026 — A52 Expo Go ek fiziksel kontrolleri
+
+- **Kıble sensör yaşam döngüsü geçti:** Kıble ekranı açıkken A52 `ak0991x Magnetometer` ve ivmeölçerini Expo Location üzerinden 200 ms örneklemeyle etkinleştirdi. Home'a dönüldüğünde her iki abonelik için kapatma kaydı görüldü. Bu, ekran değişince pusula sensörü aboneliğinin temizlendiğini doğrular.
+- **Kıble canlı durum ve erişilebilirlik geçti:** Fiziksel ekranda 152° Güneydoğu, gerçek kuzey, 3/3 hassasiyet ve 24° yön farkı görüldü. Başlık, yön farkı değiştiğinde canlı değer gösteriyor. UI ağacı bu sefer başarıyla alındı: “Kıble oku, 23 derece yön farkı”, Geri, Konumu değiştir ve alt navigasyon erişilebilir adları mevcut; güncel sekiz çizerek kalibrasyon açıklaması da erişilebilir metin olarak görünüyor.
+- **Bildirim kilit ekranı teslimi geçti:** Vakit tonu seçili, beş vakit etkin ve 60 olay planlı durumdayken 3 saniyelik test planlandı. Ekran kapatılıp tekrar uyandırıldığında A52 kilit ekranında “Vakit bildirimi hazır / Bu bir test bildirimidir.” bildirimi göründü; bildirim çekmecesinde de aynı başlık/gövde vardı.
+- **Bildirim erişilebilirliği geçti:** `uiautomator` ağacı Bildirimler ekranında Vakit tonu/Sistem sesi/Sessiz için radyo rolleri ve seçili durumunu; İmsak, Güneş, Öğle, İkindi, Akşam, Yatsı için adlandırılmış anahtarları; planlama metnini ve test düğmesini gösterdi.
+- **Metro/Expo Go bağlantısı onarıldı:** Metro ilk açılışta development build modunda geldi; Expo Go moduna geçirildi. Kablosuz ADB üzerinden `tcp:8081` reverse yönlendirmesi kuruldu, bundle yeniden yüklendi ve Expo CLI bağlantı uyarısı UI ağacından kayboldu. Home/Kâğıthane tekrar açıldı.
+- **Hata izi:** Bu turdaki 2.500 satırlık logcat taramasında Vakit/Expo React Native için fatal exception veya JavaScript hata eşleşmesi yoktu. Görülen AndroidRuntime kayıtları çalıştırılan `uiautomator` komutunun kendi sürecine aitti.
+- **Açık kalanlar:** Telefonu elle farklı yönlere döndürerek yön değerinin birden çok fiziksel konumda değiştiğinin kullanıcı gözlemi, düşük hassasiyet/sekiz kalibrasyonu sonrası ölçüm ve gerçek TalkBack sesli gezinmesi otomasyonla tamamlanmadı. 15/30 dakika ön hatırlatmanın gerçek vakit saatindeki teslimi ve force-stop/Doze/reboot ise Expo Go sınırını aşar.
 
 Tasarım koruması: 76 referans dosyasının sıralı yol+SHA256 birleşik hash'i başlangıçla aynı: 72526F33396A5AD829A975E55BE0573E60892FF7B38657842F83D9BA970ECB79. Kaynak/konfigürasyon dosyalarında anahtar kalıbı taraması temiz. 390×844 web görünümünde sayaç/konum/ertesi gün kartı ve kaydırılabilir vakitler kontrol edildi; screenshot artifacts/home-mobile.png (Git dışında).

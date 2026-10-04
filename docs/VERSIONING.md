@@ -24,6 +24,8 @@ Sürümler SemVer kullanır:
 
 `v0.2.0`: üç adımlı onboarding, genel ayarlar merkezi, vakit bazlı dakika düzeltmeleri ve Hicri gün düzeltmesi.
 
+`v0.3.0-rc.1`: Expo Go kabulü yapılmış yerel aday. Bildirimler, Takvim/Ramazan, Kıble, yayın yüzeyi, GPS sağlamlaştırması ve 15 günlük bildirim planı dahildir. Bu etiket mağaza yayını değildir; özgün ses/sessiz kanal ile güç yönetimi kontrolleri tamamlanınca nihai `v0.3.0` etiketlenir.
+
 ## Güvenli çalışma
 
 Commit öncesi ilgili testler ve typecheck/lint çalıştırılır; doğrulama sonucu `docs/VALIDATION.md`, devam noktası `docs/PLAN.md` içinde tutulur. Tag'ler silinmez veya başka commit'e taşınmaz. Paylaşılan geçmişte rebase/force push yapılmaz. Remote ve push ayrı kullanıcı talebiyle yapılandırılır.

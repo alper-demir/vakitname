@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { AppState, Pressable, Text } from 'react-native';
-import { act, fireEvent, render, screen } from '@testing-library/react-native';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react-native';
 import { AppStateProvider, useAppState } from '@/services/app-state';
 import { ThemeProvider } from '@/ui/theme-context';
 import HomeScreen from '@/features/home/home-screen';
@@ -81,6 +81,24 @@ test('failed GPS refresh preserves the last valid location', async () => {
   await render(<AppStateProvider><Probe /></AppStateProvider>);
   await fireEvent.press(screen.getByRole('button', { name: 'gps' }));
   expect(screen.getByText('İstanbul')).toBeTruthy();
+});
+test('persisted GPS location refreshes on cold start without asking permission again', async () => {
+  const previous = gpsLocation(41.01, 28.95, 40, 100);
+  const refreshed = gpsLocation(39.92, 32.85, 35, 200);
+  jest.mocked(persistence.read).mockResolvedValue(JSON.stringify({ ...initialSavedState, location: previous }));
+  jest.mocked(locateDevice).mockResolvedValue(refreshed);
+  await render(<AppStateProvider><Probe /></AppStateProvider>);
+  await waitFor(() => expect(screen.getByText('Çankaya')).toBeTruthy());
+  expect(locateDevice).toHaveBeenCalledWith({ requestPermission: false });
+  expect(JSON.parse(jest.mocked(persistence.write).mock.calls.at(-1)![0]).location.updatedAt).toBe(200);
+});
+test('failed cold-start GPS refresh keeps the persisted location', async () => {
+  const previous = gpsLocation(41.01, 28.95, 40, 100);
+  jest.mocked(persistence.read).mockResolvedValue(JSON.stringify({ ...initialSavedState, location: previous }));
+  jest.mocked(locateDevice).mockRejectedValue(new Error('timeout'));
+  await render(<AppStateProvider><Probe /></AppStateProvider>);
+  await waitFor(() => expect(locateDevice).toHaveBeenCalledWith({ requestPermission: false }));
+  expect(screen.getByText(previous.name)).toBeTruthy();
 });
 test('GPS location refreshes after returning to foreground without prompting again', async () => {
   let listener: ((state: 'active' | 'background' | 'inactive') => void) | undefined;

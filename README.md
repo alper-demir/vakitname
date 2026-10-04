@@ -16,8 +16,9 @@ npm start
 Web inceleme: `npm run web`. Android emülatörde Expo Go için `npm start -- --lan`. Native prebuild/APK bu aşamada kullanılmıyor. Bu Windows ortamında Node 24 ayrıca `%LOCALAPPDATA%/vakit-toolchain/node-v24.21.0-win-x64` altında bulunur; global Node değiştirilmedi.
 
 ```sh
-npm run check          # strict tip kontrolü, lint, 60 test
+npm run check          # strict tip kontrolü, lint, 71 test
 npm run test:timezones # İstanbul / UTC / New York
+npm run verify:prayer-times # canlı Diyanet tablolarıyla 7 şehir × 5 dönem kontrolü
 npx expo-doctor
 npm run export        # Android bundle; native build değildir
 ```
