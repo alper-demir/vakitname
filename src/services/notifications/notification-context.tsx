@@ -6,27 +6,31 @@ import { Adjustments, NotificationPreferences, VakitLocation } from '@/domain/ty
 import { prayerProvider } from '@/services/prayer/adhan-provider';
 import { useAppState } from '@/services/app-state';
 import { createLatestTaskRunner } from './latest-task-runner';
+import { exactScheduling, ExactSchedulingStatus } from './exact-scheduling';
 import { notificationScheduler, NotificationPermission } from './scheduler';
 
 type NotificationContextValue = {
   permission: NotificationPermission;
+  exactSchedulingStatus: ExactSchedulingStatus;
   syncing: boolean;
   error: string | null;
   enable: () => Promise<boolean>;
   disable: () => void;
-  refresh: () => Promise<void>;
+  refresh: (forceReschedule?: boolean) => Promise<void>;
+  requestExactScheduling: () => Promise<ExactSchedulingStatus>;
   sendTest: () => Promise<boolean>;
   simulateCurrentFlow: () => Promise<number>;
 };
 
 const Context = createContext<NotificationContextValue | null>(null);
 const allowed = (permission: NotificationPermission) => permission === 'granted' || permission === 'provisional';
-type RefreshSnapshot = { location: VakitLocation | null; adjustments: Adjustments; notifications: NotificationPreferences };
+type RefreshSnapshot = { location: VakitLocation | null; adjustments: Adjustments; notifications: NotificationPreferences; forceReschedule: boolean };
 
 export function NotificationProvider({ children }: React.PropsWithChildren) {
   const app = useAppState();
   const { ready, location, preferences, updateNotificationSchedule, updateNotifications } = app;
   const [permission, setPermission] = useState<NotificationPermission>('undetermined');
+  const [exactSchedulingStatus, setExactSchedulingStatus] = useState<ExactSchedulingStatus>('unsupported');
   const [syncing, setSyncing] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -42,16 +46,17 @@ export function NotificationProvider({ children }: React.PropsWithChildren) {
     const localDate = localDateAt(now, snapshot.location.timeZone);
     const days = Array.from({ length: NOTIFICATION_HORIZON_DAYS }, (_, index) => prayerProvider.getDay(addDays(localDate, index), snapshot.location!, snapshot.adjustments));
     const plan = buildNotificationPlan(days, snapshot.notifications, snapshot.location.name, now);
+    if (snapshot.forceReschedule) await notificationScheduler.cancelAll();
     const result = await notificationScheduler.reconcile(plan, snapshot.notifications.sound);
     updateNotificationSchedule(result);
   }, [updateNotificationSchedule]);
   const refreshRunner = useMemo(() => createLatestTaskRunner(executeRefresh), [executeRefresh]);
 
-  const refresh = useCallback(async () => {
+  const refresh = useCallback(async (forceReschedule = false) => {
     if (!ready) return;
     setSyncing(true); setError(null);
     try {
-      await refreshRunner.run({ location, adjustments: preferences.adjustments, notifications: preferences.notifications });
+      await refreshRunner.run({ location, adjustments: preferences.adjustments, notifications: preferences.notifications, forceReschedule });
     } catch {
       setError('Bildirim planı güncellenemedi. Daha sonra yeniden deneyebilirsin.');
     } finally { setSyncing(false); }
@@ -61,6 +66,27 @@ export function NotificationProvider({ children }: React.PropsWithChildren) {
   useEffect(() => {
     const subscription = AppState.addEventListener('change', (state) => { if (state === 'active') void refresh(); });
     return () => subscription.remove();
+  }, [refresh]);
+  useEffect(() => {
+    if (!ready) return;
+    void exactScheduling.getStatus().then((status) => {
+      setExactSchedulingStatus(status);
+    });
+  }, [ready]);
+
+  const requestExactScheduling = useCallback(async () => {
+    setSyncing(true); setError(null);
+    try {
+      const status = await exactScheduling.requestAccess();
+      setExactSchedulingStatus(status);
+      await refresh(true);
+      return status;
+    } catch {
+      setError('Dakik zamanlama ayarı açılamadı. Sistem ayarlarından daha sonra deneyebilirsin.');
+      const status = await exactScheduling.getStatus();
+      setExactSchedulingStatus(status);
+      return status;
+    } finally { setSyncing(false); }
   }, [refresh]);
 
   const enable = useCallback(async () => {
@@ -108,7 +134,7 @@ export function NotificationProvider({ children }: React.PropsWithChildren) {
     finally { setSyncing(false); }
   }, [location, preferences.notifications]);
 
-  return <Context.Provider value={{ permission, syncing, error, enable, disable, refresh, sendTest, simulateCurrentFlow }}>{children}</Context.Provider>;
+  return <Context.Provider value={{ permission, exactSchedulingStatus, syncing, error, enable, disable, refresh, requestExactScheduling, sendTest, simulateCurrentFlow }}>{children}</Context.Provider>;
 }
 
 export function useNotifications() {

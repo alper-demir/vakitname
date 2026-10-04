@@ -32,9 +32,10 @@ Resmî kaynak: [Google Play Veri Güvenliği formu](https://support.google.com/g
 | `ACCESS_FINE_LOCATION` | Daha hassas vakit/kıble hesabı ve gerçek kuzey desteği | İsteğe bağlı; yalnız ön planda istenir. |
 | Arka plan konumu | Kullanılmıyor ve `blockedPermissions` ile engelleniyor | İstenmemeli. |
 | Android 13+ bildirim izni | Kullanıcının seçtiği vakit hatırlatmaları | İsteğe bağlı; reddedilince uygulamanın diğer işlevleri çalışır. |
+| `SCHEDULE_EXACT_ALARM` özel erişimi | Vakit ve “15/30/45 dakika önce” kayıtlarının Android tarafından geniş bir teslim penceresine bırakılmaması | İsteğe bağlı; kullanıcı uygulama içindeki açıklamadan Android'in **Alarmlar ve hatırlatıcılar** ekranına gider. Reddedilirse yaklaşık yerel zamanlama devam eder. |
 | Pusula/yön sensörü | Kıble ekranında canlı hizalama | Yalnız ekran açıkken; başlık saklanmaz. |
 
-Vakit kesin alarm özel erişimi istemez; kullanıcı seçerse cihazda normal yerel bildirim planlanır. Android'in pil ve bildirim ayarları teslim zamanını etkileyebilir; uygulama tam dakika garantisi vermez.
+`USE_EXACT_ALARM` kullanılmaz. Bu izin Google Play'de yalnız temel işlevi alarm/zamanlayıcı/takvim olan dar kullanım alanlarına otomatik verilebildiğinden, Vakit kullanıcı tarafından yönetilen `SCHEDULE_EXACT_ALARM` yolunu kullanır. Özel erişim kapalıyken bildirimler iptal edilmez; Android'in yaklaşık zamanlamasına düşer. Pil, üretici, sessiz mod ve bildirim kanalı ayarları yine teslimi etkileyebilir. Play Console'da AAB manifesti ve exact-alarm beyan ekranı son kez doğrulanmalıdır. [Google Play exact alarm politikası](https://support.google.com/googleplay/android-developer/answer/16558241), [Android 14 davranışı](https://developer.android.com/about/versions/14/changes/schedule-exact-alarms).
 
 ## Gizlilik politikası teslimi
 

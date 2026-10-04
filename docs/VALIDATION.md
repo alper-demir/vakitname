@@ -39,7 +39,7 @@ Kapsam: `SM-A525F` / `a52q`, Android fiziksel cihaz, Expo Go + LAN Metro. ADB he
 
 - **Kıble hareket doğrulaması:** Telefonun fiziksel olarak kuzey/doğu/güney/batı yönlerine çevrilmesi ve sekiz çizerek kalibrasyon bu otomasyonda yapılmadı; yalnız sensörün canlı yüzeyi ve 3/3 hassasiyet görüldü.
 - **TalkBack:** A52'de TalkBack etkinleştirilmedi. ADB `enabled_accessibility_services=null`, `accessibility_enabled=0` döndürdü; gerçek ekran okuyucu kabulü açık kaldı.
-- **Bildirim release davranışı:** Expo Go sınırı nedeniyle özgün ses kanalı, sessiz kanal, kesin alarm, ekran kilidi, reboot, force-stop, Doze/pil tasarrufu ve üretim kanalları kanıtlanmadı.
+- **Bildirim release davranışı:** Expo Go sınırı nedeniyle özgün ses kanalı, sessiz kanal, uygulamanın kendi paket kimliğindeki özel erişim, reboot, force-stop, Doze/pil tasarrufu ve üretim kanalları kanıtlanmadı. Expo Go paketi üzerinde kesin Android alarm kaydı ayrıca doğrulandı; bu production manifest kanıtı değildir.
 - **UI otomasyon ağacı:** Expo Go yoğun/animasyonlu durumdayken `uiautomator dump` “could not get idle state” verdi; sonuçlar ekran görüntüsü, ADB durumları ve sistem bildirim çekmecesiyle doğrulandı.
 - **Diyanet matrisi, foreground gece yarısı ve Hermes fallback:** Bu fiziksel turda çalıştırılmadı; release açık işleridir.
 
@@ -131,12 +131,19 @@ npm audit: 0 critical/high, 14 moderate rapor; çoğu aynı iki advisory'nin üs
 
 - Kullanıcı Galaxy A52 / Expo Go üzerinde uygulama ekranda açık değilken İmsak, Öğle ve İkindi vakit-anı bildirimlerinin birbirinden ayrı ve doğru saatlerde geldiğini doğruladı.
 - İkindi bildirimi saat **16:18**'de **“İkindi vakti girdi”** başlığı ve **“Kâğıthane”** konum içeriğiyle teslim edildi; aynı anda çevrede ezan okunması vakit eşleşmesine kullanıcı gözlemi sağladı. Bu dış ezan, uygulamanın özgün bildirim sesinin çalıştığına kanıt sayılmaz.
+- Kullanıcı, konumu **İzmir** olarak değiştirdikten ve **15 dakika önce** ön-hatırlatmasını etkinleştirdikten sonra, Expo Go arka plandayken saat **18:42**'de **“Akşam vaktine 15 dakika”** başlığı ile **“18:57 · İzmir”** içeriğini aldı. Böylece gerçek, konuma bağlı 15 dakikalık ön-hatırlatma teslimi de A52 üzerinde geçti.
+- İkinci şehir tekrarı olarak kullanıcı Ordu konumunda, Expo Go arka plandayken saat **19:18**'de **“Yatsı vaktine 15 dakika”** ve **“19:32 · Ordu”** içeriğini aldı (geçti). Yatsı vakit-anı teslimi aynı turda 19:32 için izleniyor.
+- Kâğıthane tekrarında A52 AlarmManager kaydı ön-hatırlatmayı **19:52** için oluşturdu ancak normal/inexact alarm penceresi bunu **19:58:54**'te çalıştırdı. Kullanıcı bildirimi 19:58'de **“Yatsı vaktine 15 dakika / 20:07 · Kâğıthane”** olarak aldı; fiilen yaklaşık 9 dakika kalmıştı. Plan hesabı doğru, teslim yaklaşık 6 dakika 54 saniye gecikti. Bu, kesin zamanlama izni kaldırıldığında “15 dakika önce” ifadesinin cihaz teslim saatini garanti etmediğini fiziksel cihazda gösterir.
+- Aynı Kâğıthane turunda vakit-anı kaydı cihazda **20:07** için ve Kâğıthane içeriğiyle mevcuttu; Android kaydı **20:24:38**'de çalıştırdı ve kullanıcı **“Yatsı vakti girdi / Kâğıthane”** bildirimini aldı. Konum değişikliği doğru biçimde uzlaştırılmıştı; yaklaşık 17 dakika 38 saniyelik gecikmenin nedeni eski İzmir planı değil, AlarmManager'ın kesin olmayan yaklaşık 17 dakika 22 saniyelik teslim penceresidir.
+- Aynı akışta beklenen **18:57 Akşam vakit-anı bildirimi** kullanıcı tarafından alınmadı. Ön-hatırlatma, vakit-anı anahtarından bağımsız planlanır; bu nedenle Bildirimler ekranında **Vakit girince bildir** ve **Akşam bildirimi** anahtarlarının açık olduğu ile güncel planın cihazda bulunduğu yeniden kontrol edilmelidir. İkisi de açıksa bu, normal Android zamanlamasında tekil teslim gecikmesi/atlaması olarak açık cihaz bulgusudur; Expo Go ile kesin alarm garantisi yoktur.
 - Bu sonuç gelecekteki yerel kayıtların Android tarafından uygulama foreground'da değilken teslim edildiğini ve Kâğıthane için vakit-anı başlık/konum içeriğini doğrular. Cihazın gerçekten Android `force-stop` durumunda olduğu kanıtlanmadığından force-stop/reboot/Doze ve özgün Vakit tonu kabulü hâlâ native build kapısındadır.
 
-### 4 Ekim 2026 — Kesin alarm izni kaldırıldı
+### 4 Ekim 2026 — Kesin zamanlama yeniden etkinleştirildi
 
-- Kullanıcı kararıyla `android.permission.SCHEDULE_EXACT_ALARM` uygulama config'inden çıkarıldı. Normal yerel bildirim, ses ve titreşim akışı korunur; uygulama tam dakika teslimi veya alarm ekranı vaadinde bulunmaz.
-- Bildirim yardım ekranı, artık özel kesin alarm erişimini değil Android'in yönettiği normal zamanlamayı ve pil/üretici ayarlarından kaynaklanabilecek gecikmeyi açıklar. `npx expo config --type public` ve Android manifest introspection çıktısında `SCHEDULE_EXACT_ALARM`/`USE_EXACT_ALARM` bulunmadığı görüldü; `npm run check` 76/76 geçti. Native build üretilmedi; son release manifest kontrolü yayın kapısında yapılacak.
+- A52'de izinsiz tarih tetikleyicilerinin ön-hatırlatmayı yaklaşık 7, vakit-anı kaydını yaklaşık 18 dakika geciktirmesi üzerine kullanıcı `SCHEDULE_EXACT_ALARM` özel erişimini yeniden onayladı. `USE_EXACT_ALARM` eklenmedi.
+- Bildirimler ekranındaki **Sistem ayarını aç** eylemi Samsung'un **Alarmlar ve hatırlatıcılar** sayfasını doğrudan Expo Go paketi için açtı. Anahtar açıldıktan ve uygulamaya dönüldükten sonra eski yaklaşık kayıtlar silinip güncel Kâğıthane/15 dakika tercihleriyle yeniden kuruldu.
+- ADB `appops` çıktısı Expo Go için `SCHEDULE_EXACT_ALARM: allow` verdi. AlarmManager'da uygulamaya ait **140/140** gelecek kayıt `window=0 exactAllowReason=permission`, **0** kayıt geniş zaman penceresi olarak görüldü. Örnek kayıtlar 5 Ekim İmsak ön-hatırlatma 05:18 ve vakit-anı 05:33'tür. Bu, Expo Go hostu üzerinde planlama türünü kanıtlar; gerçek teslim dakikası uzun süreli gözlemle, Vakit paket kimliği/manifesti ise ileride native build ile ayrıca kabul edilecektir.
+- Android'in bu özel erişimi normal runtime izin kontrolüyle güvenilir okunamadı: erişim açıkken `PermissionsAndroid.check` false kalırken AlarmManager kesin planlama yaptı. Bu nedenle UI “Açık/Kapalı” iddiası yerine **Sistem ayarı** gösterir; ayardan her dönüşte kayıtları zorunlu yeniden planlar.
 
 ### 4 Ekim 2026 — TalkBack kapsam kararı
 
@@ -150,7 +157,7 @@ npm audit: 0 critical/high, 14 moderate rapor; çoğu aynı iki advisory'nin üs
 - Foreground saat sıçraması/gece yarısı; Hermes Intl takvim fallback'i.
 - VoiceOver/TalkBack gerçek cihaz testi; azaltılmış hareket ve kontrast.
 - GeoNames resmî ilçe listesi kapsamı ve 29 yaklaşık koordinatın iyileştirilmesi; sınır noktaları.
-- Android Expo Go izin, pending kuyruk ve varsayılan kanalda arka plan teslimi geçti. Android development build üzerinde özgün ses, sessiz kanal, ekran kilidi, reboot, force-stop ve Doze/pil tasarrufu davranışı gerçek cihaz kabulü için açık release kapısıdır; kesin alarm özel erişimi ürün kapsamından çıkarıldı.
+- Android Expo Go izin, pending kuyruk, varsayılan kanalda arka plan teslimi ve özel erişim açıkken `window=0` kesin alarm kaydı geçti. Android development build üzerinde Vakit paket kimliğindeki özel erişim, özgün ses, sessiz kanal, reboot, force-stop ve Doze/pil tasarrufu davranışı gerçek cihaz kabulü için açık release kapısıdır.
 - Faz 4 için gerçek cihaz erişilebilirlik ve iyileştirilen ay/sekme performansının A52'de yeniden kabulü henüz release kanıtı değildir; emülatör gözlemi Android Expo Go ile sınırlıdır.
 - Faz 5 temel fiziksel cihaz başarı yolu Galaxy A52'de doğru pusula yönüyle gözlendi. Konum izni ret/verme, trueHeading yokken manyetik veri, yüksek/düşük hassasiyet, hareket/kalibrasyon ve ekran kapanınca başlık aboneliğinin durması yine doğrulanmalıdır. Emülatördeki sensörsüz durum bu kontrollerin yerine geçmez.
 - Faz 6 için native release build, launcher maskesi, Play Console önizlemesi ve bildirim/ikon kaynaklarının gerçek Android cihazda doğrulanması gerekir. Hakkında/Gizlilik/Kaynak/Lisans ekranı, splash config çıktısı, erişilebilir başlık/etiketler ve Android ikon asset entegrasyonu Expo config ile doğrulandı; kullanıcı ikonu `assets/icon/` altında işlendi. Expo Go, native launcher ikonunu güncellemez.
