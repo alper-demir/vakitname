@@ -1,6 +1,6 @@
 # Google Play yayın ve gizlilik kontrolü
 
-İnceleme tarihi: 2 Ekim 2026  
+İnceleme tarihi: 4 Ekim 2026
 Kapsam: Vakit 0.3.0-rc.1 kaynak kodu ve Expo yapılandırması. Bu belge hukuki danışmanlık değildir; Play Console yanıtları yayımlanan AAB ve kullanılan geliştirici hesabıyla son kez doğrulanmalıdır.
 
 ## Mevcut veri akışı
@@ -47,7 +47,7 @@ Google Play için kullanılacak ana bağlantı PDF olamaz. Politika:
 - uygulama ve geliştirici adını, gizlilik iletişimini, erişilen veri türlerini, kullanım/paylaşım amaçlarını, güvenliği, saklama ve silme yaklaşımını açıklamalı;
 - Veri Güvenliği formuyla tutarlı olmalı.
 
-Bu repository'deki `privacy-site/index.html` bu amaçla hazırlanmıştır. PDF yalnız arşiv/inceleme kopyasıdır ve Play Console gizlilik URL'si olarak kullanılmamalıdır. Kaynaklar: [Google Play kullanıcı verileri politikası](https://support.google.com/googleplay/android-developer/answer/10144311), [uygulamayı incelemeye hazırlama](https://support.google.com/googleplay/android-developer/answer/9859455).
+Bu repository'deki `privacy-site/index.html` bu amaçla hazırlanmış ve [https://vakit-privacy.netlify.app/](https://vakit-privacy.netlify.app/) adresinde yayımlanmıştır. PDF yalnız arşiv/inceleme kopyasıdır ve Play Console gizlilik URL'si olarak kullanılmamalıdır. Kaynaklar: [Google Play kullanıcı verileri politikası](https://support.google.com/googleplay/android-developer/answer/10144311), [uygulamayı incelemeye hazırlama](https://support.google.com/googleplay/android-developer/answer/9859455).
 
 ## Mağaza açıklaması taslağı
 
@@ -73,7 +73,7 @@ Tam açıklama taslağı:
 
 1. `android.package` benzersiz uygulama kimliği henüz `app.json` içinde tanımlı değil.
 2. Herkese açık destek adresi kullanıcı tarafından `support.alemdem@gmail.com` olarak doğrulandı. Geliştirici adı Play geliştirici profiliyle birebir doğrulanmalı.
-3. `privacy-site/` Netlify gibi herkese açık bir HTTPS adrese yüklenmeli; oluşan URL uygulamadaki Hakkında ekranına ve Play Console'a eklenmeli.
+3. `privacy-site/` içeriği `https://vakit-privacy.netlify.app/` adresinde yayımlandı ve Hakkında ekranına eklendi; aynı URL Play Console gizlilik politikası alanına girilmeli.
 4. Production AAB manifesti ve Play Console App Bundle Explorer'daki izinler denetlenmeli. Expo Go manifesti release kanıtı değildir.
 5. Production build'de bildirim izni, özel ses, sessiz kanal, force-stop/reboot/Doze davranışı doğrulanmalı.
 6. Hedef kitle, içerik derecelendirmesi ve Families seçimi ürün sahibince tamamlanmalı. Uygulama çocuklara özel hedeflenmiyorsa bu seçim mağaza metni ve görsellerle tutarlı olmalı.

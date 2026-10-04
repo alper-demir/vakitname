@@ -1,11 +1,12 @@
 # Vakit Gizlilik Politikası
 
-Son güncelleme: 2 Ekim 2026
+Son güncelleme: 4 Ekim 2026
 
 Bu Gizlilik Politikası, **Vakit** Android uygulamasının kullanıcı ve cihaz verilerine nasıl eriştiğini, bunları hangi amaçlarla kullandığını, nerede tuttuğunu ve nasıl silebileceğinizi açıklar.
 
 Veri sorumlusu ve uygulama geliştiricisi: **Vakit uygulaması geliştiricisi**  
 Gizlilik iletişimi: **support.alemdem@gmail.com**
+Yayımlanan politika: **https://vakit-privacy.netlify.app/**
 
 > Yayın notu: `support.alemdem@gmail.com`, kullanıcı tarafından Vakit'in herkese açık geliştirici destek adresi olarak doğrulanmıştır. Geliştirici adı, Google Play geliştirici profilinde görünen adla yayımdan önce birebir doğrulanmalıdır.
 
@@ -70,4 +71,4 @@ Türkiye'deki kullanıcılar, 6698 sayılı Kişisel Verilerin Korunması Kanunu
 
 Uygulamanın veri uygulamaları veya izinleri değişirse bu politika güncellenir ve üstteki tarih yenilenir. Yeni bir sunucu, analiz, reklam veya hesap özelliği eklenmesi halinde Google Play Veri Güvenliği beyanı ve bu politika yayımdan önce yeniden değerlendirilir.
 
-Bu metin uygulamanın 2 Ekim 2026 tarihli kaynak kodu ve yapılandırması temel alınarak hazırlanmıştır.
+Bu metin uygulamanın 4 Ekim 2026 tarihli `0.3.0-rc.1` kaynak kodu ve yapılandırması temel alınarak hazırlanmıştır.
