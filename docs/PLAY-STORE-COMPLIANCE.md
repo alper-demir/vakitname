@@ -71,15 +71,18 @@ Tam açıklama taslağı:
 
 ## Yayın öncesi açık kapılar
 
-1. `android.package` benzersiz uygulama kimliği henüz `app.json` içinde tanımlı değil.
-2. Herkese açık destek adresi kullanıcı tarafından `support.alemdem@gmail.com` olarak doğrulandı. Geliştirici adı Play geliştirici profiliyle birebir doğrulanmalı.
-3. `privacy-site/` içeriği `https://vakit-privacy.netlify.app/` adresinde yayımlandı ve Hakkında ekranına eklendi; aynı URL Play Console gizlilik politikası alanına girilmeli.
-4. Production AAB manifesti ve Play Console App Bundle Explorer'daki izinler denetlenmeli. Expo Go manifesti release kanıtı değildir.
-5. Production build'de bildirim izni, özel ses, sessiz kanal, force-stop/reboot/Doze davranışı doğrulanmalı.
-6. Hedef kitle, içerik derecelendirmesi ve Families seçimi ürün sahibince tamamlanmalı. Uygulama çocuklara özel hedeflenmiyorsa bu seçim mağaza metni ve görsellerle tutarlı olmalı.
-7. Mağaza ikonları, telefon/tablet ekran görüntüleri, feature graphic ve destek e-postası hazırlanmalı.
-8. Resmî Diyanet uyumu iddia edilmemeli; mağaza metnindeki kaynak ve bağımsızlık açıklaması korunmalı.
-9. Release öncesi bağımlılık/SDK veri davranışı ve mevcut `npm audit` bulguları yeniden incelenmeli.
+1. Uygulamanın mağaza adı kesinleştirilmeli. Kaynakta hâlâ **Vakit** yazıyor; konuşulan **Vakitname: Namaz & Kıble** adı henüz uygulamaya, gizlilik metnine veya mağaza materyallerine uygulanmadı.
+2. `android.package` benzersiz uygulama kimliği ve Android `versionCode` henüz `app.json` içinde tanımlı değil. İmzalama/build yöntemi ile `eas.json` da oluşturulmadı.
+3. Herkese açık destek adresi kullanıcı tarafından `support.alemdem@gmail.com` olarak doğrulandı. Geliştirici adı Play geliştirici profiliyle birebir doğrulanmalı.
+4. `privacy-site/` içeriği `https://vakit-privacy.netlify.app/` adresinde yayımlandı ve Hakkında ekranına eklendi; aynı URL Play Console gizlilik politikası alanına girilmeli.
+5. Production AAB manifesti ve Play Console App Bundle Explorer'daki izinler denetlenmeli. Expo Go manifesti release kanıtı değildir.
+6. Production build'de bildirim izni, kesin zamanlama, günlük arka plan kuyruk yenilemesi, özel ses, sessiz kanal, ekran kilidi, force-stop/reboot/Doze ve pil davranışı doğrulanmalı.
+7. Hedef kitle, içerik derecelendirmesi, reklam/Veri Güvenliği ve Families seçimleri ürün sahibince tamamlanmalı. Uygulama çocuklara özel hedeflenmiyorsa bu seçim mağaza metni ve görsellerle tutarlı olmalı.
+8. 512×512 mağaza ikonu, feature graphic ve en az iki telefon ekran görüntüsü hazırlanmalı; kısa/tam açıklama son isim ve gerçek release davranışıyla son kez düzenlenmeli. Tablet desteği sunulacaksa tablet görselleri ayrıca hazırlanmalı.
+9. Resmî Diyanet uyumu iddia edilmemeli; mağaza metnindeki kaynak ve bağımsızlık açıklaması korunmalı.
+10. Release öncesi bağımlılık/SDK veri davranışı ve mevcut `npm audit` bulguları yeniden incelenmeli. Güncel kayıt 50 high ve 11 moderate bulgudur; production etkisi ayrıştırılmadan yayın hazır kabul edilmemeli.
+11. Expo SDK 57 Android API 36 hedefler ve 31 Ağustos 2026'dan itibaren yeni mobil uygulamalar için gereken API 36 seviyesini karşılar; oluşturulan AAB manifestinde bu değer doğrulanmalı. Kaynaklar: [Expo SDK sürüm tablosu](https://docs.expo.dev/versions/latest/), [Google Play hedef API şartı](https://support.google.com/googleplay/android-developer/answer/11926878).
+12. Play geliştirici hesabı 13 Kasım 2023'ten sonra açılmış kişisel hesapsa production erişiminden önce en az 12 test kullanıcısının 14 gün kesintisiz katıldığı kapalı test gerekir. Hesap türü ve açılış tarihi Play Console'dan kontrol edilmeli. Kaynak: [Google Play yeni kişisel hesap test şartı](https://support.google.com/googleplay/android-developer/answer/14151465).
 
 ## KVKK notu
 
