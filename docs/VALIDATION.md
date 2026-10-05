@@ -145,6 +145,12 @@ npm audit: 0 critical/high, 14 moderate rapor; çoğu aynı iki advisory'nin üs
 - ADB `appops` çıktısı Expo Go için `SCHEDULE_EXACT_ALARM: allow` verdi. AlarmManager'da uygulamaya ait **140/140** gelecek kayıt `window=0 exactAllowReason=permission`, **0** kayıt geniş zaman penceresi olarak görüldü. Örnek kayıtlar 5 Ekim İmsak ön-hatırlatma 05:18 ve vakit-anı 05:33'tür. Bu, Expo Go hostu üzerinde planlama türünü kanıtlar; gerçek teslim dakikası uzun süreli gözlemle, Vakit paket kimliği/manifesti ise ileride native build ile ayrıca kabul edilecektir.
 - Android'in bu özel erişimi normal runtime izin kontrolüyle güvenilir okunamadı: erişim açıkken `PermissionsAndroid.check` false kalırken AlarmManager kesin planlama yaptı. Bu nedenle UI “Açık/Kapalı” iddiası yerine **Sistem ayarı** gösterir; ayardan her dönüşte kayıtları zorunlu yeniden planlar.
 
+### 5 Ekim 2026 — A52 kesin zamanlı gerçek teslim kabulü
+
+- Kullanıcının Galaxy A52 bildirim çekmecesi ekran görüntüsü ve gözlemiyle, Expo Go ekranı açık değilken dört ayrı yerel bildirim hedef dakikalarında teslim edildi: **İmsak 15 dakika önce 05:18**, **İmsak vakti 05:33**, **Öğle 15 dakika önce 12:42** ve **Öğle vakti 12:57**.
+- Başlıklar sırasıyla **“İmsak/Öğle vaktine 15 dakika”** ve **“İmsak/Öğle vakti girdi”** biçimindeydi; hedef saat ve **Kâğıthane** içeriği doğruydu. Böylece `SCHEDULE_EXACT_ALARM` özel erişimi açık Expo Go hostunda hem ön-hatırlatma hem vakit-anı için gerçek teslim dakikası fiziksel cihazda geçti; önceki normal/inexact zamanlamada görülen 7–18 dakikalık gecikme bu akışta oluşmadı.
+- Bu kanıt “Expo Go arayüzü kapalı/foreground dışında” durumunu doğrular; Android ayarlarından **Zorla durdur** uygulanmış bir süreci kanıtlamaz. Bildirimler Expo Go altında gruplanmıştır. Vakit'in production paket kimliği ve manifesti, özgün `vakit-tone.wav`, sessiz kanal, reboot, force-stop ve Doze/pil tasarrufu kabulü native build kapısında açık kalır.
+
 ### 4 Ekim 2026 — TalkBack kapsam kararı
 
 - Vakit herhangi bir Android AccessibilityService kullanmaz; TalkBack yalnız sistem ekran okuyucusudur. Bu nedenle özel erişilebilirlik izni veya Play Console Accessibility API beyanı gerekmez.
