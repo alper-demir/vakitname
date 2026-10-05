@@ -2,7 +2,7 @@
   "name": "vakit",
   "version": "0.3.0-rc.1",
   "private": true,
-  "main": "expo-router/entry",
+  "main": "index.js",
   "engines": {
     "node": ">=24 <25"
   },
@@ -23,6 +23,7 @@
     "adhan": "4.4.6",
     "expo": "~57.0.26",
     "expo-application": "~57.0.3",
+    "expo-background-task": "~57.0.21",
     "expo-constants": "~57.0.20",
     "expo-dev-client": "~57.0.19",
     "expo-font": "~57.0.4",
@@ -36,6 +37,7 @@
     "expo-splash-screen": "~57.0.9",
     "expo-sqlite": "~57.0.3",
     "expo-status-bar": "~57.0.1",
+    "expo-task-manager": "~57.0.21",
     "luxon": "3.7.2",
     "react": "19.2.3",
     "react-dom": "19.2.3",

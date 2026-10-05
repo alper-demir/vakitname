@@ -1,16 +1,15 @@
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { AppState } from 'react-native';
-import { addDays, localDateAt } from '@/domain/time';
-import { buildNotificationPlan, NOTIFICATION_HORIZON_DAYS } from '@/domain/notifications';
-import { Adjustments, NotificationPreferences, VakitLocation } from '@/domain/types';
-import { prayerProvider } from '@/services/prayer/adhan-provider';
 import { useAppState } from '@/services/app-state';
 import { createLatestTaskRunner } from './latest-task-runner';
 import { exactScheduling, ExactSchedulingStatus } from './exact-scheduling';
 import { notificationScheduler, NotificationPermission } from './scheduler';
+import { NotificationSnapshot, refreshNotificationPlan, serializeNotificationWork } from './refresh-plan';
+import { BackgroundRefreshStatus, setLiveNotificationSnapshot, syncBackgroundRefresh } from './background-refresh';
 
 type NotificationContextValue = {
   permission: NotificationPermission;
+  backgroundRefreshStatus: BackgroundRefreshStatus;
   exactSchedulingStatus: ExactSchedulingStatus;
   syncing: boolean;
   error: string | null;
@@ -24,36 +23,29 @@ type NotificationContextValue = {
 
 const Context = createContext<NotificationContextValue | null>(null);
 const allowed = (permission: NotificationPermission) => permission === 'granted' || permission === 'provisional';
-type RefreshSnapshot = { location: VakitLocation | null; adjustments: Adjustments; notifications: NotificationPreferences; forceReschedule: boolean };
+type RefreshSnapshot = NotificationSnapshot & { forceReschedule: boolean };
 
 export function NotificationProvider({ children }: React.PropsWithChildren) {
   const app = useAppState();
   const { ready, location, preferences, updateNotificationSchedule, updateNotifications } = app;
   const [permission, setPermission] = useState<NotificationPermission>('undetermined');
+  const [backgroundRefreshStatus, setBackgroundRefreshStatus] = useState<BackgroundRefreshStatus>('disabled');
   const [exactSchedulingStatus, setExactSchedulingStatus] = useState<ExactSchedulingStatus>('unsupported');
   const [syncing, setSyncing] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const executeRefresh = useCallback(async (snapshot: RefreshSnapshot) => {
-    const currentPermission = await notificationScheduler.getPermission();
-    setPermission(currentPermission);
-    if (!snapshot.notifications.enabled || !snapshot.location || !allowed(currentPermission)) {
-      await notificationScheduler.cancelAll();
-      updateNotificationSchedule({ scheduledCount: 0, scheduledThrough: null });
-      return;
-    }
-    const now = Date.now();
-    const localDate = localDateAt(now, snapshot.location.timeZone);
-    const days = Array.from({ length: NOTIFICATION_HORIZON_DAYS }, (_, index) => prayerProvider.getDay(addDays(localDate, index), snapshot.location!, snapshot.adjustments));
-    const plan = buildNotificationPlan(days, snapshot.notifications, snapshot.location.name, now);
-    if (snapshot.forceReschedule) await notificationScheduler.cancelAll();
-    const result = await notificationScheduler.reconcile(plan, snapshot.notifications.sound);
-    updateNotificationSchedule(result);
-  }, [updateNotificationSchedule]);
+  const executeRefresh = useCallback((snapshot: RefreshSnapshot) => serializeNotificationWork(async () => {
+    const result = await refreshNotificationPlan(snapshot, snapshot.forceReschedule);
+    setPermission(result.permission);
+    updateNotificationSchedule(result.schedule);
+    try { setBackgroundRefreshStatus(await syncBackgroundRefresh(result.enabled)); }
+    catch { setBackgroundRefreshStatus('error'); }
+  }), [updateNotificationSchedule]);
   const refreshRunner = useMemo(() => createLatestTaskRunner(executeRefresh), [executeRefresh]);
 
   const refresh = useCallback(async (forceReschedule = false) => {
     if (!ready) return;
+    setLiveNotificationSnapshot({ location, adjustments: preferences.adjustments, notifications: preferences.notifications });
     setSyncing(true); setError(null);
     try {
       await refreshRunner.run({ location, adjustments: preferences.adjustments, notifications: preferences.notifications, forceReschedule });
@@ -63,6 +55,7 @@ export function NotificationProvider({ children }: React.PropsWithChildren) {
   }, [ready, location, preferences.adjustments, preferences.notifications, refreshRunner]);
 
   useEffect(() => { const timer = setTimeout(() => { void refresh(); }, 0); return () => clearTimeout(timer); }, [refresh]);
+  useEffect(() => () => setLiveNotificationSnapshot(null), []);
   useEffect(() => {
     const subscription = AppState.addEventListener('change', (state) => { if (state === 'active') void refresh(); });
     return () => subscription.remove();
@@ -134,7 +127,7 @@ export function NotificationProvider({ children }: React.PropsWithChildren) {
     finally { setSyncing(false); }
   }, [location, preferences.notifications]);
 
-  return <Context.Provider value={{ permission, exactSchedulingStatus, syncing, error, enable, disable, refresh, requestExactScheduling, sendTest, simulateCurrentFlow }}>{children}</Context.Provider>;
+  return <Context.Provider value={{ permission, backgroundRefreshStatus, exactSchedulingStatus, syncing, error, enable, disable, refresh, requestExactScheduling, sendTest, simulateCurrentFlow }}>{children}</Context.Provider>;
 }
 
 export function useNotifications() {

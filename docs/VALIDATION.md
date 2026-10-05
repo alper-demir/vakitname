@@ -1,5 +1,13 @@
 # Faz 1–6 doğrulaması — 4 Ekim 2026
 
+## 5 Ekim 2026 — Günlük arka plan bildirim yenilemesi
+
+- Node 24.21.0 ile strict TypeScript, ESLint ve 10 Jest suite / **88 test** geçti. Yeni 12 test: UI açılmadan ufkun ertesi güne uzaması (150 olay, yeni gün için 10 yeni kimlik), izin/tercih kapatma ve görev kaldırma, konumsuz/etkin türsüz durum, bozuk/eksik state'te kuyruğu koruma, güncel bellekteki tercihin eski SQLite kaydına üstünlüğü, seri foreground/headless erişim, hatadan toparlanma, uzun aradan sonra geçmiş olayları göndermeme, günlük kaydı tekrar kurmama ve Expo Go/sistem kısıtı davranışı.
+- Üç host saat diliminde ilgili 28/28 test geçti; `npx expo install --check` uyumlu. `index.js` girişinden Android JS/Hermes export 1866 modülle tamamlandı; çıktı repository dışındaki geçici klasördedir. Bu native APK/AAB veya cihaz kabulü değildir.
+- `expo-background-task ~57.0.21` Android kaynağında ağ koşulu `NetworkType.CONNECTED`; JS seçenekleri yalnız minimum aralığı sağlar. Hesaplama ve hazır bildirimler offline olsa da otomatik görev ağ bağlantısını bekler. `expo-task-manager` Android Expo Go'da kullanılamaz; uygulama bu ortamda kayıt yapmaz ve UI bunu belirtir.
+- Performans tasarımı: minimum 24 saat, en fazla 15 gün/180 olay, pending farkıyla ekleme/silme, GPS/sensör/HTTP isteği/JS interval/sürekli servis yok. Gerçek pil tüketimi, OS'nin otomatik headless çalıştırması, 24 saat/15 gün devamlılık, reboot/Doze/force-stop henüz native cihazda ölçülmedi; release kapısı açık.
+- Güncel `npm audit` 61 bulgu (50 high, 11 moderate, 0 critical) raporladı. Önceki 14 moderate kaydı güncel değildir. Paket eklemesi lockfile'a 31 satır ekledi; bu tur güvenlik güncellemesi veya `audit fix --force` uygulamadı. Release öncesi bağımlılık incelemesi açık.
+
 ## 3 Ekim 2026 — Stitch splash uygulaması
 
 - `Splash Ekranı` / `Splash - Gün Batımı Cam Efekt` Stitch referansı native React Native bileşenlerine eşlendi; mevcut uygulama ikonu kullanıldı, yeni görsel veya uzaktan runtime bağımlılığı eklenmedi.

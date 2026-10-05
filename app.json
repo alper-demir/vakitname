@@ -19,7 +19,7 @@
       ],
       "blockedPermissions": [
         "android.permission.ACCESS_BACKGROUND_LOCATION"
-      ],
+      ]
     },
     "web": {
       "bundler": "metro",
@@ -57,7 +57,8 @@
             "backgroundColor": "#0E1324"
           }
         }
-      ]
+      ],
+      "expo-background-task"
     ],
     "experiments": {
       "typedRoutes": true
