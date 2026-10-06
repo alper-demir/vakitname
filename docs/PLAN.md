@@ -1,4 +1,4 @@
-# Devam noktası — 5 Ekim 2026
+# Devam noktası — 6 Ekim 2026
 
 Kullanıcı geliştirmeyi onayladı. Repository kökünde Faz 1 ve Faz 2 çalışan durumda. **Faz 3 yerel bildirimlerin kodu ile Android Expo Go doğrulama dilimi tamamlandı; production native doğrulama kapısı açık.** Development build/APK üretme; kullanıcı daha önce yalnız Expo Go istemişti.
 
@@ -42,7 +42,7 @@ Kıble ekranı eklendi. Seçili konumdan Kâbe'ye büyük çember başlangıç d
 - Android Expo Go’da izin diyaloğu, ret/fallback ve izin sonrası konum isteği; 720×1280 ekran ve 1.3 font ölçeği doğrulandı. Emülatör sağlayıcısı sabit GPS fix vermediği için Android GPS başarı sonucu timeout ile sınırlı kaldı. TalkBack servisi emülatörde kurulu değildi; native accessibility rolleri ve birleşik etiketler test edildi. İstenmeden başlatılan native build tamamlanmadan durduruldu; `android/`, `dist/` ve eklenen paket/config değişiklikleri temizlendi. Kullanıcı açıkça istemeden APK/prebuild yapma.
 - Yedi şehir × sonbahar/kış/Ramazan/ilkbahar/yaz matrisi 210 vakitte geçti: ortalama mutlak fark 0,41 dk, en büyük 2 dk. Bu örneklem resmî veri veya tam uyum iddiası değildir; `npm run verify:prayer-times` release ve sağlayıcı/koordinat değişikliklerinde yeniden çalıştırılmalıdır.
 - GeoNames resmî ilçe kapsamı, 29 yaklaşık temsil koordinatı. 974 kayıt sayısı resmî güncel ilçe sayısı iddiası değildir.
-- 5 Ekim güncel npm audit: 50 high, 11 moderate (61 toplam); önceki 14 moderate kaydı güncel değildir. Release öncesi bağımlılık güvenlik incelemesi açık; bu görevde uyumsuz downgrade/force uygulanmadı.
+- 6 Ekim güncel npm audit: tüm kurulum ağacında 50 high, 16 moderate (66 toplam); `--omit=dev` görünümünde 46 high, 16 moderate (62 toplam). Bulgular ağırlıkla Expo/Metro/Jest build araç zincirindedir; Android bundle etkisi ayrıca ayrıştırılmadan release kapısı kapatılmayacak. Uyumsuz downgrade veya `audit fix --force` uygulanmadı.
 - Tema renkleri merkezidir; halka/ilk görünüm animasyonu ve manuel/otomatik palet değişiminde 320 ms eski→yeni gradient çapraz geçişi ile 280 ms hafif içerik perdesi var. Beyaz-gri ara flaş emülatörde görülmedi; fiziksel A52'de geçiş akıcılığı yeniden kontrol edilecek. Türkçe çekirdek sözlük var; bazı ekran metinlerinin tam i18n ayrımı İngilizce aşamasında.
 
 ## Home sonrasında
@@ -60,6 +60,8 @@ Hesap, reklam, backend, widget, tam ezan, PDF, mukabele ve zikirmatik kapsam dı
 Node 24 ile `npm run check`, `npm run test:timezones`, `npx expo-doctor`. Çalıştırma README'de. Android emülatör incelemesi için Metro'yu `npm start -- --lan` ile açıp Expo Go kullan. `npm run android`, prebuild ve APK/AAB ancak kullanıcı açıkça isterse.
 
 ## Oturum devri
+
+- 6 Ekim 2026 mağaza/EAS hazırlığı başladı: Expo hesabında `alemdem` sahibi oturumu doğrulandı. Expo Doctor'ın bildirdiği altı SDK 57 yama uyumsuzluğu giderildi ve Doctor 21/21 geçti; `expo-updates ~57.0.25` ilk native build öncesi eklendi ancak EAS project ID, URL, runtime ve kanal henüz yapılandırılmadı, dolayısıyla uygulama şu anda güncelleme sunucusuna istek atmaz. Node 24 ile 88/88 test ve üç host saat diliminde 28/28 geçti. EAS Update, uyumlu runtime içinde JS/stil/metin/görsel güncellemelerini yeni AAB olmadan gönderebilir; native bağımlılık/izin/SDK/config değişiklikleri için yeni build gerekir. Servis etkinleşirse Expo'nun son kullanıcı OS, rastgele update tokenı, IP/ağ ve kullanım/performans verisi işlemesi nedeniyle mevcut “cihaz dışına veri gönderilmez” politikası ile Veri Güvenliği cevapları güncellenecek. Beklenen kullanıcı kararları: son uygulama/mağaza adı, kalıcı Android package ID, Play Console geliştirici görünen adı ve hesap türü/açılış dönemi, EAS Update veri akışının kabulü. Bu cevaplardan sonra isim/politika/config/EAS projesi tek geçişte tamamlanacak; henüz build veya update yayımlanmadı.
 
 - 5 Ekim 2026 Play Store öncesi durum denetimi: Kaynakta uygulama adı hâlâ **Vakit**; konuşulan **Vakitname: Namaz & Kıble** adı uygulanmadı. `android.package`, Android `versionCode`, imzalama/build ayarı ve `eas.json` yok; AAB/APK üretilmedi. SDK 57'nin API 36 hedeflediği ve 31 Ağustos 2026 sonrası yeni mobil uygulama gönderim şartını karşıladığı resmî Expo/Google kaynaklarından doğrulandı; gerçek AAB manifesti yine kontrol edilecek. Yeni kişisel Play hesabı koşullu olarak 12 kullanıcı/14 gün kapalı test gerektirebilir. Zorunlu sıra: isim+paket kimliği kararı → native development/release build → A52'de bildirim/arka plan/pil ve ikon/splash kabulü → bağımlılık audit ayrıştırması → imzalı AAB/manifest → mağaza görselleri ve Play Console beyanları → gerekiyorsa kapalı test → production. Kod değiştirilmedi; bu oturum yalnız release hazırlık kaydını güncelledi.
 
