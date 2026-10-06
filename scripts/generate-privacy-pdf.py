@@ -23,7 +23,7 @@ from reportlab.platypus import (
 
 
 ROOT = Path(__file__).resolve().parents[1]
-OUTPUT = ROOT / "output" / "pdf" / "Vakit-Gizlilik-Politikasi.pdf"
+OUTPUT = ROOT / "output" / "pdf" / "Vakitname-Gizlilik-Politikasi.pdf"
 FONT_DIR = ROOT / "node_modules" / "@expo-google-fonts" / "manrope"
 
 INK = colors.HexColor("#151D1A")
