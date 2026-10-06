@@ -1,4 +1,4 @@
-# Vakit
+# Vakitname
 
 Türkiye için Türkçe, hesapsız ve reklamsız Android namaz vakti uygulaması. İlk dikey dilim hazır: konum → cihazda hesaplama → sıradaki vakit → sayaç → tek Home ve merkezi tema. iOS ve App Store ürün kapsamı dışındadır.
 

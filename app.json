@@ -1,12 +1,14 @@
 {
   "expo": {
-    "name": "Vakit",
-    "slug": "vakit",
+    "name": "Vakitname",
+    "slug": "vakitname",
     "version": "0.3.0-rc.1",
-    "scheme": "vakit",
+    "scheme": "vakitname",
     "orientation": "portrait",
     "userInterfaceStyle": "automatic",
     "android": {
+      "package": "com.alemdem.vakitname",
+      "versionCode": 1,
       "icon": "./assets/icon/vakit-icon.png",
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon/vakit-icon-foreground.png",
@@ -19,12 +21,15 @@
       ],
       "blockedPermissions": [
         "android.permission.ACCESS_BACKGROUND_LOCATION"
-      ]
+      ],
+      "runtimeVersion": {
+        "policy": "appVersion"
+      }
     },
     "web": {
       "bundler": "metro",
       "output": "single",
-      "name": "Vakit"
+      "name": "Vakitname"
     },
     "plugins": [
       "expo-router",
@@ -62,6 +67,16 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "e5365686-2c53-4aab-9277-c5989561eea5"
+      }
+    },
+    "owner": "alemdem",
+    "updates": {
+      "url": "https://u.expo.dev/e5365686-2c53-4aab-9277-c5989561eea5"
     }
   }
 }

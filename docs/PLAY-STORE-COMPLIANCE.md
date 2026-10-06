@@ -1,26 +1,29 @@
 # Google Play yayın ve gizlilik kontrolü
 
-İnceleme tarihi: 4 Ekim 2026
-Kapsam: Vakit 0.3.0-rc.1 kaynak kodu ve Expo yapılandırması. Bu belge hukuki danışmanlık değildir; Play Console yanıtları yayımlanan AAB ve kullanılan geliştirici hesabıyla son kez doğrulanmalıdır.
+İnceleme tarihi: 6 Ekim 2026
+Kapsam: Vakitname 0.3.0-rc.1 kaynak kodu, Expo yapılandırması ve EAS Update veri akışı. Bu belge hukuki danışmanlık değildir; Play Console yanıtları yayımlanan AAB ve kullanılan geliştirici hesabıyla son kez doğrulanmalıdır.
 
 ## Mevcut veri akışı
 
-- Hesap, reklam, analiz, uzaktan hata izleme, backend ve push tokenı yok.
+- Hesap, reklam, davranışsal analiz, geliştirici backend'i ve push tokenı yok.
 - GPS koordinatı, yer etiketi, doğruluk ve ölçüm zamanı cihazdaki SQLite KV alanında saklanıyor.
 - Pusula başlığı yalnız Kıble ekranı açıkken anlık okunuyor ve saklanmıyor.
 - Tema, takvim/vakit düzeltmeleri ve bildirim tercihleri cihazda saklanıyor.
-- Kodda kullanıcı verisini cihaz dışına gönderen `fetch`, Axios, WebSocket veya benzeri uygulama ağı bulunmuyor.
+- Konum, vakit, pusula ve tercih verisini cihaz dışına gönderen `fetch`, Axios, WebSocket veya benzeri uygulama ağı bulunmuyor.
+- EAS Update yazılım teslimi etkinleştirildiğinde Expo; IP/ağ bilgileri, işletim sistemi, rastgele güncelleme belirteci, uygulama sürümü/kanalı ile hata, kullanım ve performans verilerini işleyebilir. Konum ve kişisel tercihler bu akışa eklenmez.
 - Kaynak bağlantıları ancak kullanıcı dokununca sistem tarayıcısında açılıyor.
 
-Google Play, “toplama”yı verinin cihaz dışına iletilmesi olarak tanımlar; yalnız cihazda erişilen ve işlenen veriler Veri Güvenliği formunda “toplanan veri” sayılmaz. Bu nedenle mevcut üretim kodu ve üçüncü taraf SDK davranışı değişmezse önerilen beyan:
+Google Play, “toplama”yı verinin cihaz dışına iletilmesi olarak tanımlar; yalnız cihazda erişilen ve işlenen veriler Veri Güvenliği formunda “toplanan veri” sayılmaz. EAS Update nedeniyle “hiç veri toplanmıyor” yanıtı artık güvenli değildir. AAB ve güncel Expo belgeleriyle son kez doğrulanmak üzere ihtiyatlı öneri:
 
 | Play Console sorusu | Önerilen yanıt | Dayanak |
 |---|---|---|
-| Uygulama gerekli kullanıcı verisi türlerinden herhangi birini topluyor veya paylaşıyor mu? | Hayır | Veriler yalnız cihazda işleniyor; uygulama ağı/backend/analiz yok. |
-| Veriler üçüncü taraflarla paylaşılıyor mu? | Hayır | Uygulama kullanıcı verisini cihaz dışına iletmiyor. |
+| Uygulama gerekli kullanıcı verisi türlerinden herhangi birini topluyor veya paylaşıyor mu? | Evet | EAS Update teknik hizmet verilerini cihaz dışına iletebilir. |
+| Toplanan veri türleri | Uygulama bilgileri ve performansı; Cihaz veya diğer kimlikler | Hata/performans bilgileri, uygulama sürümü/kanalı ve rastgele update belirteçleri. Play Console sınıflandırması güncel Expo açıklamasıyla eşleştirilmeli. |
+| Yaklaşık konum veya kesin konum toplanıyor mu? | Hayır | Konum yalnız cihazda namaz vakti/kıble hesabında kullanılır ve EAS Update'e gönderilmez. |
+| Veriler üçüncü taraflarla paylaşılıyor mu? | Hizmet sağlayıcı istisnası ayrıca doğrulanmalı | Expo, geliştirici adına güncelleme teslimi yapan hizmet sağlayıcıdır; Play formundaki “paylaşım” istisnası güncel sözleşmeyle doğrulanmalı. |
 | Uygulama hesap oluşturmayı destekliyor mu? | Hayır | Hesap sistemi yok. |
 | Hesap silme URL'si veya hesap silme akışı gerekiyor mu? | Hayır | Uygulama hesap oluşturmaz; sunucuda kullanıcı hesabı veya hesaba bağlı veri yoktur. Yerel veri Android'den “veriyi temizle” veya kaldırma ile silinir. |
-| Veriler aktarım sırasında şifreleniyor mu? | Uygulanamaz | Kullanıcı verisi aktarılmıyor. Play Console arayüzünün gösterdiği seçeneğe göre yanıtlanmalı. |
+| Veriler aktarım sırasında şifreleniyor mu? | Evet | EAS Update HTTPS kullanır; AAB ağ güvenliği ayrıca doğrulanmalı. |
 
 Resmî kaynak: [Google Play Veri Güvenliği formu](https://support.google.com/googleplay/android-developer/answer/10787469). Form, Expo/React Native sürümü veya eklenen herhangi bir SDK değiştiğinde yeniden denetlenmelidir.
 
@@ -57,7 +60,7 @@ Kısa açıklama (80 karakter sınırı için son Console sayımı yapılmalı):
 
 Tam açıklama taslağı:
 
-> Vakit, Türkiye'deki seçili konumuna göre namaz vakitlerini cihazında hesaplayan sade bir Android uygulamasıdır. Sıradaki vakti ve kalan süreyi görür, aylık takvim ile Ramazan imsakiyesini inceleyebilir, kıble yönünü hesaplayabilir ve istersen yerel bildirimler planlayabilirsin.
+> Vakitname, Türkiye'deki seçili konumuna göre namaz vakitlerini cihazında hesaplayan sade bir Android uygulamasıdır. Sıradaki vakti ve kalan süreyi görür, aylık takvim ile Ramazan imsakiyesini inceleyebilir, kıble yönünü hesaplayabilir ve istersen yerel bildirimler planlayabilirsin.
 >
 > - Hesapsız ve reklamsız kullanım
 > - GPS veya manuel şehir/ilçe seçimi
@@ -67,14 +70,14 @@ Tam açıklama taslağı:
 > - İsteğe bağlı yerel vakit bildirimleri
 > - Kullanıcıya açık vakit ve Hicri tarih düzeltmeleri
 >
-> Vakit resmî bir Diyanet uygulaması değildir. Saatler Adhan JS Türkiye hesaplama yöntemiyle cihazda üretilir ve resmî tablolarla küçük farklılıklar gösterebilir. Konum ve tercihler cihazında tutulur; uygulama hesap, reklam, analiz veya geliştirici sunucusu kullanmaz.
+> Vakitname resmî bir Diyanet uygulaması değildir. Saatler Adhan JS Türkiye hesaplama yöntemiyle cihazda üretilir ve resmî tablolarla küçük farklılıklar gösterebilir. Konum ve tercihler cihazında tutulur; uygulama hesap veya reklam kullanmaz. Yazılım güncellemeleri EAS Update üzerinden güvenli biçimde teslim edilebilir.
 
 ## Yayın öncesi açık kapılar
 
-1. Uygulamanın mağaza adı kesinleştirilmeli. Kaynakta hâlâ **Vakit** yazıyor; konuşulan **Vakitname: Namaz & Kıble** adı henüz uygulamaya, gizlilik metnine veya mağaza materyallerine uygulanmadı.
-2. `android.package` benzersiz uygulama kimliği ve Android `versionCode` henüz `app.json` içinde tanımlı değil. İmzalama/build yöntemi ile `eas.json` da oluşturulmadı.
+1. Mağaza adı **Vakitname: Namaz & Kıble**, cihazdaki görünen ad **Vakitname** olarak kesinleşti ve kaynaklara uygulandı.
+2. Android kimliği `com.alemdem.vakitname`, ilk `versionCode` değeri `1` olarak tanımlandı. İmzalama kimliği ilk EAS build sırasında oluşturulacak; AAB henüz üretilmedi.
 3. Herkese açık destek adresi kullanıcı tarafından `support.alemdem@gmail.com` olarak doğrulandı. Geliştirici adı Play geliştirici profiliyle birebir doğrulanmalı.
-4. `privacy-site/` içeriği `https://vakit-privacy.netlify.app/` adresinde yayımlandı ve Hakkında ekranına eklendi; aynı URL Play Console gizlilik politikası alanına girilmeli.
+4. `privacy-site/` içeriğinin Vakitname/EAS açıklamalı yeni sürümü hazırlandı. Canlı `https://vakit-privacy.netlify.app/` adresi manuel Netlify yüklemesiyle güncellenmeli ve aynı URL Play Console gizlilik politikası alanına girilmeli.
 5. Production AAB manifesti ve Play Console App Bundle Explorer'daki izinler denetlenmeli. Expo Go manifesti release kanıtı değildir.
 6. Production build'de bildirim izni, kesin zamanlama, günlük arka plan kuyruk yenilemesi, özel ses, sessiz kanal, ekran kilidi, force-stop/reboot/Doze ve pil davranışı doğrulanmalı.
 7. Hedef kitle, içerik derecelendirmesi, reklam/Veri Güvenliği ve Families seçimleri ürün sahibince tamamlanmalı. Uygulama çocuklara özel hedeflenmiyorsa bu seçim mağaza metni ve görsellerle tutarlı olmalı.
@@ -82,7 +85,7 @@ Tam açıklama taslağı:
 9. Resmî Diyanet uyumu iddia edilmemeli; mağaza metnindeki kaynak ve bağımsızlık açıklaması korunmalı.
 10. Release öncesi bağımlılık/SDK veri davranışı ve mevcut `npm audit` bulguları yeniden incelenmeli. 6 Ekim kaydı tüm ağaçta 50 high/16 moderate, `--omit=dev` görünümünde 46 high/16 moderate bulgudur; çoğu Expo/Metro/Jest araç zincirinden gelir ancak Android bundle etkisi ayrıştırılmadan yayın hazır kabul edilmemeli.
 11. Expo SDK 57 Android API 36 hedefler ve 31 Ağustos 2026'dan itibaren yeni mobil uygulamalar için gereken API 36 seviyesini karşılar; oluşturulan AAB manifestinde bu değer doğrulanmalı. Kaynaklar: [Expo SDK sürüm tablosu](https://docs.expo.dev/versions/latest/), [Google Play hedef API şartı](https://support.google.com/googleplay/android-developer/answer/11926878).
-12. Play geliştirici hesabı 13 Kasım 2023'ten sonra açılmış kişisel hesapsa production erişiminden önce en az 12 test kullanıcısının 14 gün kesintisiz katıldığı kapalı test gerekir. Hesap türü ve açılış tarihi Play Console'dan kontrol edilmeli. Kaynak: [Google Play yeni kişisel hesap test şartı](https://support.google.com/googleplay/android-developer/answer/14151465).
+12. Kullanıcı Play geliştirici hesabının Eylül 2026'da açıldığını doğruladı. Kişisel hesap için production erişiminden önce en az 12 test kullanıcısının 14 gün kesintisiz katıldığı kapalı test uygulanacaktır; Play Console'daki hesap türü son kez kontrol edilmelidir. Kaynak: [Google Play yeni kişisel hesap test şartı](https://support.google.com/googleplay/android-developer/answer/14151465).
 
 ## KVKK notu
 

@@ -169,7 +169,7 @@ test('onboarding can finish without location and persists completion', async () 
   await render(<AppStateProvider><OnboardingApp /></AppStateProvider>);
   await fireEvent.press(screen.getByRole('button', { name: 'Başla' }));
   await fireEvent.press(screen.getByRole('button', { name: 'Onboarding adımını atla' }));
-  await fireEvent.press(screen.getByRole('button', { name: 'Vakit’i kullanmaya başla' }));
+  await fireEvent.press(screen.getByRole('button', { name: 'Vakitname’yi kullanmaya başla' }));
   expect(screen.getByText('onboarding-complete')).toBeTruthy();
   expect(JSON.parse(jest.mocked(persistence.write).mock.calls.at(-1)![0]).onboardingComplete).toBe(true);
 });

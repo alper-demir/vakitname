@@ -1,4 +1,15 @@
-# Faz 1–6 doğrulaması — 4 Ekim 2026
+# Faz 1–6 doğrulaması — 6 Ekim 2026
+
+## 6 Ekim 2026 — Vakitname, EAS ve mağaza yapılandırması
+
+- Cihazdaki görünen ad **Vakitname**, Play Store başlığı **Vakitname: Namaz & Kıble**, Android kimliği `com.alemdem.vakitname` ve ilk `versionCode` değeri `1` olarak sabitlendi. Eski yerel veri/bildirim kimlikleri yükseltme uyumu için korundu.
+- Expo hesabında `@alemdem/vakitname` projesi oluşturuldu ve `e5365686-2c53-4aab-9277-c5989561eea5` kimliğiyle bağlandı. EAS CLI, development ve production profillerini çözdü: development iç dağıtım APK/development client, production Play AAB; kanallar sırasıyla `development`, `preview`, `production` ve Android runtime politikası `appVersion`.
+- EAS Update için gizlilik metni, uygulamadaki Hakkında özeti, Play Veri Güvenliği taslağı, Netlify statik HTML'i ve arşiv PDF'i güncellendi. Konum/vakit/tercih verilerinin gönderilmediği; Expo'nun IP/ağ, işletim sistemi, rastgele update belirteci ve hata/kullanım/performans verisi işleyebileceği açıklandı.
+- Gizlilik HTML'i yerel HTTP üzerinden 390×844 telefon viewport'unda açıldı: `scrollWidth === clientWidth`, sıfır script, doğru başlık/hiyerarşi, Expo ve e-posta bağlantıları doğrulandı. Güncel içerik henüz canlı Netlify alanına yeniden yüklenmedi.
+- PDF yeniden üretildi ve üç sayfanın tamamı PNG'ye render edilerek görsel incelendi; taşma/kesilme, eski marka veya eski “hiçbir teknik veri aktarılmaz” iddiası görülmedi. Metin çıkarımı Vakitname ve EAS Update açıklamasını doğruladı.
+- Kullanıcı, Play geliştirici hesabının Eylül 2026'da açıldığını doğruladı. Kişisel hesap akışında 12 test kullanıcısının 14 gün kesintisiz katıldığı kapalı test release planına zorunlu kapı olarak eklendi.
+- Node 24.21.0 ile strict TypeScript, ESLint ve 10 suite / 88 Jest testi; üç host saat diliminde 28/28; `expo install --check`; Expo Doctor 21/21 geçti. Android Hermes export 1866 modül ve 35 asset ile geçici dizine üretildi. EAS CLI development ve production profillerini hatasız çözdü.
+- Bu yapılandırma turunda OTA update, APK veya AAB yayımlanmadı; native davranış ve gerçek AAB manifesti hâlâ cihaz/release kabulü gerektirir.
 
 ## 5 Ekim 2026 — Günlük arka plan bildirim yenilemesi
 

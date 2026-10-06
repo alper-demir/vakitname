@@ -30,8 +30,8 @@ function BrandSplash() {
     <View pointerEvents="none" style={[styles.particle, styles.particleTwo]} />
     <View pointerEvents="none" style={[styles.particle, styles.particleThree]} />
     <View style={styles.brand}>
-      <View style={styles.iconFrame}><Image source={require('../assets/icon/vakit-icon.png')} accessibilityLabel="Vakit uygulama ikonu" style={styles.icon} /></View>
-      <Text style={styles.wordmark}>VAKİT</Text>
+      <View style={styles.iconFrame}><Image source={require('../assets/icon/vakit-icon.png')} accessibilityLabel="Vakitname uygulama ikonu" style={styles.icon} /></View>
+      <Text style={styles.wordmark}>VAKİTNAME</Text>
       <Text style={styles.tagline}>SADE VE MANEVİ ZAMAN TAKİBİ</Text>
     </View>
     <View pointerEvents="none" style={styles.skyline}>
@@ -83,7 +83,7 @@ export default function RootLayout() {
     return () => clearTimeout(timer);
   }, [loaded, error]);
 
-  if (error) return <View style={{ flex: 1, justifyContent: 'center', padding: 30, backgroundColor: '#F3F9F3' }}><Text accessibilityRole="header">Vakit hazırlanamadı. Lütfen uygulamayı yeniden açın.</Text></View>;
+  if (error) return <View style={{ flex: 1, justifyContent: 'center', padding: 30, backgroundColor: '#F3F9F3' }}><Text accessibilityRole="header">Vakitname hazırlanamadı. Lütfen uygulamayı yeniden açın.</Text></View>;
   if (!loaded || !brandSplashComplete) return <BrandSplash />;
   return <AppStateProvider><NotificationProvider><ThemeProvider><Stack screenOptions={{ headerShown: false, freezeOnBlur: true, contentStyle: { backgroundColor: '#F3F9F3' } }}>
     <Stack.Screen name="index" />

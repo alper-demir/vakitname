@@ -53,9 +53,9 @@ class PolicyDocTemplate(BaseDocTemplate):
             rightMargin=22 * mm,
             topMargin=24 * mm,
             bottomMargin=21 * mm,
-            title="Vakit Gizlilik Politikası",
-            author="Vakit uygulaması geliştiricisi",
-            subject="Vakit Android uygulaması gizlilik ve veri kullanımı açıklaması",
+            title="Vakitname Gizlilik Politikası",
+            author="Vakitname uygulaması geliştiricisi",
+            subject="Vakitname Android uygulaması gizlilik ve veri kullanımı açıklaması",
         )
         frame = Frame(self.leftMargin, self.bottomMargin, self.width, self.height, id="content")
         self.addPageTemplates(PageTemplate(id="policy", frames=[frame], onPage=draw_page))
@@ -78,14 +78,14 @@ def draw_page(canvas, doc) -> None:
         canvas.line(doc.leftMargin, height - 16 * mm, width - doc.rightMargin, height - 16 * mm)
         canvas.setFont("Manrope-SemiBold", 8)
         canvas.setFillColor(PRIMARY)
-        canvas.drawString(doc.leftMargin, height - 12.5 * mm, "VAKİT  /  GİZLİLİK POLİTİKASI")
+        canvas.drawString(doc.leftMargin, height - 12.5 * mm, "VAKİTNAME  /  GİZLİLİK POLİTİKASI")
 
     canvas.setStrokeColor(LINE)
     canvas.setLineWidth(.45)
     canvas.line(doc.leftMargin, 14 * mm, width - doc.rightMargin, 14 * mm)
     canvas.setFont("Manrope", 8)
     canvas.setFillColor(MUTED)
-    canvas.drawString(doc.leftMargin, 9.5 * mm, "Son güncelleme: 2 Ekim 2026")
+    canvas.drawString(doc.leftMargin, 9.5 * mm, "Son güncelleme: 6 Ekim 2026")
     canvas.drawRightString(width - doc.rightMargin, 9.5 * mm, f"Sayfa {doc.page}")
     canvas.restoreState()
 
@@ -123,16 +123,16 @@ def build_pdf() -> None:
             textColor=colors.HexColor("#D9EBE0"), spaceAfter=18,
         ),
         "H1": ParagraphStyle(
-            "H1", parent=base["Heading1"], fontName="Manrope-Bold", fontSize=16, leading=21,
-            textColor=DEEP, spaceBefore=15, spaceAfter=7, keepWithNext=True,
+            "H1", parent=base["Heading1"], fontName="Manrope-Bold", fontSize=15, leading=19,
+            textColor=DEEP, spaceBefore=11, spaceAfter=5, keepWithNext=True,
         ),
         "H2": ParagraphStyle(
-            "H2", parent=base["Heading2"], fontName="Manrope-SemiBold", fontSize=11.5, leading=16,
-            textColor=PRIMARY, spaceBefore=10, spaceAfter=4, keepWithNext=True,
+            "H2", parent=base["Heading2"], fontName="Manrope-SemiBold", fontSize=11, leading=14,
+            textColor=PRIMARY, spaceBefore=8, spaceAfter=3, keepWithNext=True,
         ),
         "Body": ParagraphStyle(
-            "Body", parent=base["BodyText"], fontName="Manrope", fontSize=9.3, leading=15.2,
-            textColor=INK, spaceAfter=7,
+            "Body", parent=base["BodyText"], fontName="Manrope", fontSize=8.7, leading=13.6,
+            textColor=INK, spaceAfter=5.5,
         ),
         "Small": ParagraphStyle(
             "Small", parent=base["BodyText"], fontName="Manrope", fontSize=8, leading=12.5,
@@ -155,10 +155,10 @@ def build_pdf() -> None:
     story = [
         Spacer(1, 4 * mm),
         Paragraph("GİZLİLİK POLİTİKASI", styles["Kicker"]),
-        Paragraph("Veriniz cihazınızda kalır.", styles["Title"]),
+        Paragraph("Kişisel ayarlarınız cihazınızda kalır.", styles["Title"]),
         Paragraph(
-            "Vakit, namaz vakitlerini ve kıble yönünü cihazınızda hesaplar. "
-            "Hesap, reklam, analiz ve geliştirici sunucusu kullanmaz.",
+            "Vakitname, namaz vakitlerini ve kıble yönünü cihazınızda hesaplar. "
+            "Hesap ve reklam kullanmaz; güncellemeler EAS Update ile teslim edilebilir.",
             styles["Lead"],
         ),
         Spacer(1, 13 * mm),
@@ -166,8 +166,8 @@ def build_pdf() -> None:
 
     cards = Table(
         [
-            [Paragraph("Sunucu yok", styles["CardTitle"]), Paragraph("İzinler isteğe bağlı", styles["CardTitle"]), Paragraph("Silme sizde", styles["CardTitle"])],
-            [Paragraph("Kişisel veriler geliştiriciye iletilmez.", styles["CardBody"]), Paragraph("GPS yerine manuel şehir seçebilirsiniz.", styles["CardBody"]), Paragraph("Android'den uygulama verilerini temizleyebilirsiniz.", styles["CardBody"])],
+            [Paragraph("Yerel hesaplama", styles["CardTitle"]), Paragraph("İzinler isteğe bağlı", styles["CardTitle"]), Paragraph("Silme sizde", styles["CardTitle"])],
+            [Paragraph("Konum ve tercihler güncelleme hizmetine gönderilmez.", styles["CardBody"]), Paragraph("GPS yerine manuel şehir seçebilirsiniz.", styles["CardBody"]), Paragraph("Android'den uygulama verilerini temizleyebilirsiniz.", styles["CardBody"])],
         ],
         colWidths=[doc_width() / 3] * 3,
         rowHeights=[9 * mm, 17 * mm],
@@ -187,16 +187,16 @@ def build_pdf() -> None:
         Spacer(1, 6 * mm),
         Paragraph("1. Uygulamanın amacı", styles["H1"]),
         Paragraph(
-            "Bu Gizlilik Politikası, <b>Vakit</b> Android uygulamasının kullanıcı ve cihaz "
+            "Bu Gizlilik Politikası, <b>Vakitname</b> Android uygulamasının kullanıcı ve cihaz "
             "verilerine nasıl eriştiğini, bunları hangi amaçlarla kullandığını, nerede tuttuğunu "
             "ve nasıl silebileceğinizi açıklar.", styles["Body"]),
         Paragraph(
-            "Vakit; seçtiğiniz veya cihazınızdan aldığınız Türkiye konumuna göre namaz vakitlerini, "
+            "Vakitname; seçtiğiniz veya cihazınızdan aldığınız Türkiye konumuna göre namaz vakitlerini, "
             "sıradaki vakti ve kıble yönünü cihazınızda hesaplar. Aylık takvim, Ramazan imsakiyesi, "
             "tema seçenekleri ve isteğe bağlı yerel bildirimler sunar.", styles["Body"]),
     ])
 
-    note = Table([[Paragraph("<b>Bağımsızlık açıklaması:</b> Vakit bir Diyanet uygulaması değildir ve resmî Diyanet verisi sunduğunu iddia etmez.", styles["Body"])]], colWidths=[doc_width()])
+    note = Table([[Paragraph("<b>Bağımsızlık açıklaması:</b> Vakitname bir Diyanet uygulaması değildir ve resmî Diyanet verisi sunduğunu iddia etmez.", styles["Body"])]], colWidths=[doc_width()])
     note.setStyle(TableStyle([
         ("BACKGROUND", (0, 0), (-1, -1), GOLD_SOFT),
         ("LINEBEFORE", (0, 0), (0, -1), 3, GOLD),
@@ -221,7 +221,7 @@ def build_pdf() -> None:
         Paragraph(
             "Kıble ekranı açıkken cihazın yön sensöründen gerçek veya manyetik kuzey başlığı okunabilir. "
             "Canlı pusula başlığı yalnız ekrandaki yönlendirmeyi göstermek için anlık işlenir; saklanmaz "
-            "ve cihaz dışına gönderilmez.", styles["Body"]),
+            "ve güncelleme hizmetine gönderilmez.", styles["Body"]),
         Paragraph("Tercihler ve bildirim planı", styles["H2"]),
         Paragraph(
             "Tema, konum, vakit düzeltmeleri, Hicri tarih düzeltmesi, bildirim seçimleri ve cihazda "
@@ -231,14 +231,29 @@ def build_pdf() -> None:
             "Android'in “Alarmlar ve hatırlatıcılar” erişimi, etkinleştirilmiş bildirimleri mümkün "
             "olduğunca seçilen vakitte planlamak için kullanılabilir. İşletim sistemi ve cihaz ayarları "
             "teslim zamanını etkileyebilir.", styles["Body"]),
-        Paragraph("3. Toplama, paylaşma ve izleme", styles["H1"]),
-        Paragraph("Vakit:", styles["Body"]),
+        Paragraph("3. Uygulama güncellemeleri ve Expo", styles["H1"]),
+        Paragraph(
+            "Vakitname, mağaza sürümüyle uyumlu JavaScript, metin, stil ve uygulama varlığı "
+            "güncellemelerini kontrol etmek ve indirmek için <b>Expo Application Services "
+            "(EAS Update)</b> hizmetini kullanabilir. Bağlantı uygulama açıldığında ve internet "
+            "erişimi bulunduğunda gerçekleşebilir.", styles["Body"]),
+        Paragraph(
+            "Bu işlem sırasında Expo; hizmeti sunmak, güvenliğini sağlamak ve hataları gidermek "
+            "amacıyla IP adresi ve ağ bilgileri, cihaz işletim sistemi, rastgele güncelleme "
+            "belirteçleri, uygulama sürümü/kanalı ile hata, kullanım ve performans bilgilerini "
+            "işleyebilir. Aktarım şifreli HTTPS bağlantısı üzerinden yapılır.", styles["Body"]),
+        Paragraph(
+            "<b>Konumunuz, seçtiğiniz şehir, namaz vakitleriniz, bildirim ve tema tercihleriniz "
+            "ile pusula başlığınız EAS Update'e gönderilmez.</b>", styles["Body"]),
+        Paragraph("4. Toplama, paylaşma ve izleme", styles["H1"]),
+        Paragraph("Vakitname:", styles["Body"]),
         bullet_list([
             "hesap veya kullanıcı profili oluşturmaz;",
             "ad, telefon numarası, rehber, fotoğraf, mikrofon, sağlık ya da ödeme verisi istemez;",
             "reklam, reklam kimliği, davranışsal profil veya kişiselleştirilmiş pazarlama kullanmaz;",
-            "analiz, uzaktan hata raporlama veya geliştirici sunucusu kullanmaz;",
-            "konumunuzu, tercihlerinizi veya kullanım bilgilerinizi geliştiriciye ya da üçüncü kişilere iletmez, satmaz ve paylaşmaz.",
+            "geliştiriciye ait bir kullanıcı verisi sunucusu veya uzaktan hata izleme hizmeti kullanmaz;",
+            "konumunuzu, namaz vakitlerinizi veya kişisel tercihlerinizi geliştiriciye ya da Expo'ya göndermez;",
+            "yalnız yazılım güncelleme teslimi için Expo altyapısıyla açıklanan teknik veri alışverişini yapabilir.",
         ], styles),
         Paragraph(
             "Uygulama içindeki kaynak bağlantılarını siz açarsanız bağlantı cihazınızın tarayıcısında "
@@ -246,39 +261,39 @@ def build_pdf() -> None:
     ])
 
     story.extend([
-        Paragraph("4. Yerel saklama, güvenlik ve silme", styles["H1"]),
+        Paragraph("5. Yerel saklama, güvenlik ve silme", styles["H1"]),
         Paragraph(
-            "Veriler Android'in uygulamaya ayrılmış yerel depolama alanında tutulur. Vakit ayrıca "
+            "Konum ve tercihler Android'in uygulamaya ayrılmış yerel depolama alanında tutulur. Vakitname ayrıca "
             "uygulama düzeyinde şifreli bir kasa kullandığını iddia etmez; koruma Android'in uygulama "
             "yalıtımı ve cihaz güvenliğine dayanır.", styles["Body"]),
         Paragraph(
-            "Yerel veriler siz değiştirene veya silene kadar cihazda kalır. Tüm Vakit verilerini "
+            "Yerel veriler siz değiştirene veya silene kadar cihazda kalır. Tüm Vakitname verilerini "
             "Android ayarlarından uygulama verilerini temizleyerek veya uygulamayı kaldırarak "
             "silebilirsiniz. Konum ve bildirim izinlerini Android ayarlarından dilediğiniz zaman geri "
             "alabilirsiniz.", styles["Body"]),
         Paragraph(
-            "Geliştiriciye veri aktarılmadığı için geliştiricinin sunucusunda silinecek bir kullanıcı "
-            "hesabı veya kişisel veri kaydı bulunmaz.", styles["Body"]),
-        Paragraph("5. Çocukların gizliliği", styles["H1"]),
+            "Uygulama hesabı olmadığı için geliştirici sunucusunda silinecek hesaba bağlı bir kayıt "
+            "bulunmaz. Expo'nun teknik hizmet verisi için saklama süreleri kendi koşullarına tabidir.", styles["Body"]),
+        Paragraph("6. Çocukların gizliliği", styles["H1"]),
         Paragraph(
-            "Vakit hesap veya kullanıcı profili oluşturmaz ve çocuklara ait kişisel verileri bilerek "
-            "geliştiriciye iletmez. Uygulamanın Google Play hedef kitle seçimi yayımdan önce ayrıca "
+            "Vakitname hesap veya kullanıcı profili oluşturmaz ve çocuklara ait kişisel verileri bilerek "
+            "istemez. Uygulamanın Google Play hedef kitle seçimi yayımdan önce ayrıca "
             "doğrulanır; çocukların hedef kitleye eklenmesi halinde Google Play Families kuralları ayrıca uygulanır.",
             styles["Body"]),
-        Paragraph("6. Kaynaklar ve üçüncü taraf yazılımlar", styles["H1"]),
+        Paragraph("7. Kaynaklar ve üçüncü taraf hizmetler", styles["H1"]),
         Paragraph(
             "Namaz vakti hesaplaması Adhan JS Türkiye yöntemiyle, kıble hesabı ve takvim işlemleri "
-            "cihazda yapılır. GeoNames konum kataloğu uygulama paketine gömülüdür. Expo, React Native, "
-            "Adhan JS ve Luxon gibi yazılım bileşenleri uygulamanın çalışması için kullanılır; Vakit bu "
-            "bileşenler üzerinden kişisel veri ileten bir ağ isteği başlatmaz.", styles["Body"]),
-        Paragraph("7. Haklarınız ve iletişim", styles["H1"]),
+            "cihazda yapılır. GeoNames konum kataloğu uygulama paketine gömülüdür. Expo ve React Native "
+            "uygulama altyapısında; EAS Update yalnız yazılım güncellemelerinin tesliminde kullanılır. "
+            "Expo gizlilik politikası expo.dev/privacy adresindedir.", styles["Body"]),
+        Paragraph("8. Haklarınız ve iletişim", styles["H1"]),
         Paragraph(
             "Konum iznini vermeme, daha önce verdiğiniz izni geri alma, manuel şehir seçme ve yerel "
             "verileri silme seçeneklerine sahipsiniz.", styles["Body"]),
     ])
 
     contact = Table(
-        [[Paragraph("<b>Veri sorumlusu ve geliştirici</b><br/>Vakit uygulaması geliştiricisi<br/><font color='#315E45'>support.alemdem@gmail.com</font>", styles["Contact"])]],
+        [[Paragraph("<b>Veri sorumlusu ve geliştirici</b><br/>Google Play geliştirici profilinde yayımlanan geliştirici<br/><font color='#315E45'>support.alemdem@gmail.com</font>", styles["Contact"])]],
         colWidths=[doc_width()],
     )
     contact.setStyle(TableStyle([
@@ -293,18 +308,17 @@ def build_pdf() -> None:
         KeepTogether([contact, Spacer(1, 4 * mm)]),
         Paragraph(
             "Türkiye'deki kullanıcılar, 6698 sayılı Kişisel Verilerin Korunması Kanunu kapsamındaki "
-            "haklarına ilişkin başvurularını bu iletişim adresi üzerinden iletebilir. Uygulama "
-            "geliştiriciye kişisel veri aktarmadığı için bir talebin karşılanması sırasında cihazınızdaki "
-            "kayıtlara uzaktan erişemeyiz.", styles["Body"]),
-        Paragraph("8. Değişiklikler", styles["H1"]),
+            "haklarına ilişkin başvurularını bu iletişim adresi üzerinden iletebilir. Cihazınızdaki "
+            "yerel kayıtlara uzaktan erişemeyiz.", styles["Body"]),
+        Paragraph("9. Değişiklikler", styles["H1"]),
         Paragraph(
-            "Uygulamanın veri uygulamaları veya izinleri değişirse bu politika güncellenir ve üstteki "
-            "tarih yenilenir. Yeni bir sunucu, analiz, reklam veya hesap özelliği eklenmesi halinde "
+            "Uygulamanın veri uygulamaları, üçüncü taraf hizmetleri veya izinleri değişirse bu politika güncellenir ve üstteki "
+            "tarih yenilenir. Yeni bir analiz, reklam, hesap veya ödeme özelliği eklenmesi halinde "
             "Google Play Veri Güvenliği beyanı ve bu politika yayımdan önce yeniden değerlendirilir.",
             styles["Body"]),
         Spacer(1, 6 * mm),
         Paragraph(
-            "Bu metin Vakit 0.2.0 uygulamasının 2 Ekim 2026 tarihli kaynak kodu ve yapılandırması "
+            "Bu metin Vakitname 0.3.0-rc.1 uygulamasının 6 Ekim 2026 tarihli kaynak kodu ve EAS Update yapılandırması "
             "temel alınarak hazırlanmıştır.", styles["Small"]),
     ])
 

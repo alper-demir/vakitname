@@ -1,6 +1,6 @@
 # Devam noktası — 6 Ekim 2026
 
-Kullanıcı geliştirmeyi onayladı. Repository kökünde Faz 1 ve Faz 2 çalışan durumda. **Faz 3 yerel bildirimlerin kodu ile Android Expo Go doğrulama dilimi tamamlandı; production native doğrulama kapısı açık.** Development build/APK üretme; kullanıcı daha önce yalnız Expo Go istemişti.
+Kullanıcı mağaza hazırlığını onayladı. Repository kökünde Faz 1–6 çalışıyor. **Vakitname marka/Android/EAS yapılandırması tamamlandı; production native doğrulama, mağaza materyalleri ve kapalı test kapıları açık.** Henüz development build, APK, AAB veya OTA update yayımlanmadı.
 
 ## Faz 1–2 durumu
 
@@ -23,7 +23,7 @@ Kıble ekranı eklendi. Seçili konumdan Kâbe'ye büyük çember başlangıç d
 ## Tamamlandı
 
 - 37 Stitch ekranı analiz edildi; 19 Home varyasyonu tek Home/tema sisteminde toplandı. İki tasarım klasörü korunuyor.
-- Expo 57.0.26, RN 0.86.3, React 19.2.3, Router, strict TS, Node 24 LTS ve lockfile.
+- Expo 57.0.27, RN 0.86.3, React 19.2.3, Router, strict TS, Node 24 LTS ve lockfile.
 - 81 il + 974 GeoNames ilçe kaydıyla offline arama/onay; foreground GPS, ret/timeout ve manuel fallback.
 - Adhan provider, UTC olaylar, seçili Türkiye saat dilimi, vakit düzeltme altyapısı, dün/bugün/yarın ve Yatsı sonrası İmsak.
 - Foreground sayaç, GPS konumu için soğuk açılışta ve arka plandan dönüşte izin istemeden yenileme; hata halinde son geçerli konumu koruma, tek Home, altı gerçek vakit, kaynak modalı, dört mevsim/dört faz tema resolver'ı ve otomatik/isteğe bağlı özel Ramazan paleti ile hilal/yıldız dekoru.
@@ -35,6 +35,7 @@ Kıble ekranı eklendi. Seçili konumdan Kâbe'ye büyük çember başlangıç d
 - Faz 5 Kıble: saf yön/mesafe domain'i, gerçek-kuzey/manyetik-kuzey ayrımlı başlık adaptörü, sensörsüz durum, native pusula ekranı ve navigasyon erişimi.
 - Faz 6 yayın yüzeyi: Stitch `Splash Ekranı` gün batımı tasarımı native splash/JS marka yüzeyine eşlendi; mevcut uygulama ikonu, statik native başlangıç rengi, gradientli yükleme yüzeyi ve SVG silüet kullanılıyor. Hakkında/Gizlilik/Kaynak/Lisans ekranı, Ayarlar erişimi ve Android Play Store ikonları mevcut. Kullanıcının sağladığı hilal-pusula ikonu beyaz köşeleri temizlenerek standart ve adaptive PNG'lere dönüştürüldü; iOS kapsam dışı.
 - Google Play gizlilik/yasal hazırlığı: koddan veri akışı ve izin envanteri çıkarıldı; kapsamlı Türkçe gizlilik politikası, Veri Güvenliği/izin/release kontrol belgesi, Netlify'a doğrudan yüklenebilir scriptsiz HTML ve görsel doğrulanmış üç sayfalık PDF oluşturuldu. Hakkında ekranına yerel veri silme, pusula ve gizlilik iletişimi ayrıntıları eklendi; `Son plan` etiketi `Şu tarihe kadar planlandı` olarak düzeltildi.
+- Ürün adı cihazda **Vakitname**, mağazada **Vakitname: Namaz & Kıble**; Android kimliği `com.alemdem.vakitname`, ilk `versionCode` `1`. `@alemdem/vakitname` EAS projesi, `appVersion` runtime politikası ve development/preview/production kanalları yapılandırıldı. Gizlilik yüzeyleri EAS Update teknik veri akışıyla uyumlu hale getirildi; henüz build veya update yayımlanmadı.
 - 88 test, üç host saat diliminde 28 ek test, lint/typecheck, SDK paket uyumu ve Android JS export geçti; önceki Expo Doctor 21/21. Ayrıntılar VALIDATION.md.
 
 ## İlk dilimde açık kalan doğrulamalar
@@ -47,19 +48,22 @@ Kıble ekranı eklendi. Seçili konumdan Kâbe'ye büyük çember başlangıç d
 
 ## Home sonrasında
 
-1. Faz 3 production doğrulama kapısı: development build açıkça yetkilendirildiğinde Android özel ses ve sessiz kanal, Doze/pil tasarrufu, reboot/force-stop, ekran kilidi ve gerçek cihaz davranışını test et; sonuçlar geçerse `v0.3.0` oluştur.
+1. Faz 3 production doğrulama kapısı: EAS development build üret; Android özel ses ve sessiz kanal, günlük arka plan yenilemesi, Doze/pil tasarrufu, reboot/force-stop, ekran kilidi ve gerçek cihaz davranışını A52'de test et; sonuçlar geçerse `v0.3.0` oluştur.
 2. Faz 4 cihaz/ürün kontrolleri: farklı aylar, Hicri düzeltme, Ramazan seçimi, küçük ekran yatay tablo ve veri kapsamı dışı fallback.
 3. Faz 5 fiziksel cihaz doğrulaması: gerçek-kuzey/manyetik ayrımı, izin reddi/izin verme, hareket/kalibrasyon, uygulamadan çıkışta abonelik temizliği.
-4. Faz 6 release kapısı: Android native splash ve adaptive launcher maskesi, Play Store önizlemesi, uygulama kimliği, imzalama ve release build.
-5. Gizlilik yayın kapısı: Play geliştirici profilindeki görünen adı doğrula; `https://vakit-privacy.netlify.app/` URL'sini Play Console'a gir; hedef kitle/Families ve Veri Güvenliği cevaplarını yayımlanan AAB ile son kez doğrula. HTTPS yayını ve uygulama içi bağlantı tamamlandı. Destek e-postası `support.alemdem@gmail.com` olarak kesinleşti; hesap olmadığı için hesap silme akışı gerekmez.
+4. Faz 6 release kapısı: Android native splash ve adaptive launcher maskesi, Play Store önizlemesi, EAS imzalama anahtarı, production AAB ve gerçek manifest kontrolü.
+5. Gizlilik yayın kapısı: Play geliştirici profilindeki görünen adı doğrula; güncellenen `privacy-site/` klasörünü Netlify Drop ile aynı `https://vakit-privacy.netlify.app/` sitesine yeniden yükle; URL'yi Play Console'a gir; hedef kitle/Families ve Veri Güvenliği cevaplarını yayımlanan AAB ile son kez doğrula.
+6. Mağaza teslimi: 512×512 ikon, feature graphic ve telefon ekran görüntülerini hazırla; Eylül 2026'da açılan kişisel hesap için en az 12 katılımcıyla 14 gün kesintisiz kapalı testi tamamla; ardından production erişimine başvur.
 
 Hesap, reklam, backend, widget, tam ezan, PDF, mukabele ve zikirmatik kapsam dışı. Remote/push/yayınlama yapılmadı.
 
 ## Devam komutları
 
-Node 24 ile `npm run check`, `npm run test:timezones`, `npx expo-doctor`. Çalıştırma README'de. Android emülatör incelemesi için Metro'yu `npm start -- --lan` ile açıp Expo Go kullan. `npm run android`, prebuild ve APK/AAB ancak kullanıcı açıkça isterse.
+Node 24 ile `npm run check`, `npm run test:timezones`, `npx expo-doctor`. EAS yapılandırması için `npx eas-cli@latest config --platform android --profile development` ve `--profile production`; OTA önce `preview`, kabulden sonra `production` kanalına gönderilir. Native bağımlılık/izin/SDK/config/asset değişikliklerinde yeni build ve uygulama sürümü gerekir.
 
 ## Oturum devri
+
+- 6 Ekim 2026 Vakitname/EAS mağaza hazırlığı tamamlandı: cihaz adı **Vakitname**, mağaza başlığı **Vakitname: Namaz & Kıble**, paket `com.alemdem.vakitname`, `versionCode` 1 ve Expo sahibi `alemdem` olarak yapılandırıldı. `@alemdem/vakitname` EAS projesi oluşturuldu; Android `appVersion` runtime, EAS Update URL'si ve development/preview/production kanalları doğrulandı. Uygulama içi marka metinleri güncellendi; kalıcı storage/bildirim kimlikleri migrasyon güvenliği için korundu. EAS Update'in Expo üzerinden işleyebileceği teknik veriler Hakkında, Markdown, Play taslağı, scriptsiz HTML ve görsel doğrulanmış üç sayfalık PDF'e işlendi. Yerel site 390×844 görünümünde taşmasız, sıfır scriptle geçti; canlı Netlify hâlâ eski içeriktir ve `privacy-site/` yeniden sürüklenmelidir. Kullanıcı hesabın Eylül 2026'da açıldığını doğruladı; kişisel hesapta 12 kişi/14 gün kapalı test zorunlu kapıdır. Eksik kullanıcı girdisi yalnız Play Console geliştirici görünen adıdır. Sıradaki somut adım: güncel kontrolleri son kez geçirip yerel commit; ardından geliştirici adını politikaya koymak, Netlify'ı güncellemek ve EAS development build ile A52 native kabul turuna başlamak. Henüz update/APK/AAB yayımlanmadı.
 
 - 6 Ekim 2026 mağaza/EAS hazırlığı başladı: Expo hesabında `alemdem` sahibi oturumu doğrulandı. Expo Doctor'ın bildirdiği altı SDK 57 yama uyumsuzluğu giderildi ve Doctor 21/21 geçti; `expo-updates ~57.0.25` ilk native build öncesi eklendi ancak EAS project ID, URL, runtime ve kanal henüz yapılandırılmadı, dolayısıyla uygulama şu anda güncelleme sunucusuna istek atmaz. Node 24 ile 88/88 test ve üç host saat diliminde 28/28 geçti. EAS Update, uyumlu runtime içinde JS/stil/metin/görsel güncellemelerini yeni AAB olmadan gönderebilir; native bağımlılık/izin/SDK/config değişiklikleri için yeni build gerekir. Servis etkinleşirse Expo'nun son kullanıcı OS, rastgele update tokenı, IP/ağ ve kullanım/performans verisi işlemesi nedeniyle mevcut “cihaz dışına veri gönderilmez” politikası ile Veri Güvenliği cevapları güncellenecek. Beklenen kullanıcı kararları: son uygulama/mağaza adı, kalıcı Android package ID, Play Console geliştirici görünen adı ve hesap türü/açılış dönemi, EAS Update veri akışının kabulü. Bu cevaplardan sonra isim/politika/config/EAS projesi tek geçişte tamamlanacak; henüz build veya update yayımlanmadı.
 

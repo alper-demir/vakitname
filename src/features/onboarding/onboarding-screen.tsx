@@ -21,7 +21,7 @@ export default function OnboardingScreen() {
 
   if (currentStep === 0) return <Page scroll={false}>{top}<View style={s.center}>
     <View style={[s.logoCard, { backgroundColor: theme.surfaceStrong }]}><Logo size={72} color={theme.accent} /></View>
-    <T accessibilityRole="header" weight="medium" style={s.hero}>Vakit</T><T style={[s.tagline, { color: theme.muted }]}>“Vaktin nefesini hisset.”</T>
+    <T accessibilityRole="header" weight="medium" style={s.hero}>Vakitname</T><T style={[s.tagline, { color: theme.muted }]}>“Vaktin nefesini hisset.”</T>
     <View style={[s.pill, { backgroundColor: theme.highlight }]}><Icon name="clock" size={16} color={theme.accent} /><T style={{ color: theme.muted, fontSize: 12 }}>Sade, sakin ve çevrimdışı namaz vakitleri</T></View>
   </View><View style={s.actions}><Button label="Başla" icon="arrow" onPress={() => setStep(1)} /><T style={[s.assurance, { color: theme.muted }]}>Hesapsız · reklamsız · verilerin yalnızca cihazında</T></View></Page>;
 
@@ -33,10 +33,10 @@ export default function OnboardingScreen() {
   </View><View style={s.actions}><Button icon="gps" label={app.locating ? 'Konum aranıyor…' : 'Konumumu kullan'} loading={app.locating} onPress={() => { void app.requestLocation().then((success) => { if (success) setStep(2); }); }} /><Button secondary icon="pin" label="Şehir seç" onPress={() => router.push('/location')} /></View></Page>;
 
   return <Page scroll={false}>{top}<View style={s.center}>
-    <View style={[s.notification, { backgroundColor: theme.surfaceStrong, borderColor: theme.line }]}><View style={s.notificationTop}><Logo size={34} color={theme.accent} /><View style={{ flex: 1 }}><T weight="semibold" style={{ fontSize: 11 }}>VAKİT</T><T style={{ color: theme.muted, fontSize: 10 }}>Örnek bildirim</T></View><Icon name="clock" color={theme.accent} /></View><T weight="semibold" style={{ marginTop: 16 }}>Öğle vakti girdi</T><T style={{ color: theme.muted, fontSize: 12, lineHeight: 19, marginTop: 5 }}>Seçtiğin vakitlerde kısa ve sakin bir bildirim alabilirsin.</T></View>
+    <View style={[s.notification, { backgroundColor: theme.surfaceStrong, borderColor: theme.line }]}><View style={s.notificationTop}><Logo size={34} color={theme.accent} /><View style={{ flex: 1 }}><T weight="semibold" style={{ fontSize: 11 }}>VAKİTNAME</T><T style={{ color: theme.muted, fontSize: 10 }}>Örnek bildirim</T></View><Icon name="clock" color={theme.accent} /></View><T weight="semibold" style={{ marginTop: 16 }}>Öğle vakti girdi</T><T style={{ color: theme.muted, fontSize: 12, lineHeight: 19, marginTop: 5 }}>Seçtiğin vakitlerde kısa ve sakin bir bildirim alabilirsin.</T></View>
     <T accessibilityRole="header" weight="medium" style={s.title}>Vakitleri kaçırma</T>
     <T style={[s.copy, { color: theme.muted }]}>Bildirimler kullanıma açıldığında seçtiğin vakitler için cihazında planlanacak. İnternet veya hesap gerekmeyecek.</T>
-  </View><View style={s.actions}><Button label="Vakit’i kullanmaya başla" onPress={finish} /><T style={[s.assurance, { color: theme.muted }]}>Bildirim izni yalnızca bildirimler etkinleştirildiğinde istenecek.</T></View></Page>;
+  </View><View style={s.actions}><Button label="Vakitname’yi kullanmaya başla" onPress={finish} /><T style={[s.assurance, { color: theme.muted }]}>Bildirim izni yalnızca bildirimler etkinleştirildiğinde istenecek.</T></View></Page>;
 }
 
 const s = StyleSheet.create({

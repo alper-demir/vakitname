@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light dark">
   <meta name="theme-color" content="#08201d">
-  <meta name="description" content="Vakit Android uygulamasının gizlilik politikası ve veri kullanımı açıklaması.">
-  <title>Vakit - Gizlilik Politikası</title>
+  <meta name="description" content="Vakitname Android uygulamasının gizlilik politikası ve veri kullanımı açıklaması.">
+  <title>Vakitname - Gizlilik Politikası</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2306432f'/%3E%3Cpath d='M40 13a21 21 0 1 0 9 38A23 23 0 1 1 40 13Z' fill='%23f1d37a'/%3E%3Ccircle cx='45' cy='20' r='3' fill='%23f1d37a'/%3E%3C/svg%3E">
   <style>
     :root {
@@ -115,14 +115,14 @@
 </head>
 <body>
   <header class="shell">
-    <div class="brand"><span class="mark" aria-hidden="true">V</span><span>Vakit<small>Android uygulaması</small></span></div>
+    <div class="brand"><span class="mark" aria-hidden="true">V</span><span>Vakitname<small>Android uygulaması</small></span></div>
   </header>
 
   <div class="shell hero">
     <p class="eyebrow">Gizlilik politikası</p>
-    <h1>Veriniz cihazınızda kalır.</h1>
-    <p class="lede">Vakit, namaz vakitlerini ve kıble yönünü cihazınızda hesaplar. Hesap, reklam, analiz ve geliştirici sunucusu kullanmaz.</p>
-    <div class="meta"><span class="pill">Son güncelleme: 4 Ekim 2026</span><span class="pill">Sürüm kapsamı: 0.3.0-rc.1</span><span class="pill">Dil: Türkçe</span></div>
+    <h1>Kişisel ayarlarınız cihazınızda kalır.</h1>
+    <p class="lede">Vakitname, namaz vakitlerini ve kıble yönünü cihazınızda hesaplar. Hesap ve reklam kullanmaz; yazılım güncellemeleri EAS Update üzerinden güvenli biçimde teslim edilebilir.</p>
+    <div class="meta"><span class="pill">Son güncelleme: 6 Ekim 2026</span><span class="pill">Sürüm kapsamı: 0.3.0-rc.1</span><span class="pill">Dil: Türkçe</span></div>
   </div>
 
   <div class="shell layout">
@@ -130,6 +130,7 @@
       <strong>İçindekiler</strong>
       <a href="#amac">Uygulamanın amacı</a>
       <a href="#veriler">İşlenen veriler</a>
+      <a href="#guncellemeler">Uygulama güncellemeleri</a>
       <a href="#paylasim">Toplama ve paylaşma</a>
       <a href="#saklama">Saklama ve silme</a>
       <a href="#cocuklar">Çocukların gizliliği</a>
@@ -139,7 +140,7 @@
 
     <main>
       <div class="summary" aria-label="Gizlilik özeti">
-        <div><b>Sunucu yok</b><span>Kişisel veriler geliştiriciye iletilmez.</span></div>
+        <div><b>Yerel hesaplama</b><span>Konum, vakitler ve tercihler güncelleme hizmetine gönderilmez.</span></div>
         <div><b>İzinler isteğe bağlı</b><span>GPS yerine manuel şehir seçebilirsiniz.</span></div>
         <div><b>Silme sizde</b><span>Android'den uygulama verilerini temizleyebilirsiniz.</span></div>
       </div>
@@ -147,9 +148,9 @@
       <article>
         <section id="amac">
           <h2>1. Uygulamanın amacı</h2>
-          <p>Bu Gizlilik Politikası, <strong>Vakit</strong> Android uygulamasının kullanıcı ve cihaz verilerine nasıl eriştiğini, bunları hangi amaçlarla kullandığını, nerede tuttuğunu ve nasıl silebileceğinizi açıklar.</p>
-          <p>Vakit; seçtiğiniz veya cihazınızdan aldığınız Türkiye konumuna göre namaz vakitlerini, sıradaki vakti ve kıble yönünü cihazınızda hesaplar. Aylık takvim, Ramazan imsakiyesi, tema seçenekleri ve isteğe bağlı yerel bildirimler sunar.</p>
-          <p class="note"><strong>Bağımsızlık açıklaması:</strong> Vakit bir Diyanet uygulaması değildir ve resmî Diyanet verisi sunduğunu iddia etmez.</p>
+          <p>Bu Gizlilik Politikası, <strong>Vakitname</strong> Android uygulamasının kullanıcı ve cihaz verilerine nasıl eriştiğini, bunları hangi amaçlarla kullandığını, nerede tuttuğunu ve nasıl silebileceğinizi açıklar.</p>
+          <p>Vakitname; seçtiğiniz veya cihazınızdan aldığınız Türkiye konumuna göre namaz vakitlerini, sıradaki vakti ve kıble yönünü cihazınızda hesaplar. Aylık takvim, Ramazan imsakiyesi, tema seçenekleri ve isteğe bağlı yerel bildirimler sunar.</p>
+          <p class="note"><strong>Bağımsızlık açıklaması:</strong> Vakitname bir Diyanet uygulaması değildir ve resmî Diyanet verisi sunduğunu iddia etmez.</p>
         </section>
 
         <section id="veriler">
@@ -164,62 +165,70 @@
           </ul>
 
           <h3>Pusula başlığı</h3>
-          <p>Kıble ekranı açıkken cihazın yön sensöründen gerçek veya manyetik kuzey başlığı okunabilir. Canlı başlık yalnız ekrandaki yönlendirme için anlık işlenir; saklanmaz ve cihaz dışına gönderilmez.</p>
+          <p>Kıble ekranı açıkken cihazın yön sensöründen gerçek veya manyetik kuzey başlığı okunabilir. Canlı başlık yalnız ekrandaki yönlendirme için anlık işlenir; saklanmaz ve güncelleme hizmetine gönderilmez.</p>
 
           <h3>Tercihler ve bildirim planı</h3>
           <p>Tema, konum, vakit düzeltmeleri, Hicri tarih düzeltmesi, bildirim seçimleri ve cihazda planlanan bildirimlerin özeti yerel olarak saklanır. Bildirim izni yalnız seçtiğiniz vakit hatırlatmalarını göstermek için kullanılır.</p>
           <p>Android'in “Alarmlar ve hatırlatıcılar” erişimi, etkinleştirilmiş bildirimleri mümkün olduğunca seçilen vakitte planlamak için kullanılabilir. İşletim sistemi ve cihaz ayarları teslim zamanını etkileyebilir.</p>
         </section>
 
+        <section id="guncellemeler">
+          <h2>3. Uygulama güncellemeleri ve Expo</h2>
+          <p>Vakitname, mağaza sürümüyle uyumlu JavaScript, metin, stil ve uygulama varlığı güncellemelerini kontrol etmek ve indirmek için <strong>Expo Application Services (EAS Update)</strong> hizmetini kullanabilir. Bu bağlantı uygulama açıldığında ve internet erişimi bulunduğunda gerçekleşebilir.</p>
+          <p>Bu işlem sırasında Expo; hizmeti sunmak, güvenliğini sağlamak ve hataları gidermek amacıyla IP adresi ve ağ bilgileri, cihaz işletim sistemi, rastgele güncelleme belirteçleri, uygulama sürümü/güncelleme kanalı ile hata, kullanım ve performans bilgilerini işleyebilir.</p>
+          <p class="note"><strong>Gönderilmeyenler:</strong> Kesin veya yaklaşık konumunuz, seçtiğiniz şehir, namaz vakitleriniz, bildirim ve tema tercihleriniz ile pusula başlığınız EAS Update'e gönderilmez. Güncelleme aktarımı şifreli HTTPS bağlantısı üzerinden yapılır.</p>
+        </section>
+
         <section id="paylasim">
-          <h2>3. Toplama, paylaşma ve izleme</h2>
-          <p>Vakit:</p>
+          <h2>4. Toplama, paylaşma ve izleme</h2>
+          <p>Vakitname:</p>
           <ul>
             <li>hesap veya kullanıcı profili oluşturmaz;</li>
             <li>ad, telefon numarası, rehber, fotoğraf, mikrofon, sağlık ya da ödeme verisi istemez;</li>
             <li>reklam, reklam kimliği, davranışsal profil veya kişiselleştirilmiş pazarlama kullanmaz;</li>
-            <li>analiz, uzaktan hata raporlama veya geliştirici sunucusu kullanmaz;</li>
-            <li>konumunuzu, tercihlerinizi veya kullanım bilgilerinizi geliştiriciye ya da üçüncü kişilere iletmez, satmaz ve paylaşmaz.</li>
+            <li>geliştiriciye ait bir kullanıcı verisi sunucusu veya uzaktan hata izleme hizmeti kullanmaz;</li>
+            <li>konumunuzu, namaz vakitlerinizi veya kişisel tercihlerinizi geliştiriciye ya da Expo'ya göndermez;</li>
+            <li>yalnız yazılım güncelleme teslimi için Expo altyapısıyla yukarıda açıklanan teknik veri alışverişini yapabilir.</li>
           </ul>
           <p>Uygulama içindeki kaynak bağlantılarını siz açarsanız bağlantı cihazınızın tarayıcısında açılır. Ziyaret ettiğiniz sitelerin veri uygulamaları kendi politikalarına tabidir.</p>
         </section>
 
         <section id="saklama">
-          <h2>4. Yerel saklama, güvenlik ve silme</h2>
-          <p>Veriler Android'in uygulamaya ayrılmış yerel depolama alanında tutulur. Vakit ayrıca uygulama düzeyinde şifreli bir kasa kullandığını iddia etmez; koruma Android'in uygulama yalıtımı ve cihaz güvenliğine dayanır.</p>
-          <p>Yerel veriler siz değiştirene veya silene kadar cihazda kalır. Tüm Vakit verilerini Android ayarlarından uygulama verilerini temizleyerek veya uygulamayı kaldırarak silebilirsiniz. Konum ve bildirim izinlerini Android ayarlarından dilediğiniz zaman geri alabilirsiniz.</p>
-          <p>Geliştiriciye veri aktarılmadığı için geliştiricinin sunucusunda silinecek bir kullanıcı hesabı veya kişisel veri kaydı bulunmaz.</p>
+          <h2>5. Yerel saklama, güvenlik ve silme</h2>
+          <p>Konum ve tercihler Android'in uygulamaya ayrılmış yerel depolama alanında tutulur. Vakitname ayrıca uygulama düzeyinde şifreli bir kasa kullandığını iddia etmez; koruma Android'in uygulama yalıtımı ve cihaz güvenliğine dayanır.</p>
+          <p>Yerel veriler siz değiştirene veya silene kadar cihazda kalır. Tüm Vakitname verilerini Android ayarlarından uygulama verilerini temizleyerek veya uygulamayı kaldırarak silebilirsiniz. Konum ve bildirim izinlerini Android ayarlarından dilediğiniz zaman geri alabilirsiniz.</p>
+          <p>Uygulama hesabı olmadığı için geliştirici sunucusunda silinecek hesaba bağlı bir kayıt bulunmaz. Expo'nun teknik hizmet verisi için uyguladığı saklama süreleri kendi politika ve hizmet koşullarına tabidir.</p>
         </section>
 
         <section id="cocuklar">
-          <h2>5. Çocukların gizliliği</h2>
-          <p>Vakit hesap veya kullanıcı profili oluşturmaz ve çocuklara ait kişisel verileri bilerek geliştiriciye iletmez. Uygulamanın Google Play hedef kitle seçimi yayımdan önce ayrıca doğrulanır; çocukların hedef kitleye eklenmesi halinde Google Play Families kuralları ayrıca uygulanır.</p>
+          <h2>6. Çocukların gizliliği</h2>
+          <p>Vakitname hesap veya kullanıcı profili oluşturmaz ve çocuklara ait kişisel verileri bilerek istemez. Uygulamanın Google Play hedef kitle seçimi yayımdan önce ayrıca doğrulanır; çocukların hedef kitleye eklenmesi halinde Google Play Families kuralları ayrıca uygulanır.</p>
         </section>
 
         <section id="kaynaklar">
-          <h2>6. Kaynaklar ve üçüncü taraf yazılımlar</h2>
-          <p>Namaz vakti hesaplaması Adhan JS Türkiye yöntemiyle, kıble hesabı ve takvim işlemleri cihazda yapılır. GeoNames konum kataloğu uygulama paketine gömülüdür. Expo, React Native, Adhan JS ve Luxon gibi yazılım bileşenleri uygulamanın çalışması için kullanılır; Vakit bu bileşenler üzerinden kişisel veri ileten bir ağ isteği başlatmaz.</p>
+          <h2>7. Kaynaklar ve üçüncü taraf hizmetler</h2>
+          <p>Namaz vakti hesaplaması Adhan JS Türkiye yöntemiyle, kıble hesabı ve takvim işlemleri cihazda yapılır. GeoNames konum kataloğu uygulama paketine gömülüdür. Expo ve React Native uygulama altyapısında; EAS Update yalnız yazılım güncellemelerinin tesliminde kullanılır. <a href="https://expo.dev/privacy">Expo gizlilik politikasını</a> inceleyebilirsiniz.</p>
         </section>
 
         <section id="haklar">
-          <h2>7. Haklarınız ve iletişim</h2>
+          <h2>8. Haklarınız ve iletişim</h2>
           <p>Konum iznini vermeme, daha önce verdiğiniz izni geri alma, manuel şehir seçme ve yerel verileri silme seçeneklerine sahipsiniz.</p>
           <div class="contact">
             <strong>Veri sorumlusu ve geliştirici</strong><br>
-            Vakit uygulaması geliştiricisi<br>
-            <a href="mailto:support.alemdem@gmail.com?subject=Vakit%20gizlilik%20sorusu">support.alemdem@gmail.com</a>
+            Google Play geliştirici profilinde yayımlanan geliştirici<br>
+            <a href="mailto:support.alemdem@gmail.com?subject=Vakitname%20gizlilik%20sorusu">support.alemdem@gmail.com</a>
           </div>
-          <p>Türkiye'deki kullanıcılar, 6698 sayılı Kişisel Verilerin Korunması Kanunu kapsamındaki haklarına ilişkin başvurularını bu iletişim adresi üzerinden iletebilir. Uygulama geliştiriciye kişisel veri aktarmadığı için bir talebin karşılanması sırasında cihazınızdaki kayıtlara uzaktan erişemeyiz.</p>
+          <p>Türkiye'deki kullanıcılar, 6698 sayılı Kişisel Verilerin Korunması Kanunu kapsamındaki haklarına ilişkin başvurularını bu iletişim adresi üzerinden iletebilir. Cihazınızdaki yerel kayıtlara uzaktan erişemeyiz.</p>
         </section>
 
         <section id="degisiklikler">
-          <h2>8. Değişiklikler</h2>
-          <p>Uygulamanın veri uygulamaları veya izinleri değişirse bu politika ve üstteki güncelleme tarihi yenilenir. Yeni bir sunucu, analiz, reklam veya hesap özelliği eklenmesi halinde Google Play Veri Güvenliği beyanı da yayımdan önce yeniden değerlendirilir.</p>
+          <h2>9. Değişiklikler</h2>
+          <p>Uygulamanın veri uygulamaları, üçüncü taraf hizmetleri veya izinleri değişirse bu politika ve üstteki güncelleme tarihi yenilenir. Yeni bir analiz, reklam, hesap veya ödeme özelliği eklenmesi halinde Google Play Veri Güvenliği beyanı da yayımdan önce yeniden değerlendirilir.</p>
         </section>
       </article>
     </main>
   </div>
 
-  <footer class="shell">Bu politika, Vakit 0.3.0-rc.1 uygulamasının 4 Ekim 2026 tarihli kaynak kodu ve yapılandırması temel alınarak hazırlanmıştır.</footer>
+  <footer class="shell">Bu politika, Vakitname 0.3.0-rc.1 uygulamasının 6 Ekim 2026 tarihli kaynak kodu ve EAS Update yapılandırması temel alınarak hazırlanmıştır.</footer>
 </body>
 </html>

@@ -30,8 +30,8 @@ export default function HomeScreen() {
   const settingsButton = () => router.push('/settings');
   const calendarButton = () => router.push('/calendar');
   const qiblaButton = () => router.push('/qibla');
-  const header = <View style={s.header}><View style={s.brand}><Logo color={theme.dark ? '#49665C' : '#66856A'} /><T accessibilityRole="header" weight="semibold" style={{ fontSize: 23, letterSpacing: -.8 }}>Vakit</T></View><IconButton name="palette" label="Görünümü değiştir" onPress={themeButton} /></View>;
-  if (!state.ready) return <Page>{header}<View style={s.welcome}><ActivityIndicator color={theme.accent} /><T style={{ color: theme.muted }}>Vakit hazırlanıyor…</T></View></Page>;
+  const header = <View style={s.header}><View style={s.brand}><Logo color={theme.dark ? '#49665C' : '#66856A'} /><T accessibilityRole="header" weight="semibold" style={{ fontSize: 23, letterSpacing: -.8 }}>Vakitname</T></View><IconButton name="palette" label="Görünümü değiştir" onPress={themeButton} /></View>;
+  if (!state.ready) return <Page>{header}<View style={s.welcome}><ActivityIndicator color={theme.accent} /><T style={{ color: theme.muted }}>Vakitname hazırlanıyor…</T></View></Page>;
   if (!state.location) return <Page>{header}
     <View style={s.welcome}><View style={[s.welcomeIcon, { backgroundColor: theme.surface }]}><Icon name="imsak" size={54} color={theme.accent} /></View>
       <T style={s.eyebrow}>VAKTİN NEFESİNİ HİSSET</T>

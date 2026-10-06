@@ -70,12 +70,12 @@ function permissionFrom(status: NotificationPermissionsStatus, Notifications: No
 async function ensureChannels(Notifications: NotificationsModule) {
   if (Platform.OS !== 'android' || isExpoGo) return;
   await Notifications.setNotificationChannelAsync(SOUND_CHANNEL, {
-    name: 'Vakit bildirimleri', description: 'Namaz vakti ve ön hatırlatma bildirimleri',
+    name: 'Vakitname bildirimleri', description: 'Namaz vakti ve ön hatırlatma bildirimleri',
     importance: Notifications.AndroidImportance.HIGH, sound: isExpoGo ? 'default' : 'vakit-tone.wav',
     vibrationPattern: [0, 180, 90, 180], enableVibrate: true,
   });
   await Notifications.setNotificationChannelAsync(SILENT_CHANNEL, {
-    name: 'Sessiz vakit bildirimleri', description: 'Ses ve titreşim olmadan namaz vakti bildirimleri',
+    name: 'Sessiz Vakitname bildirimleri', description: 'Ses ve titreşim olmadan namaz vakti bildirimleri',
     importance: Notifications.AndroidImportance.DEFAULT, sound: null, enableVibrate: false,
   });
 }
@@ -139,7 +139,7 @@ export const notificationScheduler = {
     await ensureChannels(Notifications);
     const silent = sound === 'silent';
     await Notifications.scheduleNotificationAsync({
-      content: { title: 'Vakit bildirimi hazır', body: 'Bu bir test bildirimidir.', sound: silent ? undefined : sound === 'default' || isExpoGo ? 'default' : 'vakit-tone.wav', data: { owner: 'vakit-test' } },
+      content: { title: 'Vakitname bildirimi hazır', body: 'Bu bir test bildirimidir.', sound: silent ? undefined : sound === 'default' || isExpoGo ? 'default' : 'vakit-tone.wav', data: { owner: 'vakit-test' } },
       trigger: {
         type: Notifications.SchedulableTriggerInputTypes.TIME_INTERVAL,
         seconds: 3,
