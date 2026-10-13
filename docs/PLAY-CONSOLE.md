@@ -108,7 +108,7 @@ Konum, kişisel bilgiler, finans, sağlık, kişiler, takvim, fotoğraf/video, s
 
 - Uygulama ikonu: `output/play-store/app-icon-512.png` (512×512 32-bit PNG, alfa kanallı) hazır; kaynak `assets/icon/vakit-icon.png`.
 - Feature graphic: `output/play-store/feature-graphic-v1.jpg` (1024×500 opak JPEG, metinsiz) hazır. PNG kaynak dosyası arşivde tutulur.
-- Telefon ekran görüntüleri: yalnız gerçek uygulama deneyimini gösterecek dört 9:16 portre görsel (en az 1080×1920) hazırlanacak. Sıra: Home/sıradaki vakit, Kıble, Ramazan imsakiyesi, Bildirimler.
+- Telefon ekran görüntüleri: gerçek Expo Go uygulama deneyiminden alınmış, 1080×1920 PNG görseller hazır: `output/play-store/screenshots/01-home.png` (Home/sıradaki vakit), `02-qibla.png` (Kıble), `03-ramadan-calendar.png` (Ramazan imsakiyesi), `04-notifications.png` (bildirim ayarları) ve `05-home-sunset.png` (gün batımı teması). Play Console'a en vurucu dört görsel olarak Home, Kıble, Ramazan ve gün batımı Home önerilir; bildirim ekranı alternatif olarak tutulur.
 - Etiketler: Play Console'un sunduğu listeden namaz/prayer, kıble/qibla, Ramazan/Ramadan, takvim/calendar ve hatırlatıcı/bildirim karşılıkları varsa seçilecek; desteklenmeyen etiketler seçilmeyecek.
 - Yapay zekâ ile üretilmiş öğe beyanı: **“Öğeleri yapay zekâ ile oluşturulmuş veya düzenlenmiş olarak etiketle”** seçilecek. Bu yalnız ImageGen ile üretilen feature graphic için geçerlidir; ekran görüntüleri gerçek uygulamadan alınacaktır.
 
@@ -122,4 +122,4 @@ Konum, kişisel bilgiler, finans, sağlık, kişiler, takvim, fotoğraf/video, s
 
 ## Değişiklik günlüğü
 
-- **13 Ekim 2026:** Play Console uygulama kaydı oluşturuldu; Vakitname/package/developer adı doğrulandı. Reklam, içerik derecelendirmesi ve hedef kitle cevapları tamamlandı. Veri Güvenliği formu EAS Update teknik veri akışına göre dolduruluyor. Varsayılan mağaza girişine kısa/tam açıklama, 512×512 ikon ve 1024×500 metinsiz feature graphic yüklendi; feature graphic nedeniyle AI-üretimli öğe etiketi seçilecek. Telefon ekran görüntüleri gerçek native uygulama üzerinden henüz alınmadı.
+- **13 Ekim 2026:** Play Console uygulama kaydı oluşturuldu; Vakitname/package/developer adı doğrulandı. Reklam, içerik derecelendirmesi ve hedef kitle cevapları tamamlandı. Veri Güvenliği formu EAS Update teknik veri akışına göre dolduruluyor. Varsayılan mağaza girişine kısa/tam açıklama, 512×512 ikon ve 1024×500 metinsiz feature graphic yüklendi; feature graphic nedeniyle AI-üretimli öğe etiketi seçilecek. Android 16 Pixel 7 emülatörü + Expo Go'da Home, Kıble, Ramazan imsakiyesi, Bildirimler ve Gün batımı Home ekranları yakalandı; 1080×1920 çıktılar `output/play-store/screenshots/` altında doğrulandı.

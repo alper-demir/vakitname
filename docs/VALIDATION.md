@@ -224,3 +224,9 @@ npm audit: 0 critical/high, 14 moderate rapor; çoğu aynı iki advisory'nin üs
 - **Açık kalanlar:** Telefonu elle farklı yönlere döndürerek yön değerinin birden çok fiziksel konumda değiştiğinin kullanıcı gözlemi, düşük hassasiyet/sekiz kalibrasyonu sonrası ölçüm ve gerçek TalkBack sesli gezinmesi otomasyonla tamamlanmadı. 15/30 dakika ön hatırlatmanın gerçek vakit saatindeki teslimi ve force-stop/Doze/reboot ise Expo Go sınırını aşar.
 
 Tasarım koruması: 76 referans dosyasının sıralı yol+SHA256 birleşik hash'i başlangıçla aynı: 72526F33396A5AD829A975E55BE0573E60892FF7B38657842F83D9BA970ECB79. Kaynak/konfigürasyon dosyalarında anahtar kalıbı taraması temiz. 390×844 web görünümünde sayaç/konum/ertesi gün kartı ve kaydırılabilir vakitler kontrol edildi; screenshot artifacts/home-mobile.png (Git dışında).
+# 13 Ekim 2026 — Play Store telefon görselleri
+
+- Android 16 Pixel 7 emülatörü (`1080×2400`) Expo Go + LAN Metro ile bağlandı; `exp://192.168.1.118:8081` üzerinden güncel Vakitname bundle'ı açıldı.
+- Gerçek uygulama ekranları yakalanıp sistem çubuğu alanı kırpılarak Play Store'un 9:16 gereksinimine uygun `1080×1920` PNG olarak dışa aktarıldı: Home (`01-home.png`), Kıble (`02-qibla.png`), Ramazan imsakiyesi (`03-ramadan-calendar.png`), bildirim ayarları (`04-notifications.png`) ve gün batımı temalı Home (`05-home-sunset.png`).
+- Görseller repository içinde `output/play-store/screenshots/` altında tutuluyor; tasarım referansı veya WebView çıktısı kullanılmadı. Kıble ekranı emülatör sensörü/konum izni sınırlaması nedeniyle manuel açı durumunu gösteriyor; bu durum görselin gerçek uygulama yüzeyi olduğunu değiştirmiyor.
+
