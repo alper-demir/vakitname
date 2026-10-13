@@ -108,7 +108,7 @@ Konum, kişisel bilgiler, finans, sağlık, kişiler, takvim, fotoğraf/video, s
 
 - Uygulama ikonu: `output/play-store/app-icon-512.png` (512×512 32-bit PNG, alfa kanallı) hazır; kaynak `assets/icon/vakit-icon.png`.
 - Feature graphic: `output/play-store/feature-graphic-v1.jpg` (1024×500 opak JPEG, metinsiz) hazır. PNG kaynak dosyası arşivde tutulur.
-- Telefon ekran görüntüleri: gerçek Expo Go uygulama deneyiminden alınmış, 1080×1920 PNG görseller hazır: `01-home.png` (Home/sıradaki vakit), `02-qibla.png` (Kıble), `03-calendar.png` (aylık takvim), `03-ramadan-calendar.png` (Ramazan imsakiyesi), `04-notifications.png` (bildirim ayarları), `06-settings-sunset.png` (gün batımı temalı ayarlar), `07-home-sunset-overview.png` (gün batımı Home üst bölüm/sayaç/konum), `08-hijri-sunset.png` (Hicri tarih düzeltmesi) ve `09-qibla-night.png` (gece temalı Kıble). `09-home-night.png` yerine farklı bir işlevi gösteren gece Kıble ekranı kullanılmalı. Console 8 görsel sınırı için önerilen set: `07-home-sunset-overview.png`, `09-qibla-night.png`, `03-calendar.png`, `03-ramadan-calendar.png`, `04-notifications.png`, `06-settings-sunset.png`, `08-hijri-sunset.png` ve isteğe bağlı olarak `02-qibla.png`.
+- Telefon ekran görüntüleri: Play Console'a kullanıcı tarafından 13 Ekim 2026'da yüklenen, gerçek Expo Go uygulama deneyiminden alınmış yedi adet 1080×1920 PNG'nin kesin sırası: `07-home-sunset-overview.png` (gün batımı Home üst bölüm/sayaç/konum), `09-qibla-night.png` (gece temalı Kıble), `03-calendar.png` (aylık takvim), `03-ramadan-calendar.png` (Ramazan imsakiyesi), `04-notifications.png` (bildirim ayarları), `06-settings-sunset.png` (gün batımı temalı ayarlar) ve `08-hijri-sunset.png` (Hicri tarih ve ±2 gün düzeltmesi). Aynı işlevi tekrarlamamak için gündüz Kıble (`02-qibla.png`) ve diğer Home varyasyonları yüklenmedi.
 - Etiketler: Play Console'un sunduğu listeden namaz/prayer, kıble/qibla, Ramazan/Ramadan, takvim/calendar ve hatırlatıcı/bildirim karşılıkları varsa seçilecek; desteklenmeyen etiketler seçilmeyecek.
 - Yapay zekâ ile üretilmiş öğe beyanı: **“Öğeleri yapay zekâ ile oluşturulmuş veya düzenlenmiş olarak etiketle”** seçilecek. Bu yalnız ImageGen ile üretilen feature graphic için geçerlidir; ekran görüntüleri gerçek uygulamadan alınacaktır.
 
@@ -118,8 +118,9 @@ Konum, kişisel bilgiler, finans, sağlık, kişiler, takvim, fotoğraf/video, s
 - Cihazdaki uygulama adı: **Vakitname**.
 - Mağaza adı daha sonra değiştirilebilir; package ve cihaz adı bundan bağımsızdır.
 - Reklam, IAP, analiz, hesap, backend, push sunucusu veya yeni SDK eklenirse bu belge, Veri Güvenliği, gizlilik politikası, mağaza açıklaması ve gerekiyorsa hedef kitle beyanı birlikte yeniden incelenir.
-- İlk AAB henüz yüklenmedi; native release doğrulaması ve kapalı test açık.
+- Telefon mağaza görselleri yüklendi; ilk AAB henüz yüklenmedi. Native release doğrulaması ve kapalı test açık.
 
 ## Değişiklik günlüğü
 
 - **13 Ekim 2026:** Play Console uygulama kaydı oluşturuldu; Vakitname/package/developer adı doğrulandı. Reklam, içerik derecelendirmesi ve hedef kitle cevapları tamamlandı. Veri Güvenliği formu EAS Update teknik veri akışına göre dolduruluyor. Varsayılan mağaza girişine kısa/tam açıklama, 512×512 ikon ve 1024×500 metinsiz feature graphic yüklendi; feature graphic nedeniyle AI-üretimli öğe etiketi seçilecek. Android 16 Pixel 7 emülatörü + Expo Go'da Home, Kıble, Ramazan imsakiyesi, Bildirimler ve Gün batımı Home ekranları yakalandı; 1080×1920 çıktılar `output/play-store/screenshots/` altında doğrulandı.
+- **13 Ekim 2026:** Telefon ekran görüntüleri Play Console'a yüklendi; kesin yedi görsel sırası bu belgede kaydedildi. Set farklı işlevleri ve gece temasındaki Kıble ekranını içeriyor; gündüz Kıble ve tekrarlanan Home varyasyonları bilinçli olarak dışarıda bırakıldı.

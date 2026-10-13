@@ -232,6 +232,7 @@ Tasarım koruması: 76 referans dosyasının sıralı yol+SHA256 birleşik hash'
 - Hicri tarih ekranı gün batımı paletinde ayrıca `08-hijri-sunset.png` olarak yakalandı; mağaza setindeki görsellerin her biri farklı bir uygulama işlevini göstermesi hedefleniyor.
 - Gece görünümü manuel seçilerek Kıble ekranı `09-qibla-night.png` olarak 1080×1920 yakalandı; işlem sonunda görünüm otomatik ayara geri alındı.
 - `08-hijri-sunset.png` yeniden yakalandı ve içerik doğrulandı: “Hicri tarih”, Miladi/Hicri karşılık ve ±2 günlük düzeltme kontrolleri görünür; PNG boyutu 1080×1920.
+- Kullanıcı 13 Ekim 2026'da Play Console'a yedi telefon görselini şu sırayla yükledi: `07-home-sunset-overview.png`, `09-qibla-night.png`, `03-calendar.png`, `03-ramadan-calendar.png`, `04-notifications.png`, `06-settings-sunset.png`, `08-hijri-sunset.png`. Bu yükleme durumu kullanıcı beyanına dayanır; Play Console iç ekranı ayrıca bu oturumda açılmadı.
 
 # 13 Ekim 2026 — Gün batımı ayar ekranı renk uyumu
 

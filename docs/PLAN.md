@@ -53,7 +53,7 @@ Kıble ekranı eklendi. Seçili konumdan Kâbe'ye büyük çember başlangıç d
 3. Faz 5 fiziksel cihaz doğrulaması: gerçek-kuzey/manyetik ayrımı, izin reddi/izin verme, hareket/kalibrasyon, uygulamadan çıkışta abonelik temizliği.
 4. Faz 6 release kapısı: Android native splash ve adaptive launcher maskesi, Play Store önizlemesi, EAS imzalama anahtarı, production AAB ve gerçek manifest kontrolü.
 5. Gizlilik yayın kapısı: Play geliştirici profilindeki görünen adı doğrula; güncel `privacy-site/` klasörü `https://vakit-privacy.netlify.app/` adresinde yayımlandı ve başlık/tarih/EAS Update içeriği canlıda doğrulandı; URL'yi Play Console'a gir; hedef kitle/Families ve Veri Güvenliği cevaplarını yayımlanan AAB ile son kez doğrula.
-6. Mağaza teslimi: 512×512 ikon, feature graphic ve telefon ekran görüntülerini hazırla; Eylül 2026'da açılan kişisel hesap için en az 12 katılımcıyla 14 gün kesintisiz kapalı testi tamamla; ardından production erişimine başvur.
+6. Mağaza teslimi: 512×512 ikon, feature graphic ve yedi telefon ekran görüntüsü Play Console'a yüklendi; Eylül 2026'da açılan kişisel hesap için en az 12 katılımcıyla 14 gün kesintisiz kapalı testi tamamla; ardından production erişimine başvur.
 
 Hesap, reklam, backend, widget, tam ezan, PDF, mukabele ve zikirmatik kapsam dışı. Remote/push/yayınlama yapılmadı.
 
@@ -71,9 +71,10 @@ Node 24 ile `npm run check`, `npm run test:timezones`, `npx expo-doctor`. EAS ya
 - 13 Ekim 2026 mağaza setine farklı işlevi göstermek üzere gün batımı Hicri tarih ekranı (`08-hijri-sunset.png`) eklendi; aynı Home ekranını tekrarlamak yerine aylık takvim, Ramazan, bildirim, ayarlar ve Hicri işlevleri ayrı görsellerle sunuluyor.
 - 13 Ekim 2026 son mağaza slotu için farklı bir işlevi gösteren gece temalı Kıble (`09-qibla-night.png`) yakalandı; işlem sonrası emülatör görünümü otomatik ayara döndürüldü.
 - 13 Ekim 2026 `08-hijri-sunset.png` içeriğinin yanlışlıkla Home olarak kaydedildiği doğrulandı; gerçek Hicri tarih ekranı 1080×1920 olarak yeniden yakalanıp dosyanın yerine kondu.
+- 13 Ekim 2026 Play Console telefon ekran görüntüleri kullanıcı tarafından kesin sırayla yüklendi: `07-home-sunset-overview.png`, `09-qibla-night.png`, `03-calendar.png`, `03-ramadan-calendar.png`, `04-notifications.png`, `06-settings-sunset.png`, `08-hijri-sunset.png`.
 - 13 Ekim 2026 gün batımı renk uyumu düzeltildi: `surfaceStrong`, vurgu ve çizgi renkleri Vakit hesabı/Hicri tarih/Kıble merkezinde sıcak yarı saydam sunset paletine taşındı. Emülatör görsel kontrolü ve `npm run check` (88/88) geçti.
 
-- 13 Ekim 2026 Play Console varsayılan mağaza girişi önizlemesinde Vakitname adı, kısa/tam açıklama, uygulama ikonu ve feature graphic doğru göründü. Feature graphic ImageGen ile üretildiği için Console'da AI-üretimli/düzenlenmiş öğe etiketi seçilecek. Telefon/tablet/masaüstü ekran görüntüleri henüz yüklenmedi.
+- 13 Ekim 2026 Play Console varsayılan mağaza girişi önizlemesinde Vakitname adı, kısa/tam açıklama, uygulama ikonu ve feature graphic doğru göründü. Feature graphic ImageGen ile üretildiği için Console'da AI-üretimli/düzenlenmiş öğe etiketi seçilecek. Telefon ekran görüntülerinin yedi görsellik kesin seti kullanıcı tarafından yüklendi; tablet/masaüstü ekran görüntüleri kapsam dışı bırakıldı.
 
 - 13 Ekim 2026 Play Console uygulama kaydı kullanıcı tarafından oluşturuldu: mağaza adı **Vakitname**, paket `com.alemdem.vakitname`; geliştirici görünen adı **alemdem** olarak doğrulandı. Gizlilik HTML'i ve PDF'i bu adla güncellendi; Netlify sürümünün iletişim bölümünde son kez kontrol edilmesi yeterli. Sıradaki somut adım mağaza metinleri ve beyanlarını doldurmak, ardından EAS development build/A52 native kabul turuna geçmektir.
 
