@@ -19,8 +19,8 @@ Bu belge, **Vakitname** uygulamasının Google Play Console'da doldurulan mağaz
 - **Tamamlandı/kayıtlı:** Uygulama kaydı, ad ve package, geliştirici adı ve destek e-postası, gizlilik URL'si, reklam/AD_ID, uygulama erişimi, içerik derecelendirmesi, hedef kitle, resmî kurum, finans ve sağlık beyanları ile Veri Güvenliği cevapları.
 - **Mağaza varlıkları Console'a yüklendi:** kısa açıklama, tam açıklama, uygulama ikonu, feature graphic ve aşağıda kesin sırası verilen yedi telefon ekran görüntüsü.
 - **Henüz tamamlandı olarak doğrulanmadı:** Yaşam Tarzı kategorisinin ve uygun etiketlerin kaydedilmesi, AI ile üretilmiş feature graphic beyanının seçilip kaydedilmesi, varsayılan mağaza girişinin son kaydı/uyarı kontrolü.
-- **Release tarafında açık:** İlk AAB, native manifest/izin kontrolü, kapalı test sürümü, en az 12 katılımcıyla 14 gün kesintisiz test ve production erişim başvurusu.
-- **14 Ekim 2026 kontrol paneli kanıtı:** Dahili testte test kullanıcıları ve yeni sürüm oluşturma adımları; kapalı testte ülke/bölge, test kullanıcıları ve yeni sürüm oluşturma adımları açık görünüyor. Üretim bölümünde en az 12 test kullanıcısı ve en az 14 gün kapalı test koşulu gösteriliyor. Henüz AAB yükleme veya test başlatma kanıtı yok.
+- **Release tarafında:** Production AAB `0.3.0-rc.1 (1)` dahili test kanalına yüklendi ve kullanıcı tarafından yayınlandı. Açık kalanlar native manifest/izin ve gerçek cihaz smoke testi, kapalı test sürümü, en az 12 katılımcıyla 14 gün kesintisiz test ve production erişim başvurusu.
+- **14 Ekim 2026 güncel durum:** Dahili test sürümü kaydedilip yayınlandı. Kapalı testte ülke/bölge, test kullanıcıları ve sürüm adımları açık; üretim erişimi için en az 12 test kullanıcısı ve en az 14 gün kapalı test koşulu geçerli.
 - **Durum dili:** Bu belgede “yüklendi” yalnız dosyanın Console'a aktarıldığını; “kaydedildi”, “incelemeye gönderildi” ve “yayımlandı” ayrı aşamaları ifade eder.
 
 ## Uygulama oluşturma ayarları
@@ -127,10 +127,11 @@ Konum, kişisel bilgiler, finans, sağlık, kişiler, takvim, fotoğraf/video, s
 - Cihazdaki uygulama adı: **Vakitname**.
 - Mağaza adı daha sonra değiştirilebilir; package ve cihaz adı bundan bağımsızdır.
 - Reklam, IAP, analiz, hesap, backend, push sunucusu veya yeni SDK eklenirse bu belge, Veri Güvenliği, gizlilik politikası, mağaza açıklaması ve gerekiyorsa hedef kitle beyanı birlikte yeniden incelenir.
-- Telefon mağaza görselleri yüklendi; ilk AAB henüz yüklenmedi. Native release doğrulaması ve kapalı test açık.
+- Telefon mağaza görselleri ve ilk production AAB dahili test kanalına yüklendi/yayınlandı. Native release doğrulaması, opt-in smoke testi ve kapalı test açık.
 
 ## Değişiklik günlüğü
 
 - **13 Ekim 2026:** Play Console uygulama kaydı oluşturuldu; Vakitname/package/developer adı doğrulandı. Reklam, içerik derecelendirmesi ve hedef kitle cevapları tamamlandı. Veri Güvenliği formu EAS Update teknik veri akışına göre dolduruluyor. Varsayılan mağaza girişine kısa/tam açıklama, 512×512 ikon ve 1024×500 metinsiz feature graphic yüklendi; feature graphic nedeniyle AI-üretimli öğe etiketi seçilecek. Android 16 Pixel 7 emülatörü + Expo Go'da Home, Kıble, Ramazan imsakiyesi, Bildirimler ve Gün batımı Home ekranları yakalandı; 1080×1920 çıktılar `output/play-store/screenshots/` altında doğrulandı.
 - **13 Ekim 2026:** Telefon ekran görüntüleri Play Console'a yüklendi; kesin yedi görsel sırası bu belgede kaydedildi. Set farklı işlevleri ve gece temasındaki Kıble ekranını içeriyor; gündüz Kıble ve tekrarlanan Home varyasyonları bilinçli olarak dışarıda bırakıldı.
 - **14 Ekim 2026:** Kullanıcının kontrol paneli ekran görüntüleri kaydedildi. Dahili ve kapalı test kanalları henüz sürümsüz; üretim erişimi için 12+ test kullanıcısı ve 14 gün kapalı test gereksinimi açıkça görünüyor. AAB/test dağıtımı henüz başlamadı.
+- **14 Ekim 2026 (güncel):** EAS production AAB build'i başarıyla tamamlandı; `0.3.0-rc.1 (1)` / `versionCode 1` AAB kullanıcı tarafından dahili test sürümüne sürükle-bırak ile yüklendi, uyarı ekranı incelendi ve **Kaydet ve yayınla** ile yayınlandı. Yeni indirme boyutu 31,5 MB olarak gösterildi; R8/proguard mapping uyarısı engelleyici değil. Play Console'a production yayını yapılmadı.

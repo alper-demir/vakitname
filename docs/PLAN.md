@@ -1,16 +1,16 @@
 # Devam noktası — 14 Ekim 2026
 
-Kullanıcı mağaza hazırlığını onayladı. Repository kökünde Faz 1–6 çalışıyor. **Vakitname marka/Android/EAS yapılandırması, Play Console içerik beyanlarının büyük bölümü ve varsayılan mağaza girişinin metin/ikon/feature graphic/telefon görselleri tamamlandı.** Yedi telefon görseli kesin sırayla Console'a yüklendi. 14 Ekim 2026 Play Console kontrol paneli ekran görüntülerinde dahili test ve kapalı test kanalları için henüz sürüm oluşturulmadığı; üretim erişimi için en az 12 test kullanıcısı ve en az 14 günlük kapalı test gerektiği görülüyor. Development build, APK, AAB veya OTA update yayımlanmadı; sıradaki teknik kapı Android AAB üretimi ve test kanalına yüklemedir.
+Kullanıcı mağaza hazırlığını onayladı. Repository kökünde Faz 1–6 çalışıyor. **Vakitname marka/Android/EAS yapılandırması, Play Console içerik beyanlarının büyük bölümü ve varsayılan mağaza girişinin metin/ikon/feature graphic/telefon görselleri tamamlandı.** Yedi telefon görseli kesin sırayla Console'a yüklendi. Production AAB başarıyla üretildi ve kullanıcı tarafından Play Console **dahili test** kanalında yayınlandı; production'a çıkılmadı. Üretim erişimi için en az 12 test kullanıcısı ve en az 14 günlük kapalı test hâlâ gerekiyor.
 
 ## Güncel yayın aşaması
 
 - **Tamamlandı:** Play uygulama kaydı, `com.alemdem.vakitname`, Vakitname adı, alemdem geliştirici adı, gizlilik URL'si, reklam/AD_ID, içerik derecelendirmesi, hedef kitle, sağlık/finans/resmî kurum beyanları ve EAS Update'e göre Veri Güvenliği cevapları.
 - **Mağaza girişi:** Kısa/tam açıklama, 512×512 ikon, 1024×500 feature graphic ve yedi adet 1080×1920 telefon görseli Console'a yüklendi. Kesin sıra `docs/PLAY-CONSOLE.md` içindedir.
 - **Console'da açık/doğrulanacak:** Yaşam Tarzı kategorisi ve uygun etiketlerin seçilip kaydedilmesi, AI ile üretilen feature graphic beyanının seçilip kaydedilmesi, varsayılan mağaza girişinin son kaydı/uyarı kontrolü.
-- **Release kapısı:** Kullanıcının açık build onayından sonra EAS development build; A52'de özel/sessiz bildirim kanalı, arka plan görevi, kesin alarm, Doze/reboot/force-stop, native ikon/splash ve manifest kabulü; ardından imzalı production AAB.
-- **Play Console test kanalları:** 14 Ekim 2026 ekran görüntülerine göre dahili testte test kullanıcıları ve sürüm bekliyor; kapalı testte ülke/bölge, test kullanıcıları ve sürüm adımları bekliyor. Dahili test kısa smoke test için önerilir; kişisel hesap üretim erişimi için kapalı test zorunludur.
+- **Release kapısı:** Production AAB dahili teste yayımlandı. Sıradaki release kapısı AAB'nin gerçek cihazda smoke testidir; ardından kapalı test kanalı, 12+ test kullanıcısı ve 14 gün kesintisiz test gelir.
+- **Play Console test kanalları:** Dahili test sürümü `0.3.0-rc.1 (1)` kullanıcı tarafından kaydedilip yayınlandı. Test kullanıcıları/opt-in bağlantısı ve gerçek cihaz smoke testi açık; kapalı testte ülke/bölge, test kullanıcıları ve sürüm adımları bekliyor. Kişisel hesap üretim erişimi için kapalı test zorunludur.
 - **Dağıtım kapısı:** Eylül 2026'da açılan kişisel hesap için en az 12 katılımcıyla 14 gün kesintisiz kapalı test, sonra production erişim başvurusu.
-- **Sıradaki somut adım:** Android kaynak adı düzeltildi ve yeni production AAB build'i kuyruğa alındı (`33c3b456-2d44-44ca-872d-6ba0a597bfe0`, durum: `IN_PROGRESS`). Tamamlanınca artifact/manifesti doğrula, ardından dahili testte smoke test yap ve kapalı test kanalını 12+ test kullanıcıyla başlat.
+- **Sıradaki somut adım:** Dahili testte yayınlanan `0.3.0-rc.1 (1)` sürümünü opt-in cihazda kurup A52 üzerinde manifest/izin, bildirim, özel ses-sessiz kanal, reboot/force-stop/Doze ve native ikon/splash smoke testlerini yap; sonuçlara göre kapalı testi başlat.
 
 ## Faz 1–2 durumu
 
@@ -72,6 +72,8 @@ Hesap, reklam, backend, widget, tam ezan, PDF, mukabele ve zikirmatik kapsam dı
 Node 24 ile `npm run check`, `npm run test:timezones`, `npx expo-doctor`. EAS yapılandırması için `npx eas-cli@latest config --platform android --profile development` ve `--profile production`; OTA önce `preview`, kabulden sonra `production` kanalına gönderilir. Native bağımlılık/izin/SDK/config/asset değişikliklerinde yeni build ve uygulama sürümü gerekir.
 
 ## Oturum devri
+
+- 14 Ekim 2026 dahili test başlangıcı: Production AAB build `33c3b456-2d44-44ca-872d-6ba0a597bfe0` başarıyla tamamlandı. Kullanıcı `0.3.0-rc.1 (1)` AAB'yi Play Console dahili test sürümüne sürükle-bırak ile yükledi, R8/proguard mapping uyarısını engelleyici olmayan uyarı olarak değerlendirip **Kaydet ve yayınla** ile yayınladı. Yeni indirme boyutu 31,5 MB. Sıradaki somut adım opt-in test kullanıcısı/cihazı ile smoke test; sonra kapalı test için ülke/bölge, 12+ test kullanıcısı ve 14 gün koşulu.
 
 - 13 Ekim 2026 Play Console kayıt defteri oluşturuldu: `docs/PLAY-CONSOLE.md`. Uygulama kaydı **Vakitname** / `com.alemdem.vakitname`, geliştirici adı **alemdem**, içerik derecelendirmesi ve hedef kitle cevapları kaydedildi. Veri Güvenliği formunda EAS Update nedeniyle teknik veri türleri beyan ediliyor; varsayılan mağaza girişi ve AAB/kapalı test açık.
 
@@ -185,6 +187,6 @@ Node 24 ile `npm run check`, `npm run test:timezones`, `npx expo-doctor`. EAS ya
 - Faz 2 `feature/phase2-onboarding-settings` dalında tamamlandı: onboarding, genel ayarlar, hesaplama düzeltmeleri ve Hicri düzeltme eklendi. Android Expo Go'da ayarlar navigasyonu, İmsak +1'in Home'a anında yansıması, “1 düzeltme” özeti, Hicri +1 canlı önizlemesi ve değerleri yeniden sıfırlama doğrulandı.
 - Faz 3 `feature/phase3-local-notifications` dalında geliştirildi ve `develop` ile birleştirildi: bildirim planlayıcı/uzlaştırma, ayarlar ve yardım ekranları.
 - Faz 4 Takvim ekranı ve Faz 5 Kıble tamamlandı. Faz 6 `feature/phase6-release` dalında geliştirildi: Hakkında/Gizlilik/Kaynak/Lisans ekranı, Ayarlar bağlantısı, temalı native splash, font yüklenirken marka yüzeyi ve Android ikonları eklendi. Adaptive icon Expo config ve emülatör Metro bundle akışıyla kontrol edildi; native release build, launcher maskesi ve Play Console yüklemesi hâlâ açık kapıdır.
-- `android/` ve `dist/` mevcut değil; APK/AAB yok. `expo-system-ui` kaldırıldı ve `app.json` prebuild öncesi durumuna döndü.
+- EAS production AAB üretildi ve Play Console dahili test kanalına yüklendi/yayınlandı; repository'de `android/` ve `dist/` tutulmuyor. `expo-system-ui` kaldırıldı ve `app.json` prebuild öncesi durumuna döndü.
 
 Yeni oturumda AGENTS.md ve bu dosyayı oku; tüm tasarımları tekrar tarama. Mimari/kaynak/validasyon belgelerinin yalnız gerekli bölümünü aç.

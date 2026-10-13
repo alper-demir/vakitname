@@ -266,6 +266,13 @@ Tasarım koruması: 76 referans dosyasının sıralı yol+SHA256 birleşik hash'
 - Yeni EAS production build `33c3b456-2d44-44ca-872d-6ba0a597bfe0` olarak kuyruğa alındı ve `IN_PROGRESS`. Package `com.alemdem.vakitname`, `appVersion` `0.3.0-rc.1`, `versionCode` `1`, dağıtım `STORE` ve production channel doğrulandı.
 - İlk hatalı build `75b25247-e3d3-4218-870a-df72ba837791` olarak başarısız kaldı; Play Console'a hiçbir artifact yüklenmedi. Yeni build tamamlanınca AAB indirme, imza/manifest ve gerçek cihaz kontrolleri yapılacak.
 
+## 14 Ekim 2026 — Dahili test sürümü yayımlandı
+
+- Kullanıcı EAS build `33c3b456-2d44-44ca-872d-6ba0a597bfe0` artifact'ini indirdi ve Play Console dahili test sürümüne sürükle-bırak ile yükledi.
+- Play Console sürüm özeti `1 (0.3.0-rc.1)`, target SDK 36, API 24+, 16 KB bellek sayfası desteği ve 31,5 MB yeni indirme boyutu gösterdi. AAB'nin 79 MB dosya boyutu ile mağazadaki cihaz-özel indirme boyutu birbirinden farklıdır.
+- R8/proguard mapping dosyası bulunamadı uyarısı gösterildi; R8 etkin olmadığı için bu bir yayın engeli değildir. İlk dahili testte yeni build almadan devam edildi.
+- Kullanıcı **Kaydet ve yayınla** ile dahili test sürümünü yayımladı. Bu, production yayını değildir. Opt-in bağlantısı/test kullanıcısı kurulumu ve A52 smoke testi açık; kapalı testin 12+ katılımcı/14 gün koşulu henüz başlamadı.
+
 # 13 Ekim 2026 — Gün batımı ayar ekranı renk uyumu
 
 - Gün batımı temasında `Vakit hesabı`, `Hicri tarih` ve Kıble pusula merkezindeki koyu lacivert `surfaceStrong` yüzeyleri sıcak, yarı saydam gün batımı yüzeylerine bağlandı. Emülatörde vakit düzeltme satırları, Hicri ± düğmeleri/çipleri ve canlı Hicri önizleme diğer ekranlarla tutarlı göründü.
