@@ -231,6 +231,7 @@ Tasarım koruması: 76 referans dosyasının sıralı yol+SHA256 birleşik hash'
 - Görseller repository içinde `output/play-store/screenshots/` altında tutuluyor; tasarım referansı veya WebView çıktısı kullanılmadı. Kıble ekranı emülatör sensörü/konum izni sınırlaması nedeniyle manuel açı durumunu gösteriyor; bu durum görselin gerçek uygulama yüzeyi olduğunu değiştirmiyor.
 - Hicri tarih ekranı gün batımı paletinde ayrıca `08-hijri-sunset.png` olarak yakalandı; mağaza setindeki görsellerin her biri farklı bir uygulama işlevini göstermesi hedefleniyor.
 - Gece görünümü manuel seçilerek Kıble ekranı `09-qibla-night.png` olarak 1080×1920 yakalandı; işlem sonunda görünüm otomatik ayara geri alındı.
+- `08-hijri-sunset.png` yeniden yakalandı ve içerik doğrulandı: “Hicri tarih”, Miladi/Hicri karşılık ve ±2 günlük düzeltme kontrolleri görünür; PNG boyutu 1080×1920.
 
 # 13 Ekim 2026 — Gün batımı ayar ekranı renk uyumu
 
