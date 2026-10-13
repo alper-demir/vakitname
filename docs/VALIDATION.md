@@ -260,6 +260,12 @@ Tasarım koruması: 76 referans dosyasının sıralı yol+SHA256 birleşik hash'
 - İlk production build `75b25247-e3d3-4218-870a-df72ba837791` prebuild aşamasında durdu. Expo Notifications config plugin, `vakit-tone` Android kaynak adını geçersiz buldu; Android kaynak adları tire içeremez.
 - Kaynak dosyası `assets/sounds/vakit_tone.wav` olarak yeniden adlandırıldı; `app.json`, bildirim scheduler'ı ve teknik belgelerdeki referanslar güncellendi. Yeni build, bu düzeltmenin commit edilip kontrolleri geçmesinden sonra tekrar kuyruğa alınacaktır.
 
+## 14 Ekim 2026 — Düzeltilmiş production AAB build kuyruğu
+
+- `npm run check` (88/88), Expo Doctor (21/21) ve Expo config kontrolleri düzeltmeden sonra geçti; commit `e0fd887`.
+- Yeni EAS production build `33c3b456-2d44-44ca-872d-6ba0a597bfe0` olarak kuyruğa alındı ve `IN_PROGRESS`. Package `com.alemdem.vakitname`, `appVersion` `0.3.0-rc.1`, `versionCode` `1`, dağıtım `STORE` ve production channel doğrulandı.
+- İlk hatalı build `75b25247-e3d3-4218-870a-df72ba837791` olarak başarısız kaldı; Play Console'a hiçbir artifact yüklenmedi. Yeni build tamamlanınca AAB indirme, imza/manifest ve gerçek cihaz kontrolleri yapılacak.
+
 # 13 Ekim 2026 — Gün batımı ayar ekranı renk uyumu
 
 - Gün batımı temasında `Vakit hesabı`, `Hicri tarih` ve Kıble pusula merkezindeki koyu lacivert `surfaceStrong` yüzeyleri sıcak, yarı saydam gün batımı yüzeylerine bağlandı. Emülatörde vakit düzeltme satırları, Hicri ± düğmeleri/çipleri ve canlı Hicri önizleme diğer ekranlarla tutarlı göründü.
