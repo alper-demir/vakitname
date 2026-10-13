@@ -4,13 +4,13 @@ Son güncelleme: 6 Ekim 2026
 
 Bu Gizlilik Politikası, **Vakitname** Android uygulamasının kullanıcı ve cihaz verilerine nasıl eriştiğini, bunları hangi amaçlarla kullandığını, nerede tuttuğunu ve nasıl silebileceğinizi açıklar.
 
-Veri sorumlusu ve uygulama geliştiricisi: **Google Play geliştirici profilinde yayımlanan geliştirici**
+Veri sorumlusu ve uygulama geliştiricisi: **alemdem**
 
 Gizlilik iletişimi: **support.alemdem@gmail.com**
 
 Yayımlanan politika: **https://vakit-privacy.netlify.app/**
 
-> Yayın notu: Destek adresi doğrulanmıştır. Geliştirici adı, Google Play geliştirici profilindeki görünen adla yayımdan önce birebir eşleştirilecektir.
+> Yayın notu: Destek adresi ve Google Play geliştirici görünen adı **alemdem** olarak doğrulanmıştır.
 
 ## 1. Uygulama ne yapar?
 

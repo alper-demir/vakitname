@@ -76,8 +76,8 @@ Tam açıklama taslağı:
 
 1. Mağaza adı **Vakitname: Namaz & Kıble**, cihazdaki görünen ad **Vakitname** olarak kesinleşti ve kaynaklara uygulandı.
 2. Android kimliği `com.alemdem.vakitname`, ilk `versionCode` değeri `1` olarak tanımlandı. İmzalama kimliği ilk EAS build sırasında oluşturulacak; AAB henüz üretilmedi.
-3. Herkese açık destek adresi kullanıcı tarafından `support.alemdem@gmail.com` olarak doğrulandı. Geliştirici adı Play geliştirici profiliyle birebir doğrulanmalı.
-4. `privacy-site/` içeriğinin Vakitname/EAS açıklamalı yeni sürümü hazırlandı. Canlı `https://vakit-privacy.netlify.app/` adresi manuel Netlify yüklemesiyle güncellenmeli ve aynı URL Play Console gizlilik politikası alanına girilmeli.
+3. Herkese açık destek adresi `support.alemdem@gmail.com`, geliştirici görünen adı `alemdem` olarak doğrulandı.
+4. `privacy-site/` içeriğinin Vakitname/EAS açıklamalı yeni sürümü hazırlandı. Canlı `https://vakit-privacy.netlify.app/` adresi manuel Netlify yüklemesiyle güncellendi ve aynı URL Play Console gizlilik politikası alanına girilmeli.
 5. Production AAB manifesti ve Play Console App Bundle Explorer'daki izinler denetlenmeli. Expo Go manifesti release kanıtı değildir.
 6. Production build'de bildirim izni, kesin zamanlama, günlük arka plan kuyruk yenilemesi, özel ses, sessiz kanal, ekran kilidi, force-stop/reboot/Doze ve pil davranışı doğrulanmalı.
 7. Hedef kitle, içerik derecelendirmesi, reklam/Veri Güvenliği ve Families seçimleri ürün sahibince tamamlanmalı. Uygulama çocuklara özel hedeflenmiyorsa bu seçim mağaza metni ve görsellerle tutarlı olmalı.

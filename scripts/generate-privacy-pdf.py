@@ -293,7 +293,7 @@ def build_pdf() -> None:
     ])
 
     contact = Table(
-        [[Paragraph("<b>Veri sorumlusu ve geliştirici</b><br/>Google Play geliştirici profilinde yayımlanan geliştirici<br/><font color='#315E45'>support.alemdem@gmail.com</font>", styles["Contact"])]],
+        [[Paragraph("<b>Veri sorumlusu ve geliştirici</b><br/>alemdem<br/><font color='#315E45'>support.alemdem@gmail.com</font>", styles["Contact"])]],
         colWidths=[doc_width()],
     )
     contact.setStyle(TableStyle([
