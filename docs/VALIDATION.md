@@ -234,6 +234,14 @@ Tasarım koruması: 76 referans dosyasının sıralı yol+SHA256 birleşik hash'
 - `08-hijri-sunset.png` yeniden yakalandı ve içerik doğrulandı: “Hicri tarih”, Miladi/Hicri karşılık ve ±2 günlük düzeltme kontrolleri görünür; PNG boyutu 1080×1920.
 - Kullanıcı 13 Ekim 2026'da Play Console'a yedi telefon görselini şu sırayla yükledi: `07-home-sunset-overview.png`, `09-qibla-night.png`, `03-calendar.png`, `03-ramadan-calendar.png`, `04-notifications.png`, `06-settings-sunset.png`, `08-hijri-sunset.png`. Bu yükleme durumu kullanıcı beyanına dayanır; Play Console iç ekranı ayrıca bu oturumda açılmadı.
 
+# 14 Ekim 2026 — AAB öncesi doğrulama
+
+- `npm run check`: geçti — 10 test paketi, 88 test; strict TypeScript ve ESLint dahil.
+- `npm run test:timezones`: geçti — üç host saat diliminde toplam 28/28 test.
+- `npm ci --dry-run --ignore-scripts`: lockfile kurulumu başarılı. Yalnız Node engine uyarısı (proje `>=24 <25`, mevcut Node `25.2.1`) ve test-renderer'ın React peer uyarısı görüldü; dosya değişmedi.
+- `npx eas-cli@latest config --platform android --profile production`: geçti; `com.alemdem.vakitname`, `versionCode: 1`, `channel: production`, `buildType: app-bundle`, remote credentials doğrulandı. Build başlatılmadı.
+- `npx expo-doctor`: 20/21 geçti. Tek başarısız kontrol, SDK 57'nin güncel patch beklentileriyle 7 paketin geride olmasıdır: `expo`, `expo-dev-client`, `expo-location`, `expo-router`, `expo-splash-screen`, `expo-updates`, `jest-expo`. Build öncesi Node 24.x'e dönülüp `npx expo install --check` sonucuna göre paket hizalaması yapılmalıdır.
+
 # 13 Ekim 2026 — Gün batımı ayar ekranı renk uyumu
 
 - Gün batımı temasında `Vakit hesabı`, `Hicri tarih` ve Kıble pusula merkezindeki koyu lacivert `surfaceStrong` yüzeyleri sıcak, yarı saydam gün batımı yüzeylerine bağlandı. Emülatörde vakit düzeltme satırları, Hicri ± düğmeleri/çipleri ve canlı Hicri önizleme diğer ekranlarla tutarlı göründü.
