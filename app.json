@@ -47,7 +47,7 @@
         "expo-notifications",
         {
           "sounds": [
-            "./assets/sounds/vakit-tone.wav"
+            "./assets/sounds/vakit_tone.wav"
           ],
           "color": "#628567"
         }

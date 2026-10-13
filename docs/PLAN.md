@@ -10,7 +10,7 @@ Kullanıcı mağaza hazırlığını onayladı. Repository kökünde Faz 1–6 �
 - **Release kapısı:** Kullanıcının açık build onayından sonra EAS development build; A52'de özel/sessiz bildirim kanalı, arka plan görevi, kesin alarm, Doze/reboot/force-stop, native ikon/splash ve manifest kabulü; ardından imzalı production AAB.
 - **Play Console test kanalları:** 14 Ekim 2026 ekran görüntülerine göre dahili testte test kullanıcıları ve sürüm bekliyor; kapalı testte ülke/bölge, test kullanıcıları ve sürüm adımları bekliyor. Dahili test kısa smoke test için önerilir; kişisel hesap üretim erişimi için kapalı test zorunludur.
 - **Dağıtım kapısı:** Eylül 2026'da açılan kişisel hesap için en az 12 katılımcıyla 14 gün kesintisiz kapalı test, sonra production erişim başvurusu.
-- **Sıradaki somut adım:** EAS production AAB build'i kuyruğa alındı (`75b25247-e3d3-4218-870a-df72ba837791`, durum: `IN_PROGRESS`). Tamamlanınca AAB'yi indirip/Play Console'a yüklemeden önce build sonucunu ve manifesti doğrula; ardından dahili testte smoke test yap, sonra kapalı test kanalını 12+ test kullanıcıyla başlat.
+- **Sıradaki somut adım:** İlk production build prebuild'de Android kaynak adı hatasıyla durdu. `vakit-tone` → `vakit_tone` düzeltildi; kontrollerden sonra yeni production AAB build'ini kuyruğa al, tamamlanınca artifact/manifesti doğrula, ardından dahili testte smoke test yap ve kapalı test kanalını 12+ test kullanıcıyla başlat.
 
 ## Faz 1–2 durumu
 

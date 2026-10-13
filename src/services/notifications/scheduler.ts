@@ -71,7 +71,7 @@ async function ensureChannels(Notifications: NotificationsModule) {
   if (Platform.OS !== 'android' || isExpoGo) return;
   await Notifications.setNotificationChannelAsync(SOUND_CHANNEL, {
     name: 'Vakitname bildirimleri', description: 'Namaz vakti ve ön hatırlatma bildirimleri',
-    importance: Notifications.AndroidImportance.HIGH, sound: isExpoGo ? 'default' : 'vakit-tone.wav',
+    importance: Notifications.AndroidImportance.HIGH, sound: isExpoGo ? 'default' : 'vakit_tone.wav',
     vibrationPattern: [0, 180, 90, 180], enableVibrate: true,
   });
   await Notifications.setNotificationChannelAsync(SILENT_CHANNEL, {
@@ -115,7 +115,7 @@ export const notificationScheduler = {
       await Notifications.scheduleNotificationAsync({
         identifier: item.id,
         content: {
-          title: item.title, body: item.body, sound: silent ? undefined : sound === 'default' || isExpoGo ? 'default' : 'vakit-tone.wav',
+          title: item.title, body: item.body, sound: silent ? undefined : sound === 'default' || isExpoGo ? 'default' : 'vakit_tone.wav',
           data: { owner: OWNER, prayerId: item.prayerId, localDate: item.localDate, kind: item.kind },
         },
         trigger: {
@@ -139,7 +139,7 @@ export const notificationScheduler = {
     await ensureChannels(Notifications);
     const silent = sound === 'silent';
     await Notifications.scheduleNotificationAsync({
-      content: { title: 'Vakitname bildirimi hazır', body: 'Bu bir test bildirimidir.', sound: silent ? undefined : sound === 'default' || isExpoGo ? 'default' : 'vakit-tone.wav', data: { owner: 'vakit-test' } },
+      content: { title: 'Vakitname bildirimi hazır', body: 'Bu bir test bildirimidir.', sound: silent ? undefined : sound === 'default' || isExpoGo ? 'default' : 'vakit_tone.wav', data: { owner: 'vakit-test' } },
       trigger: {
         type: Notifications.SchedulableTriggerInputTypes.TIME_INTERVAL,
         seconds: 3,
@@ -159,7 +159,7 @@ export const notificationScheduler = {
       content: {
         title: item.title,
         body: item.body,
-        sound: silent ? undefined : preferences.sound === 'default' || isExpoGo ? 'default' : 'vakit-tone.wav',
+        sound: silent ? undefined : preferences.sound === 'default' || isExpoGo ? 'default' : 'vakit_tone.wav',
         data: { owner: 'vakit-simulation', kind: index === 0 && preferences.reminderMinutes > 0 ? 'reminder' : 'prayer-time' },
       },
       trigger: {
