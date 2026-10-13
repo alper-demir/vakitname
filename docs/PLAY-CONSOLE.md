@@ -87,10 +87,28 @@ Konum, kişisel bilgiler, finans, sağlık, kişiler, takvim, fotoğraf/video, s
 ## Mağaza girişi — hazırlanan değerler
 
 - Mağaza adı: **Vakitname**
-- Kısa açıklama: `Namaz vakitleri, kıble ve Ramazan takvimi; reklamsız ve cihazında.`
+- Kısa açıklama (71/80 karakter): `Namaz vakitleri, kıble, Ramazan ve bildirimler; reklamsız ve cihazında.`
 - Gizlilik politikası URL'si: `https://vakit-privacy.netlify.app/`
-- Tam açıklama: `docs/PLAY-STORE-COMPLIANCE.md` içindeki “Mağaza açıklaması taslağı” temel alınacak.
-- İkon, feature graphic ve telefon ekran görüntüleri: açık
+- Tam açıklama (846/4000 karakter):
+
+  > Vakitname, seçtiğin konuma göre namaz vakitlerini cihazında hesaplayan sade bir Android uygulamasıdır. Sıradaki vakti ve kalan süreyi gör, kıble yönünü bul, aylık vakit takvimini ve Ramazan imsakiyesini incele.
+  >
+  > Öne çıkanlar
+  > • GPS ile konum bulma veya şehir/ilçe seçimi
+  > • Sıradaki vakit ve canlı geri sayım
+  > • Kıble yönü ve pusula desteği
+  > • Aylık namaz vakti takvimi ve Ramazan imsakiyesi
+  > • İsteğe bağlı yerel vakit hatırlatmaları
+  > • Vakit ve Hicri tarih için kullanıcı ayarları
+  > • Günün zamanına ve Ramazan dönemine uyum sağlayan görünüm
+  >
+  > Vakitname hesap, reklam veya zorunlu üyelik içermez. Konumun ve tercihlerin cihazında tutulur; temel vakit ve kıble hesaplamaları cihaz üzerinde yapılır.
+  >
+  > Vakitname resmî bir Diyanet uygulaması değildir. Saatler Adhan JS Türkiye hesaplama yöntemiyle üretilir; resmî tablolarla küçük farklılıklar gösterebilir.
+
+- Uygulama ikonu: `output/play-store/app-icon-512.png` (512×512 32-bit PNG, alfa kanallı) hazır; kaynak `assets/icon/vakit-icon.png`.
+- Feature graphic: `output/play-store/feature-graphic-v1.png` (1024×500 PNG, metinsiz) hazır.
+- Telefon ekran görüntüleri: yalnız gerçek uygulama deneyimini gösterecek dört 9:16 portre görsel (en az 1080×1920) hazırlanacak. Sıra: Home/sıradaki vakit, Kıble, Ramazan imsakiyesi, Bildirimler.
 - Etiketler: Play Console'un sunduğu listeden namaz/prayer, kıble/qibla, Ramazan/Ramadan, takvim/calendar ve hatırlatıcı/bildirim karşılıkları varsa seçilecek; desteklenmeyen etiketler seçilmeyecek.
 
 ## Değişmez/özel dikkat gerektiren değerler
@@ -103,4 +121,4 @@ Konum, kişisel bilgiler, finans, sağlık, kişiler, takvim, fotoğraf/video, s
 
 ## Değişiklik günlüğü
 
-- **13 Ekim 2026:** Play Console uygulama kaydı oluşturuldu; Vakitname/package/developer adı doğrulandı. Reklam, içerik derecelendirmesi ve hedef kitle cevapları tamamlandı. Veri Güvenliği formu EAS Update teknik veri akışına göre dolduruluyor. Varsayılan mağaza girişi henüz tamamlanmadı.
+- **13 Ekim 2026:** Play Console uygulama kaydı oluşturuldu; Vakitname/package/developer adı doğrulandı. Reklam, içerik derecelendirmesi ve hedef kitle cevapları tamamlandı. Veri Güvenliği formu EAS Update teknik veri akışına göre dolduruluyor. Varsayılan mağaza girişi için kısa/tam açıklama kesinleştirildi; 1024×500 metinsiz feature graphic üretildi. Telefon ekran görüntüleri gerçek native uygulama üzerinden henüz alınmadı.
