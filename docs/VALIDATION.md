@@ -249,6 +249,12 @@ Tasarım koruması: 76 referans dosyasının sıralı yol+SHA256 birleşik hash'
 - `npm ls --depth=0` ile hizalanan doğrudan bağımlılıklar doğrulandı; `git diff --check` temizdir. React 19.2.3 için test-renderer peer uyarısı yalnızca geliştirme/test ağacındadır; `audit fix --force` veya uyumsuz downgrade uygulanmadı.
 - Proje motor aralığı `>=24 <25` olduğundan release komutları Node 24.x ile çalıştırılmalıdır. EAS production yapılandırması doğrulanmış olsa da AAB build bu kontrolde başlatılmadı; kullanıcı onayı sonrası ayrı release adımıdır.
 
+## 14 Ekim 2026 — Production AAB build kuyruğu
+
+- Kullanıcının açık onayıyla Node 24 ortamından `eas build --platform android --profile production --non-interactive` başlatıldı.
+- EAS build kimliği `75b25247-e3d3-4218-870a-df72ba837791`; mevcut durum `IN_PROGRESS`. Profil `production`, dağıtım `STORE`, package `com.alemdem.vakitname`, `appVersion` `0.3.0-rc.1`, `versionCode` `1`, channel `production` ve commit `51c41e5` olarak doğrulandı.
+- Build süreci kuyruğa alındı ve EAS fingerprint hesaplandı. Artifact henüz hazır değil; AAB tamamlandıktan sonra indirme, imza/manifest kontrolü ve Play Console yüklemesi ayrı adımlardır.
+
 # 13 Ekim 2026 — Gün batımı ayar ekranı renk uyumu
 
 - Gün batımı temasında `Vakit hesabı`, `Hicri tarih` ve Kıble pusula merkezindeki koyu lacivert `surfaceStrong` yüzeyleri sıcak, yarı saydam gün batımı yüzeylerine bağlandı. Emülatörde vakit düzeltme satırları, Hicri ± düğmeleri/çipleri ve canlı Hicri önizleme diğer ekranlarla tutarlı göründü.
