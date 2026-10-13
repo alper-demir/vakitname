@@ -107,7 +107,7 @@ Konum, kişisel bilgiler, finans, sağlık, kişiler, takvim, fotoğraf/video, s
   > Vakitname resmî bir Diyanet uygulaması değildir. Saatler Adhan JS Türkiye hesaplama yöntemiyle üretilir; resmî tablolarla küçük farklılıklar gösterebilir.
 
 - Uygulama ikonu: `output/play-store/app-icon-512.png` (512×512 32-bit PNG, alfa kanallı) hazır; kaynak `assets/icon/vakit-icon.png`.
-- Feature graphic: `output/play-store/feature-graphic-v1.png` (1024×500 PNG, metinsiz) hazır.
+- Feature graphic: `output/play-store/feature-graphic-v1.jpg` (1024×500 opak JPEG, metinsiz) hazır. PNG kaynak dosyası arşivde tutulur.
 - Telefon ekran görüntüleri: yalnız gerçek uygulama deneyimini gösterecek dört 9:16 portre görsel (en az 1080×1920) hazırlanacak. Sıra: Home/sıradaki vakit, Kıble, Ramazan imsakiyesi, Bildirimler.
 - Etiketler: Play Console'un sunduğu listeden namaz/prayer, kıble/qibla, Ramazan/Ramadan, takvim/calendar ve hatırlatıcı/bildirim karşılıkları varsa seçilecek; desteklenmeyen etiketler seçilmeyecek.
 
