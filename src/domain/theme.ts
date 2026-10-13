@@ -42,6 +42,7 @@ export function resolveTheme({ season, phase, ramadan, preferences, systemDark }
   const background: Theme['background'] = festive
     ? dark ? ['#09241F', '#12372E', '#182D36'] : ['#F7F2E3', '#ECF2E8', '#DDE8DD']
     : regularBackground;
+  const sunsetDark = dark && phasePalette && effectivePhase === 'sunset';
   if (festive) return {
     season: chosen, phase: effectivePhase, dark, ramadan: true, background,
     surface: dark ? '#FFF4D80D' : '#FFFDF2C7', surfaceStrong: dark ? '#173B32' : '#FFFDF4',
@@ -52,11 +53,11 @@ export function resolveTheme({ season, phase, ramadan, preferences, systemDark }
   };
   return {
     season: chosen, phase: effectivePhase, dark, ramadan: false, background,
-    surface: dark ? '#FFFFFF09' : '#FFFFFFA6', surfaceStrong: dark ? '#223346' : '#FFFFFF',
+    surface: dark ? '#FFFFFF09' : '#FFFFFFA6', surfaceStrong: dark ? (sunsetDark ? '#FFFFFF14' : '#223346') : '#FFFFFF',
     text: dark ? '#F1F2EA' : '#263C32', muted: dark ? '#B9C7CF' : '#627568', subtle: dark ? '#95A5B4' : '#6D7F73',
     accent: dark ? palette.darkAccent : palette.accent,
-    accentText: dark ? '#142333' : '#FFFFFF', highlight: dark ? '#FFFFFF0D' : '#E7EEDFAA',
-    line: dark ? '#FFFFFF14' : '#49694E16', track: dark ? '#FFFFFF14' : '#49694E14',
+    accentText: dark ? '#142333' : '#FFFFFF', highlight: dark ? (sunsetDark ? '#F0C98720' : '#FFFFFF0D') : '#E7EEDFAA',
+    line: dark ? (sunsetDark ? '#F6D6B52B' : '#FFFFFF14') : '#49694E16', track: dark ? '#FFFFFF14' : '#49694E14',
     landscape: dark ? '#32475B' : palette.landscape, glow: dark ? palette.darkAccent : palette.accent,
   };
 }
