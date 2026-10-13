@@ -14,6 +14,14 @@ Bu belge, **Vakitname** uygulamasının Google Play Console'da doldurulan mağaz
 - Gizlilik politikası: <https://vakit-privacy.netlify.app/>
 - İlk `versionCode`: `1`
 
+## Güncel aşama — 13 Ekim 2026
+
+- **Tamamlandı/kayıtlı:** Uygulama kaydı, ad ve package, geliştirici adı ve destek e-postası, gizlilik URL'si, reklam/AD_ID, uygulama erişimi, içerik derecelendirmesi, hedef kitle, resmî kurum, finans ve sağlık beyanları ile Veri Güvenliği cevapları.
+- **Mağaza varlıkları Console'a yüklendi:** kısa açıklama, tam açıklama, uygulama ikonu, feature graphic ve aşağıda kesin sırası verilen yedi telefon ekran görüntüsü.
+- **Henüz tamamlandı olarak doğrulanmadı:** Yaşam Tarzı kategorisinin ve uygun etiketlerin kaydedilmesi, AI ile üretilmiş feature graphic beyanının seçilip kaydedilmesi, varsayılan mağaza girişinin son kaydı/uyarı kontrolü.
+- **Release tarafında açık:** İlk AAB, native manifest/izin kontrolü, kapalı test sürümü, en az 12 katılımcıyla 14 gün kesintisiz test ve production erişim başvurusu.
+- **Durum dili:** Bu belgede “yüklendi” yalnız dosyanın Console'a aktarıldığını; “kaydedildi”, “incelemeye gönderildi” ve “yayımlandı” ayrı aşamaları ifade eder.
+
 ## Uygulama oluşturma ayarları
 
 - Varsayılan dil: Türkçe

@@ -1,6 +1,15 @@
-# Devam noktası — 6 Ekim 2026
+# Devam noktası — 13 Ekim 2026
 
-Kullanıcı mağaza hazırlığını onayladı. Repository kökünde Faz 1–6 çalışıyor. **Vakitname marka/Android/EAS yapılandırması tamamlandı; production native doğrulama, mağaza materyalleri ve kapalı test kapıları açık.** Henüz development build, APK, AAB veya OTA update yayımlanmadı.
+Kullanıcı mağaza hazırlığını onayladı. Repository kökünde Faz 1–6 çalışıyor. **Vakitname marka/Android/EAS yapılandırması, Play Console içerik beyanlarının büyük bölümü ve varsayılan mağaza girişinin metin/ikon/feature graphic/telefon görselleri tamamlandı.** Yedi telefon görseli kesin sırayla Console'a yüklendi. Mağaza kategorisi/etiketleri, AI öğe beyanı ve varsayılan mağaza girişinin son kaydı henüz kullanıcı tarafından tamamlandı olarak doğrulanmadı. Development build, APK, AAB veya OTA update yayımlanmadı; sıradaki büyük kapı native development build ve A52 kabul turudur.
+
+## Güncel yayın aşaması
+
+- **Tamamlandı:** Play uygulama kaydı, `com.alemdem.vakitname`, Vakitname adı, alemdem geliştirici adı, gizlilik URL'si, reklam/AD_ID, içerik derecelendirmesi, hedef kitle, sağlık/finans/resmî kurum beyanları ve EAS Update'e göre Veri Güvenliği cevapları.
+- **Mağaza girişi:** Kısa/tam açıklama, 512×512 ikon, 1024×500 feature graphic ve yedi adet 1080×1920 telefon görseli Console'a yüklendi. Kesin sıra `docs/PLAY-CONSOLE.md` içindedir.
+- **Console'da açık/doğrulanacak:** Yaşam Tarzı kategorisi ve uygun etiketlerin seçilip kaydedilmesi, AI ile üretilen feature graphic beyanının seçilip kaydedilmesi, varsayılan mağaza girişinin son kaydı/uyarı kontrolü.
+- **Release kapısı:** Kullanıcının açık build onayından sonra EAS development build; A52'de özel/sessiz bildirim kanalı, arka plan görevi, kesin alarm, Doze/reboot/force-stop, native ikon/splash ve manifest kabulü; ardından production AAB.
+- **Dağıtım kapısı:** Eylül 2026'da açılan kişisel hesap için en az 12 katılımcıyla 14 gün kesintisiz kapalı test, sonra production erişim başvurusu.
+- **Sıradaki somut adım:** Play Console'da kategori/etiket, AI öğe beyanı ve mağaza girişinin kaydedildiğini doğrula; ardından native development build için kullanıcıdan açık onay al.
 
 ## Faz 1–2 durumu
 
@@ -52,7 +61,7 @@ Kıble ekranı eklendi. Seçili konumdan Kâbe'ye büyük çember başlangıç d
 2. Faz 4 cihaz/ürün kontrolleri: farklı aylar, Hicri düzeltme, Ramazan seçimi, küçük ekran yatay tablo ve veri kapsamı dışı fallback.
 3. Faz 5 fiziksel cihaz doğrulaması: gerçek-kuzey/manyetik ayrımı, izin reddi/izin verme, hareket/kalibrasyon, uygulamadan çıkışta abonelik temizliği.
 4. Faz 6 release kapısı: Android native splash ve adaptive launcher maskesi, Play Store önizlemesi, EAS imzalama anahtarı, production AAB ve gerçek manifest kontrolü.
-5. Gizlilik yayın kapısı: Play geliştirici profilindeki görünen adı doğrula; güncel `privacy-site/` klasörü `https://vakit-privacy.netlify.app/` adresinde yayımlandı ve başlık/tarih/EAS Update içeriği canlıda doğrulandı; URL'yi Play Console'a gir; hedef kitle/Families ve Veri Güvenliği cevaplarını yayımlanan AAB ile son kez doğrula.
+5. Gizlilik yayın kapısı: Play geliştirici profilindeki görünen ad, canlı `https://vakit-privacy.netlify.app/` içeriği ve Console'daki gizlilik URL'si doğrulandı; hedef kitle/Families ve Veri Güvenliği cevaplarını yayımlanacak AAB ile son kez karşılaştır.
 6. Mağaza teslimi: 512×512 ikon, feature graphic ve yedi telefon ekran görüntüsü Play Console'a yüklendi; Eylül 2026'da açılan kişisel hesap için en az 12 katılımcıyla 14 gün kesintisiz kapalı testi tamamla; ardından production erişimine başvur.
 
 Hesap, reklam, backend, widget, tam ezan, PDF, mukabele ve zikirmatik kapsam dışı. Remote/push/yayınlama yapılmadı.
@@ -76,7 +85,7 @@ Node 24 ile `npm run check`, `npm run test:timezones`, `npx expo-doctor`. EAS ya
 
 - 13 Ekim 2026 Play Console varsayılan mağaza girişi önizlemesinde Vakitname adı, kısa/tam açıklama, uygulama ikonu ve feature graphic doğru göründü. Feature graphic ImageGen ile üretildiği için Console'da AI-üretimli/düzenlenmiş öğe etiketi seçilecek. Telefon ekran görüntülerinin yedi görsellik kesin seti kullanıcı tarafından yüklendi; tablet/masaüstü ekran görüntüleri kapsam dışı bırakıldı.
 
-- 13 Ekim 2026 Play Console uygulama kaydı kullanıcı tarafından oluşturuldu: mağaza adı **Vakitname**, paket `com.alemdem.vakitname`; geliştirici görünen adı **alemdem** olarak doğrulandı. Gizlilik HTML'i ve PDF'i bu adla güncellendi; Netlify sürümünün iletişim bölümünde son kez kontrol edilmesi yeterli. Sıradaki somut adım mağaza metinleri ve beyanlarını doldurmak, ardından EAS development build/A52 native kabul turuna geçmektir.
+- 13 Ekim 2026 Play Console uygulama kaydı kullanıcı tarafından oluşturuldu: mağaza adı **Vakitname**, paket `com.alemdem.vakitname`; geliştirici görünen adı **alemdem** olarak doğrulandı. Gizlilik HTML'i/PDF'i güncellendi ve Netlify sürümü doğrulandı. Mağaza metinleri ile görseller yüklendi; sıradaki somut adım kategori/etiket, AI öğe beyanı ve varsayılan mağaza girişinin son kaydını doğrulamak, ardından açık kullanıcı onayıyla EAS development build/A52 native kabul turuna geçmektir.
 
 - 6 Ekim 2026 Vakitname/EAS mağaza hazırlığı tamamlandı: cihaz adı **Vakitname**, mağaza başlığı **Vakitname: Namaz & Kıble**, paket `com.alemdem.vakitname`, `versionCode` 1 ve Expo sahibi `alemdem` olarak yapılandırıldı. `@alemdem/vakitname` EAS projesi oluşturuldu; Android `appVersion` runtime, EAS Update URL'si ve development/preview/production kanalları doğrulandı. Uygulama içi marka metinleri güncellendi; kalıcı storage/bildirim kimlikleri migrasyon güvenliği için korundu. EAS Update'in Expo üzerinden işleyebileceği teknik veriler Hakkında, Markdown, Play taslağı, scriptsiz HTML ve görsel doğrulanmış üç sayfalık PDF'e işlendi. Yerel site 390×844 görünümünde taşmasız, sıfır scriptle geçti; kullanıcı güncel siteyi Netlify'a yükledi ve canlı başlık/tarih/EAS Update içeriği HTTP 200 ile doğrulandı. Kullanıcı hesabın Eylül 2026'da açıldığını doğruladı; kişisel hesapta 12 kişi/14 gün kapalı test zorunlu kapıdır. Node 24 ile 88/88 test, üç saat diliminde 28/28, Expo Doctor 21/21 ve Android Hermes export geçti; ana değişiklikler `6e57b3b`, oturum devri `dcac68d` ve PDF marka dosya adı düzeltmesi `8eb6c29` commit'lerine kaydedildi. Geliştirici görünen adı **alemdem** olarak doğrulandı; hedef kitle onayı açık. Sıradaki somut adım: gizlilik HTML'ini yeni adla Netlify'a yeniden yüklemek, ardından açık build onayıyla EAS development build/A52 native kabul turuna başlamak ve kapalı test akışını başlatmaktır. Henüz update/APK/AAB yayımlanmadı.
 
