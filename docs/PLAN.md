@@ -67,6 +67,7 @@ Node 24 ile `npm run check`, `npm run test:timezones`, `npx expo-doctor`. EAS ya
 
 - 13 Ekim 2026 varsayılan mağaza girişi metinleri kesinleştirildi; 71 karakterlik kısa açıklama ve 846 karakterlik tam açıklama `docs/PLAY-CONSOLE.md` içine işlendi. Metinsiz 1024×500 opak feature graphic `output/play-store/feature-graphic-v1.jpg` olarak üretildi. Android 16 Pixel 7 + Expo Go'da beş gerçek 1080×1920 telefon ekran görüntüsü yakalandı: Home, Kıble, Ramazan imsakiyesi, Bildirimler ve Gün batımı Home; tasarım referansları kullanılmadı.
 - 13 Ekim 2026 mağaza görsel setine gün batımı temalı Ayarlar ekranı (`06-settings-sunset.png`) eklendi. Kişiselleştirme, konum ve vakit hesabı işlevlerini gösteren bu görsel alternatif olarak hazırlandı.
+- 13 Ekim 2026 gün batımı teması için üst bölüm/sayaç/konum odaklı daha geniş kadraj (`07-home-sunset-overview.png`) alındı; `05-home-sunset.png` ile birlikte tamamlayıcı mağaza görseli olarak kullanılabilir.
 
 - 13 Ekim 2026 Play Console varsayılan mağaza girişi önizlemesinde Vakitname adı, kısa/tam açıklama, uygulama ikonu ve feature graphic doğru göründü. Feature graphic ImageGen ile üretildiği için Console'da AI-üretimli/düzenlenmiş öğe etiketi seçilecek. Telefon/tablet/masaüstü ekran görüntüleri henüz yüklenmedi.
 

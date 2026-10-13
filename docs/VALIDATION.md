@@ -227,6 +227,6 @@ Tasarım koruması: 76 referans dosyasının sıralı yol+SHA256 birleşik hash'
 # 13 Ekim 2026 — Play Store telefon görselleri
 
 - Android 16 Pixel 7 emülatörü (`1080×2400`) Expo Go + LAN Metro ile bağlandı; `exp://192.168.1.118:8081` üzerinden güncel Vakitname bundle'ı açıldı.
-- Gerçek uygulama ekranları yakalanıp sistem çubuğu alanı kırpılarak Play Store'un 9:16 gereksinimine uygun `1080×1920` PNG olarak dışa aktarıldı: Home (`01-home.png`), Kıble (`02-qibla.png`), Ramazan imsakiyesi (`03-ramadan-calendar.png`), bildirim ayarları (`04-notifications.png`), gün batımı temalı Home (`05-home-sunset.png`) ve gün batımı temalı Ayarlar (`06-settings-sunset.png`).
+- Gerçek uygulama ekranları yakalanıp sistem çubuğu alanı kırpılarak Play Store'un 9:16 gereksinimine uygun `1080×1920` PNG olarak dışa aktarıldı: Home (`01-home.png`), Kıble (`02-qibla.png`), Ramazan imsakiyesi (`03-ramadan-calendar.png`), bildirim ayarları (`04-notifications.png`), gün batımı temalı Home (`05-home-sunset.png`), gün batımı temalı Ayarlar (`06-settings-sunset.png`) ve üst bölüm/sayaç/konum odaklı gün batımı Home (`07-home-sunset-overview.png`).
 - Görseller repository içinde `output/play-store/screenshots/` altında tutuluyor; tasarım referansı veya WebView çıktısı kullanılmadı. Kıble ekranı emülatör sensörü/konum izni sınırlaması nedeniyle manuel açı durumunu gösteriyor; bu durum görselin gerçek uygulama yüzeyi olduğunu değiştirmiyor.
 
