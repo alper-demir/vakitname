@@ -74,7 +74,7 @@ Tam açıklama taslağı:
 
 ## Yayın öncesi açık kapılar
 
-1. Mağaza adı **Vakitname: Namaz & Kıble**, cihazdaki görünen ad **Vakitname** olarak kesinleşti ve kaynaklara uygulandı.
+1. Mağaza adı ve cihazdaki görünen ad **Vakitname** olarak kesinleşti; Play Console uygulama kaydı `com.alemdem.vakitname` ile oluşturuldu.
 2. Android kimliği `com.alemdem.vakitname`, ilk `versionCode` değeri `1` olarak tanımlandı. İmzalama kimliği ilk EAS build sırasında oluşturulacak; AAB henüz üretilmedi.
 3. Herkese açık destek adresi `support.alemdem@gmail.com`, geliştirici görünen adı `alemdem` olarak doğrulandı.
 4. `privacy-site/` içeriğinin Vakitname/EAS açıklamalı yeni sürümü hazırlandı. Canlı `https://vakit-privacy.netlify.app/` adresi manuel Netlify yüklemesiyle güncellendi ve aynı URL Play Console gizlilik politikası alanına girilmeli.

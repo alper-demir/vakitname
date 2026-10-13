@@ -2,7 +2,7 @@
 
 ## 6 Ekim 2026 — Vakitname, EAS ve mağaza yapılandırması
 
-- Cihazdaki görünen ad **Vakitname**, Play Store başlığı **Vakitname: Namaz & Kıble**, Android kimliği `com.alemdem.vakitname` ve ilk `versionCode` değeri `1` olarak sabitlendi. Eski yerel veri/bildirim kimlikleri yükseltme uyumu için korundu.
+- Cihazdaki ve Play Store'daki görünen ad **Vakitname**, Android kimliği `com.alemdem.vakitname` ve ilk `versionCode` değeri `1` olarak sabitlendi. Eski yerel veri/bildirim kimlikleri yükseltme uyumu için korundu.
 - Expo hesabında `@alemdem/vakitname` projesi oluşturuldu ve `e5365686-2c53-4aab-9277-c5989561eea5` kimliğiyle bağlandı. EAS CLI, development ve production profillerini çözdü: development iç dağıtım APK/development client, production Play AAB; kanallar sırasıyla `development`, `preview`, `production` ve Android runtime politikası `appVersion`.
 - EAS Update için gizlilik metni, uygulamadaki Hakkında özeti, Play Veri Güvenliği taslağı, Netlify statik HTML'i ve arşiv PDF'i güncellendi. Konum/vakit/tercih verilerinin gönderilmediği; Expo'nun IP/ağ, işletim sistemi, rastgele update belirteci ve hata/kullanım/performans verisi işleyebileceği açıklandı.
 - Gizlilik HTML'i yerel HTTP üzerinden 390×844 telefon viewport'unda açıldı: `scrollWidth === clientWidth`, sıfır script, doğru başlık/hiyerarşi, Expo ve e-posta bağlantıları doğrulandı. Güncel içerik henüz canlı Netlify alanına yeniden yüklenmedi.
