@@ -1,15 +1,16 @@
-# Devam noktası — 13 Ekim 2026
+# Devam noktası — 14 Ekim 2026
 
-Kullanıcı mağaza hazırlığını onayladı. Repository kökünde Faz 1–6 çalışıyor. **Vakitname marka/Android/EAS yapılandırması, Play Console içerik beyanlarının büyük bölümü ve varsayılan mağaza girişinin metin/ikon/feature graphic/telefon görselleri tamamlandı.** Yedi telefon görseli kesin sırayla Console'a yüklendi. Mağaza kategorisi/etiketleri, AI öğe beyanı ve varsayılan mağaza girişinin son kaydı henüz kullanıcı tarafından tamamlandı olarak doğrulanmadı. Development build, APK, AAB veya OTA update yayımlanmadı; sıradaki büyük kapı native development build ve A52 kabul turudur.
+Kullanıcı mağaza hazırlığını onayladı. Repository kökünde Faz 1–6 çalışıyor. **Vakitname marka/Android/EAS yapılandırması, Play Console içerik beyanlarının büyük bölümü ve varsayılan mağaza girişinin metin/ikon/feature graphic/telefon görselleri tamamlandı.** Yedi telefon görseli kesin sırayla Console'a yüklendi. 14 Ekim 2026 Play Console kontrol paneli ekran görüntülerinde dahili test ve kapalı test kanalları için henüz sürüm oluşturulmadığı; üretim erişimi için en az 12 test kullanıcısı ve en az 14 günlük kapalı test gerektiği görülüyor. Development build, APK, AAB veya OTA update yayımlanmadı; sıradaki teknik kapı Android AAB üretimi ve test kanalına yüklemedir.
 
 ## Güncel yayın aşaması
 
 - **Tamamlandı:** Play uygulama kaydı, `com.alemdem.vakitname`, Vakitname adı, alemdem geliştirici adı, gizlilik URL'si, reklam/AD_ID, içerik derecelendirmesi, hedef kitle, sağlık/finans/resmî kurum beyanları ve EAS Update'e göre Veri Güvenliği cevapları.
 - **Mağaza girişi:** Kısa/tam açıklama, 512×512 ikon, 1024×500 feature graphic ve yedi adet 1080×1920 telefon görseli Console'a yüklendi. Kesin sıra `docs/PLAY-CONSOLE.md` içindedir.
 - **Console'da açık/doğrulanacak:** Yaşam Tarzı kategorisi ve uygun etiketlerin seçilip kaydedilmesi, AI ile üretilen feature graphic beyanının seçilip kaydedilmesi, varsayılan mağaza girişinin son kaydı/uyarı kontrolü.
-- **Release kapısı:** Kullanıcının açık build onayından sonra EAS development build; A52'de özel/sessiz bildirim kanalı, arka plan görevi, kesin alarm, Doze/reboot/force-stop, native ikon/splash ve manifest kabulü; ardından production AAB.
+- **Release kapısı:** Kullanıcının açık build onayından sonra EAS development build; A52'de özel/sessiz bildirim kanalı, arka plan görevi, kesin alarm, Doze/reboot/force-stop, native ikon/splash ve manifest kabulü; ardından imzalı production AAB.
+- **Play Console test kanalları:** 14 Ekim 2026 ekran görüntülerine göre dahili testte test kullanıcıları ve sürüm bekliyor; kapalı testte ülke/bölge, test kullanıcıları ve sürüm adımları bekliyor. Dahili test kısa smoke test için önerilir; kişisel hesap üretim erişimi için kapalı test zorunludur.
 - **Dağıtım kapısı:** Eylül 2026'da açılan kişisel hesap için en az 12 katılımcıyla 14 gün kesintisiz kapalı test, sonra production erişim başvurusu.
-- **Sıradaki somut adım:** Play Console'da kategori/etiket, AI öğe beyanı ve mağaza girişinin kaydedildiğini doğrula; ardından native development build için kullanıcıdan açık onay al.
+- **Sıradaki somut adım:** Mağaza girişinin son kaydını ve açık kalan beyanları doğrula; ardından kullanıcıdan açık build onayı alıp AAB üret, önce dahili testte smoke test yap, sonra kapalı test kanalını 12+ test kullanıcıyla başlat.
 
 ## Faz 1–2 durumu
 
@@ -81,6 +82,7 @@ Node 24 ile `npm run check`, `npm run test:timezones`, `npx expo-doctor`. EAS ya
 - 13 Ekim 2026 son mağaza slotu için farklı bir işlevi gösteren gece temalı Kıble (`09-qibla-night.png`) yakalandı; işlem sonrası emülatör görünümü otomatik ayara döndürüldü.
 - 13 Ekim 2026 `08-hijri-sunset.png` içeriğinin yanlışlıkla Home olarak kaydedildiği doğrulandı; gerçek Hicri tarih ekranı 1080×1920 olarak yeniden yakalanıp dosyanın yerine kondu.
 - 13 Ekim 2026 Play Console telefon ekran görüntüleri kullanıcı tarafından kesin sırayla yüklendi: `07-home-sunset-overview.png`, `09-qibla-night.png`, `03-calendar.png`, `03-ramadan-calendar.png`, `04-notifications.png`, `06-settings-sunset.png`, `08-hijri-sunset.png`.
+- 14 Ekim 2026 Play Console kontrol paneli kullanıcı ekran görüntüleriyle doğrulandı: dahili testte “Test kullanıcılarını seçin” ve “Yeni sürüm oluşturun” adımları açık; kapalı testte ülke/bölge, test kullanıcıları ve yeni sürüm adımları açık; production erişimi için 12 test kullanıcısı/14 gün koşulu gösteriliyor. Henüz AAB yüklenmedi veya test başlatılmadı.
 - 13 Ekim 2026 gün batımı renk uyumu düzeltildi: `surfaceStrong`, vurgu ve çizgi renkleri Vakit hesabı/Hicri tarih/Kıble merkezinde sıcak yarı saydam sunset paletine taşındı. Emülatör görsel kontrolü ve `npm run check` (88/88) geçti.
 
 - 13 Ekim 2026 Play Console varsayılan mağaza girişi önizlemesinde Vakitname adı, kısa/tam açıklama, uygulama ikonu ve feature graphic doğru göründü. Feature graphic ImageGen ile üretildiği için Console'da AI-üretimli/düzenlenmiş öğe etiketi seçilecek. Telefon ekran görüntülerinin yedi görsellik kesin seti kullanıcı tarafından yüklendi; tablet/masaüstü ekran görüntüleri kapsam dışı bırakıldı.
