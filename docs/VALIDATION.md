@@ -240,7 +240,14 @@ Tasarım koruması: 76 referans dosyasının sıralı yol+SHA256 birleşik hash'
 - `npm run test:timezones`: geçti — üç host saat diliminde toplam 28/28 test.
 - `npm ci --dry-run --ignore-scripts`: lockfile kurulumu başarılı. Yalnız Node engine uyarısı (proje `>=24 <25`, mevcut Node `25.2.1`) ve test-renderer'ın React peer uyarısı görüldü; dosya değişmedi.
 - `npx eas-cli@latest config --platform android --profile production`: geçti; `com.alemdem.vakitname`, `versionCode: 1`, `channel: production`, `buildType: app-bundle`, remote credentials doğrulandı. Build başlatılmadı.
-- `npx expo-doctor`: 20/21 geçti. Tek başarısız kontrol, SDK 57'nin güncel patch beklentileriyle 7 paketin geride olmasıdır: `expo`, `expo-dev-client`, `expo-location`, `expo-router`, `expo-splash-screen`, `expo-updates`, `jest-expo`. Build öncesi Node 24.x'e dönülüp `npx expo install --check` sonucuna göre paket hizalaması yapılmalıdır.
+- İlk `npx expo-doctor` taraması 20/21 geçti; tek başarısız kontrol SDK 57 patch beklentileriyle yedi paketin geride olmasıydı. Bu başlangıç bulgusu aşağıdaki hizalama takibinde giderildi.
+
+## 14 Ekim 2026 — Expo patch hizalaması ve Node 24 tekrar kontrolü
+
+- İlk kontrolde görülen yedi SDK 57 patch farkı `npx expo install` ile giderildi. `package.json` ve `package-lock.json` artık Expo Doctor'ın beklediği aralıklara hizalıdır: `expo` 57.0.28, `expo-dev-client` 57.0.20, `expo-location` 57.0.21, `expo-router` 57.0.26, `expo-splash-screen` 57.0.10, `expo-updates` 57.0.26 ve `jest-expo` 57.0.6.
+- Node 24.21.0 geçici doğrulama ortamında `npm run check` geçti (10 test paketi, 88 test) ve `npx expo-doctor` 21/21 kontrolü geçti. `npm run test:timezones` daha önce üç host saat diliminde 28/28 olarak geçti.
+- `npm ls --depth=0` ile hizalanan doğrudan bağımlılıklar doğrulandı; `git diff --check` temizdir. React 19.2.3 için test-renderer peer uyarısı yalnızca geliştirme/test ağacındadır; `audit fix --force` veya uyumsuz downgrade uygulanmadı.
+- Proje motor aralığı `>=24 <25` olduğundan release komutları Node 24.x ile çalıştırılmalıdır. EAS production yapılandırması doğrulanmış olsa da AAB build bu kontrolde başlatılmadı; kullanıcı onayı sonrası ayrı release adımıdır.
 
 # 13 Ekim 2026 — Gün batımı ayar ekranı renk uyumu
 

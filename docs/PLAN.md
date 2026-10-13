@@ -10,7 +10,7 @@ Kullanıcı mağaza hazırlığını onayladı. Repository kökünde Faz 1–6 �
 - **Release kapısı:** Kullanıcının açık build onayından sonra EAS development build; A52'de özel/sessiz bildirim kanalı, arka plan görevi, kesin alarm, Doze/reboot/force-stop, native ikon/splash ve manifest kabulü; ardından imzalı production AAB.
 - **Play Console test kanalları:** 14 Ekim 2026 ekran görüntülerine göre dahili testte test kullanıcıları ve sürüm bekliyor; kapalı testte ülke/bölge, test kullanıcıları ve sürüm adımları bekliyor. Dahili test kısa smoke test için önerilir; kişisel hesap üretim erişimi için kapalı test zorunludur.
 - **Dağıtım kapısı:** Eylül 2026'da açılan kişisel hesap için en az 12 katılımcıyla 14 gün kesintisiz kapalı test, sonra production erişim başvurusu.
-- **Sıradaki somut adım:** Mağaza girişinin son kaydını ve açık kalan beyanları doğrula; Expo patch sürümlerini SDK 57 beklentisine hizala ve Node 24.x ile tekrar doğrula; ardından kullanıcıdan açık build onayı alıp AAB üret, önce dahili testte smoke test yap, sonra kapalı test kanalını 12+ test kullanıcıyla başlat.
+- **Sıradaki somut adım:** Kullanıcı açıkça onayladığında Node 24.x ortamından imzalı production AAB üret; önce dahili testte smoke test yap, sonra kapalı test kanalını 12+ test kullanıcıyla başlat. AAB bu oturumda başlatılmadı.
 
 ## Faz 1–2 durumu
 
@@ -33,7 +33,7 @@ Kıble ekranı eklendi. Seçili konumdan Kâbe'ye büyük çember başlangıç d
 ## Tamamlandı
 
 - 37 Stitch ekranı analiz edildi; 19 Home varyasyonu tek Home/tema sisteminde toplandı. İki tasarım klasörü korunuyor.
-- Expo 57.0.27, RN 0.86.3, React 19.2.3, Router, strict TS, Node 24 LTS ve lockfile.
+- Expo 57.0.28, RN 0.86.3, React 19.2.3, Router, strict TS, Node 24 LTS ve lockfile. Expo SDK 57 patch bağımlılıkları Expo Doctor beklentileriyle hizalandı.
 - 81 il + 974 GeoNames ilçe kaydıyla offline arama/onay; foreground GPS, ret/timeout ve manuel fallback.
 - Adhan provider, UTC olaylar, seçili Türkiye saat dilimi, vakit düzeltme altyapısı, dün/bugün/yarın ve Yatsı sonrası İmsak.
 - Foreground sayaç, GPS konumu için soğuk açılışta ve arka plandan dönüşte izin istemeden yenileme; hata halinde son geçerli konumu koruma, tek Home, altı gerçek vakit, kaynak modalı, dört mevsim/dört faz tema resolver'ı ve otomatik/isteğe bağlı özel Ramazan paleti ile hilal/yıldız dekoru.
@@ -46,7 +46,7 @@ Kıble ekranı eklendi. Seçili konumdan Kâbe'ye büyük çember başlangıç d
 - Faz 6 yayın yüzeyi: Stitch `Splash Ekranı` gün batımı tasarımı native splash/JS marka yüzeyine eşlendi; mevcut uygulama ikonu, statik native başlangıç rengi, gradientli yükleme yüzeyi ve SVG silüet kullanılıyor. Hakkında/Gizlilik/Kaynak/Lisans ekranı, Ayarlar erişimi ve Android Play Store ikonları mevcut. Kullanıcının sağladığı hilal-pusula ikonu beyaz köşeleri temizlenerek standart ve adaptive PNG'lere dönüştürüldü; iOS kapsam dışı.
 - Google Play gizlilik/yasal hazırlığı: koddan veri akışı ve izin envanteri çıkarıldı; kapsamlı Türkçe gizlilik politikası, Veri Güvenliği/izin/release kontrol belgesi, Netlify'a doğrudan yüklenebilir scriptsiz HTML ve görsel doğrulanmış üç sayfalık PDF oluşturuldu. Hakkında ekranına yerel veri silme, pusula ve gizlilik iletişimi ayrıntıları eklendi; `Son plan` etiketi `Şu tarihe kadar planlandı` olarak düzeltildi.
 - Ürün adı cihazda ve mağazada **Vakitname**; Android kimliği `com.alemdem.vakitname`, ilk `versionCode` `1`. Play Console uygulama kaydı kullanıcı tarafından bu kimliklerle oluşturuldu. `@alemdem/vakitname` EAS projesi, `appVersion` runtime politikası ve development/preview/production kanalları yapılandırıldı. Gizlilik yüzeyleri EAS Update teknik veri akışıyla uyumlu hale getirildi; henüz build veya update yayımlanmadı.
-- 88 test, üç host saat diliminde 28 ek test, lint/typecheck, SDK paket uyumu ve Android JS export geçti; önceki Expo Doctor 21/21. Ayrıntılar VALIDATION.md.
+- 88 test, üç host saat diliminde 28 ek test, lint/typecheck, SDK paket uyumu ve Android JS export geçti; Node 24.21.0 ile Expo Doctor 21/21 doğrulandı. Ayrıntılar VALIDATION.md.
 
 ## İlk dilimde açık kalan doğrulamalar
 
@@ -58,7 +58,7 @@ Kıble ekranı eklendi. Seçili konumdan Kâbe'ye büyük çember başlangıç d
 
 ## Home sonrasında
 
-1. Faz 3 production doğrulama kapısı: EAS development build üret; Android özel ses ve sessiz kanal, günlük arka plan yenilemesi, Doze/pil tasarrufu, reboot/force-stop, ekran kilidi ve gerçek cihaz davranışını A52'de test et; sonuçlar geçerse `v0.3.0` oluştur.
+1. Faz 3 production doğrulama kapısı: kullanıcı build onayı sonrası EAS development build üret; Android özel ses ve sessiz kanal, günlük arka plan yenilemesi, Doze/pil tasarrufu, reboot/force-stop, ekran kilidi ve gerçek cihaz davranışını A52'de test et; sonuçlar geçerse `v0.3.0` oluştur.
 2. Faz 4 cihaz/ürün kontrolleri: farklı aylar, Hicri düzeltme, Ramazan seçimi, küçük ekran yatay tablo ve veri kapsamı dışı fallback.
 3. Faz 5 fiziksel cihaz doğrulaması: gerçek-kuzey/manyetik ayrımı, izin reddi/izin verme, hareket/kalibrasyon, uygulamadan çıkışta abonelik temizliği.
 4. Faz 6 release kapısı: Android native splash ve adaptive launcher maskesi, Play Store önizlemesi, EAS imzalama anahtarı, production AAB ve gerçek manifest kontrolü.
@@ -83,7 +83,7 @@ Node 24 ile `npm run check`, `npm run test:timezones`, `npx expo-doctor`. EAS ya
 - 13 Ekim 2026 `08-hijri-sunset.png` içeriğinin yanlışlıkla Home olarak kaydedildiği doğrulandı; gerçek Hicri tarih ekranı 1080×1920 olarak yeniden yakalanıp dosyanın yerine kondu.
 - 13 Ekim 2026 Play Console telefon ekran görüntüleri kullanıcı tarafından kesin sırayla yüklendi: `07-home-sunset-overview.png`, `09-qibla-night.png`, `03-calendar.png`, `03-ramadan-calendar.png`, `04-notifications.png`, `06-settings-sunset.png`, `08-hijri-sunset.png`.
 - 14 Ekim 2026 Play Console kontrol paneli kullanıcı ekran görüntüleriyle doğrulandı: dahili testte “Test kullanıcılarını seçin” ve “Yeni sürüm oluşturun” adımları açık; kapalı testte ülke/bölge, test kullanıcıları ve yeni sürüm adımları açık; production erişimi için 12 test kullanıcısı/14 gün koşulu gösteriliyor. Henüz AAB yüklenmedi veya test başlatılmadı.
-- 14 Ekim 2026 AAB öncesi kod/konfigürasyon kontrolü: `npm run check` 10 suite/88 test, `npm run test:timezones` 28/28 ve `npm ci --dry-run` başarılı; `eas-cli config --platform android --profile production` doğru package `com.alemdem.vakitname`, `versionCode` 1 ve `app-bundle` döndürdü. `expo-doctor` 20/21 geçti ancak Expo SDK 57 için 7 patch sürümünü güncel beklenen aralığa yükseltme uyarısı verdi (`expo`, `expo-dev-client`, `expo-location`, `expo-router`, `expo-splash-screen`, `expo-updates`, `jest-expo`). Proje Node `>=24 <25` isterken mevcut shell Node `25.2.1`; build öncesi Node 24.x ve paket hizalaması tekrar kontrol edilecek. Build başlatılmadı.
+- 14 Ekim 2026 AAB öncesi kod/konfigürasyon kontrolü: `npm run check` 10 suite/88 test, `npm run test:timezones` 28/28 ve `npm ci --dry-run` başarılı; `eas-cli config --platform android --profile production` doğru package `com.alemdem.vakitname`, `versionCode` 1 ve `app-bundle` döndürdü. İlk `expo-doctor` 20/21 sonucu sonrası Expo SDK 57 patch bağımlılıkları `npx expo install` ile hizalandı (`expo` 57.0.28, `expo-dev-client` 57.0.20, `expo-location` 57.0.21, `expo-router` 57.0.26, `expo-splash-screen` 57.0.10, `expo-updates` 57.0.26, `jest-expo` 57.0.6). Node 24.21.0 ile `npm run check` 88/88 ve `expo-doctor` 21/21 geçti. Build başlatılmadı.
 - 13 Ekim 2026 gün batımı renk uyumu düzeltildi: `surfaceStrong`, vurgu ve çizgi renkleri Vakit hesabı/Hicri tarih/Kıble merkezinde sıcak yarı saydam sunset paletine taşındı. Emülatör görsel kontrolü ve `npm run check` (88/88) geçti.
 
 - 13 Ekim 2026 Play Console varsayılan mağaza girişi önizlemesinde Vakitname adı, kısa/tam açıklama, uygulama ikonu ve feature graphic doğru göründü. Feature graphic ImageGen ile üretildiği için Console'da AI-üretimli/düzenlenmiş öğe etiketi seçilecek. Telefon ekran görüntülerinin yedi görsellik kesin seti kullanıcı tarafından yüklendi; tablet/masaüstü ekran görüntüleri kapsam dışı bırakıldı.
