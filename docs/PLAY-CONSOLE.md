@@ -110,6 +110,7 @@ Konum, kişisel bilgiler, finans, sağlık, kişiler, takvim, fotoğraf/video, s
 - Feature graphic: `output/play-store/feature-graphic-v1.jpg` (1024×500 opak JPEG, metinsiz) hazır. PNG kaynak dosyası arşivde tutulur.
 - Telefon ekran görüntüleri: yalnız gerçek uygulama deneyimini gösterecek dört 9:16 portre görsel (en az 1080×1920) hazırlanacak. Sıra: Home/sıradaki vakit, Kıble, Ramazan imsakiyesi, Bildirimler.
 - Etiketler: Play Console'un sunduğu listeden namaz/prayer, kıble/qibla, Ramazan/Ramadan, takvim/calendar ve hatırlatıcı/bildirim karşılıkları varsa seçilecek; desteklenmeyen etiketler seçilmeyecek.
+- Yapay zekâ ile üretilmiş öğe beyanı: **“Öğeleri yapay zekâ ile oluşturulmuş veya düzenlenmiş olarak etiketle”** seçilecek. Bu yalnız ImageGen ile üretilen feature graphic için geçerlidir; ekran görüntüleri gerçek uygulamadan alınacaktır.
 
 ## Değişmez/özel dikkat gerektiren değerler
 
@@ -121,4 +122,4 @@ Konum, kişisel bilgiler, finans, sağlık, kişiler, takvim, fotoğraf/video, s
 
 ## Değişiklik günlüğü
 
-- **13 Ekim 2026:** Play Console uygulama kaydı oluşturuldu; Vakitname/package/developer adı doğrulandı. Reklam, içerik derecelendirmesi ve hedef kitle cevapları tamamlandı. Veri Güvenliği formu EAS Update teknik veri akışına göre dolduruluyor. Varsayılan mağaza girişi için kısa/tam açıklama kesinleştirildi; 1024×500 metinsiz feature graphic üretildi. Telefon ekran görüntüleri gerçek native uygulama üzerinden henüz alınmadı.
+- **13 Ekim 2026:** Play Console uygulama kaydı oluşturuldu; Vakitname/package/developer adı doğrulandı. Reklam, içerik derecelendirmesi ve hedef kitle cevapları tamamlandı. Veri Güvenliği formu EAS Update teknik veri akışına göre dolduruluyor. Varsayılan mağaza girişine kısa/tam açıklama, 512×512 ikon ve 1024×500 metinsiz feature graphic yüklendi; feature graphic nedeniyle AI-üretimli öğe etiketi seçilecek. Telefon ekran görüntüleri gerçek native uygulama üzerinden henüz alınmadı.
