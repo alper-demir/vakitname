@@ -230,7 +230,7 @@ Tasarım koruması: 76 referans dosyasının sıralı yol+SHA256 birleşik hash'
 - Gerçek uygulama ekranları yakalanıp sistem çubuğu alanı kırpılarak Play Store'un 9:16 gereksinimine uygun `1080×1920` PNG olarak dışa aktarıldı: Home (`01-home.png`), Kıble (`02-qibla.png`), Ramazan imsakiyesi (`03-ramadan-calendar.png`), bildirim ayarları (`04-notifications.png`), gün batımı temalı Home (`05-home-sunset.png`), gün batımı temalı Ayarlar (`06-settings-sunset.png`) ve üst bölüm/sayaç/konum odaklı gün batımı Home (`07-home-sunset-overview.png`).
 - Görseller repository içinde `output/play-store/screenshots/` altında tutuluyor; tasarım referansı veya WebView çıktısı kullanılmadı. Kıble ekranı emülatör sensörü/konum izni sınırlaması nedeniyle manuel açı durumunu gösteriyor; bu durum görselin gerçek uygulama yüzeyi olduğunu değiştirmiyor.
 - Hicri tarih ekranı gün batımı paletinde ayrıca `08-hijri-sunset.png` olarak yakalandı; mağaza setindeki görsellerin her biri farklı bir uygulama işlevini göstermesi hedefleniyor.
-- Gece görünümü manuel seçilerek Home ekranı `09-home-night.png` olarak 1080×1920 yakalandı; işlem sonunda görünüm otomatik ayara geri alındı.
+- Gece görünümü manuel seçilerek Kıble ekranı `09-qibla-night.png` olarak 1080×1920 yakalandı; işlem sonunda görünüm otomatik ayara geri alındı.
 
 # 13 Ekim 2026 — Gün batımı ayar ekranı renk uyumu
 

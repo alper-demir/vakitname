@@ -69,7 +69,7 @@ Node 24 ile `npm run check`, `npm run test:timezones`, `npx expo-doctor`. EAS ya
 - 13 Ekim 2026 mağaza görsel setine gün batımı temalı Ayarlar ekranı (`06-settings-sunset.png`) eklendi. Kişiselleştirme, konum ve vakit hesabı işlevlerini gösteren bu görsel alternatif olarak hazırlandı.
 - 13 Ekim 2026 gün batımı teması için üst bölüm/sayaç/konum odaklı daha geniş kadraj (`07-home-sunset-overview.png`) alındı; `05-home-sunset.png` ile birlikte tamamlayıcı mağaza görseli olarak kullanılabilir.
 - 13 Ekim 2026 mağaza setine farklı işlevi göstermek üzere gün batımı Hicri tarih ekranı (`08-hijri-sunset.png`) eklendi; aynı Home ekranını tekrarlamak yerine aylık takvim, Ramazan, bildirim, ayarlar ve Hicri işlevleri ayrı görsellerle sunuluyor.
-- 13 Ekim 2026 son mağaza slotu için gece temalı Home (`09-home-night.png`) yakalandı; işlem sonrası emülatör görünümü otomatik ayara döndürüldü.
+- 13 Ekim 2026 son mağaza slotu için farklı bir işlevi gösteren gece temalı Kıble (`09-qibla-night.png`) yakalandı; işlem sonrası emülatör görünümü otomatik ayara döndürüldü.
 - 13 Ekim 2026 gün batımı renk uyumu düzeltildi: `surfaceStrong`, vurgu ve çizgi renkleri Vakit hesabı/Hicri tarih/Kıble merkezinde sıcak yarı saydam sunset paletine taşındı. Emülatör görsel kontrolü ve `npm run check` (88/88) geçti.
 
 - 13 Ekim 2026 Play Console varsayılan mağaza girişi önizlemesinde Vakitname adı, kısa/tam açıklama, uygulama ikonu ve feature graphic doğru göründü. Feature graphic ImageGen ile üretildiği için Console'da AI-üretimli/düzenlenmiş öğe etiketi seçilecek. Telefon/tablet/masaüstü ekran görüntüleri henüz yüklenmedi.
