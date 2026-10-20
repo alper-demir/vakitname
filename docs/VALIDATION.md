@@ -1,5 +1,14 @@
 # Faz 1–6 doğrulaması — 6 Ekim 2026
 
+## 14 Ekim 2026 — Dahili testte gerçek vakit bildirimi teslim edilmedi
+
+- Kullanıcı Galaxy A52'ye Play Console dahili testindeki `0.3.0-rc.1 (1)` sürümünü kurdu. Android bildirim izni açıkken uygulamanın 3 saniyelik test bildirimi teslim edildi.
+- Aynı kurulumda etkin **vakit zamanında** ve **15 dakika önce** bildirimleri teslim edilmedi. Expo Go altında daha önce planlanan yerel bildirimler ise gelmeye devam ediyor.
+- Kod incelemesine göre test bildirimi `TIME_INTERVAL` ile 3 saniye sonrasına, gerçek vakitler `DATE` tetikleyicisiyle Android AlarmManager'a kaydediliyor. Expo Go (`host.exp.exponent`) ile Vakitname (`com.alemdem.vakitname`) ayrı paketlerdir; bildirim izni, kesin alarm özel erişimi, kanal ve bekleyen alarm kuyrukları paylaşılmaz.
+- Vakitname target SDK 36'dır ve `SCHEDULE_EXACT_ALARM` bildirir. Android 14 ve üzerindeki yeni kurulumlarda bu özel erişim varsayılan verilmez. SDK 57, erişim yokken tarih tetikleyicisini `setAndAllowWhileIdle` yaklaşık alarmına düşürür; A52'de aynı yolun daha önce 7–18 dakika geciktiği ölçülmüştür. Bu nedenle ilk teşhis Vakitname paketinde **Alarmlar ve hatırlatıcılar** erişiminin kapalı olması ve Samsung'un yaklaşık alarmı geciktirmesi/atlamasıdır.
+- Bu turda telefon ADB'ye bağlı değildi; `com.alemdem.vakitname` app-op durumu, gerçek pending alarm sayısı, force-stop/uyku durumu ve teslim logu okunamadı. Dolayısıyla teşhis güçlü fakat henüz cihaz kanıtlı kesin kök neden değildir.
+- Yeniden kabul: Bildirimler ekranında bekleyen Vakitname sayısını kaydet; **Sistem ayarını aç** ile Vakitname'ye özel kesin alarm erişimini aç; uygulamaya geri dönüp planın zorla yeniden kurulmasını bekle; ardından gerçek 15 dakika/vakit-anı teslimini kontrol et. Başarısızsa ADB ile app-op, AlarmManager ve notification dump alınarak Samsung pil kısıtı/force-stop ayrıştırılmalıdır.
+
 ## 6 Ekim 2026 — Vakitname, EAS ve mağaza yapılandırması
 
 - Cihazdaki ve Play Store'daki görünen ad **Vakitname**, Android kimliği `com.alemdem.vakitname` ve ilk `versionCode` değeri `1` olarak sabitlendi. Eski yerel veri/bildirim kimlikleri yükseltme uyumu için korundu.
