@@ -196,3 +196,5 @@ Node 24 ile `npm run check`, `npm run test:timezones`, `npx expo-doctor`. EAS ya
 - EAS production AAB üretildi ve Play Console dahili test kanalına yüklendi/yayınlandı; repository'de `android/` ve `dist/` tutulmuyor. `expo-system-ui` kaldırıldı ve `app.json` prebuild öncesi durumuna döndü.
 
 Yeni oturumda AGENTS.md ve bu dosyayı oku; tüm tasarımları tekrar tarama. Mimari/kaynak/validasyon belgelerinin yalnız gerekli bölümünü aç.
+
+- 13 Kasım 2026 tasarım HTML takibi: `vakit-app ekranlar/` ve `ek-ekranlar/` altındaki 37 `code.html` Git indeksinden çıkarıldı; dosyalar yerelde bırakılır ve `.gitignore` ile yeni eklenmeleri yok sayılır. PNG tasarım referansları korunur. `privacy-site/index.html` yayımlanan gizlilik sayfası olduğu için izlenmeye devam eder. Bu dosya düzenlemesi için test çalıştırılmadı. Sıradaki somut adım Play Console kapalı test kullanıcılarının 14 günlük katılımını takip etmektir.
