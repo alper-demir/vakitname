@@ -132,3 +132,5 @@ Node 24 ile `npm run check`, `npm run test:timezones`, `npx expo-doctor`. Çalı
 Yeni oturumda AGENTS.md ve bu dosyayı oku; tüm tasarımları tekrar tarama. Mimari/kaynak/validasyon belgelerinin yalnız gerekli bölümünü aç.
 
 - 13 Kasım 2026 tasarım HTML takibi: `vakit-app ekranlar/` ve `ek-ekranlar/` altındaki 37 `code.html` Git indeksinden çıkarıldı; dosyalar yerelde bırakılır ve `.gitignore` ile yeni eklenmeleri yok sayılır. PNG tasarım referansları korunur. `privacy-site/index.html` yayımlanan gizlilik sayfası olduğu için izlenmeye devam eder. Bu dosya düzenlemesi için test çalıştırılmadı. Sıradaki somut adım Play Console kapalı test kullanıcılarının 14 günlük katılımını takip etmektir.
+
+- 13 Kasım 2026 GitHub dil göstergesi: privacy-site/index.html depoda kalır ancak .gitattributes içinde linguist-documentation olarak işaretlenerek Linguist dil istatistiği dışında tutulur. Resmî Linguist override belgesine göre documentation dosyaları dil istatistiğine dahil edilmez. git check-attr ile kural doğrulandı; GitHub istatistiği commit/push sonrasında yenilenir.
